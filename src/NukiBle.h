@@ -10,19 +10,20 @@
 #include "nukiConstants.h"
 #include "Arduino.h"
 
+// #define BLE_DEBUG
+
 class NukiBle : public BLEClientCallbacks{
   public:
     NukiBle(std::string& bleAddress);
     virtual ~NukiBle();
 
-    void onConnect(BLEClient*) override {};
-    void onDisconnect(BLEClient*) override {
-        // pairedStatus(false);  
-        log_d("onDisconnect");
-    };
+    QueueHandle_t  nukiBleIsrFlagQueue;
+
+    void onConnect(BLEClient*) override;
+    void onDisconnect(BLEClient*) override;
 
     virtual void initialize();
-    bool pairBle();
+    bool connect();
     bool isPaired = false;
     void pairedStatus(bool status){
       isPaired = status;
@@ -30,20 +31,26 @@ class NukiBle : public BLEClientCallbacks{
 
     bool executeLockAction(lockAction action);
 
-//   protected:
-
   private:
+
+    TaskHandle_t TaskHandleNukiBle;
+    BaseType_t xHigherPriorityTaskWoken;
+    void startNukiBleXtask();
+    void pushNotificationToQueue();
     
     bool registerOnGdioChar();
-    void sendPlainMessage(nukiCommand commandIdentifier, char* payload);
+    void sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
-    
+    static void my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param);
+    uint16_t calc_crc(char *msg,int n,uint16_t init);
+    uint16_t crc_xmodem_update (uint16_t crc, uint8_t data);
+        
     std::string bleAddress = "";
     BLEClient* pClient;
-    BLERemoteService* pKeyturnerService;
-    BLERemoteService* pKeyturnerPairingService;
-    BLERemoteService* pkeyturnerInitService;
-    BLERemoteCharacteristic* pGdioCharacteristic;
+    // BLERemoteService* pKeyturnerService = nullptr;
+    BLERemoteService* pKeyturnerPairingService = nullptr;
+    // BLERemoteService* pkeyturnerInitService = nullptr;
+    BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
 };
 
 // class MyClientCallback: public BLEClientCallbacks {

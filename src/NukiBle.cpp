@@ -8,6 +8,36 @@
 #include "NukiBle.h"
 #include "crc16.h"
 #include "string.h"
+#include "endian.h"
+
+void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
+  if (strlen(header) > 0) {
+    Serial.print(header);
+    Serial.print(": ");
+  }
+  for (int i = 0; i < size; i++) {
+    if (asChars) {
+      Serial.print((char)buff[i]);
+    } else {
+      Serial.print(buff[i], HEX);
+      Serial.print(" ");
+    }
+  }
+  Serial.println();
+}
+
+//task to retrieve messages from BLE when a notification occurrs
+void nukiBleTask(void * pvParameters) {
+	log_d("TASK: Nuki BLE task started");
+	NukiBle* nukiBleObj = reinterpret_cast<NukiBle*>(pvParameters);
+	uint8_t notification;
+  
+	while (1){
+		xQueueReceive(nukiBleObj->nukiBleIsrFlagQueue,&notification, portMAX_DELAY );
+	
+  }
+}
+
 
 NukiBle::NukiBle(std::string &bleAddress): bleAddress(bleAddress){}
 
@@ -15,89 +45,106 @@ NukiBle::~NukiBle() {}
 
 void NukiBle::initialize() {
   log_d("Initializing Nuki");
+  #ifdef BLE_DEBUG
+    BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
+  #endif
+  BLEDevice::init("ESP32_test");
 }
 
-bool NukiBle::pairBle() {
-  log_d("Pairing to: %s ", bleAddress.c_str());
+void NukiBle::startNukiBleXtask(){
+  nukiBleIsrFlagQueue=xQueueCreate(10,sizeof(uint8_t));
+  TaskHandleNukiBle = NULL;
+  xTaskCreatePinnedToCore(&nukiBleTask, "nukiBleTask", 4096, this, 1, &TaskHandleNukiBle, 1);
+}
+
+bool NukiBle::connect() {
+  log_d("Connecting with: %s ", bleAddress.c_str());
       
   pClient  = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
-  pClient->connect(bleAddress);
+  if(!pClient->connect(bleAddress)){
+    log_w("BLE Connect failed");
+    return false;
+  }
+  if(!registerOnGdioChar()){
+    log_w("BLE register on pairing Service/Char failed");
+    return false;
+  }
 
-  registerOnGdioChar();
+  //send public key command
+  // char payload[100];
+  // sprintf(payload, "%04x", (uint16_t)nukiCommand::publicKey);
 
-  return false;
+
+  // uint16_t swappedPayload = ((uint16_t)nukiCommand::publicKey>>8) | ((uint16_t)nukiCommand::publicKey<<8);
+  uint16_t payload = (uint16_t)nukiCommand::publicKey;
+  sendPlainMessage(nukiCommand::requestData, (char*)&payload, sizeof(payload));
+  log_d("Sent message should be 0100030027A7");
+
+  log_d("BLE connect and pairing success");
+  return true;
 }
 
 bool NukiBle::registerOnGdioChar(){
-  // check if keyturnerInitServiceUUID is visible
-  log_d("keyturnerInitServiceUUID UUID: %s", STRING(keyturnerInitServiceUUID));
-  pkeyturnerInitService = pClient->getService(STRING(keyturnerInitServiceUUID));
-  if (pkeyturnerInitService == nullptr) {
-    log_d("Nuki not in pairing mode, press front button for 5 seconds");
-    return false;
+  // Obtain a reference to the KeyTurner Pairing service
+  pKeyturnerPairingService = pClient->getService(STRING(keyturnerPairingServiceUUID));
+  //Obtain reference to GDIO char
+  pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(STRING(keyturnerGdioUUID));
+  if(pGdioCharacteristic->canIndicate()){
+    pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
+    delay(100);
+    return true;
   }
   else{
-    log_d("Nuki in pairing mode");
-  }
-
-  // Obtain a reference to the KeyTurner service
-  log_d("keyturner UUID: %s", STRING(keyturnerServiceUUID));
-  pKeyturnerService = pClient->getService(STRING(keyturnerServiceUUID));
-  if (pKeyturnerService == nullptr) {
-    log_d("Failed to find keyturner Service UUID: %s", STRING(keyturnerServiceUUID));
-    pClient->disconnect();
+    log_d("GDIO characteristic canIndicate false, stop connecting");
     return false;
   }
-  else{
-    log_d("Found keyturner Service UUID: %s", STRING(keyturnerServiceUUID));
-    //Obtain reference to GDIO char
-    pGdioCharacteristic = pKeyturnerService->getCharacteristic(STRING(keyturnerPairingDataUUID));
-    pGdioCharacteristic->registerForNotify(notifyCallback);
-    if (pGdioCharacteristic == nullptr) {
-      log_w("Failed to find GDIO characteristic UUID: %s", STRING(keyturnerServiceUUID));
-      pClient->disconnect();
-      return false;
-    }
-    else{
-      log_d("Found GDIO characteristic UUID: ");
-      if(pGdioCharacteristic->canIndicate()){
-        //register for indication on GDIO char
-        log_d("GDIO characteristic canIndicate true");
-        const uint8_t indicationOn[] = {0x2, 0x0};
-        pGdioCharacteristic->getDescriptor(BLEUUID((uint16_t)0x2902))->writeValue((uint8_t*)indicationOn, 2, true);
-        char payload[100];
-        sprintf(payload, "%d", (uint16_t)nukiCommand::publicKey);
-        sendPlainMessage(nukiCommand::requestData, payload);
-        log_d("Sent message should be 0100030027A7");
-
-      }
-      else{
-        log_d("GDIO characteristic canIndicate false, stop connecting");
-        return false;
-      }
-    }  
-  }
-
+   
   return false;
 }
 
-void NukiBle::sendPlainMessage(nukiCommand commandIdentifier, char* payload) {
+void NukiBle::sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
   CRC16 crcObj;
-  uint16_t payloadCrc;
-  char msgPayload[100];
+  uint16_t dataCrc;
+  // uint16_t tempPayload = 3;  //public key command. This needs to change to be able to receive n characters as payload
+
+  //message sent needs to be little endian
+  // uint16_t swappedCommandIdentifier = ((uint16_t)commandIdentifier>>8) | ((uint16_t)commandIdentifier<<8);
+ 
+
+  //get crc over data
+  char dataToSend[200];
+  // sprintf(dataToSend, "%04x%04x", swappedCommandIdentifier, swappedPayload);
+  // log_d("Data to send: %s", dataToSend);
   
-  memcpy(msgPayload, payload, strlen(msgPayload));
+  memcpy(&dataToSend, &commandIdentifier, sizeof(commandIdentifier));
+  memcpy(&dataToSend[2], payload, payloadLen);
+ 
+  crcObj.processBuffer(dataToSend, payloadLen + 2);
+  dataCrc = crcObj.getCrc();
+  // dataCrc = calc_crc(dataToSend, strlen(dataToSend), 0xFFFF);
+  // uint16_t swappedCrc = (dataCrc>>8) | (dataCrc<<8);
+  log_d("CRC: %04x", dataCrc);
 
-  crcObj.processBuffer(msgPayload, strlen(msgPayload));
-  payloadCrc = crcObj.getCrc();
+  // char msgToSend[200];
+  // sprintf(msgToSend, "%s%x", dataToSend, swappedCrc);
+  // log_d("msgtosend: %s", msgToSend);
+  memcpy(&dataToSend[2+payloadLen], &dataCrc, sizeof(dataCrc));
 
-  char msgToSend[200];
-  sprintf(msgToSend, "%d%s%d", (uint16_t)commandIdentifier, payload, payloadCrc );
+  //using temp message for testing
+    // uint8_t arrayFV[] = {0x01,0x00,0x03,0x00,0x27,0xA7}; //"0x0100030027A7";//first value to send as an array of byte to initiate Nuki Pairing
 
-  log_d("Sending plain message: %s", msgToSend);
-  pGdioCharacteristic->getDescriptor(BLEUUID((uint16_t)0x2902))->writeValue((uint8_t*)msgToSend, strlen(msgToSend), true);
+    // log_d("Sending plain message (%d). Command identifier: %02x, payload: %s, CRC: %x", arrayFV, (uint32_t)commandIdentifier, payload, swappedCrc);
+    // pGdioCharacteristic->writeValue(arrayFV, sizeof(arrayFV), true);
+  //end test
+
+  log_d("Sending plain message %02x%02x%02x%02x%02x%02x", dataToSend[0], dataToSend[1], dataToSend[2], dataToSend[3], dataToSend[4] , dataToSend[5]);
+  log_d("Command identifier: %02x, CRC: %x", (uint32_t)commandIdentifier, dataCrc);
+  pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
+  delay(1000);
+  log_d("received data: %x", pGdioCharacteristic->readValue());
+
 }
 
 bool NukiBle::executeLockAction(lockAction aLockAction) {
@@ -106,7 +153,53 @@ bool NukiBle::executeLockAction(lockAction aLockAction) {
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify) {
-    log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
+  log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
+  printBuffer((byte*)pData, length, false, "Received data");
+}
+
+void NukiBle::pushNotificationToQueue(){
+    bool notification = true;
+    xQueueSendFromISR(nukiBleIsrFlagQueue,&notification, &xHigherPriorityTaskWoken);
+}
+
+void NukiBle::my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param) {
+	ESP_LOGW(LOG_TAG, "custom gattc event handler, event: %d", (uint8_t)event);
+        if(event == ESP_GATTC_DISCONNECT_EVT) {
+                Serial.print("Disconnect reason: "); 
+                Serial.println((int)param->disconnect.reason);
+        }
+}
+
+void NukiBle::onConnect(BLEClient*){
+  log_d("BLE connected");
+};
+void NukiBle::onDisconnect(BLEClient*){
+    log_d("BLE disconnected");
+};
+
+uint16_t NukiBle::calc_crc(char *msg,int n,uint16_t init){
+  uint16_t x = init;
+
+  while(n--)
+  {
+    x = crc_xmodem_update(x, (uint8_t)*msg++);
+  }
+
+  return(x);
+}
+
+uint16_t NukiBle::crc_xmodem_update (uint16_t crc, uint8_t data){
+  int i;
+
+  crc = crc ^ ((uint16_t)data << 8);
+  for (i=0; i<8; i++)
+  {
+    if (crc & 0x8000)
+      crc = (crc << 1) ^ 0x1021; //(polynomial = 0x1021)
+    else
+      crc <<= 1;
+  }
+  return crc;
 }
 
 
