@@ -29,6 +29,9 @@ class NukiBle : public BLEClientCallbacks{
       isPaired = status;
     }
 
+    static void handleErrorCode(uint8_t errorCode);
+    static void handleReturnCode(uint16_t returnCode);
+
     bool executeLockAction(lockAction action);
 
   private:
@@ -42,14 +45,10 @@ class NukiBle : public BLEClientCallbacks{
     void sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     static void my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param);
-    uint16_t calc_crc(char *msg,int n,uint16_t init);
-    uint16_t crc_xmodem_update (uint16_t crc, uint8_t data);
         
     std::string bleAddress = "";
     BLEClient* pClient;
-    // BLERemoteService* pKeyturnerService = nullptr;
     BLERemoteService* pKeyturnerPairingService = nullptr;
-    // BLERemoteService* pkeyturnerInitService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
 };
 

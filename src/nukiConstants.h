@@ -73,6 +73,44 @@ enum class nukiCommand {
     simpleLockAction	        = 0x0100	
 };
 
+enum class nukiErrorCode {
+    ERROR_BAD_CRC	                = 0xFD,
+    ERROR_BAD_LENGTH	            = 0xFE,
+    ERROR_UNKNOWN	                = 0xFF,
+    P_ERROR_NOT_PAIRING	            = 0x10,
+    P_ERROR_BAD_AUTHENTICATOR	    = 0x11,
+    P_ERROR_BAD_PARAMETER	        = 0x12,
+    P_ERROR_MAX_USER	            = 0x13,
+    K_ERROR_NOT_AUTHORIZED	        = 0x20,
+    K_ERROR_BAD_PIN	                = 0x21,
+    K_ERROR_BAD_NONCE	            = 0x22,
+    K_ERROR_BAD_PARAMETER	        = 0x23,
+    K_ERROR_INVALID_AUTH_ID	        = 0x24,
+    K_ERROR_DISABLED	            = 0x25,
+    K_ERROR_REMOTE_NOT_ALLOWED	    = 0x26,
+    K_ERROR_TIME_NOT_ALLOWED	    = 0x27,
+    K_ERROR_TOO_MANY_PIN_ATTEMPTS	= 0x28,
+    K_ERROR_TOO_MANY_ENTRIES	    = 0x29,
+    K_ERROR_CODE_ALREADY_EXISTS	    = 0x2A,
+    K_ERROR_CODE_INVALID	        = 0x2B,
+    K_ERROR_CODE_INVALID_TIMEOUT_1  = 0x2C,
+    K_ERROR_CODE_INVALID_TIMEOUT_2	= 0x2D,
+    K_ERROR_CODE_INVALID_TIMEOUT_3	= 0x2E,
+    K_ERROR_AUTO_UNLOCK_TOO_RECENT	= 0x40,
+    K_ERROR_POSITION_UNKNOWN	    = 0x41,
+    K_ERROR_MOTOR_BLOCKED	        = 0x42,
+    K_ERROR_CLUTCH_FAILURE	        = 0x43,
+    K_ERROR_MOTOR_TIMEOUT	        = 0x44,
+    K_ERROR_BUSY	                = 0x45,
+    K_ERROR_CANCELED	            = 0x46,
+    K_ERROR_NOT_CALIBRATED	        = 0x47,
+    K_ERROR_MOTOR_POSITION_LIMIT	= 0x48,
+    K_ERROR_MOTOR_LOW_VOLTAGE	    = 0x49,
+    K_ERROR_MOTOR_POWER_FAILURE	    = 0x4A,
+    K_ERROR_CLUTCH_POWER_FAILURE	= 0x4B,
+    K_ERROR_VOLTAGE_TOO_LOW	        = 0x4C,
+    K_ERROR_FIRMWARE_UPDATE_NEEDED	= 0x4D
+};
 
 enum class lockAction {
     unlock          = 0x01,

@@ -40,6 +40,7 @@
         "cinttypes": "cpp",
         "utility": "cpp",
         "typeinfo": "cpp",
-        "*.old": "cpp"
+        "*.old": "cpp",
+        "string": "cpp"
     }
 }
