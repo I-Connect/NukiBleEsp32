@@ -49,6 +49,10 @@ void NukiBle::initialize() {
     BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
   #endif
   BLEDevice::init("ESP32_test");
+
+  //generate public and private keys
+  keyGen(private_key, 32, 34);
+  keyGen(public_key, 32, 34);
 }
 
 void NukiBle::startNukiBleXtask(){
@@ -122,15 +126,28 @@ bool NukiBle::executeLockAction(lockAction aLockAction) {
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify) {
-  log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
+  // log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
   delay(100);
   printBuffer((byte*)pData, length, false, "Received data");
 
+  //check CRC
+  uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
+  Crc16 crcObj;
+  uint16_t dataCrc;
+  crcObj.clearCrc();
+  dataCrc = crcObj.fastCrc(pData, 0, length - 2 , false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+  // log_d("Received CRC: %d, calculated CRC: %d", receivedCrc, dataCrc);
   uint16_t returnCode = ((uint16_t)pData[1] << 8) | pData[0];
   log_d("Return code: %d", returnCode);
+  if(!(receivedCrc == dataCrc)){
+    log_e("CRC CHECK FAILED!");
+  }
+  else{
+    log_d("CRC CHECK OKE");
+  }
 
   if(returnCode == (uint16_t)nukiCommand::errorReport){
-    log_e("Error: %02x", pData[2]);
+    // log_e("ERROR: %02x", pData[2]);
     handleErrorCode(pData[2]);
   }
   else{
@@ -435,10 +452,18 @@ void NukiBle::my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t g
 void NukiBle::onConnect(BLEClient*){
   log_d("BLE connected");
 };
+
 void NukiBle::onDisconnect(BLEClient*){
     log_d("BLE disconnected");
 };
 
+void NukiBle::keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin){
+  randomSeed(analogRead(seedPin));
+  for(int i=0; i < keyLen; i++){
+    key[i] = random(1, 255);
+  }
+  printBuffer((byte*)key, keyLen, false, "Generated key");
+}
 
 
 // static void calculate_authenticator(uint8_t* output_buffer, uint8_t* message, uint16_t message_length) {

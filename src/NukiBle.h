@@ -50,6 +50,10 @@ class NukiBle : public BLEClientCallbacks{
     BLEClient* pClient;
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
+
+    void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
+    uint8_t private_key[32];
+    uint8_t public_key[32];
 };
 
 // class MyClientCallback: public BLEClientCallbacks {
