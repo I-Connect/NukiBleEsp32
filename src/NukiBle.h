@@ -51,7 +51,7 @@ class NukiBle : public BLEClientCallbacks{
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
 
-    void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
+    // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
     // uint8_t localPrivateKey[32];
     // uint8_t localPublicKey[32];

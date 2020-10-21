@@ -14,6 +14,8 @@
 
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+unsigned char authorizationId[4];
+unsigned char lockId[16];
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   delay(100); //delay otherwise first part of print will not be shown 
@@ -164,6 +166,20 @@ bool NukiBle::connect() {
   sendPlainMessage(nukiCommand::authorizationData, (char*)&authorizationDataMessage, sizeof(authorizationDataMessage));
   log_d("######################################################################");
 
+  log_d("##################### SEND AUTHORIZATION ID confirmation #########################");
+  unsigned char confirmationData[36] = {};
+  
+  //calculate authenticator of message to send
+  memcpy(&confirmationData[0], authorizationId, sizeof(authorizationId));
+  memcpy(&confirmationData[4], challengeNonceK, sizeof(challengeNonceK));
+  crypto_auth_hmacsha256(authenticator, confirmationData, sizeof(confirmationData), secretKeyK);
+    
+  //compose and send message
+  unsigned char confirmationDataMessage[36];
+  memcpy(&confirmationDataMessage[0], authenticator, sizeof(authenticator));
+  memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
+  sendPlainMessage(nukiCommand::authorizationIdConfirmation, (char*)&confirmationDataMessage, sizeof(confirmationDataMessage));
+  log_d("######################################################################");
 
   // log_d("BLE connect and pairing success");
   return true;
@@ -380,6 +396,10 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataL
       break;
     case (uint16_t)nukiCommand::authorizationId :
       printBuffer((byte*)data, dataLen, false, "authorizationId");
+      memcpy(authorizationId, &data[32], 4);
+      memcpy(lockId, &data[36], sizeof(lockId));
+      memcpy(challengeNonceK, &data[52], sizeof(challengeNonceK));
+      log_d("authorizationId: %02x, lockId: %02x", authorizationId, lockId);
       break;
     case (uint16_t)nukiCommand::removeUserAuthorization :
       printBuffer((byte*)data, dataLen, false, "removeUserAuthorization");
@@ -545,13 +565,13 @@ void NukiBle::onDisconnect(BLEClient*){
     log_d("BLE disconnected");
 };
 
-void NukiBle::keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin){
-  randomSeed(analogRead(seedPin));
-  for(int i=0; i < keyLen; i++){
-    key[i] = random(1, 255);
-  }
-  printBuffer((byte*)key, keyLen, false, "Generated key");
-}
+// void NukiBle::keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin){
+//   randomSeed(analogRead(seedPin));
+//   for(int i=0; i < keyLen; i++){
+//     key[i] = random(1, 255);
+//   }
+//   printBuffer((byte*)key, keyLen, false, "Generated key");
+// }
 
 void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes){
   
