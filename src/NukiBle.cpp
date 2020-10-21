@@ -13,10 +13,12 @@
 #include "sodium/crypto_auth_hmacsha256.h"
 
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-unsigned char challengeData[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   delay(100); //delay otherwise first part of print will not be shown 
+  char tmp[16];
+  
   if (strlen(header) > 0) {
     Serial.print(header);
     Serial.print(": ");
@@ -25,7 +27,8 @@ void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, co
     if (asChars) {
       Serial.print((char)buff[i]);
     } else {
-      Serial.print(buff[i], HEX);
+      sprintf(tmp, "%02x", buff[i]);
+      Serial.print(tmp);
       Serial.print(" ");
     }
   }
@@ -45,7 +48,9 @@ void nukiBleTask(void * pvParameters) {
 }
 
 
-NukiBle::NukiBle(std::string &bleAddress): bleAddress(bleAddress){}
+NukiBle::NukiBle(std::string &bleAddress, uint32_t deviceId, uint8_t* aDeviceName): bleAddress(bleAddress), deviceId(deviceId){
+  memcpy(deviceName, aDeviceName, sizeof(aDeviceName));
+}
 
 NukiBle::~NukiBle() {}
 
@@ -93,7 +98,7 @@ bool NukiBle::connect() {
 
   //simulated test keys
   // static unsigned char remotePublicKeySim[32] = {0x39, 0xE7, 0x5F, 0xB9, 0x4B, 0xBE, 0xC0, 0x31, 0x7F, 0x8C, 0xFB, 0x88, 0x09, 0xEB, 0x50, 0x97, 0x51, 0x45, 0x29, 0x83, 0x35, 0xC0, 0xE1, 0x26, 0xCD, 0x48, 0xCB, 0x64, 0xB5, 0x7C, 0x8C, 0x26};
-  // static unsigned char challengeDataSim[32] = {0xe8, 0x8d, 0xf6, 0x06, 0x0d, 0x05, 0x72, 0x71, 0xec, 0x70, 0x27, 0x90, 0xc7, 0x77, 0x0c, 0xf5, 0xa1, 0xa4, 0x56, 0x68, 0xe1, 0xc2, 0x6d, 0xb3, 0xfd, 0x2e, 0x50, 0xbd, 0x2c, 0x25, 0x6b, 0xfb};
+  // static unsigned char challengeNonceKSim[32] = {0xe8, 0x8d, 0xf6, 0x06, 0x0d, 0x05, 0x72, 0x71, 0xec, 0x70, 0x27, 0x90, 0xc7, 0x77, 0x0c, 0xf5, 0xa1, 0xa4, 0x56, 0x68, 0xe1, 0xc2, 0x6d, 0xb3, 0xfd, 0x2e, 0x50, 0xbd, 0x2c, 0x25, 0x6b, 0xfb};
 
   log_d("##################### SEND CLIENT PUBLIC KEY #########################");
   sendPlainMessage(nukiCommand::publicKey, (char*)&myPublicKey, sizeof(myPublicKey));
@@ -120,7 +125,7 @@ bool NukiBle::connect() {
   unsigned char hmacPayload[96];
   memcpy(&hmacPayload[0], myPublicKey, sizeof(myPublicKey));
   memcpy(&hmacPayload[32], remotePublicKey, sizeof(remotePublicKey));
-  memcpy(&hmacPayload[64], challengeData, sizeof(challengeData));
+  memcpy(&hmacPayload[64], challengeNonceK, sizeof(challengeNonceK));
   printBuffer((byte*)hmacPayload, sizeof(hmacPayload), false, "Concatenated data r");
   crypto_auth_hmacsha256(authenticator, hmacPayload, sizeof(hmacPayload), secretKeyK);
   printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result");
@@ -128,6 +133,35 @@ bool NukiBle::connect() {
 
   log_d("##################### SEND AUTHENTICATOR #########################");
   sendPlainMessage(nukiCommand::authorizationAuthenticator, (char*)&authenticator, sizeof(authenticator));
+  log_d("######################################################################");
+
+  log_d("##################### SEND AUTHORIZATION DATA #########################");
+  unsigned char authorizationData[101] = {};
+  unsigned char authorizationDataIds[5] = {};
+  unsigned char authorizationDataName[32] = {};
+  unsigned char authorizationDataNonce[32] = {};
+  authorizationDataIds[0] = 1;  //0 … App 1 … Bridge 2 … Fob 3 … Keypad
+  authorizationDataIds[1] = (deviceId >> (8*0)) & 0xff;
+  authorizationDataIds[2] = (deviceId >> (8*1)) & 0xff;
+  authorizationDataIds[3] = (deviceId >> (8*2)) & 0xff;
+  authorizationDataIds[4] = (deviceId >> (8*3)) & 0xff;
+  memcpy(authorizationDataName, deviceName, sizeof(deviceName));
+  generateNonce(authorizationDataNonce, sizeof(authorizationDataNonce));
+  
+  //calculate authenticator of message to send
+  memcpy(&authorizationData[0], authorizationDataIds, sizeof(authorizationDataIds));
+  memcpy(&authorizationData[5], authorizationDataName, sizeof(authorizationDataName));
+  memcpy(&authorizationData[37], authorizationDataNonce, sizeof(authorizationDataNonce));
+  memcpy(&authorizationData[69], challengeNonceK, sizeof(challengeNonceK));
+  crypto_auth_hmacsha256(authenticator, authorizationData, sizeof(authorizationData), secretKeyK);
+    
+  //compose and send message
+  unsigned char authorizationDataMessage[101];
+  memcpy(&authorizationDataMessage[0], authenticator, sizeof(authenticator));
+  memcpy(&authorizationDataMessage[32], authorizationDataIds, sizeof(authorizationDataIds));
+  memcpy(&authorizationDataMessage[37], authorizationDataName, sizeof(authorizationDataName));
+  memcpy(&authorizationDataMessage[69], authorizationDataNonce, sizeof(authorizationDataNonce));
+  sendPlainMessage(nukiCommand::authorizationData, (char*)&authorizationDataMessage, sizeof(authorizationDataMessage));
   log_d("######################################################################");
 
 
@@ -179,7 +213,7 @@ bool NukiBle::executeLockAction(lockAction aLockAction) {
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify) {
   // log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
-  printBuffer((byte*)pData, length, false, "Received data");
+  // printBuffer((byte*)pData, length, false, "Received data");
 
   //check CRC
   uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
@@ -201,7 +235,7 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
       handleErrorCode(pData[2]);
     }
     else{
-      char data[100];
+      char data[200];
       memcpy(data, &pData[2], length - 4);
       handleReturnMessage(returnCode, data, length - 4);
     }
@@ -335,7 +369,7 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataL
       printBuffer(remotePublicKey, sizeof(remotePublicKey), false,  "Remote public key");
       break;
     case (uint16_t)nukiCommand::challenge :
-      memcpy(challengeData, data, 32);
+      memcpy(challengeNonceK, data, 32);
       printBuffer((byte*)data, dataLen, false, "Challenge");
       break;
     case (uint16_t)nukiCommand::authorizationAuthenticator :
@@ -490,7 +524,6 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataL
     }
 }
 
-
 void NukiBle::pushNotificationToQueue(){
     bool notification = true;
     xQueueSendFromISR(nukiBleIsrFlagQueue,&notification, &xHigherPriorityTaskWoken);
@@ -520,47 +553,11 @@ void NukiBle::keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin){
   printBuffer((byte*)key, keyLen, false, "Generated key");
 }
 
-
-// static void calculate_authenticator(uint8_t* output_buffer, uint8_t* message, uint16_t message_length) {
-// 	crypto_auth_hmacsha256(output_buffer, message, message_length, pairing_ctx.shared_secret);
-// }
-
-// uint16_t create_authorization_authenticator_payload(uint8_t* output_buffer, uint8_t* received_data) 
-// {
-// 	uint8_t* nonce = &received_data[2];
-// 	uint16_t command_length = 36;
-// 	write_uint16LE(output_buffer, authorization_authenticator_cmd, 0);
-
-// 	//Shared key calculation
-// 	uint8_t dh_key[32]; //crypto_scalarmult_BYTES
-// 	int ret = crypto_scalarmult_curve25519(dh_key, private_key_fob, public_key_nuki);
-	
-// 	if(ret == -1)
-// 	{
-// 		ESP_LOGE("NUKI Authorization", "Error in Crypto Scalarmult");
-// 		return 0;
-// 	}
-	
-// 	unsigned char _0[16];
-// 	memset(_0, 0, 16);
-// 	const unsigned char sigma[16] = "expand 32-byte k";
-// 	crypto_core_hsalsa20(pairing_ctx.shared_secret, _0, dh_key, sigma);
-
-// 	const uint16_t r_length = 32 + 32 + PAIRING_NONCEBYTES; 
-// 	uint8_t r[32 + 32 + PAIRING_NONCEBYTES]; 
-// 	memcpy(r, public_key_fob, 32);
-// 	memcpy(&r[32], public_key_nuki, 32);
-// 	memcpy(&r[32 + 32], nonce, PAIRING_NONCEBYTES);
-// 	uint8_t authenticator[32];
-// 	calculate_authenticator(authenticator, r, r_length);
-// 	memcpy(&output_buffer[2], authenticator, 32);
-// 	crc_payload(output_buffer, command_length);
-	
-// 	esp_log_buffer_hex("PUBLIC KEY FOB: ", public_key_fob, 32);
-// 	esp_log_buffer_hex("PUBLIC KEY NUKI: ", public_key_nuki, 32);
-// 	esp_log_buffer_hex("NONCE: ", nonce, 32);
-// 	esp_log_buffer_hex("r: ", r, r_length);
-// 	esp_log_buffer_hex("AUTHENTICATOR: ", authenticator, 32);
-	
-// 	return command_length;
-// }
+void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes){
+  
+  for(int i=0 ; i<nrOfBytes ; i++){
+    randomSeed(millis());
+    hexArray[i] = random(0,65500);
+  }
+  printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
+}

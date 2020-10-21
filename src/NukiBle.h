@@ -14,7 +14,7 @@
 
 class NukiBle : public BLEClientCallbacks{
   public:
-    NukiBle(std::string& bleAddress);
+    NukiBle(std::string& bleAddress, uint32_t deviceId, uint8_t* deviceName);
     virtual ~NukiBle();
 
     QueueHandle_t  nukiBleIsrFlagQueue;
@@ -32,7 +32,6 @@ class NukiBle : public BLEClientCallbacks{
     bool executeLockAction(lockAction action);
 
   private:
-
     TaskHandle_t TaskHandleNukiBle;
     BaseType_t xHigherPriorityTaskWoken;
     void startNukiBleXtask();
@@ -46,23 +45,14 @@ class NukiBle : public BLEClientCallbacks{
     static void handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataLen);
         
     std::string bleAddress = "";
+    uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
+    uint8_t deviceName[32];       //The name to be displayed for this authorization.
     BLEClient* pClient;
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
 
     void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
+    void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
     // uint8_t localPrivateKey[32];
     // uint8_t localPublicKey[32];
 };
-
-// class MyClientCallback: public BLEClientCallbacks {
-//     public:
-//     // friend NukiBle;
-//     MyClientCallback();
-//     virtual ~MyClientCallback() {};
-//     void onConnect(BLEClient*) {};
-//     void onDisconnect(BLEClient*) {
-//         // pairedStatus(false);  
-//         log_d("onDisconnect");
-//     };
-// };

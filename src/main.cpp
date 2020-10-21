@@ -10,7 +10,9 @@
 
 //test BLE address, replace with your own
 std::string myNukiAddr="54:d2:72:4F:98:84";
-NukiBle nukiBle(myNukiAddr);
+uint32_t deviceId = 2020001;
+uint8_t deviceName[] = "C-Sense";
+NukiBle nukiBle(myNukiAddr, deviceId, deviceName);
 
 void setup(){
     Serial.begin(115200);
