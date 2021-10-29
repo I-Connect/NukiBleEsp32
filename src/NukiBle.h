@@ -10,9 +10,7 @@
 #include "nukiConstants.h"
 #include "Arduino.h"
 
-// #define BLE_DEBUG
-
-class NukiBle : public BLEClientCallbacks{
+class NukiBle : public BLEClientCallbacks {
   public:
     NukiBle(std::string& bleAddress, uint32_t deviceId, uint8_t* deviceName);
     virtual ~NukiBle();
@@ -25,7 +23,7 @@ class NukiBle : public BLEClientCallbacks{
     virtual void initialize();
     bool connect();
     bool isPaired = false;
-    void pairedStatus(bool status){
+    void pairedStatus(bool status) {
       isPaired = status;
     }
 
@@ -36,14 +34,14 @@ class NukiBle : public BLEClientCallbacks{
     BaseType_t xHigherPriorityTaskWoken;
     void startNukiBleXtask();
     void pushNotificationToQueue();
-    
+
     bool registerOnGdioChar();
     void sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     static void my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param);
     static void handleErrorCode(uint8_t errorCode);
     static void handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataLen);
-        
+
     std::string bleAddress = "";
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
     uint8_t deviceName[32];       //The name to be displayed for this authorization.

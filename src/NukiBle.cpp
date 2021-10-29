@@ -18,9 +18,9 @@ unsigned char authorizationId[4];
 unsigned char lockId[16];
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
-  delay(100); //delay otherwise first part of print will not be shown 
+  delay(100); //delay otherwise first part of print will not be shown
   char tmp[16];
-  
+
   if (strlen(header) > 0) {
     Serial.print(header);
     Serial.print(": ");
@@ -38,28 +38,30 @@ void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, co
 }
 
 //task to retrieve messages from BLE when a notification occurrs
-void nukiBleTask(void * pvParameters) {
-	log_d("TASK: Nuki BLE task started");
-	NukiBle* nukiBleObj = reinterpret_cast<NukiBle*>(pvParameters);
-	uint8_t notification;
-  
-	while (1){
-		xQueueReceive(nukiBleObj->nukiBleIsrFlagQueue,&notification, portMAX_DELAY );
-	
+void nukiBleTask(void* pvParameters) {
+  #ifdef DEBUG_NUKI
+  log_d("TASK: Nuki BLE task started");
+  #endif
+  NukiBle* nukiBleObj = reinterpret_cast<NukiBle*>(pvParameters);
+  uint8_t notification;
+
+  while (1) {
+    xQueueReceive(nukiBleObj->nukiBleIsrFlagQueue, &notification, portMAX_DELAY );
+
   }
 }
 
 
-NukiBle::NukiBle(std::string &bleAddress, uint32_t deviceId, uint8_t* aDeviceName): bleAddress(bleAddress), deviceId(deviceId){
+NukiBle::NukiBle(std::string& bleAddress, uint32_t deviceId, uint8_t* aDeviceName): bleAddress(bleAddress), deviceId(deviceId) {
   memcpy(deviceName, aDeviceName, sizeof(aDeviceName));
 }
 
 NukiBle::~NukiBle() {}
 
 void NukiBle::initialize() {
+  #ifdef DEBUG_NUKI
   log_d("Initializing Nuki");
-  #ifdef BLE_DEBUG
-    BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
+  BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
   #endif
   BLEDevice::init("ESP32_test");
 
@@ -67,32 +69,35 @@ void NukiBle::initialize() {
   // keyGen(localPublic_key, 32, 34);
 }
 
-void NukiBle::startNukiBleXtask(){
-  nukiBleIsrFlagQueue=xQueueCreate(10,sizeof(uint8_t));
+void NukiBle::startNukiBleXtask() {
+  nukiBleIsrFlagQueue = xQueueCreate(10, sizeof(uint8_t));
   TaskHandleNukiBle = NULL;
   xTaskCreatePinnedToCore(&nukiBleTask, "nukiBleTask", 4096, this, 1, &TaskHandleNukiBle, 1);
 }
 
 bool NukiBle::connect() {
+  #ifdef DEBUG_NUKI
   log_d("Connecting with: %s ", bleAddress.c_str());
-      
+  #endif
+
   pClient  = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
-  if(!pClient->connect(bleAddress)){
+  if (!pClient->connect(bleAddress)) {
     log_w("BLE Connect failed");
     return false;
   }
-  if(!registerOnGdioChar()){
+  if (!registerOnGdioChar()) {
     log_w("BLE register on pairing Service/Char failed");
     return false;
   }
 
   //Request remote public key (Sent message should be 0100030027A7)
+  #ifdef DEBUG_NUKI
   log_d("##################### REQUEST REMOTE PUBLIC KEY #########################");
+  #endif
   uint16_t payload = (uint16_t)nukiCommand::publicKey;
   sendPlainMessage(nukiCommand::requestData, (char*)&payload, sizeof(payload));
-  log_d("#########################################################################");
 
   //TODO generate public and private keys
   static unsigned char myPrivateKey[32] = {0x8C, 0xAA, 0x54, 0x67, 0x23, 0x07, 0xBF, 0xFD, 0xF5, 0xEA, 0x18, 0x3F, 0xC6, 0x07, 0x15, 0x8D, 0x20, 0x11, 0xD0, 0x08, 0xEC, 0xA6, 0xA1, 0x08, 0x86, 0x14, 0xFF, 0x08, 0x53, 0xA5, 0xAA, 0x07};
@@ -101,27 +106,31 @@ bool NukiBle::connect() {
   //simulated test keys
   // static unsigned char remotePublicKeySim[32] = {0x39, 0xE7, 0x5F, 0xB9, 0x4B, 0xBE, 0xC0, 0x31, 0x7F, 0x8C, 0xFB, 0x88, 0x09, 0xEB, 0x50, 0x97, 0x51, 0x45, 0x29, 0x83, 0x35, 0xC0, 0xE1, 0x26, 0xCD, 0x48, 0xCB, 0x64, 0xB5, 0x7C, 0x8C, 0x26};
   // static unsigned char challengeNonceKSim[32] = {0xe8, 0x8d, 0xf6, 0x06, 0x0d, 0x05, 0x72, 0x71, 0xec, 0x70, 0x27, 0x90, 0xc7, 0x77, 0x0c, 0xf5, 0xa1, 0xa4, 0x56, 0x68, 0xe1, 0xc2, 0x6d, 0xb3, 0xfd, 0x2e, 0x50, 0xbd, 0x2c, 0x25, 0x6b, 0xfb};
-
+  #ifdef DEBUG_NUKI
   log_d("##################### SEND CLIENT PUBLIC KEY #########################");
+  #endif
   sendPlainMessage(nukiCommand::publicKey, (char*)&myPublicKey, sizeof(myPublicKey));
-  log_d("######################################################################");
 
+  #ifdef DEBUG_NUKI
   log_d("##################### CALCULATE DH SHARED KEY s #########################");
+  #endif
   unsigned char sharedKeyS[32];
-  int i= crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
+  int i = crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
   printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s");
-  log_d("######################################################################");
 
+  #ifdef DEBUG_NUKI
   log_d("##################### DERIVE LONG TERM SECRET KEY k #########################");
+  #endif
   unsigned char secretKeyK[32];
   unsigned char _0[16];
   memset(_0, 0, 16);
   unsigned char sigma[] = "expand 32-byte k";
-  int y= crypto_core_hsalsa20(secretKeyK, _0, sharedKeyS, sigma);
+  int y = crypto_core_hsalsa20(secretKeyK, _0, sharedKeyS, sigma);
   printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
-  log_d("######################################################################");
 
+  #ifdef DEBUG_NUKI
   log_d("##################### CALCULATE/VERIFY AUTHENTICATOR #########################");
+  #endif
   //concatenate local public key, remote public key and receive challenge data
   unsigned char authenticator[32];
   unsigned char hmacPayload[96];
@@ -131,32 +140,34 @@ bool NukiBle::connect() {
   printBuffer((byte*)hmacPayload, sizeof(hmacPayload), false, "Concatenated data r");
   crypto_auth_hmacsha256(authenticator, hmacPayload, sizeof(hmacPayload), secretKeyK);
   printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result");
-  log_d("######################################################################");
 
+  #ifdef DEBUG_NUKI
   log_d("##################### SEND AUTHENTICATOR #########################");
+  #endif
   sendPlainMessage(nukiCommand::authorizationAuthenticator, (char*)&authenticator, sizeof(authenticator));
-  log_d("######################################################################");
 
+  #ifdef DEBUG_NUKI
   log_d("##################### SEND AUTHORIZATION DATA #########################");
+  #endif
   unsigned char authorizationData[101] = {};
   unsigned char authorizationDataIds[5] = {};
   unsigned char authorizationDataName[32] = {};
   unsigned char authorizationDataNonce[32] = {};
   authorizationDataIds[0] = 1;  //0 … App 1 … Bridge 2 … Fob 3 … Keypad
-  authorizationDataIds[1] = (deviceId >> (8*0)) & 0xff;
-  authorizationDataIds[2] = (deviceId >> (8*1)) & 0xff;
-  authorizationDataIds[3] = (deviceId >> (8*2)) & 0xff;
-  authorizationDataIds[4] = (deviceId >> (8*3)) & 0xff;
+  authorizationDataIds[1] = (deviceId >> (8 * 0)) & 0xff;
+  authorizationDataIds[2] = (deviceId >> (8 * 1)) & 0xff;
+  authorizationDataIds[3] = (deviceId >> (8 * 2)) & 0xff;
+  authorizationDataIds[4] = (deviceId >> (8 * 3)) & 0xff;
   memcpy(authorizationDataName, deviceName, sizeof(deviceName));
   generateNonce(authorizationDataNonce, sizeof(authorizationDataNonce));
-  
+
   //calculate authenticator of message to send
   memcpy(&authorizationData[0], authorizationDataIds, sizeof(authorizationDataIds));
   memcpy(&authorizationData[5], authorizationDataName, sizeof(authorizationDataName));
   memcpy(&authorizationData[37], authorizationDataNonce, sizeof(authorizationDataNonce));
   memcpy(&authorizationData[69], challengeNonceK, sizeof(challengeNonceK));
   crypto_auth_hmacsha256(authenticator, authorizationData, sizeof(authorizationData), secretKeyK);
-    
+
   //compose and send message
   unsigned char authorizationDataMessage[101];
   memcpy(&authorizationDataMessage[0], authenticator, sizeof(authenticator));
@@ -164,39 +175,43 @@ bool NukiBle::connect() {
   memcpy(&authorizationDataMessage[37], authorizationDataName, sizeof(authorizationDataName));
   memcpy(&authorizationDataMessage[69], authorizationDataNonce, sizeof(authorizationDataNonce));
   sendPlainMessage(nukiCommand::authorizationData, (char*)&authorizationDataMessage, sizeof(authorizationDataMessage));
-  log_d("######################################################################");
 
+  #ifdef DEBUG_NUKI
   log_d("##################### SEND AUTHORIZATION ID confirmation #########################");
+  #endif
   unsigned char confirmationData[36] = {};
-  
+
   //calculate authenticator of message to send
   memcpy(&confirmationData[0], authorizationId, sizeof(authorizationId));
   memcpy(&confirmationData[4], challengeNonceK, sizeof(challengeNonceK));
   crypto_auth_hmacsha256(authenticator, confirmationData, sizeof(confirmationData), secretKeyK);
-    
+
   //compose and send message
   unsigned char confirmationDataMessage[36];
   memcpy(&confirmationDataMessage[0], authenticator, sizeof(authenticator));
   memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
   sendPlainMessage(nukiCommand::authorizationIdConfirmation, (char*)&confirmationDataMessage, sizeof(confirmationDataMessage));
-  log_d("######################################################################");
+  #ifdef DEBUG_NUKI
+  log_d("####################### CONNECT DONE ###############################################");
+  #endif
 
-  // log_d("BLE connect and pairing success");
   return true;
 }
 
-bool NukiBle::registerOnGdioChar(){
+bool NukiBle::registerOnGdioChar() {
   // Obtain a reference to the KeyTurner Pairing service
   pKeyturnerPairingService = pClient->getService(STRING(keyturnerPairingServiceUUID));
   //Obtain reference to GDIO char
   pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(STRING(keyturnerGdioUUID));
-  if(pGdioCharacteristic->canIndicate()){
+  if (pGdioCharacteristic->canIndicate()) {
     pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
     delay(100);
     return true;
   }
-  else{
+  else {
+    #ifdef DEBUG_NUKI
     log_d("GDIO characteristic canIndicate false, stop connecting");
+    #endif
     return false;
   }
   return false;
@@ -205,52 +220,59 @@ bool NukiBle::registerOnGdioChar(){
 void NukiBle::sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
   Crc16 crcObj;
   uint16_t dataCrc;
-  
+
   //get crc over data (data is both command identifier and payload)
   char dataToSend[200];
   memcpy(&dataToSend, &commandIdentifier, sizeof(commandIdentifier));
   memcpy(&dataToSend[2], payload, payloadLen);
- 
+
   crcObj.clearCrc();
   // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
   dataCrc = crcObj.fastCrc((uint8_t*)dataToSend, 0, payloadLen + 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
-  
-  memcpy(&dataToSend[2+payloadLen], &dataCrc, sizeof(dataCrc));
+
+  memcpy(&dataToSend[2 + payloadLen], &dataCrc, sizeof(dataCrc));
   printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message");
+  #ifdef DEBUG_NUKI
   log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
+  #endif
   pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   delay(1000); //wait for response via BLE char
 }
 
 bool NukiBle::executeLockAction(lockAction aLockAction) {
+  #ifdef DEBUG_NUKI
   log_d("Executing lock action: %d", aLockAction);
+  #endif
   return true;
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify) {
-  // log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
-  // printBuffer((byte*)pData, length, false, "Received data");
+  #ifdef DEBUG_NUKI
+  log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
+  printBuffer((byte*)pData, length, false, "Received data");
+  #endif
 
   //check CRC
   uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
   Crc16 crcObj;
   uint16_t dataCrc;
   crcObj.clearCrc();
-  dataCrc = crcObj.fastCrc(pData, 0, length - 2 , false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+  dataCrc = crcObj.fastCrc(pData, 0, length - 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
   // log_d("Received CRC: %d, calculated CRC: %d", receivedCrc, dataCrc);
   uint16_t returnCode = ((uint16_t)pData[1] << 8) | pData[0];
   // log_d("Return code: %d", returnCode);
-  if(!(receivedCrc == dataCrc)){
+  if (!(receivedCrc == dataCrc)) {
     log_e("CRC CHECK FAILED!");
     //TODO retry last communications
   }
-  else{
-    // log_d("CRC CHECK OKE");
-    if(returnCode == (uint16_t)nukiCommand::errorReport){
-      // log_e("ERROR: %02x", pData[2]);
+  else {
+    #ifdef DEBUG_NUKI
+    log_d("CRC CHECK OKE");
+    #endif
+    if (returnCode == (uint16_t)nukiCommand::errorReport) {
       handleErrorCode(pData[2]);
     }
-    else{
+    else {
       char data[200];
       memcpy(data, &pData[2], length - 4);
       handleReturnMessage(returnCode, data, length - 4);
@@ -258,9 +280,9 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   }
 }
 
-void NukiBle::handleErrorCode(uint8_t errorCode){
-  
-  switch(errorCode) {
+void NukiBle::handleErrorCode(uint8_t errorCode) {
+
+  switch (errorCode) {
     case (uint8_t)nukiErrorCode::ERROR_BAD_CRC :
       log_e("ERROR_BAD_CRC");
       break;
@@ -371,12 +393,12 @@ void NukiBle::handleErrorCode(uint8_t errorCode){
       break;
     default:
       log_e("UNKNOWN ERROR");
-    }
+  }
 }
 
-void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataLen){
+void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataLen) {
 
-  switch(returnCode) {
+  switch (returnCode) {
     case (uint16_t)nukiCommand::requestData :
       log_d("requestData");
       break;
@@ -541,28 +563,32 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataL
       break;
     default:
       log_e("UNKNOWN RETURN COMMAND");
-    }
+  }
 }
 
-void NukiBle::pushNotificationToQueue(){
-    bool notification = true;
-    xQueueSendFromISR(nukiBleIsrFlagQueue,&notification, &xHigherPriorityTaskWoken);
+void NukiBle::pushNotificationToQueue() {
+  bool notification = true;
+  xQueueSendFromISR(nukiBleIsrFlagQueue, &notification, &xHigherPriorityTaskWoken);
 }
 
 void NukiBle::my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param) {
-	ESP_LOGW(LOG_TAG, "custom gattc event handler, event: %d", (uint8_t)event);
-    if(event == ESP_GATTC_DISCONNECT_EVT) {
-      Serial.print("Disconnect reason: "); 
-      Serial.println((int)param->disconnect.reason);
-    }
+  ESP_LOGW(LOG_TAG, "custom gattc event handler, event: %d", (uint8_t)event);
+  if (event == ESP_GATTC_DISCONNECT_EVT) {
+    Serial.print("Disconnect reason: ");
+    Serial.println((int)param->disconnect.reason);
+  }
 }
 
-void NukiBle::onConnect(BLEClient*){
+void NukiBle::onConnect(BLEClient*) {
+  #ifdef DEBUG_NUKI
   log_d("BLE connected");
+  #endif
 };
 
-void NukiBle::onDisconnect(BLEClient*){
-    log_d("BLE disconnected");
+void NukiBle::onDisconnect(BLEClient*) {
+  #ifdef DEBUG_NUKI
+  log_d("BLE disconnected");
+  #endif
 };
 
 // void NukiBle::keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin){
@@ -573,11 +599,11 @@ void NukiBle::onDisconnect(BLEClient*){
 //   printBuffer((byte*)key, keyLen, false, "Generated key");
 // }
 
-void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes){
-  
-  for(int i=0 ; i<nrOfBytes ; i++){
+void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
+
+  for (int i = 0 ; i < nrOfBytes ; i++) {
     randomSeed(millis());
-    hexArray[i] = random(0,65500);
+    hexArray[i] = random(0, 65500);
   }
   printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
 }
