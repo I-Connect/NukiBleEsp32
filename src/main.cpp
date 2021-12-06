@@ -9,26 +9,26 @@
 #include "nukiBle.h"
 
 //test BLE address, replace with your own
-std::string myNukiAddr="54:d2:72:4F:98:84";
+std::string myNukiAddr = "54:d2:72:4F:98:84";
 uint32_t deviceId = 2020001;
 uint8_t deviceName[] = "C-Sense";
 NukiBle nukiBle(myNukiAddr, deviceId, deviceName);
 
-void setup(){
-    Serial.begin(115200);
-    log_d("Starting Arduino BLE Client application...");
-    nukiBle.initialize();
-    nukiBle.connect();
-    
+void setup() {
+  Serial.begin(115200);
+  log_d("Starting Arduino BLE Client application...");
+  nukiBle.initialize();
+  nukiBle.connect();
+
+  uint16_t payload = (uint16_t)nukiCommand::keyturnerStates;
+
+  nukiBle.sendEncryptedMessage(nukiCommand::requestData, (char*)&payload, 2);
+
 }
 
-void loop(){
-    // if(!nukiBle.isPaired){
-    //     nukiBle.connect();
-    // }
-    // else{
-    //     log_d("Attempting to pair failed");
-    // }
-    delay(1000);
+void loop() {
+
+
+  delay(5000);
 
 }

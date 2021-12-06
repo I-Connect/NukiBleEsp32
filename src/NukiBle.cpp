@@ -11,13 +11,16 @@
 #include "sodium/crypto_scalarmult.h"
 #include "sodium/crypto_core_hsalsa20.h"
 #include "sodium/crypto_auth_hmacsha256.h"
+#include "sodium/crypto_secretbox_xsalsa20poly1305.h"
+
 
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-unsigned char authorizationId[4];
+unsigned char authorizationId[4] = {0x00, 0x00, 0x0, 0x00};
 unsigned char lockId[16];
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
+  #ifdef DEBUG_NUKI
   delay(100); //delay otherwise first part of print will not be shown
   char tmp[16];
 
@@ -35,6 +38,7 @@ void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, co
     }
   }
   Serial.println();
+  #endif
 }
 
 //task to retrieve messages from BLE when a notification occurrs
@@ -115,17 +119,17 @@ bool NukiBle::connect() {
   log_d("##################### CALCULATE DH SHARED KEY s #########################");
   #endif
   unsigned char sharedKeyS[32];
-  int i = crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
+  crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
   printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s");
 
   #ifdef DEBUG_NUKI
-  log_d("##################### DERIVE LONG TERM SECRET KEY k #########################");
+  log_d("##################### DERIVE LONG TERM SHARED SECRET KEY k #########################");
   #endif
-  unsigned char secretKeyK[32];
+
   unsigned char _0[16];
   memset(_0, 0, 16);
   unsigned char sigma[] = "expand 32-byte k";
-  int y = crypto_core_hsalsa20(secretKeyK, _0, sharedKeyS, sigma);
+  crypto_core_hsalsa20(secretKeyK, _0, sharedKeyS, sigma);
   printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
 
   #ifdef DEBUG_NUKI
@@ -150,19 +154,20 @@ bool NukiBle::connect() {
   log_d("##################### SEND AUTHORIZATION DATA #########################");
   #endif
   unsigned char authorizationData[101] = {};
-  unsigned char authorizationDataIds[5] = {};
+  unsigned char authorizationDataIdType[1] = {0x01}; //0 = App, 1 = Bridge, 2 = Fob, 3 = Keypad
+  unsigned char authorizationDataId[4] = {};
   unsigned char authorizationDataName[32] = {};
   unsigned char authorizationDataNonce[32] = {};
-  authorizationDataIds[0] = 1;  //0 … App 1 … Bridge 2 … Fob 3 … Keypad
-  authorizationDataIds[1] = (deviceId >> (8 * 0)) & 0xff;
-  authorizationDataIds[2] = (deviceId >> (8 * 1)) & 0xff;
-  authorizationDataIds[3] = (deviceId >> (8 * 2)) & 0xff;
-  authorizationDataIds[4] = (deviceId >> (8 * 3)) & 0xff;
+  authorizationDataId[0] = (deviceId >> (8 * 0)) & 0xff;
+  authorizationDataId[1] = (deviceId >> (8 * 1)) & 0xff;
+  authorizationDataId[2] = (deviceId >> (8 * 2)) & 0xff;
+  authorizationDataId[3] = (deviceId >> (8 * 3)) & 0xff;
   memcpy(authorizationDataName, deviceName, sizeof(deviceName));
   generateNonce(authorizationDataNonce, sizeof(authorizationDataNonce));
 
   //calculate authenticator of message to send
-  memcpy(&authorizationData[0], authorizationDataIds, sizeof(authorizationDataIds));
+  memcpy(&authorizationData[0], authorizationDataIdType, sizeof(authorizationDataIdType));
+  memcpy(&authorizationData[1], authorizationDataId, sizeof(authorizationDataId));
   memcpy(&authorizationData[5], authorizationDataName, sizeof(authorizationDataName));
   memcpy(&authorizationData[37], authorizationDataNonce, sizeof(authorizationDataNonce));
   memcpy(&authorizationData[69], challengeNonceK, sizeof(challengeNonceK));
@@ -171,7 +176,8 @@ bool NukiBle::connect() {
   //compose and send message
   unsigned char authorizationDataMessage[101];
   memcpy(&authorizationDataMessage[0], authenticator, sizeof(authenticator));
-  memcpy(&authorizationDataMessage[32], authorizationDataIds, sizeof(authorizationDataIds));
+  memcpy(&authorizationDataMessage[32], authorizationDataIdType, sizeof(authorizationDataIdType));
+  memcpy(&authorizationDataMessage[33], authorizationDataId, sizeof(authorizationDataId));
   memcpy(&authorizationDataMessage[37], authorizationDataName, sizeof(authorizationDataName));
   memcpy(&authorizationDataMessage[69], authorizationDataNonce, sizeof(authorizationDataNonce));
   sendPlainMessage(nukiCommand::authorizationData, (char*)&authorizationDataMessage, sizeof(authorizationDataMessage));
@@ -190,12 +196,139 @@ bool NukiBle::connect() {
   unsigned char confirmationDataMessage[36];
   memcpy(&confirmationDataMessage[0], authenticator, sizeof(authenticator));
   memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
+  // memcpy(&confirmationDataMessage[36], challengeNonceK, sizeof(challengeNonceK));
   sendPlainMessage(nukiCommand::authorizationIdConfirmation, (char*)&confirmationDataMessage, sizeof(confirmationDataMessage));
   #ifdef DEBUG_NUKI
   log_d("####################### CONNECT DONE ###############################################");
   #endif
 
   return true;
+}
+
+void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
+  /*
+  #     ADDITIONAL DATA (not encr)      #                    PLAIN DATA (encr)                             #
+  #  nonce  # auth identifier # msg len # authorization identifier # command identifier # payload #  crc   #
+  # 24 byte #    4 byte       # 2 byte  #      4 byte              #       2 byte       #  n byte # 2 byte #
+  */
+
+
+  //compose plain data
+  unsigned char plainData[6 + payloadLen] = {};
+  unsigned char plainDataWithCrc[8 + payloadLen] = {};
+
+  Crc16 crcObj;
+  uint16_t dataCrc;
+
+  memcpy(&plainData[0], &authorizationId, sizeof(authorizationId));
+  memcpy(&plainData[4], &commandIdentifier, sizeof(commandIdentifier));
+  memcpy(&plainData[6], payload, payloadLen);
+
+  //get crc over plain data
+  crcObj.clearCrc();
+  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
+  dataCrc = crcObj.fastCrc((uint8_t*)plainData, 0, sizeof(plainData), false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+  memcpy(&plainDataWithCrc[0], &plainData, sizeof(plainData));
+  memcpy(&plainDataWithCrc[sizeof(plainData)], &dataCrc, sizeof(dataCrc));
+  #ifdef DEBUG_NUKI
+  printBuffer((byte*)plainDataWithCrc, sizeof(plainDataWithCrc), false, "Plain data with CRC: ");
+  #endif
+
+  //compose additional data
+  unsigned char additionalData[30] = {};
+  unsigned char nonce[24] = {};
+  uint8_t msgLen = 0;
+  generateNonce(nonce, sizeof(nonce));
+  msgLen = sizeof(plainDataWithCrc);
+  log_d("msgLen: %d", msgLen);
+
+  memcpy(&additionalData[0], nonce, sizeof(nonce));
+  memcpy(&additionalData[24], authorizationId, sizeof(authorizationId));
+  memcpy(&additionalData[28], &msgLen, sizeof(msgLen));
+  #ifdef DEBUG_NUKI
+  printBuffer((byte*)additionalData, 30, false, "Additional data: ");
+  #endif
+
+  //Encrypt plain data
+  unsigned char plainDataEncr[26] = {};
+  encode(plainDataWithCrc, plainDataEncr, sizeof(plainDataWithCrc), nonce);
+
+  #ifdef DEBUG_NUKI
+  printBuffer((byte*)plainDataEncr, sizeof(plainDataEncr), false, "Plain data encrypted: ");
+  #endif
+
+  //compose complete message
+  unsigned char dataToSend[sizeof(additionalData) + sizeof(plainDataEncr)] = {};
+  memcpy(&dataToSend[0], additionalData, sizeof(additionalData));
+  memcpy(&dataToSend[30], plainDataEncr, sizeof(plainDataEncr));
+
+  #ifdef DEBUG_NUKI
+  printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
+  #endif
+
+  pGdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
+  delay(1000); //wait for response via BLE char
+}
+
+int NukiBle::encode(unsigned char* input, unsigned char* output, unsigned int len, unsigned char* nonce) {
+  //https://cpp.hotexamples.com/examples/-/-/crypto_box_curve25519xsalsa20poly1305_afternm/cpp-crypto_box_curve25519xsalsa20poly1305_afternm-function-examples.html
+  if ((len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES) > 200)
+  {
+    log_d("Encryption failed (packet length %i is above MAX_BUFFER_SIZE %i)\n", (len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES), 200);
+    return -1;
+  }
+
+  unsigned char tempbuffer[len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES], tempbufferinput[len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES];
+
+  memset(tempbufferinput, 0, crypto_secretbox_xsalsa20poly1305_ZEROBYTES);
+  memcpy(tempbufferinput + crypto_secretbox_xsalsa20poly1305_ZEROBYTES, input, len);
+
+  int result = crypto_secretbox_xsalsa20poly1305(
+                 tempbuffer,
+                 tempbufferinput,
+                 len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES,
+                 nonce,
+                 secretKeyK
+               );
+
+  if (result)
+  {
+    log_d("Encryption failed (length %i, given result %i)\n", len, result);
+    return -1;
+  }
+
+  memcpy(output, tempbuffer + crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES, len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES);
+
+  return len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES;
+}
+
+void NukiBle::sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
+  /*
+  #                PLAIN DATA                   #
+  #command identifier  #   payload   #   crc    #
+  #      2 byte        #   n byte    #  2 byte  #
+  */
+
+  Crc16 crcObj;
+  uint16_t dataCrc;
+
+  //compose data
+  char dataToSend[200];
+  memcpy(&dataToSend, &commandIdentifier, sizeof(commandIdentifier));
+  memcpy(&dataToSend[2], payload, payloadLen);
+
+  //get crc over data (data is both command identifier and payload)
+  crcObj.clearCrc();
+  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
+  dataCrc = crcObj.fastCrc((uint8_t*)dataToSend, 0, payloadLen + 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+
+  memcpy(&dataToSend[2 + payloadLen], &dataCrc, sizeof(dataCrc));
+  printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message");
+  #ifdef DEBUG_NUKI
+  log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
+  #endif
+  pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
+  delay(1000); //wait for response via BLE char
 }
 
 bool NukiBle::registerOnGdioChar() {
@@ -217,27 +350,7 @@ bool NukiBle::registerOnGdioChar() {
   return false;
 }
 
-void NukiBle::sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
-  Crc16 crcObj;
-  uint16_t dataCrc;
 
-  //get crc over data (data is both command identifier and payload)
-  char dataToSend[200];
-  memcpy(&dataToSend, &commandIdentifier, sizeof(commandIdentifier));
-  memcpy(&dataToSend[2], payload, payloadLen);
-
-  crcObj.clearCrc();
-  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
-  dataCrc = crcObj.fastCrc((uint8_t*)dataToSend, 0, payloadLen + 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
-
-  memcpy(&dataToSend[2 + payloadLen], &dataCrc, sizeof(dataCrc));
-  printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message");
-  #ifdef DEBUG_NUKI
-  log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
-  #endif
-  pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
-  delay(1000); //wait for response via BLE char
-}
 
 bool NukiBle::executeLockAction(lockAction aLockAction) {
   #ifdef DEBUG_NUKI
@@ -291,6 +404,18 @@ void NukiBle::handleErrorCode(uint8_t errorCode) {
       break;
     case (uint8_t)nukiErrorCode::ERROR_UNKNOWN :
       log_e("ERROR_UNKNOWN");
+      break;
+    case (uint8_t)nukiErrorCode::P_ERROR_NOT_PAIRING :
+      log_e("P_ERROR_NOT_PAIRING");
+      break;
+    case (uint8_t)nukiErrorCode::P_ERROR_BAD_AUTHENTICATOR :
+      log_e("P_ERROR_BAD_AUTHENTICATOR");
+      break;
+    case (uint8_t)nukiErrorCode::P_ERROR_BAD_PARAMETER :
+      log_e("P_ERROR_BAD_PARAMETER");
+      break;
+    case (uint8_t)nukiErrorCode::P_ERROR_MAX_USER :
+      log_e("P_ERROR_MAX_USER");
       break;
     case (uint8_t)nukiErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
       log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
@@ -379,20 +504,8 @@ void NukiBle::handleErrorCode(uint8_t errorCode) {
     case (uint8_t)nukiErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
       log_e("K_ERROR_VOLTAGE_TOO_LOW");
       break;
-    case (uint8_t)nukiErrorCode::P_ERROR_BAD_AUTHENTICATOR :
-      log_e("P_ERROR_BAD_AUTHENTICATOR");
-      break;
-    case (uint8_t)nukiErrorCode::P_ERROR_BAD_PARAMETER :
-      log_e("P_ERROR_BAD_PARAMETER");
-      break;
-    case (uint8_t)nukiErrorCode::P_ERROR_MAX_USER :
-      log_e("P_ERROR_MAX_USER");
-      break;
-    case (uint8_t)nukiErrorCode::P_ERROR_NOT_PAIRING :
-      log_e("P_ERROR_NOT_PAIRING");
-      break;
     default:
-      log_e("UNKNOWN ERROR");
+      log_e("UNDEFINED ERROR");
   }
 }
 
@@ -417,11 +530,12 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataL
       printBuffer((byte*)data, dataLen, false, "authorizationData");
       break;
     case (uint16_t)nukiCommand::authorizationId :
-      printBuffer((byte*)data, dataLen, false, "authorizationId");
+      printBuffer((byte*)data, dataLen, false, "send authorizationId data");
       memcpy(authorizationId, &data[32], 4);
       memcpy(lockId, &data[36], sizeof(lockId));
       memcpy(challengeNonceK, &data[52], sizeof(challengeNonceK));
-      log_d("authorizationId: %02x, lockId: %02x", authorizationId, lockId);
+      printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+      printBuffer(lockId, sizeof(lockId), false, "lockId");
       break;
     case (uint16_t)nukiCommand::removeUserAuthorization :
       printBuffer((byte*)data, dataLen, false, "removeUserAuthorization");
