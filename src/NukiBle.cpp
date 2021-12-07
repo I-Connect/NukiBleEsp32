@@ -11,7 +11,11 @@
 #include "sodium/crypto_scalarmult.h"
 #include "sodium/crypto_core_hsalsa20.h"
 #include "sodium/crypto_auth_hmacsha256.h"
-#include "sodium/crypto_secretbox_xsalsa20poly1305.h"
+#include "sodium/crypto_secretbox.h"
+
+#define crypto_secretbox_KEYBYTES 32
+#define crypto_box_NONCEBYTES 24
+#define crypto_secretbox_MACBYTES 16
 
 
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -118,7 +122,6 @@ bool NukiBle::connect() {
   #ifdef DEBUG_NUKI
   log_d("##################### CALCULATE DH SHARED KEY s #########################");
   #endif
-  unsigned char sharedKeyS[32];
   crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
   printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s");
 
@@ -250,7 +253,7 @@ void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload,
   #endif
 
   //Encrypt plain data
-  unsigned char plainDataEncr[26] = {};
+  unsigned char plainDataEncr[26] = {0};
   encode(plainDataWithCrc, plainDataEncr, sizeof(plainDataWithCrc), nonce, secretKeyK);
 
   #ifdef DEBUG_NUKI
@@ -271,35 +274,15 @@ void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload,
 }
 
 int NukiBle::encode(unsigned char* input, unsigned char* output, unsigned int len, unsigned char* nonce, unsigned char* keyS) {
-  //https://cpp.hotexamples.com/examples/-/-/crypto_box_curve25519xsalsa20poly1305_afternm/cpp-crypto_box_curve25519xsalsa20poly1305_afternm-function-examples.html
-  if ((len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES) > 200)
-  {
-    log_d("Encryption failed (packet length %i is above MAX_BUFFER_SIZE %i)\n", (len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES), 200);
-    return -1;
-  }
 
-  unsigned char tempbuffer[len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES], tempbufferinput[len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES];
-
-  memset(tempbufferinput, 0, crypto_secretbox_xsalsa20poly1305_ZEROBYTES);
-  memcpy(tempbufferinput + crypto_secretbox_xsalsa20poly1305_ZEROBYTES, input, len);
-
-  int result = crypto_secretbox_xsalsa20poly1305(
-                 tempbuffer,
-                 tempbufferinput,
-                 len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES,
-                 nonce,
-                 keyS
-               );
+  int result = crypto_secretbox_easy(output, input, len, nonce, keyS);
 
   if (result)
   {
     log_d("Encryption failed (length %i, given result %i)\n", len, result);
     return -1;
   }
-
-  memcpy(output, tempbuffer + crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES, len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES);
-
-  return len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES;
+  return len;
 }
 
 void NukiBle::sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {

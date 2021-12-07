@@ -47,6 +47,7 @@ class NukiBle : public BLEClientCallbacks {
     static void handleErrorCode(uint8_t errorCode);
     static void handleReturnMessage(uint16_t returnCode, char* data, uint8_t dataLen);
 
+    unsigned char sharedKeyS[32];
     unsigned char secretKeyK[32];
 
     std::string bleAddress = "";
