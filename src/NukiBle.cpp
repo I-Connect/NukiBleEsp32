@@ -251,7 +251,7 @@ void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload,
 
   //Encrypt plain data
   unsigned char plainDataEncr[26] = {};
-  encode(plainDataWithCrc, plainDataEncr, sizeof(plainDataWithCrc), nonce);
+  encode(plainDataWithCrc, plainDataEncr, sizeof(plainDataWithCrc), nonce, secretKeyK);
 
   #ifdef DEBUG_NUKI
   printBuffer((byte*)plainDataEncr, sizeof(plainDataEncr), false, "Plain data encrypted: ");
@@ -270,7 +270,7 @@ void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload,
   delay(1000); //wait for response via BLE char
 }
 
-int NukiBle::encode(unsigned char* input, unsigned char* output, unsigned int len, unsigned char* nonce) {
+int NukiBle::encode(unsigned char* input, unsigned char* output, unsigned int len, unsigned char* nonce, unsigned char* keyS) {
   //https://cpp.hotexamples.com/examples/-/-/crypto_box_curve25519xsalsa20poly1305_afternm/cpp-crypto_box_curve25519xsalsa20poly1305_afternm-function-examples.html
   if ((len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES - crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES) > 200)
   {
@@ -288,7 +288,7 @@ int NukiBle::encode(unsigned char* input, unsigned char* output, unsigned int le
                  tempbufferinput,
                  len + crypto_secretbox_xsalsa20poly1305_ZEROBYTES,
                  nonce,
-                 secretKeyK
+                 keyS
                );
 
   if (result)

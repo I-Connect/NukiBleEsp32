@@ -10,6 +10,8 @@
 #include "nukiConstants.h"
 #include "Arduino.h"
 
+void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
+
 class NukiBle : public BLEClientCallbacks {
   public:
     NukiBle(std::string& bleAddress, uint32_t deviceId, uint8_t* deviceName);
@@ -29,6 +31,7 @@ class NukiBle : public BLEClientCallbacks {
 
     bool executeLockAction(lockAction action);
     void sendEncryptedMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
+    static int encode(unsigned char* input, unsigned char* output, unsigned int len, unsigned char* nonce,  unsigned char* keyS);
 
   private:
     TaskHandle_t TaskHandleNukiBle;
@@ -55,7 +58,7 @@ class NukiBle : public BLEClientCallbacks {
 
     // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
-    int encode(unsigned char* input, unsigned char* output, unsigned int len, unsigned char* nonce);
+
     // uint8_t localPrivateKey[32];
     // uint8_t localPublicKey[32];
 };
