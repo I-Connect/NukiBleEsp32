@@ -40,6 +40,7 @@ class NukiBle : public BLEClientCallbacks {
     void pushNotificationToQueue();
 
     bool registerOnGdioChar();
+    bool registerOnUsdioChar();
     void sendPlainMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     // void sendEncryptedMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
@@ -56,6 +57,9 @@ class NukiBle : public BLEClientCallbacks {
     BLEClient* pClient;
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
+
+    BLERemoteService* pKeyturnerDataService = nullptr;
+    BLERemoteCharacteristic* pUsdioCharacteristic = nullptr;
 
     // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);

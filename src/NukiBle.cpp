@@ -205,6 +205,12 @@ bool NukiBle::connect() {
   log_d("####################### CONNECT DONE ###############################################");
   #endif
 
+  delay(1000);
+  if (!registerOnUsdioChar()) {
+    log_w("BLE register on data Service/Char failed");
+    return false;
+  }
+
   return true;
 }
 
@@ -242,21 +248,20 @@ void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload,
   unsigned char nonce[24] = {};
   uint8_t msgLen = 0;
   generateNonce(nonce, sizeof(nonce));
-  msgLen = sizeof(plainDataWithCrc);
-  log_d("msgLen: %d", msgLen);
 
   memcpy(&additionalData[0], nonce, sizeof(nonce));
   memcpy(&additionalData[24], authorizationId, sizeof(authorizationId));
-  memcpy(&additionalData[28], &msgLen, sizeof(msgLen));
-  #ifdef DEBUG_NUKI
-  printBuffer((byte*)additionalData, 30, false, "Additional data: ");
-  #endif
 
   //Encrypt plain data
   unsigned char plainDataEncr[26] = {0};
   encode(plainDataWithCrc, plainDataEncr, sizeof(plainDataWithCrc), nonce, secretKeyK);
 
+  msgLen = sizeof(plainDataEncr);
+  log_d("encrypted msgLen: %d", msgLen);
+  memcpy(&additionalData[28], &msgLen, sizeof(msgLen));
+
   #ifdef DEBUG_NUKI
+  printBuffer((byte*)additionalData, 30, false, "Additional data: ");
   printBuffer((byte*)plainDataEncr, sizeof(plainDataEncr), false, "Plain data encrypted: ");
   #endif
 
@@ -269,7 +274,7 @@ void NukiBle::sendEncryptedMessage(nukiCommand commandIdentifier, char* payload,
   printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
   #endif
 
-  pGdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
+  pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
   delay(1000); //wait for response via BLE char
 }
 
@@ -333,7 +338,24 @@ bool NukiBle::registerOnGdioChar() {
   return false;
 }
 
-
+bool NukiBle::registerOnUsdioChar() {
+  // Obtain a reference to the KeyTurner service
+  pKeyturnerDataService = pClient->getService(STRING(keyturnerServiceUUID));
+  //Obtain reference to NDIO char
+  pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(keyturnerDataUUID));
+  if (pUsdioCharacteristic->canIndicate()) {
+    pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
+    delay(100);
+    return true;
+  }
+  else {
+    #ifdef DEBUG_NUKI
+    log_d("USDIO characteristic canIndicate false, stop connecting");
+    #endif
+    return false;
+  }
+  return false;
+}
 
 bool NukiBle::executeLockAction(lockAction aLockAction) {
   #ifdef DEBUG_NUKI
