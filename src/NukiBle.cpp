@@ -342,7 +342,7 @@ bool NukiBle::registerOnUsdioChar() {
   // Obtain a reference to the KeyTurner service
   pKeyturnerDataService = pClient->getService(STRING(keyturnerServiceUUID));
   //Obtain reference to NDIO char
-  pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(keyturnerDataUUID));
+  pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(userDataUUID));
   if (pUsdioCharacteristic->canIndicate()) {
     pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
     delay(100);
