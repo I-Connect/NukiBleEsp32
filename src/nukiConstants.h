@@ -119,3 +119,8 @@ enum class lockAction {
   fobAction2      = 0x82,
   fobAction3      = 0x83
 };
+
+enum class commandStatus {
+  complete        = 0x00,
+  accepted        = 0x01
+};

@@ -33,10 +33,9 @@ void setup() {
   //end encryption test
 
   nukiBle.initialize();
-  nukiBle.connect();  //lock needs to be in pairing mode
 
-  uint16_t payload = (uint16_t)nukiCommand::keyturnerStates;
-  nukiBle.sendEncryptedMessage(nukiCommand::requestData, (char*)&payload, 2);
+  // uint16_t payload = (uint16_t)nukiCommand::keyturnerStates;
+  // nukiBle.sendEncryptedMessage(nukiCommand::requestData, (char*)&payload, 2);
 
 }
 
