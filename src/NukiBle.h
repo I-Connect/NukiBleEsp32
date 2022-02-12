@@ -75,14 +75,14 @@ class NukiBle : public BLEClientCallbacks {
     // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
 
-    enum class NukiState {
+    enum class NukiConnectionState {
       startUp             = 0,
       checkPaired         = 1,
       startPairing        = 2,
       pairing             = 3,
       connected           = 4
     };
-    NukiState nukiState = NukiState::startUp;
+    NukiConnectionState nukiConnectionState = NukiConnectionState::startUp;
 
     enum class NukiPairingState {
       initPairing       = 0,

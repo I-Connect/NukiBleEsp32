@@ -20,6 +20,7 @@
 uint8_t receivedStatus;
 uint8_t errorReceived;
 
+//TODO, these need to move to the class
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char authorizationId[4] = {0x00, 0x00, 0x0, 0x00};
@@ -27,6 +28,9 @@ unsigned char lockId[16];
 unsigned char secretKeyK[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char sharedKeyS[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
+
+//TODO, these need to move to the class
+KeyTurnerState keyTurnerState;
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   #ifdef DEBUG_NUKI
@@ -110,8 +114,8 @@ void NukiBle::addRequestToQueue(NukiRequest request) {
 }
 
 void NukiBle::runStateMachine() {
-  switch (nukiState) {
-    case NukiState::startUp : {
+  switch (nukiConnectionState) {
+    case NukiConnectionState::startUp : {
       #ifdef DEBUG_NUKI
       log_d("************************ START UP ************************");
       log_d("Connecting with: %s ", bleAddress.c_str());
@@ -130,7 +134,7 @@ void NukiBle::runStateMachine() {
           log_w("BLE register on data Service/Char failed");
         }
 
-        nukiState = NukiState::checkPaired;
+        nukiConnectionState = NukiConnectionState::checkPaired;
       } else {
         log_w("BLE Connect failed");
         delay(1000);
@@ -138,12 +142,12 @@ void NukiBle::runStateMachine() {
 
       break;
     }
-    case NukiState::checkPaired : {
+    case NukiConnectionState::checkPaired : {
       #ifdef DEBUG_NUKI
       log_d("************************ CHECK PAIRED ************************");
       #endif
       if ( retreiveCredentials() ) {
-        nukiState = NukiState::connected;
+        nukiConnectionState = NukiConnectionState::connected;
         #ifdef DEBUG_NUKI
         log_d("Credentials retreived from preferences, ready for commands");
         #endif
@@ -151,7 +155,7 @@ void NukiBle::runStateMachine() {
         #ifdef DEBUG_NUKI
         log_d("Credentials NOT retreived from preferences, start pairing");
         #endif
-        nukiState = NukiState::startPairing;
+        nukiConnectionState = NukiConnectionState::startPairing;
         timeNow = millis();
         #ifdef DEBUG_NUKI
         log_d("************************ START PAIRING ************************");
@@ -159,32 +163,32 @@ void NukiBle::runStateMachine() {
       }
       break;
     }
-    case NukiState::startPairing : {
+    case NukiConnectionState::startPairing : {
       log_i("Set lock in pairing mode");
       if (millis() - timeNow > GENERAL_TIMEOUT) {
         timeNow = millis();
-        nukiState = NukiState::pairing;
+        nukiConnectionState = NukiConnectionState::pairing;
         #ifdef DEBUG_NUKI
         log_d("************************ PAIRING ************************");
         #endif
       }
       break;
     }
-    case NukiState::pairing : {
+    case NukiConnectionState::pairing : {
       uint8_t connectState = pairStateMachine();
       // log_d("connectstate: %d", connectState);
       if (connectState == 1) {
         saveCredentials();
-        nukiState = NukiState::connected;
+        nukiConnectionState = NukiConnectionState::connected;
       } else if (connectState == 0) {
         #ifdef DEBUG_NUKI
         log_d("Connect FAILED at connect state: %d ", nukiPairingState);
         #endif
-        nukiState = NukiState::startUp;
+        nukiConnectionState = NukiConnectionState::startUp;
       }
       break;
     }
-    case NukiState::connected : {
+    case NukiConnectionState::connected : {
       NukiRequest request;
       if (xQueueReceive(nukiBleRequestQueue, &request, 0)) {
         sendEncryptedMessage(NukiCommand::requestData, request.payload, request.payloadLen );
@@ -524,7 +528,9 @@ int NukiBle::encode(unsigned char* output, unsigned char* input, unsigned long l
 }
 
 int NukiBle::decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
+
   int result = crypto_secretbox_open_easy(output, input, len, nonce, keyS);
+
   log_d("result: %d", result);
   if (result) {
     log_w("Decryption failed (length %i, given result %i)\n", len, result);
@@ -646,7 +652,10 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     uint16_t encrMsgLen = 0;
     memcpy(&encrMsgLen, recMsgLen, 2);
     unsigned char encrData[encrMsgLen];
-    memcpy(encrData, &recData[30], encrMsgLen);
+    memcpy(&encrData, &recData[30], encrMsgLen);
+
+    unsigned char decrData[encrMsgLen - crypto_secretbox_MACBYTES];
+    decode(decrData, encrData, encrMsgLen, recNonce, secretKeyK);
 
     #ifdef DEBUG_NUKI
     log_d("Received encrypted msg...");
@@ -654,17 +663,15 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     printBuffer(recAuthorizationId, sizeof(recAuthorizationId), false, "Received AuthorizationId");
     log_d("len encr msg: %d", encrMsgLen);
     printBuffer(encrData, sizeof(encrData), false, "Rec encrypted data");
+    printBuffer(decrData, sizeof(decrData), false, "Decrypted data");
     #endif
 
-    unsigned char decrData[encrMsgLen - crypto_secretbox_MACBYTES];
-    decode(encrData, decrData, encrMsgLen, recNonce, sharedKeyS);
-
-    printBuffer(decrData, sizeof(decrData), false, "Decrypted data");
-
-    uint16_t returnCode = ((uint16_t)decrData[1] << 8) | decrData[0];
-
     if (crcValid(decrData, sizeof(decrData))) {
-      handleReturnMessage(returnCode, decrData, length - 4);
+      uint16_t returnCode = 0;
+      memcpy(&returnCode, &decrData[4], 2);
+      unsigned char payload[sizeof(decrData) - 8];
+      memcpy(&payload, &decrData[6], sizeof(payload));
+      handleReturnMessage(returnCode, payload, sizeof(payload));
     }
   }
 }
@@ -847,6 +854,24 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, unsigned char* data, uint
       break;
     case (uint16_t)NukiCommand::keyturnerStates :
       printBuffer((byte*)data, dataLen, false, "keyturnerStates");
+      memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
+      log_d("nukiState: %02x", keyTurnerState.nukiState);
+      log_d("lockState: %d", keyTurnerState.lockState);
+      log_d("trigger: %d", keyTurnerState.trigger);
+      log_d("currentTimeYear: %d", keyTurnerState.currentTimeYear);
+      log_d("currentTimeMonth: %d", keyTurnerState.currentTimeMonth);
+      log_d("currentTimeDay: %d", keyTurnerState.currentTimeDay);
+      log_d("currentTimeHour: %d", keyTurnerState.currentTimeHour);
+      log_d("currentTimeMinute: %d", keyTurnerState.currentTimeMinute);
+      log_d("currentTimeSecond: %d", keyTurnerState.currentTimeSecond);
+      log_d("timeZoneOffset: %d", keyTurnerState.timeZoneOffset);
+      log_d("criticalBatteryState: %d", keyTurnerState.criticalBatteryState);
+      log_d("configUpdateCount: %d", keyTurnerState.configUpdateCount);
+      log_d("lockNgoTimer: %d", keyTurnerState.lockNgoTimer);
+      log_d("lastLockAction: %d", keyTurnerState.lastLockAction);
+      log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
+      log_d("lastLockActionCompletionStatus: %d", keyTurnerState.lastLockActionCompletionStatus);
+      log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
       break;
     case (uint16_t)NukiCommand::lockAction :
       printBuffer((byte*)data, dataLen, false, "LockAction");
@@ -980,7 +1005,7 @@ void NukiBle::handleReturnMessage(uint16_t returnCode, unsigned char* data, uint
       printBuffer((byte*)data, dataLen, false, "simpleLockAction");
       break;
     default:
-      log_e("UNKNOWN RETURN COMMAND");
+      log_e("UNKNOWN RETURN COMMAND: %02x", returnCode);
   }
 }
 
