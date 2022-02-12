@@ -37,6 +37,7 @@ void setup() {
   // uint16_t payload = (uint16_t)nukiCommand::keyturnerStates;
   // nukiBle.sendEncryptedMessage(nukiCommand::requestData, (char*)&payload, 2);
 
+  nukiBle.updateKeyTurnerState();
 }
 
 void loop() {

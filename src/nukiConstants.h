@@ -14,7 +14,7 @@
 #define STRINGIFY_(x) #x
 #define STRING(VAR) STRINGIFY_(VAR)
 
-enum class nukiCommand {
+enum class NukiCommand {
   requestData	                  = 0x0001,
   publicKey	                    = 0x0003,
   challenge	                    = 0x0004,
@@ -69,7 +69,7 @@ enum class nukiCommand {
   simpleLockAction	            = 0x0100
 };
 
-enum class nukiErrorCode {
+enum class NukiErrorCode {
   ERROR_BAD_CRC	                    = 0xFD,
   ERROR_BAD_LENGTH	                = 0xFE,
   ERROR_UNKNOWN	                    = 0xFF,
@@ -108,7 +108,7 @@ enum class nukiErrorCode {
   K_ERROR_FIRMWARE_UPDATE_NEEDED	= 0x4D
 };
 
-enum class lockAction {
+enum class LockAction {
   unlock          = 0x01,
   lock            = 0x02,
   unlatch         = 0x03,
@@ -120,7 +120,22 @@ enum class lockAction {
   fobAction3      = 0x83
 };
 
-enum class commandStatus {
+enum class CommandStatus {
   complete        = 0x00,
   accepted        = 0x01
+};
+
+enum class LockState {
+  uncalibrated    = 0x00,
+  locked          = 0x01,
+  unlocking       = 0x02,
+  unlocked        = 0x03,
+  locking         = 0x04,
+  unlatched       = 0x05,
+  unlockedLng     = 0x06,
+  unlatching      = 0x07,
+  calibration     = 0xFC,
+  bootRun         = 0xFD,
+  motorBlocked    = 0xFE,
+  undefined       = 0xFF
 };

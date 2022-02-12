@@ -41,6 +41,7 @@
         "utility": "cpp",
         "typeinfo": "cpp",
         "*.old": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "list": "cpp"
     }
 }
