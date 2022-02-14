@@ -28,6 +28,9 @@ void setup() {
   nukiBle.initialize();
 
   nukiBle.updateKeyTurnerState();
+
+  delay(5000);
+  nukiBle.lockAction(LockAction::lock, 0, 0);
 }
 
 void loop() {

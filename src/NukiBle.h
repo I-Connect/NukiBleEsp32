@@ -12,6 +12,7 @@
 #include <Preferences.h>
 
 #define GENERAL_TIMEOUT 10000
+#define CMD_TIMEOUT 3000
 #define PAIRING_TIMEOUT 30000
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
@@ -28,11 +29,11 @@ class NukiBle : public BLEClientCallbacks {
     void onDisconnect(BLEClient*) override;
 
     void updateKeyTurnerState();
+    void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
     virtual void initialize();
     void runStateMachine();
 
-    bool executeLockAction(LockAction action);
     void sendEncryptedMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce,  unsigned char* keyS);
     static int decode(unsigned char* output, unsigned char* input,  unsigned long long len, unsigned char* nonce, unsigned char* keyS);
@@ -42,6 +43,8 @@ class NukiBle : public BLEClientCallbacks {
     BaseType_t xHigherPriorityTaskWoken;
     void startNukiBleXtask();
 
+    bool connectBle();
+    bool bleConnected = false;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
     void sendPlainMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
@@ -49,7 +52,7 @@ class NukiBle : public BLEClientCallbacks {
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     static void my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param);
     static void logErrorCode(uint8_t errorCode);
-    static void handleReturnMessage(uint16_t returnCode, unsigned char* data, uint16_t dataLen);
+    static void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
     void saveCredentials();
     bool retreiveCredentials();
     void deleteCredentials();
@@ -80,7 +83,7 @@ class NukiBle : public BLEClientCallbacks {
       checkPaired         = 1,
       startPairing        = 2,
       pairing             = 3,
-      connected           = 4
+      paired              = 4
     };
     NukiConnectionState nukiConnectionState = NukiConnectionState::startUp;
 
@@ -97,21 +100,34 @@ class NukiBle : public BLEClientCallbacks {
       recStatus         = 9
     };
 
-    enum class NukiCommandType {
-      requestData = 0,
-      executeAction = 1
+    enum class NukiCommandState {
+      idle                  = 0,
+      cmdReceived           = 1,
+      challengeSent         = 2,
+      challengeRespReceived = 3,
+      cmdSent               = 4,
+      cmdAccepted           = 5,
+      timeOut               = 6
     };
 
-    struct NukiRequest
-    {
+    enum class NukiCommandType {
+      request = 0,
+      execute = 1
+    };
+
+    struct NukiAction {
+      NukiCommandType cmdType;
       NukiCommand command;
       char payload[100];
       uint8_t payloadLen;
     };
 
-    void addRequestToQueue(NukiRequest request);
+    void addActionToQueue(NukiAction action);
+    bool requestDataStateMachine(NukiAction action);
+    bool executeCmdStateMachine(NukiAction action);
 
     NukiPairingState nukiPairingState = NukiPairingState::initPairing;
+    NukiCommandState nukiCommandState = NukiCommandState::idle;
 
     uint32_t timeNow = 0;
 

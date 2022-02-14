@@ -16,7 +16,8 @@
 #define STRINGIFY_(x) #x
 #define STRING(VAR) STRINGIFY_(VAR)
 
-enum class NukiCommand {
+enum class NukiCommand : uint16_t {
+  empty                         = 0x0000,
   requestData	                  = 0x0001,
   publicKey	                    = 0x0003,
   challenge	                    = 0x0004,
@@ -71,7 +72,7 @@ enum class NukiCommand {
   simpleLockAction	            = 0x0100
 };
 
-enum class NukiErrorCode {
+enum class NukiErrorCode : uint8_t {
   ERROR_BAD_CRC	                    = 0xFD,
   ERROR_BAD_LENGTH	                = 0xFE,
   ERROR_UNKNOWN	                    = 0xFF,
@@ -110,7 +111,7 @@ enum class NukiErrorCode {
   K_ERROR_FIRMWARE_UPDATE_NEEDED	  = 0x4D
 };
 
-enum class CommandStatus {
+enum class CommandStatus : uint8_t {
   complete        = 0x00,
   accepted        = 0x01
 };
