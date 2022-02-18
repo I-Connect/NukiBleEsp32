@@ -186,7 +186,23 @@ enum class CompletionStatus : uint8_t {
   unknown           = 0xFF
 };
 
-struct KeyTurnerState {
+enum class ButtonPressAction : uint8_t {
+  noAction          = 0x00,
+  intelligent       = 0x01,
+  unlock            = 0x02,
+  lock              = 0x03,
+  unlatch           = 0x04,
+  lockNgo           = 0x05,
+  showStatus        = 0x06
+};
+
+enum class BatteryType : uint8_t {
+  alkali            = 0x00,
+  accumulators      = 0x01,
+  lithium           = 0x02
+};
+
+struct __attribute__((packed)) KeyTurnerState {
   NukiState nukiState;
   LockState lockState;
   NukiTrigger trigger;
@@ -204,4 +220,58 @@ struct KeyTurnerState {
   NukiTrigger lastLockActionTrigger;
   CompletionStatus lastLockActionCompletionStatus;
   DoorSensorState doorSensorState;
+};
+
+struct __attribute__((packed)) Config {
+  uint32_t nukiId;
+  unsigned char name[32];
+  float latitide;
+  float longitude;
+  uint8_t autoUnlatch;
+  uint8_t pairingEnabled;
+  uint8_t buttonEnabled;
+  uint8_t ledEnabled;
+  uint8_t ledBrightness;
+  uint16_t currentTimeYear;
+  uint8_t currentTimeMonth;
+  uint8_t currentTimeDay;
+  uint8_t currentTimeHour;
+  uint8_t currentTimeMinute;
+  uint8_t currentTimeSecond;
+  int16_t timeZOneOffset;
+  uint8_t dstMode;
+  uint8_t  hasFob;
+  uint8_t  fobAction1;
+  uint8_t  fobAction2;
+  uint8_t  fobAction3;
+  uint8_t  singleLock;
+  uint8_t advertisingMode;
+  uint8_t hasKeypad;
+  unsigned char firmwareVersion[3];
+  unsigned char hardwareRevision[2];
+  uint8_t homeKitStatus;
+  uint16_t timeZoneId;
+};
+
+struct __attribute__((packed)) AdvancedConfig {
+  uint16_t totalDegrees;
+  int16_t unlockedPositionOffsetDegrees;
+  int16_t lockedPositionOffsetDegrees;
+  int16_t singleLockedPositionOffsetDegrees;
+  int16_t unlockedToLockedTransitionOffsetDegrees;
+  uint8_t lockNgoTimeout;
+  ButtonPressAction singleButtonPressAction;
+  ButtonPressAction doubleButtonPressAction;
+  uint8_t detachedCylinder;
+  BatteryType batteryType;
+  uint8_t automaticBatteryTypeDetection;
+  uint8_t unlatchDuration;
+  uint16_t autoLockTimeOut;
+  uint8_t autoLockDisabled;
+  uint8_t nightModeEnabled;
+  unsigned char nightModeStartTime[2];
+  unsigned char nightModeEndTime[2];
+  uint8_t nightModeAutoLockEnabled;
+  uint8_t nightModeAutoUnlockDisabled;
+  uint8_t  nightModeImmediateLockOnStart;
 };

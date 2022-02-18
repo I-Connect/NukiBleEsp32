@@ -30,6 +30,7 @@ class NukiBle : public BLEClientCallbacks {
 
     void updateKeyTurnerState();
     void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
+    void requestConfig(bool advanced);
 
     virtual void initialize();
     void runStateMachine();
@@ -111,8 +112,10 @@ class NukiBle : public BLEClientCallbacks {
     };
 
     enum class NukiCommandType {
-      request = 0,
-      execute = 1
+      command                       = 0,
+      commandWithChallenge          = 1,
+      commandWithChallengeAndAccept = 2,
+      commandWithChallengeAndPin    = 3
     };
 
     struct NukiAction {
@@ -123,8 +126,10 @@ class NukiBle : public BLEClientCallbacks {
     };
 
     void addActionToQueue(NukiAction action);
-    bool requestDataStateMachine(NukiAction action);
-    bool executeCmdStateMachine(NukiAction action);
+    bool cmdStateMachine(NukiAction action);
+    bool cmdChallStateMachine(NukiAction action);
+    bool cmdChallAccStateMachine(NukiAction action);
+    bool cmdChallPinStateMachine(NukiAction action);
 
     NukiPairingState nukiPairingState = NukiPairingState::initPairing;
     NukiCommandState nukiCommandState = NukiCommandState::idle;
