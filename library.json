@@ -1,31 +1,35 @@
 {
-    "name": "nuki_ble",
-    "description": "Control Nuki smartlock via BLE from esp32",
-    "keywords": "nuki ble esp32",
-    "authors": [
-        {
-            "name": "Jeroen van de Vorst",
-            "maintainer": true
-        },
-        {
-            "name": "Bas Schouten"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/I-Connect/nuki_ble.git"
+  "name": "nuki_ble",
+  "description": "Control Nuki smartlock via BLE from esp32",
+  "keywords": "nuki ble esp32",
+  "authors": [
+    {
+      "name": "Jeroen van de Vorst",
+      "maintainer": true
     },
-    "frameworks": "Arduino",
-    "platforms": [
-        "espressif32"
-    ],
-    "build": {
-        "flags": "-Wno-unused-function"
+    {
+      "name": "Bas Schouten"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/I-Connect/nuki_ble.git"
+  },
+  "frameworks": "Arduino",
+  "platforms": [
+    "espressif32"
+  ],
+  "build": {
+    "flags": "-Wno-unused-function"
+  },
+  "dependencies": [
+    {
+      "name": "NimBLE-Arduino",
+      "version": "https://github.com/h2zero/NimBLE-Arduino.git"
     },
-    "dependencies": [
-        {
-            "name": "NimBLE-Arduino",
-            "version": "https://github.com/h2zero/NimBLE-Arduino.git"
-        }
-    ]
+    {
+      "name": "CRC16",
+      "version": "https://github.com/vinmenn/Crc16.git"
+    }
+  ]
 }

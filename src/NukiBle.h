@@ -26,7 +26,7 @@ class NukiSmartlockEventHandler {
 
 class NukiBle : public BLEClientCallbacks {
   public:
-    NukiBle(std::string& bleAddress, uint32_t deviceId, std::string& deviceName);
+    NukiBle(const std::string& bleAddress, const uint32_t deviceId, const std::string& deviceName);
     virtual ~NukiBle();
 
     void setEventHandler(NukiSmartlockEventHandler* handler);
