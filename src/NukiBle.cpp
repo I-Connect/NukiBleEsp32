@@ -81,8 +81,10 @@ void nukiBleTask(void* pvParameters) {
   }
 }
 
-NukiBle::NukiBle(std::string& bleAddress, uint32_t deviceId, uint8_t* aDeviceName): bleAddress(bleAddress), deviceId(deviceId) {
-  memcpy(deviceName, aDeviceName, sizeof(aDeviceName));
+NukiBle::NukiBle(std::string& bleAddress, uint32_t deviceId, std::string& aDeviceName)
+  : bleAddress(bleAddress),
+    deviceId(deviceId),
+    deviceName(aDeviceName) {
 }
 
 NukiBle::~NukiBle() {}
@@ -93,7 +95,7 @@ void NukiBle::initialize() {
   //for test
   // deleteCredentials();
 
-  BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
+  // BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
   BLEDevice::init("ESP32_test");
   startNukiBleXtask();
 }
@@ -715,7 +717,7 @@ uint8_t NukiBle::pairStateMachine() {
         authorizationDataId[1] = (deviceId >> (8 * 1)) & 0xff;
         authorizationDataId[2] = (deviceId >> (8 * 2)) & 0xff;
         authorizationDataId[3] = (deviceId >> (8 * 3)) & 0xff;
-        memcpy(authorizationDataName, deviceName, sizeof(deviceName));
+        memcpy(authorizationDataName, deviceName.c_str(), deviceName.size());
         generateNonce(authorizationDataNonce, sizeof(authorizationDataNonce));
 
         //calculate authenticator of message to send
@@ -1407,12 +1409,12 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
   }
 }
 
-void NukiBle::my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param) {
-  // ESP_LOGW(LOG_TAG, "custom gattc event handler, event: %d", (uint8_t)event);
-  if (event == ESP_GATTC_DISCONNECT_EVT) {
-    log_w("Disconnect reason: %d", (int)param->disconnect.reason);
-  }
-}
+// void NukiBle::my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param) {
+//   // ESP_LOGW(LOG_TAG, "custom gattc event handler, event: %d", (uint8_t)event);
+//   if (event == ESP_GATTC_DISCONNECT_EVT) {
+//     log_w("Disconnect reason: %d", (int)param->disconnect.reason);
+//   }
+// }
 
 void NukiBle::onConnect(BLEClient*) {
   #ifdef DEBUG_NUKI
