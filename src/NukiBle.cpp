@@ -6,7 +6,7 @@
  */
 
 #include "NukiBle.h"
-#include "Crc16.h"
+#include "NukiUtills.h"
 #include "string.h"
 #include "sodium/crypto_scalarmult.h"
 #include "sodium/crypto_core_hsalsa20.h"
@@ -37,41 +37,6 @@ AdvancedConfig advancedConfig;
 OpeningsClosingsSummary openingsClosingsSummary;
 BatteryReport batteryReport;
 NukiCommand lastMsgCodeReceived = NukiCommand::empty;
-
-void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
-  #ifdef DEBUG_NUKI_HEX_DATA
-  delay(10); //delay otherwise first part of print will not be shown
-  char tmp[16];
-
-  if (strlen(header) > 0) {
-    Serial.print(header);
-    Serial.print(": ");
-  }
-  for (int i = 0; i < size; i++) {
-    if (asChars) {
-      Serial.print((char)buff[i]);
-    } else {
-      sprintf(tmp, "%02x", buff[i]);
-      Serial.print(tmp);
-      Serial.print(" ");
-    }
-  }
-  Serial.println();
-  #endif
-}
-
-bool checkCharArrayEmpty(unsigned char* array, uint16_t len) {
-  uint16_t zeroCount = 0;
-  for (size_t i = 0; i < len; i++) {
-    if (array[i] == 0) {
-      zeroCount++;
-    }
-  }
-  if (zeroCount == len) {
-    return false;
-  }
-  return true;
-}
 
 //task to retrieve messages from BLE when a notification occurrs
 void nukiBleTask(void* pvParameters) {
@@ -909,27 +874,6 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, char* payload,
 
 }
 
-int NukiBle::encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
-  int result = crypto_secretbox_easy(output, input, len, nonce, keyS);
-
-  if (result) {
-    log_d("Encryption failed (length %i, given result %i)\n", len, result);
-    return -1;
-  }
-  return len;
-}
-
-int NukiBle::decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
-
-  int result = crypto_secretbox_open_easy(output, input, len, nonce, keyS);
-
-  if (result) {
-    log_w("Decryption failed (length %i, given result %i)\n", len, result);
-    return -1;
-  }
-  return len;
-}
-
 void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
   /*
   #                PLAIN DATA                   #
@@ -1057,144 +1001,6 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
       memcpy(&payload, &decrData[6], sizeof(payload));
       handleReturnMessage((NukiCommand)returnCode, payload, sizeof(payload));
     }
-  }
-}
-
-bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
-  uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
-  Crc16 crcObj;
-  uint16_t dataCrc;
-  crcObj.clearCrc();
-  dataCrc = crcObj.fastCrc(pData, 0, length - 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
-  // log_d("Received CRC: %d, calculated CRC: %d", receivedCrc, dataCrc);
-  // log_d("Return code: %d", returnCode);
-
-  if (!(receivedCrc == dataCrc)) {
-    log_e("CRC CHECK FAILED!");
-    crcCheckOke = false;
-    return false;
-  }
-  #ifdef DEBUG_NUKI_COMMUNICATION
-  log_d("CRC CHECK OKE");
-  #endif
-  crcCheckOke = true;
-  return true;
-}
-
-void NukiBle::logErrorCode(uint8_t errorCode) {
-  errorReceived = errorCode;
-
-  switch (errorCode) {
-    case (uint8_t)NukiErrorCode::ERROR_BAD_CRC :
-      log_e("ERROR_BAD_CRC");
-      break;
-    case (uint8_t)NukiErrorCode::ERROR_BAD_LENGTH :
-      log_e("ERROR_BAD_LENGTH");
-      break;
-    case (uint8_t)NukiErrorCode::ERROR_UNKNOWN :
-      log_e("ERROR_UNKNOWN");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_NOT_PAIRING :
-      log_e("P_ERROR_NOT_PAIRING");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_BAD_AUTHENTICATOR :
-      log_e("P_ERROR_BAD_AUTHENTICATOR");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_BAD_PARAMETER :
-      log_e("P_ERROR_BAD_PARAMETER");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_MAX_USER :
-      log_e("P_ERROR_MAX_USER");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
-      log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_NONCE :
-      log_e("K_ERROR_BAD_NONCE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PARAMETER :
-      log_e("K_ERROR_BAD_PARAMETER");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PIN :
-      log_e("K_ERROR_BAD_PIN");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BUSY :
-      log_e("K_ERROR_BUSY");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CANCELED :
-      log_e("K_ERROR_CANCELED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_FAILURE :
-      log_e("K_ERROR_CLUTCH_FAILURE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
-      log_e("K_ERROR_CLUTCH_POWER_FAILURE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
-      log_e("K_ERROR_CODE_ALREADY_EXISTS");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID :
-      log_e("K_ERROR_CODE_INVALID");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_DISABLED :
-      log_e("K_ERROR_DISABLED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
-      log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_INVALID_AUTH_ID :
-      log_e("K_ERROR_INVALID_AUTH_ID");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_BLOCKED :
-      log_e("K_ERROR_MOTOR_BLOCKED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
-      log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
-      log_e("K_ERROR_MOTOR_POSITION_LIMIT");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
-      log_e("K_ERROR_MOTOR_POWER_FAILURE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_TIMEOUT :
-      log_e("K_ERROR_MOTOR_TIMEOUT");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_NOT_AUTHORIZED :
-      log_e("K_ERROR_NOT_AUTHORIZED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_NOT_CALIBRATED :
-      log_e("K_ERROR_NOT_CALIBRATED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_POSITION_UNKNOWN :
-      log_e("K_ERROR_POSITION_UNKNOWN");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
-      log_e("K_ERROR_REMOTE_NOT_ALLOWED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TIME_NOT_ALLOWED :
-      log_e("K_ERROR_TIME_NOT_ALLOWED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_ENTRIES :
-      log_e("K_ERROR_TOO_MANY_ENTRIES");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
-      log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
-      log_e("K_ERROR_VOLTAGE_TOO_LOW");
-      break;
-    default:
-      log_e("UNDEFINED ERROR");
   }
 }
 
@@ -1472,13 +1278,6 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
   }
 }
 
-// void NukiBle::my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param) {
-//   // ESP_LOGW(LOG_TAG, "custom gattc event handler, event: %d", (uint8_t)event);
-//   if (event == ESP_GATTC_DISCONNECT_EVT) {
-//     log_w("Disconnect reason: %d", (int)param->disconnect.reason);
-//   }
-// }
-
 void NukiBle::onConnect(BLEClient*) {
   #ifdef DEBUG_NUKI
   log_d("BLE connected");
@@ -1492,11 +1291,138 @@ void NukiBle::onDisconnect(BLEClient*) {
   #endif
 };
 
-void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
+bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
+  uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
+  Crc16 crcObj;
+  uint16_t dataCrc;
+  crcObj.clearCrc();
+  dataCrc = crcObj.fastCrc(pData, 0, length - 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
 
-  for (int i = 0 ; i < nrOfBytes ; i++) {
-    randomSeed(millis());
-    hexArray[i] = random(0, 65500);
+  if (!(receivedCrc == dataCrc)) {
+    log_e("CRC CHECK FAILED!");
+    crcCheckOke = false;
+    return false;
   }
-  printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
+  #ifdef DEBUG_NUKI_COMMUNICATION
+  log_d("CRC CHECK OKE");
+  #endif
+  crcCheckOke = true;
+  return true;
+}
+
+void NukiBle::logErrorCode(uint8_t errorCode) {
+  errorReceived = errorCode;
+
+  switch (errorCode) {
+    case (uint8_t)NukiErrorCode::ERROR_BAD_CRC :
+      log_e("ERROR_BAD_CRC");
+      break;
+    case (uint8_t)NukiErrorCode::ERROR_BAD_LENGTH :
+      log_e("ERROR_BAD_LENGTH");
+      break;
+    case (uint8_t)NukiErrorCode::ERROR_UNKNOWN :
+      log_e("ERROR_UNKNOWN");
+      break;
+    case (uint8_t)NukiErrorCode::P_ERROR_NOT_PAIRING :
+      log_e("P_ERROR_NOT_PAIRING");
+      break;
+    case (uint8_t)NukiErrorCode::P_ERROR_BAD_AUTHENTICATOR :
+      log_e("P_ERROR_BAD_AUTHENTICATOR");
+      break;
+    case (uint8_t)NukiErrorCode::P_ERROR_BAD_PARAMETER :
+      log_e("P_ERROR_BAD_PARAMETER");
+      break;
+    case (uint8_t)NukiErrorCode::P_ERROR_MAX_USER :
+      log_e("P_ERROR_MAX_USER");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
+      log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_BAD_NONCE :
+      log_e("K_ERROR_BAD_NONCE");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PARAMETER :
+      log_e("K_ERROR_BAD_PARAMETER");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PIN :
+      log_e("K_ERROR_BAD_PIN");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_BUSY :
+      log_e("K_ERROR_BUSY");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CANCELED :
+      log_e("K_ERROR_CANCELED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_FAILURE :
+      log_e("K_ERROR_CLUTCH_FAILURE");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
+      log_e("K_ERROR_CLUTCH_POWER_FAILURE");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
+      log_e("K_ERROR_CODE_ALREADY_EXISTS");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID :
+      log_e("K_ERROR_CODE_INVALID");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
+      log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
+      log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
+      log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_DISABLED :
+      log_e("K_ERROR_DISABLED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
+      log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_INVALID_AUTH_ID :
+      log_e("K_ERROR_INVALID_AUTH_ID");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_BLOCKED :
+      log_e("K_ERROR_MOTOR_BLOCKED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
+      log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
+      log_e("K_ERROR_MOTOR_POSITION_LIMIT");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
+      log_e("K_ERROR_MOTOR_POWER_FAILURE");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_TIMEOUT :
+      log_e("K_ERROR_MOTOR_TIMEOUT");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_NOT_AUTHORIZED :
+      log_e("K_ERROR_NOT_AUTHORIZED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_NOT_CALIBRATED :
+      log_e("K_ERROR_NOT_CALIBRATED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_POSITION_UNKNOWN :
+      log_e("K_ERROR_POSITION_UNKNOWN");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
+      log_e("K_ERROR_REMOTE_NOT_ALLOWED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_TIME_NOT_ALLOWED :
+      log_e("K_ERROR_TIME_NOT_ALLOWED");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_ENTRIES :
+      log_e("K_ERROR_TOO_MANY_ENTRIES");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
+      log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
+      break;
+    case (uint8_t)NukiErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
+      log_e("K_ERROR_VOLTAGE_TOO_LOW");
+      break;
+    default:
+      log_e("UNDEFINED ERROR");
+  }
 }

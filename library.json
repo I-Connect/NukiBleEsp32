@@ -2,8 +2,7 @@
     "name": "nuki_ble",
     "description": "Control Nuki smartlock via BLE from esp32",
     "keywords": "nuki ble esp32",
-    "authors":
-    [
+    "authors": [
         {
             "name": "Jeroen van de Vorst",
             "maintainer": true
@@ -24,6 +23,9 @@
         "flags": "-Wno-unused-function"
     },
     "dependencies": [
-     
-  ]
+        {
+            "name": "NimBLE-Arduino",
+            "version": "https://github.com/h2zero/NimBLE-Arduino.git"
+        }
+    ]
 }

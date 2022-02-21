@@ -23,11 +23,6 @@ class NukiBle : public BLEClientCallbacks {
     NukiBle(std::string& bleAddress, uint32_t deviceId, std::string& deviceName);
     virtual ~NukiBle();
 
-    QueueHandle_t  nukiBleRequestQueue;
-
-    void onConnect(BLEClient*) override;
-    void onDisconnect(BLEClient*) override;
-
     void updateKeyTurnerState();
     void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
     void requestConfig(bool advanced);
@@ -38,23 +33,25 @@ class NukiBle : public BLEClientCallbacks {
     virtual void initialize();
     void runStateMachine();
 
+  private:
+    TaskHandle_t TaskHandleNukiBle;
+    BaseType_t xHigherPriorityTaskWoken;
+    QueueHandle_t  nukiBleRequestQueue;
+    void startNukiBleXtask();
+
+    bool connectBle();
+    void onConnect(BLEClient*) override;
+    void onDisconnect(BLEClient*) override;
+    bool bleConnected = false;
+    bool registerOnGdioChar();
+    bool registerOnUsdioChar();
+
+    void sendPlainMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     void sendEncryptedMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce,  unsigned char* keyS);
     static int decode(unsigned char* output, unsigned char* input,  unsigned long long len, unsigned char* nonce, unsigned char* keyS);
 
-  private:
-    TaskHandle_t TaskHandleNukiBle;
-    BaseType_t xHigherPriorityTaskWoken;
-    void startNukiBleXtask();
-
-    bool connectBle();
-    bool bleConnected = false;
-    bool registerOnGdioChar();
-    bool registerOnUsdioChar();
-    void sendPlainMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
-    // void sendEncryptedMessage(nukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
-    // static void my_gattc_event_handler(esp_gattc_cb_event_t event, esp_gatt_if_t gattc_if, esp_ble_gattc_cb_param_t* param);
     static void logErrorCode(uint8_t errorCode);
     static void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
     void saveCredentials();
@@ -64,8 +61,8 @@ class NukiBle : public BLEClientCallbacks {
     static bool crcValid(uint8_t* pData, uint16_t length);
 
     //TODO generate public and private keys?
-    unsigned char myPrivateKey[32] = {0x8C, 0xAA, 0x54, 0x67, 0x23, 0x07, 0xBF, 0xFD, 0xF5, 0xEA, 0x18, 0x3F, 0xC6, 0x07, 0x15, 0x8D, 0x20, 0x11, 0xD0, 0x08, 0xEC, 0xA6, 0xA1, 0x08, 0x86, 0x14, 0xFF, 0x08, 0x53, 0xA5, 0xAA, 0x07};
-    unsigned char myPublicKey[32] = {0xF8, 0x81, 0x27, 0xCC, 0xF4, 0x80, 0x23, 0xB5, 0xCB, 0xE9, 0x10, 0x1D, 0x24, 0xBA, 0xA8, 0xA3, 0x68, 0xDA, 0x94, 0xE8, 0xC2, 0xE3, 0xCD, 0xE2, 0xDE, 0xD2, 0x9C, 0xE9, 0x6A, 0xB5, 0x0C, 0x15};
+    const unsigned char myPrivateKey[32] = {0x8C, 0xAA, 0x54, 0x67, 0x23, 0x07, 0xBF, 0xFD, 0xF5, 0xEA, 0x18, 0x3F, 0xC6, 0x07, 0x15, 0x8D, 0x20, 0x11, 0xD0, 0x08, 0xEC, 0xA6, 0xA1, 0x08, 0x86, 0x14, 0xFF, 0x08, 0x53, 0xA5, 0xAA, 0x07};
+    const unsigned char myPublicKey[32] = {0xF8, 0x81, 0x27, 0xCC, 0xF4, 0x80, 0x23, 0xB5, 0xCB, 0xE9, 0x10, 0x1D, 0x24, 0xBA, 0xA8, 0xA3, 0x68, 0xDA, 0x94, 0xE8, 0xC2, 0xE3, 0xCD, 0xE2, 0xDE, 0xD2, 0x9C, 0xE9, 0x6A, 0xB5, 0x0C, 0x15};
     unsigned char authenticator[32];
     Preferences preferences;
 
