@@ -18,10 +18,18 @@
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
 bool checkCharArrayEmpty(unsigned char* array, uint16_t len);
 
+class NukiSmartlockEventHandler {
+  public:
+    virtual ~NukiSmartlockEventHandler() {};
+    virtual void handleEvent() = 0;
+};
+
 class NukiBle : public BLEClientCallbacks {
   public:
     NukiBle(std::string& bleAddress, uint32_t deviceId, std::string& deviceName);
     virtual ~NukiBle();
+
+    void setEventHandler(NukiSmartlockEventHandler* handler);
 
     void updateKeyTurnerState();
     void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
@@ -136,4 +144,5 @@ class NukiBle : public BLEClientCallbacks {
 
     uint32_t timeNow = 0;
 
+    NukiSmartlockEventHandler* eventHandler;
 };

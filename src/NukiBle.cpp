@@ -1425,4 +1425,8 @@ void NukiBle::logErrorCode(uint8_t errorCode) {
     default:
       log_e("UNDEFINED ERROR");
   }
+
+  void NukiBle::setEventHandler(NukiSmartlockEventHandler * handler) {
+    eventHandler = handler;
+  }
 }
