@@ -31,6 +31,9 @@ class NukiBle : public BLEClientCallbacks {
     void updateKeyTurnerState();
     void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
     void requestConfig(bool advanced);
+    void requestBatteryReport();
+    void requestOpeningsClosingsSummary();
+    void requestAuthorizationEntryCount();
 
     virtual void initialize();
     void runStateMachine();
