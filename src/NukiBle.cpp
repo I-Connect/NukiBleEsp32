@@ -97,6 +97,10 @@ void NukiBle::initialize() {
 
   // BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
   BLEDevice::init("ESP32_test");
+
+  pClient  = BLEDevice::createClient();
+  pClient->setClientCallbacks(this);
+
   startNukiBleXtask();
 }
 
@@ -143,9 +147,6 @@ void NukiBle::runStateMachine() {
       log_d("Connecting with: %s ", bleAddress.c_str());
       #endif
       nukiPairingState = NukiPairingState::initPairing;
-
-      pClient  = BLEDevice::createClient();
-      pClient->setClientCallbacks(this);
 
       if (connectBle()) {
         nukiConnectionState = NukiConnectionState::checkPaired;
@@ -547,14 +548,13 @@ void NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flag
 
   action.cmdType = NukiCommandType::commandWithChallengeAndAccept;
   action.command = NukiCommand::lockAction;
-  memcpy(&action.payload[0], &payload, payloadLen);
+  memcpy(action.payload, &payload, payloadLen);
   action.payloadLen = payloadLen;
   addActionToQueue(action);
 }
 
 void NukiBle::requestConfig(bool advanced) {
   NukiAction action;
-  unsigned char* payload[0] = {};
 
   action.cmdType = NukiCommandType::commandWithChallenge;
   if (advanced) {
@@ -563,7 +563,6 @@ void NukiBle::requestConfig(bool advanced) {
     action.command = NukiCommand::requestConfig;
   }
 
-  action.payloadLen = 0;
   addActionToQueue(action);
 }
 
@@ -962,6 +961,7 @@ bool NukiBle::registerOnUsdioChar() {
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* recData, size_t length, bool isNotify) {
+
   #ifdef DEBUG_NUKI_COMMUNICATION
   log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
   #endif
