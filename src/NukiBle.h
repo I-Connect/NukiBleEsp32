@@ -121,8 +121,8 @@ class NukiBle : public BLEClientCallbacks {
     struct NukiAction {
       NukiCommandType cmdType;
       NukiCommand command;
-      char payload[100];
-      uint8_t payloadLen;
+      char payload[100] {0};
+      uint8_t payloadLen = 0;
     };
 
     void addActionToQueue(NukiAction action);
