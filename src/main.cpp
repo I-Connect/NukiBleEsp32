@@ -26,10 +26,17 @@ void setup() {
 
   nukiBle.initialize();
 
+  //Get data
+  // nukiBle.requestOpeningsClosingsSummary(); FAILS
+  // nukiBle.requestAuthorizationEntryCount(); FAILS
   nukiBle.updateKeyTurnerState();
-  nukiBle.lockAction(LockAction::lock, 0, 0);
   nukiBle.requestConfig(false);
   nukiBle.requestConfig(true);
+  nukiBle.requestBatteryReport();
+
+  //execute action
+  // nukiBle.lockAction(LockAction::lock, 0, 0);
+
 
 }
 

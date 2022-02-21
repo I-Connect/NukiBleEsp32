@@ -275,3 +275,23 @@ struct __attribute__((packed)) AdvancedConfig {
   uint8_t nightModeAutoUnlockDisabled;
   uint8_t  nightModeImmediateLockOnStart;
 };
+
+struct __attribute__((packed)) OpeningsClosingsSummary {
+  uint16_t openingsTotal;
+  uint16_t closingsTotal;
+  uint16_t openingsSinceBoot;
+  uint16_t closingsSinceBoot;
+};
+
+struct __attribute__((packed)) BatteryReport {
+  uint16_t batteryDrain;
+  uint16_t batteryVoltage;
+  uint8_t criticalBatteryState;
+  LockAction lockAction;
+  uint16_t startVoltage;
+  uint16_t lowestVoltage;
+  uint16_t lockDistance;
+  int8_t startTemperature;
+  uint16_t maxTurnCurrent;
+  uint16_t batteryResistance;
+};
