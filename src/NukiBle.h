@@ -10,6 +10,7 @@
 #include "nukiConstants.h"
 #include "Arduino.h"
 #include <Preferences.h>
+#include <esp_task_wdt.h>
 
 #define GENERAL_TIMEOUT 10000
 #define CMD_TIMEOUT 3000
@@ -24,12 +25,15 @@ class NukiSmartlockEventHandler {
     virtual void handleEvent() = 0;
 };
 
-class NukiBle : public BLEClientCallbacks {
+class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
   public:
-    NukiBle(const std::string& bleAddress, const uint32_t deviceId, const std::string& deviceName);
+    NukiBle(const std::string& deviceName, const uint32_t deviceId);
     virtual ~NukiBle();
 
     void setEventHandler(NukiSmartlockEventHandler* handler);
+
+    bool pairNuki();
+    void unPairNuki();
 
     void updateKeyTurnerState();
     void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
@@ -47,9 +51,10 @@ class NukiBle : public BLEClientCallbacks {
     QueueHandle_t  nukiBleRequestQueue;
     void startNukiBleXtask();
 
-    bool connectBle();
+    bool connectBle(BLEAddress bleAddress);
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
+    void onResult(BLEAdvertisedDevice* advertisedDevice) override;
     bool bleConnected = false;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
@@ -62,6 +67,7 @@ class NukiBle : public BLEClientCallbacks {
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     static void logErrorCode(uint8_t errorCode);
     static void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
+    int scanForPairingNuki();
     void saveCredentials();
     bool retreiveCredentials();
     void deleteCredentials();
@@ -74,10 +80,11 @@ class NukiBle : public BLEClientCallbacks {
     unsigned char authenticator[32];
     Preferences preferences;
 
-    std::string bleAddress = "";
+    BLEAddress bleAddress;
+    std::string deviceName;       //The name to be displayed for this authorization and used for storing preferences
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
-    std::string deviceName;       //The name to be displayed for this authorization.
     BLEClient* pClient;
+    BLEScan* pBLEScan;
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
 
@@ -88,13 +95,10 @@ class NukiBle : public BLEClientCallbacks {
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
 
     enum class NukiConnectionState {
-      startUp             = 0,
       checkPaired         = 1,
-      startPairing        = 2,
-      pairing             = 3,
-      paired              = 4
+      paired              = 2
     };
-    NukiConnectionState nukiConnectionState = NukiConnectionState::startUp;
+    NukiConnectionState nukiConnectionState = NukiConnectionState::checkPaired;
 
     enum class NukiPairingState {
       initPairing       = 0,
@@ -106,7 +110,8 @@ class NukiBle : public BLEClientCallbacks {
       sendAuth          = 6,
       sendAuthData      = 7,
       sendAuthIdConf    = 8,
-      recStatus         = 9
+      recStatus         = 9,
+      success           = 10
     };
 
     enum class NukiCommandState {

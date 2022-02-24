@@ -43,32 +43,65 @@ void nukiBleTask(void* pvParameters) {
   NukiBle* nukiBleObj = reinterpret_cast<NukiBle*>(pvParameters);
 
   while (1) {
+    esp_task_wdt_reset();
     nukiBleObj->runStateMachine();
     delay(500);
   }
 }
 
-NukiBle::NukiBle(std::string& bleAddress, uint32_t deviceId, std::string& aDeviceName)
-  : bleAddress(bleAddress),
-    deviceId(deviceId),
-    deviceName(aDeviceName) {
-}
+NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
+  : deviceName(deviceName),
+    deviceId(deviceId)
+{}
 
 NukiBle::~NukiBle() {}
 
 void NukiBle::initialize() {
 
-  preferences.begin("nuki", false);
-  //for test
-  // deleteCredentials();
-
-  // BLEDevice::setCustomGattcHandler(my_gattc_event_handler);
+  preferences.begin(deviceName.c_str(), false);
   BLEDevice::init("ESP32_test");
 
   pClient  = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
   startNukiBleXtask();
+}
+
+bool NukiBle::pairNuki() {
+  if (retreiveCredentials()) {
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("Allready paired");
+    #endif
+    return true;
+  }
+  bool result = false;
+
+  if (scanForPairingNuki()) {
+    if (bleAddress != BLEAddress("") ) {
+      if (connectBle(bleAddress)) {
+        while (pairStateMachine() == 99) {
+          //run pair state machine, it has a timeout
+        }
+        if (nukiPairingState == NukiPairingState::success) {
+          saveCredentials();
+          result = true;
+        }
+      }
+    } else {
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("No nuki in pairing mode found");
+      #endif
+    }
+  }
+  return result;
+}
+
+void NukiBle::unPairNuki() {
+  // TODO: unpair selected nuki based on deviceName
+  #ifdef DEBUG_NUKI_CONNECT
+  log_d("[%s] Credentials deleted", deviceName.c_str());
+  #endif
+  deleteCredentials();
 }
 
 void NukiBle::addActionToQueue(NukiAction action) {
@@ -83,46 +116,72 @@ void NukiBle::addActionToQueue(NukiAction action) {
   // }
 }
 
-bool NukiBle::connectBle() {
+bool NukiBle::connectBle(BLEAddress bleAddress) {
+
   if (!bleConnected) {
-    if (pClient->connect(bleAddress)) {
-      if (!registerOnGdioChar()) {
-        log_w("BLE register on pairing Service/Char failed");
-        return false;
+    pClient->disconnect();
+    uint8_t connectRetry = 0;
+    while (connectRetry < 5) {
+      if (pClient->connect(bleAddress)) {
+        if (registerOnGdioChar() && registerOnUsdioChar()) {
+          bleConnected = true;
+          return true;
+        } else {
+          log_w("BLE register on pairing or data Service/Char failed");
+          pClient->disconnect();
+        }
+      } else {
+        log_w("BLE Connect failed");
       }
+      connectRetry++;
+      delay(500);
+    }
+  } else {
+    return true;
+  }
 
-      if (!registerOnUsdioChar()) {
-        log_w("BLE register on data Service/Char failed");
-        return false;
-      }
+  return false;
+}
 
-    } else {
-      log_w("BLE Connect failed");
-      return false;
+void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
+  #ifdef DEBUG_NUKI_CONNECT
+  // log_d("Advertised Device: %s", advertisedDevice->toString().c_str());
+  #endif
+
+  if (advertisedDevice->haveServiceData()) {
+    if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "") {
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+      #endif
+      bleAddress = advertisedDevice->getAddress();
     }
   }
-  delay(500);
-  bleConnected = true;
-  return true;
+}
+
+int NukiBle::scanForPairingNuki() {
+  #ifdef DEBUG_NUKI_CONNECT
+  log_d("Scanning for Nuki in pairing mode...");
+  #endif
+  bleAddress = BLEAddress("");
+  BLEDevice::init("");
+  pBLEScan = BLEDevice::getScan();
+  pBLEScan->setAdvertisedDeviceCallbacks(this);
+  pBLEScan->setActiveScan(true);
+  pBLEScan->setInterval(100);
+  pBLEScan->setFilterPolicy(BLE_HCI_SCAN_FILT_NO_WL);
+  pBLEScan->setWindow(99);
+
+  BLEScanResults foundDevices = pBLEScan->start(5, false);
+  #ifdef DEBUG_NUKI_CONNECT
+  log_d("Scan done total Devices found: %d", foundDevices.getCount());
+  #endif
+
+  pBLEScan->clearResults();
+  return foundDevices.getCount();
 }
 
 void NukiBle::runStateMachine() {
   switch (nukiConnectionState) {
-    case NukiConnectionState::startUp : {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("************************ START UP ************************");
-      log_d("Connecting with: %s ", bleAddress.c_str());
-      #endif
-      nukiPairingState = NukiPairingState::initPairing;
-
-      if (connectBle()) {
-        nukiConnectionState = NukiConnectionState::checkPaired;
-      } else {
-        delay(1000);
-      }
-
-      break;
-    }
     case NukiConnectionState::checkPaired : {
       #ifdef DEBUG_NUKI_CONNECT
       log_d("************************ CHECK PAIRED ************************");
@@ -134,36 +193,9 @@ void NukiBle::runStateMachine() {
         #endif
       } else {
         #ifdef DEBUG_NUKI_CONNECT
-        log_d("Credentials NOT retreived from preferences, start pairing");
+        log_d("Credentials NOT retreived from preferences, first pair with the lock");
         #endif
-        nukiConnectionState = NukiConnectionState::startPairing;
-        timeNow = millis();
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("************************ START PAIRING ************************");
-        #endif
-      }
-      break;
-    }
-    case NukiConnectionState::startPairing : {
-      log_i("Set lock in pairing mode");
-      if (millis() - timeNow > GENERAL_TIMEOUT) {
-        timeNow = millis();
-        nukiConnectionState = NukiConnectionState::pairing;
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("************************ PAIRING ************************");
-        #endif
-      }
-      break;
-    }
-    case NukiConnectionState::pairing : {
-      uint8_t connectState = pairStateMachine();
-      // log_d("connectstate: %d", connectState);
-      if (connectState == 1) {
-        saveCredentials();
-        nukiConnectionState = NukiConnectionState::paired;
-      } else if (connectState == 0) {
-        log_w("Connect FAILED at connect state: %d ", nukiPairingState);
-        nukiConnectionState = NukiConnectionState::startUp;
+        delay(1000);
       }
       break;
     }
@@ -278,6 +310,7 @@ bool NukiBle::cmdChallStateMachine(NukiAction action) {
         nukiCommandState = NukiCommandState::challengeRespReceived;
         lastMsgCodeReceived = NukiCommand::empty;
       }
+      delay(50);
       break;
     }
     case NukiCommandState::challengeRespReceived: {
@@ -311,6 +344,7 @@ bool NukiBle::cmdChallStateMachine(NukiAction action) {
         nukiCommandState = NukiCommandState::idle;
         result = true;
       }
+      delay(50);
       break;
     }
     default:
@@ -350,6 +384,7 @@ bool NukiBle::cmdChallAccStateMachine(NukiAction action) {
         nukiCommandState = NukiCommandState::challengeRespReceived;
         lastMsgCodeReceived = NukiCommand::empty;
       }
+      delay(50);
       break;
     }
     case NukiCommandState::challengeRespReceived: {
@@ -379,6 +414,7 @@ bool NukiBle::cmdChallAccStateMachine(NukiAction action) {
         nukiCommandState = NukiCommandState::cmdAccepted;
         lastMsgCodeReceived = NukiCommand::empty;
       }
+      delay(50);
       break;
     }
     case NukiCommandState::cmdAccepted: {
@@ -398,6 +434,7 @@ bool NukiBle::cmdChallAccStateMachine(NukiAction action) {
         lastMsgCodeReceived = NukiCommand::empty;
         result = true;
       }
+      delay(50);
       break;
     }
     default:
@@ -437,6 +474,7 @@ bool NukiBle::cmdChallPinStateMachine(NukiAction action) {
         nukiCommandState = NukiCommandState::challengeRespReceived;
         lastMsgCodeReceived = NukiCommand::empty;
       }
+      delay(50);
       break;
     }
     case NukiCommandState::challengeRespReceived: {
@@ -466,6 +504,7 @@ bool NukiBle::cmdChallPinStateMachine(NukiAction action) {
         nukiCommandState = NukiCommandState::cmdAccepted;
         lastMsgCodeReceived = NukiCommand::empty;
       }
+      delay(50);
       break;
     }
     case NukiCommandState::cmdAccepted: {
@@ -482,6 +521,7 @@ bool NukiBle::cmdChallPinStateMachine(NukiAction action) {
         lastMsgCodeReceived = NukiCommand::empty;
         result = true;
       }
+      delay(50);
       break;
     }
     default:
@@ -575,30 +615,42 @@ void NukiBle::requestConfig(bool advanced) {
 }
 
 void NukiBle::saveCredentials() {
+  unsigned char buff[6];
+  buff[0] = bleAddress.getNative()[5];
+  buff[1] = bleAddress.getNative()[4];
+  buff[2] = bleAddress.getNative()[3];
+  buff[3] = bleAddress.getNative()[2];
+  buff[4] = bleAddress.getNative()[1];
+  buff[5] = bleAddress.getNative()[0];
+
   if ( (preferences.putBytes("secretKeyK", secretKeyK, 32) == 32 )
-       && ( preferences.putBytes("sharedKeyS", sharedKeyS, 32) == 32 )
+       && ( preferences.putBytes("bleAddress", buff, 6) == 6 )
        && ( preferences.putBytes("authorizationId", authorizationId, 4) == 4 ) ) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials saved:");
-    #endif
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
-    printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "sharedKeyS");
+    printBuffer(buff, 6, false, "bleAddress");
     printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+    #endif
   } else {
     log_w("ERROR saving credentials");
   }
 }
 
 bool NukiBle::retreiveCredentials() {
+  //TODO check on empty (invalid) credentials?
+  unsigned char buff[6];
   if ( (preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
-       && (preferences.getBytes("sharedKeyS", sharedKeyS, 32) > 0)
+       && (preferences.getBytes("bleAddress", buff, 6) > 0)
        && (preferences.getBytes("authorizationId", authorizationId, 4) > 0) ) {
+    bleAddress = BLEAddress(buff);
     #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials retreived:");
-    #endif
+    log_d("[%s] Credentials retreived :", deviceName.c_str());
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
-    printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "sharedKeyS");
+    log_d("bleAddress: %s", bleAddress.toString().c_str());
     printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+    #endif
+
   } else {
     log_w("ERROR retreiving credentials");
     return false;
@@ -608,6 +660,7 @@ bool NukiBle::retreiveCredentials() {
 
 void NukiBle::deleteCredentials() {
   preferences.remove("secretKeyK");
+  preferences.remove("bleAddress");
   preferences.remove("authorizationId");
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Credentials deleted");
@@ -618,6 +671,7 @@ void NukiBle::startNukiBleXtask() {
   nukiBleRequestQueue = xQueueCreate(10, sizeof(NukiAction));
   TaskHandleNukiBle = NULL;
   xTaskCreatePinnedToCore(&nukiBleTask, "nukiBleTask", 4096, this, 1, &TaskHandleNukiBle, 1);
+  esp_task_wdt_add(TaskHandleNukiBle);
 }
 
 uint8_t NukiBle::pairStateMachine() {
@@ -650,6 +704,7 @@ uint8_t NukiBle::pairStateMachine() {
         log_w("Remote public key receive timeout");
         return false;
       }
+      delay(50);
       break;
     }
     case NukiPairingState::sendPubKey: {
@@ -699,6 +754,7 @@ uint8_t NukiBle::pairStateMachine() {
         log_w("Challenge 1 receive timeout");
         return false;
       }
+      delay(50);
       break;
     }
     case NukiPairingState::sendAuth: {
@@ -751,6 +807,7 @@ uint8_t NukiBle::pairStateMachine() {
         log_w("Challenge 2 receive timeout");
         return false;
       }
+      delay(50);
       break;
     }
     case NukiPairingState::sendAuthIdConf: {
@@ -776,22 +833,25 @@ uint8_t NukiBle::pairStateMachine() {
         log_w("Authorization id receive timeout");
         return false;
       }
+      delay(50);
       break;
     }
     case NukiPairingState::recStatus: {
       if (receivedStatus == 0) {
         #ifdef DEBUG_NUKI_CONNECT
-        log_d("####################### CONNECT DONE ###############################################");
+        log_d("####################### PAIRING DONE ###############################################");
         #endif
+        nukiPairingState = NukiPairingState::success;
         return true;
       } else if (millis() - timeNow > GENERAL_TIMEOUT) {
-        log_w("connect FAILED");
+        log_w("pairing FAILED");
         return false;
       }
+      delay(50);
       break;
     }
     default: {
-      log_e("Unknown connect status");
+      log_e("Unknown pairing status");
       break;
     }
   }
@@ -864,7 +924,7 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, char* payload,
 
     printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
 
-    connectBle();
+    connectBle(bleAddress);
     pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
     delay(500); //TODO investigate with no delay crash?
   } else {
@@ -898,7 +958,7 @@ void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, char* payload, uin
   #ifdef DEBUG_NUKI_HEX_DATA
   log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
   #endif
-  connectBle();
+  connectBle(bleAddress);
   pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   delay(1000); //wait for response via BLE char
 }
@@ -1279,14 +1339,14 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
 }
 
 void NukiBle::onConnect(BLEClient*) {
-  #ifdef DEBUG_NUKI
+  #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE connected");
   #endif
 };
 
 void NukiBle::onDisconnect(BLEClient*) {
   bleConnected = false;
-  #ifdef DEBUG_NUKI
+  #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE disconnected");
   #endif
 };
@@ -1425,8 +1485,8 @@ void NukiBle::logErrorCode(uint8_t errorCode) {
     default:
       log_e("UNDEFINED ERROR");
   }
+}
 
-  void NukiBle::setEventHandler(NukiSmartlockEventHandler * handler) {
-    eventHandler = handler;
-  }
+void NukiBle::setEventHandler(NukiSmartlockEventHandler* handler) {
+  eventHandler = handler;
 }
