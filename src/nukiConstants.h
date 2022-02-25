@@ -242,6 +242,7 @@ struct __attribute__((packed)) KeypadEntry {
   uint8_t dateLastActiveHour;
   uint8_t dateLastActiveMin;
   uint8_t dateLastActiveSec;
+  uint16_t lockCount;
   uint8_t timeLimited;
   uint16_t allowedFromYear;
   uint8_t allowedFromMonth;

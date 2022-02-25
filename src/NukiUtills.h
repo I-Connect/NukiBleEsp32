@@ -224,6 +224,7 @@ void logKeypadEntry(KeypadEntry keypadEntry) {
   log_d("dateLastActiveHour:%d", keypadEntry.dateLastActiveHour);
   log_d("dateLastActiveMin:%d", keypadEntry.dateLastActiveMin);
   log_d("dateLastActiveSec:%d", keypadEntry.dateLastActiveSec);
+  log_d("lockCount:%d", keypadEntry.lockCount);
   log_d("timeLimited:%d", keypadEntry.timeLimited);
   log_d("allowedFromYear:%d", keypadEntry.allowedFromYear);
   log_d("allowedFromMonth:%d", keypadEntry.allowedFromMonth);
