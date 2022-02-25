@@ -21,31 +21,31 @@ void setup() {
   // nukiBle.unPairNuki();
 }
 
-void addKeyPadEntry() {
-  KeyPadEntry keyPadEntry;
+void addKeypadEntry() {
+  NewKeypadEntry newKeypadEntry;
   unsigned char nameBuff[20] = "test";
 
-  keyPadEntry.code = 111111;
-  memcpy(keyPadEntry.name, nameBuff, 20);
-  keyPadEntry.timeLimited = 1;
-  keyPadEntry.allowedFromYear = 2022;
-  keyPadEntry.allowedFromMonth = 2;
-  keyPadEntry.allowedFromDay = 1;
-  keyPadEntry.allowedFromHour = 0;
-  keyPadEntry.allowedFromMin = 0;
-  keyPadEntry.allowedFromSec = 0;
-  keyPadEntry.allowedUntillYear = 2023;
-  keyPadEntry.allowedUntillMonth = 1;
-  keyPadEntry.allowedUntillDay = 1;
-  keyPadEntry.allowedUntillHour = 0;
-  keyPadEntry.allowedUntillMin = 0;
-  keyPadEntry.allowedUntillSec = 0;
-  keyPadEntry.allowedFromTimeHour = 0;
-  keyPadEntry.allowedFromTimeMin = 0;
-  keyPadEntry.allowedUntillTimeHour = 23;
-  keyPadEntry.allowedUntillTimeMin = 59;
+  newKeypadEntry.code = 111111;
+  memcpy(newKeypadEntry.name, nameBuff, 20);
+  newKeypadEntry.timeLimited = 1;
+  newKeypadEntry.allowedFromYear = 2022;
+  newKeypadEntry.allowedFromMonth = 2;
+  newKeypadEntry.allowedFromDay = 1;
+  newKeypadEntry.allowedFromHour = 0;
+  newKeypadEntry.allowedFromMin = 0;
+  newKeypadEntry.allowedFromSec = 0;
+  newKeypadEntry.allowedUntillYear = 2023;
+  newKeypadEntry.allowedUntillMonth = 1;
+  newKeypadEntry.allowedUntillDay = 1;
+  newKeypadEntry.allowedUntillHour = 0;
+  newKeypadEntry.allowedUntillMin = 0;
+  newKeypadEntry.allowedUntillSec = 0;
+  newKeypadEntry.allowedFromTimeHour = 0;
+  newKeypadEntry.allowedFromTimeMin = 0;
+  newKeypadEntry.allowedUntillTimeHour = 23;
+  newKeypadEntry.allowedUntillTimeMin = 59;
 
-  nukiBle.addKeypadEntry(keyPadEntry);
+  nukiBle.addKeypadEntry(newKeypadEntry);
 }
 
 void loop() {
@@ -60,10 +60,11 @@ void loop() {
       // nukiBle.requestConfig(false);
       // nukiBle.requestConfig(true);
       // nukiBle.requestBatteryReport();
+      nukiBle.requestKeyPadCodes(0, 2);
 
       //execute action
       // nukiBle.lockAction(LockAction::lock, 0, 0);
-      addKeyPadEntry();
+      // addKeypadEntry();
     }
   }
 

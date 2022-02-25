@@ -42,7 +42,8 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     void requestOpeningsClosingsSummary();
     void requestAuthorizationEntryCount();
 
-    void addKeypadEntry(KeyPadEntry KeyPadEntry);
+    void requestKeyPadCodes(uint16_t offset, uint16_t nrToBeRead);
+    void addKeypadEntry(NewKeypadEntry newKeypadEntry);
 
     virtual void initialize();
     void runStateMachine();

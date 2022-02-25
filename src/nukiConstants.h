@@ -202,9 +202,46 @@ enum class BatteryType : uint8_t {
   lithium           = 0x02
 };
 
-struct __attribute__((packed)) KeyPadEntry {
+struct __attribute__((packed)) NewKeypadEntry {
   uint32_t code;  //needs to be 6 digits
   uint8_t name[20];
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMin;
+  uint8_t allowedFromSec;
+  uint16_t allowedUntillYear;
+  uint8_t allowedUntillMonth;
+  uint8_t allowedUntillDay;
+  uint8_t allowedUntillHour;
+  uint8_t allowedUntillMin;
+  uint8_t allowedUntillSec;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
+struct __attribute__((packed)) KeypadEntry {
+  uint16_t codeId;
+  uint32_t code;
+  uint8_t name[20];
+  uint8_t enabled;
+  uint16_t dateCreatedYear;
+  uint8_t dateCreatedMonth;
+  uint8_t dateCreatedDay;
+  uint8_t dateCreatedHour;
+  uint8_t dateCreatedMin;
+  uint8_t dateCreatedSec;
+  uint16_t dateLastActiveYear;
+  uint8_t dateLastActiveMonth;
+  uint8_t dateLastActiveDay;
+  uint8_t dateLastActiveHour;
+  uint8_t dateLastActiveMin;
+  uint8_t dateLastActiveSec;
   uint8_t timeLimited;
   uint16_t allowedFromYear;
   uint8_t allowedFromMonth;

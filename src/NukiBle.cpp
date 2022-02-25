@@ -18,7 +18,6 @@
 // #define crypto_secretbox_MACBYTES 16
 
 uint8_t receivedStatus;
-uint8_t errorReceived;
 bool crcCheckOke;
 
 //TODO, these need to move to the class
@@ -38,6 +37,8 @@ AdvancedConfig advancedConfig;
 OpeningsClosingsSummary openingsClosingsSummary;
 BatteryReport batteryReport;
 NukiCommand lastMsgCodeReceived = NukiCommand::empty;
+uint16_t nrOfKeypadCodes = 0;
+KeypadEntry keypadEntry;
 
 //task to retrieve messages from BLE when a notification occurrs
 void nukiBleTask(void* pvParameters) {
@@ -208,18 +209,22 @@ void NukiBle::runStateMachine() {
         #endif
         if (action.cmdType == NukiCommandType::command) {
           while (!cmdStateMachine(action)) {
+            esp_task_wdt_reset();
             delay(10);
           }
         } else if (action.cmdType == NukiCommandType::commandWithChallenge) {
           while (!cmdChallStateMachine(action)) {
+            esp_task_wdt_reset();
             delay(10);
           }
         } else if (action.cmdType == NukiCommandType::commandWithChallengeAndAccept) {
           while (!cmdChallAccStateMachine(action)) {
+            esp_task_wdt_reset();
             delay(10);
           }
         } else if (action.cmdType == NukiCommandType::commandWithChallengeAndPin) {
           while (!cmdChallStateMachine(action, true)) {
+            esp_task_wdt_reset();
             delay(10);
           }
         } else {
@@ -504,7 +509,7 @@ void NukiBle::requestOpeningsClosingsSummary() {
 
 void NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags, unsigned char* nameSuffix) {
   NukiAction action;
-  unsigned char* payload[26] = {0};
+  unsigned char payload[26] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
   memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
   memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
@@ -523,22 +528,37 @@ void NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flag
   addActionToQueue(action);
 }
 
-void NukiBle::addKeypadEntry(KeyPadEntry keyPadEntry) {
-  //TODO verify data validity
+void NukiBle::requestKeyPadCodes(uint16_t offset, uint16_t nrToBeRead) {
   NukiAction action;
-  unsigned char* payload[sizeof(KeyPadEntry)] = {0};
-  memcpy(payload, &keyPadEntry, sizeof(KeyPadEntry));
+  unsigned char payload[4] = {0};
+  memcpy(payload, &offset, 2);
+  memcpy(&payload[2], &nrToBeRead, 2);
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::requestKeypadCodes;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  addActionToQueue(action);
+}
+
+void NukiBle::addKeypadEntry(NewKeypadEntry newKeyPadEntry) {
+  //TODO verify data validity
+  //TODO catch and handle errors like "code allready exists"
+  NukiAction action;
+  unsigned char payload[sizeof(NewKeypadEntry)] = {0};
+  memcpy(payload, &newKeyPadEntry, sizeof(NewKeypadEntry));
 
   action.cmdType = NukiCommandType::commandWithChallengeAndPin;
   action.command = NukiCommand::addKeypadCode;
-  memcpy(action.payload, &payload, sizeof(KeyPadEntry));
-  action.payloadLen = sizeof(KeyPadEntry);
+  memcpy(action.payload, &payload, sizeof(NewKeypadEntry));
+  action.payloadLen = sizeof(NewKeypadEntry);
   addActionToQueue(action);
 
   #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("addKeyPadEntry, payloadlen: %d", sizeof(KeyPadEntry));
-  printBuffer(action.payload, sizeof(KeyPadEntry), false, "addKeyPadCode content: ");
-  logKeyPadEntry(keyPadEntry);
+  log_d("addKeyPadEntry, payloadlen: %d", sizeof(NewKeypadEntry));
+  printBuffer(action.payload, sizeof(NewKeypadEntry), false, "addKeyPadCode content: ");
+  logNewKeypadEntry(newKeyPadEntry);
   #endif
 }
 
@@ -625,7 +645,6 @@ uint8_t NukiBle::pairStateMachine() {
       memset(challengeNonceK, 0, sizeof(challengeNonceK));
       memset(remotePublicKey, 0, sizeof(remotePublicKey));
       receivedStatus = 0xff;
-      errorReceived = 0;
       nukiPairingState = NukiPairingState::reqRemPubKey;
       break;
     }
@@ -966,14 +985,9 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     //handle not encrypted msg
     uint16_t returnCode = ((uint16_t)recData[1] << 8) | recData[0];
     if (crcValid(recData, length)) {
-      if (returnCode == (uint16_t)NukiCommand::errorReport) {
-        logErrorCode(recData[2]);
-        //TODO handle error?
-      } else {
-        unsigned char plainData[200];
-        memcpy(plainData, &recData[2], length - 4);
-        handleReturnMessage((NukiCommand)returnCode, plainData, length - 4);
-      }
+      unsigned char plainData[200];
+      memcpy(plainData, &recData[2], length - 4);
+      handleReturnMessage((NukiCommand)returnCode, plainData, length - 4);
     }
   } else if (pBLERemoteCharacteristic->getUUID().toString() == udioUuid) {
     //handle encrypted msg
@@ -1100,6 +1114,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::errorReport :
       log_e("Error: %02x for command: %02x:%02x", data[0], data[2], data[1]);
+      logErrorCode(data[0]);
       break;
     case NukiCommand::setConfig :
       printBuffer((byte*)data, dataLen, false, "setConfig");
@@ -1224,9 +1239,17 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::keypadCodeCount :
       printBuffer((byte*)data, dataLen, false, "keypadCodeCount");
+      #ifdef DEBU_NUKI_READABLE_DATA
+      log_d("keyPadCodeCount: %d", data);
+      #endif
+      memcpy(&nrOfKeypadCodes, data, 2);
       break;
     case NukiCommand::keypadCode :
       printBuffer((byte*)data, dataLen, false, "keypadCode");
+      #ifdef DEBUG_NUKI_READABLE_DATA
+      memcpy(&keypadEntry, data, sizeof(KeypadEntry));
+      logKeypadEntry(keypadEntry);
+      #endif
       break;
     case NukiCommand::updateKeypadCode :
       printBuffer((byte*)data, dataLen, false, "updateKeypadCode");
@@ -1275,123 +1298,6 @@ bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
   #endif
   crcCheckOke = true;
   return true;
-}
-
-void NukiBle::logErrorCode(uint8_t errorCode) {
-  errorReceived = errorCode;
-
-  switch (errorCode) {
-    case (uint8_t)NukiErrorCode::ERROR_BAD_CRC :
-      log_e("ERROR_BAD_CRC");
-      break;
-    case (uint8_t)NukiErrorCode::ERROR_BAD_LENGTH :
-      log_e("ERROR_BAD_LENGTH");
-      break;
-    case (uint8_t)NukiErrorCode::ERROR_UNKNOWN :
-      log_e("ERROR_UNKNOWN");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_NOT_PAIRING :
-      log_e("P_ERROR_NOT_PAIRING");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_BAD_AUTHENTICATOR :
-      log_e("P_ERROR_BAD_AUTHENTICATOR");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_BAD_PARAMETER :
-      log_e("P_ERROR_BAD_PARAMETER");
-      break;
-    case (uint8_t)NukiErrorCode::P_ERROR_MAX_USER :
-      log_e("P_ERROR_MAX_USER");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
-      log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_NONCE :
-      log_e("K_ERROR_BAD_NONCE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PARAMETER :
-      log_e("K_ERROR_BAD_PARAMETER");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PIN :
-      log_e("K_ERROR_BAD_PIN");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BUSY :
-      log_e("K_ERROR_BUSY");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CANCELED :
-      log_e("K_ERROR_CANCELED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_FAILURE :
-      log_e("K_ERROR_CLUTCH_FAILURE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
-      log_e("K_ERROR_CLUTCH_POWER_FAILURE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
-      log_e("K_ERROR_CODE_ALREADY_EXISTS");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID :
-      log_e("K_ERROR_CODE_INVALID");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_DISABLED :
-      log_e("K_ERROR_DISABLED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
-      log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_INVALID_AUTH_ID :
-      log_e("K_ERROR_INVALID_AUTH_ID");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_BLOCKED :
-      log_e("K_ERROR_MOTOR_BLOCKED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
-      log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
-      log_e("K_ERROR_MOTOR_POSITION_LIMIT");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
-      log_e("K_ERROR_MOTOR_POWER_FAILURE");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_TIMEOUT :
-      log_e("K_ERROR_MOTOR_TIMEOUT");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_NOT_AUTHORIZED :
-      log_e("K_ERROR_NOT_AUTHORIZED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_NOT_CALIBRATED :
-      log_e("K_ERROR_NOT_CALIBRATED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_POSITION_UNKNOWN :
-      log_e("K_ERROR_POSITION_UNKNOWN");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
-      log_e("K_ERROR_REMOTE_NOT_ALLOWED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TIME_NOT_ALLOWED :
-      log_e("K_ERROR_TIME_NOT_ALLOWED");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_ENTRIES :
-      log_e("K_ERROR_TOO_MANY_ENTRIES");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
-      log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
-      break;
-    case (uint8_t)NukiErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
-      log_e("K_ERROR_VOLTAGE_TOO_LOW");
-      break;
-    default:
-      log_e("UNDEFINED ERROR");
-  }
 }
 
 void NukiBle::setEventHandler(NukiSmartlockEventHandler* handler) {
