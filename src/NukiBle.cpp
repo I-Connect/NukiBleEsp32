@@ -25,6 +25,7 @@ bool crcCheckOke;
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char authorizationId[4] = {0x00, 0x00, 0x0, 0x00};
+uint16_t pinCode = 1108;
 unsigned char lockId[16];
 unsigned char secretKeyK[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char sharedKeyS[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -218,7 +219,7 @@ void NukiBle::runStateMachine() {
             delay(10);
           }
         } else if (action.cmdType == NukiCommandType::commandWithChallengeAndPin) {
-          while (!cmdChallPinStateMachine(action)) {
+          while (!cmdChallStateMachine(action, true)) {
             delay(10);
           }
         } else {
@@ -281,7 +282,7 @@ bool NukiBle::cmdStateMachine(NukiAction action) {
   return result;
 }
 
-bool NukiBle::cmdChallStateMachine(NukiAction action) {
+bool NukiBle::cmdChallStateMachine(NukiAction action, bool sendPinCode) {
   bool result = false;
   switch (nukiCommandState)
   {
@@ -291,7 +292,7 @@ bool NukiBle::cmdChallStateMachine(NukiAction action) {
       #endif
       lastMsgCodeReceived = NukiCommand::empty;
       timeNow = millis();
-      char payload[sizeof(NukiCommand)] = {0x04, 0x00};  //challenge
+      unsigned char payload[sizeof(NukiCommand)] = {0x04, 0x00};  //challenge
       sendEncryptedMessage(NukiCommand::requestData, payload, sizeof(NukiCommand));
       nukiCommandState = NukiCommandState::challengeSent;
       break;
@@ -321,10 +322,17 @@ bool NukiBle::cmdChallStateMachine(NukiAction action) {
       timeNow = millis();
       crcCheckOke = false;
       //add received challenge nonce to payload
-      char payload[action.payloadLen + sizeof(challengeNonceK)];
+      uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
+      if (sendPinCode) {
+        payloadLen = payloadLen + 2;
+      }
+      unsigned char payload[payloadLen];
       memcpy(payload, action.payload, action.payloadLen);
       memcpy(&payload[action.payloadLen], challengeNonceK, sizeof(challengeNonceK));
-      sendEncryptedMessage(action.command, payload, action.payloadLen + sizeof(challengeNonceK));
+      if (sendPinCode) {
+        memcpy(&payload[action.payloadLen + sizeof(challengeNonceK)], &pinCode, 2);
+      }
+      sendEncryptedMessage(action.command, payload, payloadLen);
       nukiCommandState = NukiCommandState::cmdSent;
       break;
     }
@@ -365,7 +373,7 @@ bool NukiBle::cmdChallAccStateMachine(NukiAction action) {
       #endif
       lastMsgCodeReceived = NukiCommand::empty;
       timeNow = millis();
-      char payload[sizeof(NukiCommand)] = {0x04, 0x00};  //challenge
+      unsigned char payload[sizeof(NukiCommand)] = {0x04, 0x00};  //challenge
       sendEncryptedMessage(NukiCommand::requestData, payload, sizeof(NukiCommand));
       nukiCommandState = NukiCommandState::challengeSent;
       break;
@@ -394,7 +402,8 @@ bool NukiBle::cmdChallAccStateMachine(NukiAction action) {
       lastMsgCodeReceived = NukiCommand::empty;
       timeNow = millis();
       //add received challenge nonce to payload
-      char payload[action.payloadLen + sizeof(challengeNonceK)];
+      uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
+      unsigned char payload[payloadLen];
       memcpy(payload, action.payload, action.payloadLen);
       memcpy(&payload[action.payloadLen], challengeNonceK, sizeof(challengeNonceK));
       sendEncryptedMessage(action.command, payload, action.payloadLen + sizeof(challengeNonceK));
@@ -430,93 +439,6 @@ bool NukiBle::cmdChallAccStateMachine(NukiAction action) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ COMMAND SUCCESS ************************");
         #endif
-        nukiCommandState = NukiCommandState::idle;
-        lastMsgCodeReceived = NukiCommand::empty;
-        result = true;
-      }
-      delay(50);
-      break;
-    }
-    default:
-      log_w("Unknown request command state");
-      result = true;
-      break;
-  }
-  return result;
-}
-
-bool NukiBle::cmdChallPinStateMachine(NukiAction action) {
-  bool result = false;
-  switch (nukiCommandState)
-  {
-    case NukiCommandState::idle: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING CHALLENGE ************************");
-      #endif
-      lastMsgCodeReceived = NukiCommand::empty;
-      timeNow = millis();
-      char payload[sizeof(NukiCommand)] = {0x04, 0x00};  //challenge
-      sendEncryptedMessage(NukiCommand::requestData, payload, sizeof(NukiCommand));
-      nukiCommandState = NukiCommandState::challengeSent;
-      break;
-    }
-    case NukiCommandState::challengeSent: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING CHALLENGE RESPONSE************************");
-      #endif
-      if (millis() - timeNow > CMD_TIMEOUT) {
-        timeNow = millis();
-        log_w("Timeout receiving challenge response");
-        nukiCommandState = NukiCommandState::idle;
-        result = true;
-      } else if (lastMsgCodeReceived == NukiCommand::challenge) {
-        log_d("last msg code: %d, compared with: %d", lastMsgCodeReceived, NukiCommand::challenge);
-        nukiCommandState = NukiCommandState::challengeRespReceived;
-        lastMsgCodeReceived = NukiCommand::empty;
-      }
-      delay(50);
-      break;
-    }
-    case NukiCommandState::challengeRespReceived: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING COMMAND ************************");
-      #endif
-      lastMsgCodeReceived = NukiCommand::empty;
-      timeNow = millis();
-      //add received challenge nonce to payload
-      char payload[action.payloadLen + sizeof(challengeNonceK)];
-      memcpy(payload, action.payload, action.payloadLen);
-      memcpy(&payload[action.payloadLen], challengeNonceK, sizeof(challengeNonceK));
-      sendEncryptedMessage(action.command, payload, action.payloadLen + sizeof(challengeNonceK));
-      nukiCommandState = NukiCommandState::cmdSent;
-      break;
-    }
-    case NukiCommandState::cmdSent: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING ACCEPT ************************");
-      #endif
-      if (millis() - timeNow > CMD_TIMEOUT) {
-        timeNow = millis();
-        log_w("Timeout receiving accept response");
-        nukiCommandState = NukiCommandState::idle;
-        result = true;
-      } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::accepted) {
-        nukiCommandState = NukiCommandState::cmdAccepted;
-        lastMsgCodeReceived = NukiCommand::empty;
-      }
-      delay(50);
-      break;
-    }
-    case NukiCommandState::cmdAccepted: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING COMPLETE ************************");
-      #endif
-      if (millis() - timeNow > CMD_TIMEOUT) {
-        timeNow = millis();
-        log_w("Timeout receiving complete response");
-        nukiCommandState = NukiCommandState::idle;
-        result = true;
-      } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::complete) {
         nukiCommandState = NukiCommandState::idle;
         lastMsgCodeReceived = NukiCommand::empty;
         result = true;
@@ -601,6 +523,25 @@ void NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flag
   addActionToQueue(action);
 }
 
+void NukiBle::addKeypadEntry(KeyPadEntry keyPadEntry) {
+  //TODO verify data validity
+  NukiAction action;
+  unsigned char* payload[sizeof(KeyPadEntry)] = {0};
+  memcpy(payload, &keyPadEntry, sizeof(KeyPadEntry));
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::addKeypadCode;
+  memcpy(action.payload, &payload, sizeof(KeyPadEntry));
+  action.payloadLen = sizeof(KeyPadEntry);
+  addActionToQueue(action);
+
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("addKeyPadEntry, payloadlen: %d", sizeof(KeyPadEntry));
+  printBuffer(action.payload, sizeof(KeyPadEntry), false, "addKeyPadCode content: ");
+  logKeyPadEntry(keyPadEntry);
+  #endif
+}
+
 void NukiBle::requestConfig(bool advanced) {
   NukiAction action;
 
@@ -671,7 +612,9 @@ void NukiBle::startNukiBleXtask() {
   nukiBleRequestQueue = xQueueCreate(10, sizeof(NukiAction));
   TaskHandleNukiBle = NULL;
   xTaskCreatePinnedToCore(&nukiBleTask, "nukiBleTask", 4096, this, 1, &TaskHandleNukiBle, 1);
+  #ifndef DEBUG_NUKI_HEX_DATA
   esp_task_wdt_add(TaskHandleNukiBle);
+  #endif
 }
 
 uint8_t NukiBle::pairStateMachine() {
@@ -691,8 +634,10 @@ uint8_t NukiBle::pairStateMachine() {
       #ifdef DEBUG_NUKI_CONNECT
       log_d("##################### REQUEST REMOTE PUBLIC KEY #########################");
       #endif
-      uint16_t payload = (uint16_t)NukiCommand::publicKey;
-      sendPlainMessage(NukiCommand::requestData, (char*)&payload, sizeof(payload));
+      unsigned char buff[sizeof(NukiCommand)];
+      uint16_t cmd = (uint16_t)NukiCommand::publicKey;
+      memcpy(buff, &cmd, sizeof(NukiCommand));
+      sendPlainMessage(NukiCommand::requestData, buff, sizeof(NukiCommand));
       timeNow = millis();
       nukiPairingState = NukiPairingState::recRemPubKey;
       break;
@@ -712,7 +657,7 @@ uint8_t NukiBle::pairStateMachine() {
       log_d("##################### SEND CLIENT PUBLIC KEY #########################");
       #endif
       //TODO generate public and private keys?
-      sendPlainMessage(NukiCommand::publicKey, (char*)&myPublicKey, sizeof(myPublicKey));
+      sendPlainMessage(NukiCommand::publicKey, myPublicKey, sizeof(myPublicKey));
       nukiPairingState = NukiPairingState::genKeyPair;
       break;
     }
@@ -761,7 +706,7 @@ uint8_t NukiBle::pairStateMachine() {
       #ifdef DEBUG_NUKI_CONNECT
       log_d("##################### SEND AUTHENTICATOR #########################");
       #endif
-      sendPlainMessage(NukiCommand::authorizationAuthenticator, (char*)&authenticator, sizeof(authenticator));
+      sendPlainMessage(NukiCommand::authorizationAuthenticator, authenticator, sizeof(authenticator));
       timeNow = millis();
       nukiPairingState = NukiPairingState::sendAuthData;
       break;
@@ -800,7 +745,7 @@ uint8_t NukiBle::pairStateMachine() {
         memcpy(&authorizationDataMessage[69], authorizationDataNonce, sizeof(authorizationDataNonce));
 
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
-        sendPlainMessage(NukiCommand::authorizationData, (char*)&authorizationDataMessage, sizeof(authorizationDataMessage));
+        sendPlainMessage(NukiCommand::authorizationData, authorizationDataMessage, sizeof(authorizationDataMessage));
         timeNow = millis();
         nukiPairingState = NukiPairingState::sendAuthIdConf;
       } else if (millis() - timeNow > GENERAL_TIMEOUT) {
@@ -826,7 +771,7 @@ uint8_t NukiBle::pairStateMachine() {
         unsigned char confirmationDataMessage[36];
         memcpy(&confirmationDataMessage[0], authenticator, sizeof(authenticator));
         memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
-        sendPlainMessage(NukiCommand::authorizationIdConfirmation, (char*)&confirmationDataMessage, sizeof(confirmationDataMessage));
+        sendPlainMessage(NukiCommand::authorizationIdConfirmation, confirmationDataMessage, sizeof(confirmationDataMessage));
         timeNow = millis();
         nukiPairingState = NukiPairingState::recStatus;
       } else if (millis() - timeNow > GENERAL_TIMEOUT) {
@@ -863,7 +808,7 @@ uint8_t NukiBle::pairStateMachine() {
   return 99;
 }
 
-void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
+void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen) {
   /*
   #     ADDITIONAL DATA (not encr)      #                    PLAIN DATA (encr)                             #
   #  nonce  # auth identifier # msg len # authorization identifier # command identifier # payload #  crc   #
@@ -933,7 +878,7 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, char* payload,
 
 }
 
-void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen) {
+void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen) {
   /*
   #                PLAIN DATA                   #
   #command identifier  #   payload   #   crc    #
@@ -1108,23 +1053,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
     case NukiCommand::keyturnerStates :
       printBuffer((byte*)data, dataLen, false, "keyturnerStates");
       memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
-      log_d("nukiState: %02x", keyTurnerState.nukiState);
-      log_d("lockState: %d", keyTurnerState.lockState);
-      log_d("trigger: %d", keyTurnerState.trigger);
-      log_d("currentTimeYear: %d", keyTurnerState.currentTimeYear);
-      log_d("currentTimeMonth: %d", keyTurnerState.currentTimeMonth);
-      log_d("currentTimeDay: %d", keyTurnerState.currentTimeDay);
-      log_d("currentTimeHour: %d", keyTurnerState.currentTimeHour);
-      log_d("currentTimeMinute: %d", keyTurnerState.currentTimeMinute);
-      log_d("currentTimeSecond: %d", keyTurnerState.currentTimeSecond);
-      log_d("timeZoneOffset: %d", keyTurnerState.timeZoneOffset);
-      log_d("criticalBatteryState: %d", keyTurnerState.criticalBatteryState);
-      log_d("configUpdateCount: %d", keyTurnerState.configUpdateCount);
-      log_d("lockNgoTimer: %d", keyTurnerState.lockNgoTimer);
-      log_d("lastLockAction: %d", keyTurnerState.lastLockAction);
-      log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
-      log_d("lastLockActionCompletionStatus: %d", keyTurnerState.lastLockActionCompletionStatus);
-      log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
+      logKeyturnerState(keyTurnerState);
       break;
     case NukiCommand::lockAction :
       printBuffer((byte*)data, dataLen, false, "LockAction");
@@ -1260,29 +1189,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::advancedConfig :
       memcpy(&advancedConfig, data, sizeof(advancedConfig));
-      log_d("totalDegrees :%d", advancedConfig.totalDegrees);
-      log_d("unlockedPositionOffsetDegrees :%d", advancedConfig.unlockedPositionOffsetDegrees);
-      log_d("lockedPositionOffsetDegrees :%f", advancedConfig.lockedPositionOffsetDegrees);
-      log_d("singleLockedPositionOffsetDegrees :%f", advancedConfig.singleLockedPositionOffsetDegrees);
-      log_d("unlockedToLockedTransitionOffsetDegrees :%d", advancedConfig.unlockedToLockedTransitionOffsetDegrees);
-      log_d("lockNgoTimeout :%d", advancedConfig.lockNgoTimeout);
-      log_d("singleButtonPressAction :%d", advancedConfig.singleButtonPressAction);
-      log_d("doubleButtonPressAction :%d", advancedConfig.doubleButtonPressAction);
-      log_d("detachedCylinder :%d", advancedConfig.detachedCylinder);
-      log_d("batteryType :%d", advancedConfig.batteryType);
-      log_d("automaticBatteryTypeDetection :%d", advancedConfig.automaticBatteryTypeDetection);
-      log_d("unlatchDuration :%d", advancedConfig.unlatchDuration);
-      log_d("autoLockTimeOut :%d", advancedConfig.autoLockTimeOut);
-      log_d("autoLockDisabled :%d", advancedConfig.autoLockDisabled);
-      log_d("nightModeEnabled :%d", advancedConfig.nightModeEnabled);
-      log_d("nightModeStartTime Hour :%d", advancedConfig.nightModeStartTime[0]);
-      log_d("nightModeStartTime Minute :%d", advancedConfig.nightModeStartTime[1]);
-      log_d("nightModeEndTime Hour :%d", advancedConfig.nightModeEndTime[0]);
-      log_d("nightModeEndTime Minute :%d", advancedConfig.nightModeEndTime[1]);
-      log_d("nightModeAutoLockEnabled :%d", advancedConfig.nightModeAutoLockEnabled);
-      log_d("nightModeAutoUnlockDisabled :%d", advancedConfig.nightModeAutoUnlockDisabled);
-      log_d("nightModeImmediateLockOnStart :%d", advancedConfig.nightModeImmediateLockOnStart);
-
+      logAdvancedConfig(advancedConfig);
       printBuffer((byte*)data, dataLen, false, "advancedConfig");
       break;
     case NukiCommand::addTimeControlEntry :

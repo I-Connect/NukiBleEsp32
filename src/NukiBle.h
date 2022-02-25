@@ -7,7 +7,7 @@
  */
 
 #include "NimBLEDevice.h"
-#include "nukiConstants.h"
+#include "NukiConstants.h"
 #include "Arduino.h"
 #include <Preferences.h>
 #include <esp_task_wdt.h>
@@ -42,6 +42,8 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     void requestOpeningsClosingsSummary();
     void requestAuthorizationEntryCount();
 
+    void addKeypadEntry(KeyPadEntry KeyPadEntry);
+
     virtual void initialize();
     void runStateMachine();
 
@@ -59,8 +61,8 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
-    void sendPlainMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
-    void sendEncryptedMessage(NukiCommand commandIdentifier, char* payload, uint8_t payloadLen);
+    void sendPlainMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen);
+    void sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen);
     static int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce,  unsigned char* keyS);
     static int decode(unsigned char* output, unsigned char* input,  unsigned long long len, unsigned char* nonce, unsigned char* keyS);
 
@@ -76,7 +78,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
 
     //TODO generate public and private keys?
     const unsigned char myPrivateKey[32] = {0x8C, 0xAA, 0x54, 0x67, 0x23, 0x07, 0xBF, 0xFD, 0xF5, 0xEA, 0x18, 0x3F, 0xC6, 0x07, 0x15, 0x8D, 0x20, 0x11, 0xD0, 0x08, 0xEC, 0xA6, 0xA1, 0x08, 0x86, 0x14, 0xFF, 0x08, 0x53, 0xA5, 0xAA, 0x07};
-    const unsigned char myPublicKey[32] = {0xF8, 0x81, 0x27, 0xCC, 0xF4, 0x80, 0x23, 0xB5, 0xCB, 0xE9, 0x10, 0x1D, 0x24, 0xBA, 0xA8, 0xA3, 0x68, 0xDA, 0x94, 0xE8, 0xC2, 0xE3, 0xCD, 0xE2, 0xDE, 0xD2, 0x9C, 0xE9, 0x6A, 0xB5, 0x0C, 0x15};
+    unsigned char myPublicKey[32] = {0xF8, 0x81, 0x27, 0xCC, 0xF4, 0x80, 0x23, 0xB5, 0xCB, 0xE9, 0x10, 0x1D, 0x24, 0xBA, 0xA8, 0xA3, 0x68, 0xDA, 0x94, 0xE8, 0xC2, 0xE3, 0xCD, 0xE2, 0xDE, 0xD2, 0x9C, 0xE9, 0x6A, 0xB5, 0x0C, 0x15};
     unsigned char authenticator[32];
     Preferences preferences;
 
@@ -134,15 +136,14 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     struct NukiAction {
       NukiCommandType cmdType;
       NukiCommand command;
-      char payload[100] {0};
+      unsigned char payload[100] {0};
       uint8_t payloadLen = 0;
     };
 
     void addActionToQueue(NukiAction action);
     bool cmdStateMachine(NukiAction action);
-    bool cmdChallStateMachine(NukiAction action);
+    bool cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
     bool cmdChallAccStateMachine(NukiAction action);
-    bool cmdChallPinStateMachine(NukiAction action);
 
     NukiPairingState nukiPairingState = NukiPairingState::initPairing;
     NukiCommandState nukiCommandState = NukiCommandState::idle;
