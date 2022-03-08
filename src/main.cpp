@@ -59,6 +59,7 @@ void loop() {
       // nukiBle.requestConfig(true);
       // nukiBle.requestBatteryReport();
       nukiBle.requestKeyPadCodes(0, 2);
+      nukiBle.requestLogEntries(0, 10, 0, true);
 
       //execute action
       // nukiBle.lockAction(LockAction::lock, 0, 0);

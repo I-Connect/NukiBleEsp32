@@ -182,6 +182,7 @@ enum class CompletionStatus : uint8_t {
   clutchFailure     = 0x06,
   motorPowerFailure = 0x07,
   incompleteFailure = 0x08,
+  invalidCode       = 0xE0,
   otherError        = 0xFE,
   unknown           = 0xFF
 };
@@ -200,6 +201,16 @@ enum class BatteryType : uint8_t {
   alkali            = 0x00,
   accumulators      = 0x01,
   lithium           = 0x02
+};
+
+enum class LoggingType : uint8_t {
+  loggingEnabled            = 0x01,
+  lockAction                = 0x02,
+  calibration               = 0x03,
+  initializationRun         = 0x04,
+  keypadAction              = 0x05,
+  doorSensor                = 0x06,
+  doorSensorLoggingEnabled  = 0x07
 };
 
 struct __attribute__((packed)) NewKeypadEntry {
@@ -337,13 +348,6 @@ struct __attribute__((packed)) AdvancedConfig {
   uint8_t  nightModeImmediateLockOnStart;
 };
 
-struct __attribute__((packed)) OpeningsClosingsSummary {
-  uint16_t openingsTotal;
-  uint16_t closingsTotal;
-  uint16_t openingsSinceBoot;
-  uint16_t closingsSinceBoot;
-};
-
 struct __attribute__((packed)) BatteryReport {
   uint16_t batteryDrain;
   uint16_t batteryVoltage;
@@ -355,4 +359,18 @@ struct __attribute__((packed)) BatteryReport {
   int8_t startTemperature;
   uint16_t maxTurnCurrent;
   uint16_t batteryResistance;
+};
+
+struct __attribute__((packed)) LogEntry {
+  uint32_t index;
+  uint16_t timeStampYear;
+  uint8_t timeStampMonth;
+  uint8_t timeStampDay;
+  uint8_t timeStampHour;
+  uint8_t timeStampMinute;
+  uint8_t timeStampSecond;
+  uint32_t authId;
+  uint8_t name[32];
+  LoggingType loggingType;
+  uint8_t data[5];
 };

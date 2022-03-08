@@ -34,11 +34,13 @@ unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
 KeyTurnerState keyTurnerState;
 Config config;
 AdvancedConfig advancedConfig;
-OpeningsClosingsSummary openingsClosingsSummary;
 BatteryReport batteryReport;
 NukiCommand lastMsgCodeReceived = NukiCommand::empty;
 uint16_t nrOfKeypadCodes = 0;
 KeypadEntry keypadEntry;
+uint16_t logEntryCount = 0;
+bool loggingEnabled = false;
+LogEntry logEntry;
 
 //task to retrieve messages from BLE when a notification occurrs
 void nukiBleTask(void* pvParameters) {
@@ -504,11 +506,11 @@ void NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flag
   addActionToQueue(action);
 }
 
-void NukiBle::requestKeyPadCodes(uint16_t offset, uint16_t nrToBeRead) {
+void NukiBle::requestKeyPadCodes(uint16_t offset, uint16_t count) {
   NukiAction action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
-  memcpy(&payload[2], &nrToBeRead, 2);
+  memcpy(&payload[2], &count, 2);
 
   action.cmdType = NukiCommandType::commandWithChallengeAndPin;
   action.command = NukiCommand::requestKeypadCodes;
@@ -536,6 +538,22 @@ void NukiBle::addKeypadEntry(NewKeypadEntry newKeyPadEntry) {
   printBuffer(action.payload, sizeof(NewKeypadEntry), false, "addKeyPadCode content: ");
   logNewKeypadEntry(newKeyPadEntry);
   #endif
+}
+
+void NukiBle::requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
+  NukiAction action;
+  unsigned char payload[8] = {0};
+  memcpy(payload, &startIndex, 4);
+  memcpy(&payload[4], &count, 2);
+  memcpy(&payload[6], &sortOrder, 1);
+  memcpy(&payload[7], &totalCount, 1);
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::requestLogEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  addActionToQueue(action);
 }
 
 void NukiBle::requestConfig(bool advanced) {
@@ -1043,7 +1061,9 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
     case NukiCommand::keyturnerStates :
       printBuffer((byte*)data, dataLen, false, "keyturnerStates");
       memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
+      #ifdef DEBUG_NUKI_READABLE_DATA
       logKeyturnerState(keyTurnerState);
+      #endif
       break;
     case NukiCommand::lockAction :
       printBuffer((byte*)data, dataLen, false, "LockAction");
@@ -1064,28 +1084,13 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::openingsClosingsSummary :
       printBuffer((byte*)data, dataLen, false, "openingsClosingsSummary");
-      memcpy(&openingsClosingsSummary, data, sizeof(openingsClosingsSummary));
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      log_d("openings total :%d", openingsClosingsSummary.openingsTotal);
-      log_d("closings total :%d", openingsClosingsSummary.closingsTotal);
-      log_d("openings since boot :%d", openingsClosingsSummary.openingsSinceBoot);
-      log_d("closings since boot :%d", openingsClosingsSummary.closingsSinceBoot);
-      #endif
+      log_w("NOT IMPLEMENTED"); //command is not available on Nuki v2 (only on Nuki v1)
       break;
     case NukiCommand::batteryReport :
       printBuffer((byte*)data, dataLen, false, "batteryReport");
       memcpy(&batteryReport, data, sizeof(batteryReport));
       #ifdef DEBUG_NUKI_READABLE_DATA
-      log_d("batteryDrain:%d", batteryReport.batteryDrain);
-      log_d("batteryVoltage:%d", batteryReport.batteryVoltage);
-      log_d("criticalBatteryState:%d", batteryReport.criticalBatteryState);
-      log_d("lockAction:%d", batteryReport.lockAction);
-      log_d("startVoltage:%d", batteryReport.startVoltage);
-      log_d("lowestVoltage:%d", batteryReport.lowestVoltage);
-      log_d("lockDistance:%d", batteryReport.lockDistance);
-      log_d("startTemperature:%d", batteryReport.startTemperature);
-      log_d("maxTurnCurrent:%d", batteryReport.maxTurnCurrent);
-      log_d("batteryResistance:%d", batteryReport.batteryResistance);
+      logBatteryReport(batteryReport);
       #endif
       break;
     case NukiCommand::errorReport :
@@ -1101,34 +1106,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
     case NukiCommand::config :
       memcpy(&config, data, sizeof(config));
       #ifdef DEBUG_NUKI_READABLE_DATA
-      log_d("nukiId :%d", config.nukiId);
-      log_d("name :%s", config.name);
-      log_d("latitide :%f", config.latitide);
-      log_d("longitude :%f", config.longitude);
-      log_d("autoUnlatch :%d", config.autoUnlatch);
-      log_d("pairingEnabled :%d", config.pairingEnabled);
-      log_d("buttonEnabled :%d", config.buttonEnabled);
-      log_d("ledEnabled :%d", config.ledEnabled);
-      log_d("ledBrightness :%d", config.ledBrightness);
-      log_d("currentTime Year :%d", config.currentTimeYear);
-      log_d("currentTime Month :%d", config.currentTimeMonth);
-      log_d("currentTime Day :%d", config.currentTimeDay);
-      log_d("currentTime Hour :%d", config.currentTimeHour);
-      log_d("currentTime Minute :%d", config.currentTimeMinute);
-      log_d("currentTime Second :%d", config.currentTimeSecond);
-      log_d("timeZOneOffset :%d", config.timeZOneOffset);
-      log_d("dstMode :%d", config.dstMode);
-      log_d("hasFob :%d", config.hasFob);
-      log_d("fobAction1 :%d", config.fobAction1);
-      log_d("fobAction2 :%d", config.fobAction2);
-      log_d("fobAction3 :%d", config.fobAction3);
-      log_d("singleLock :%d", config.singleLock);
-      log_d("advertisingMode :%d", config.advertisingMode);
-      log_d("hasKeypad :%d", config.hasKeypad);
-      log_d("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
-      log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
-      log_d("homeKitStatus :%d", config.homeKitStatus);
-      log_d("timeZoneId :%d", config.timeZoneId);
+      logConfig(config);
       #endif
       printBuffer((byte*)data, dataLen, false, "config");
       break;
@@ -1165,8 +1143,15 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::logEntry :
       printBuffer((byte*)data, dataLen, false, "logEntry");
+      memcpy(&logEntry, data, sizeof(logEntry));
+      logLogEntry(logEntry);
       break;
     case NukiCommand::logEntryCount :
+      memcpy(&loggingEnabled, data, sizeof(logEntryCount));
+      memcpy(&logEntryCount, &data[1], sizeof(logEntryCount));
+      #ifdef DEBUG_NUKI_READABLE_DATA
+      log_d("Logging enabled: %d, total nr of log entries: %d", loggingEnabled, logEntryCount);
+      #endif
       printBuffer((byte*)data, dataLen, false, "logEntryCount");
       break;
     case NukiCommand::enableLogging :
@@ -1180,7 +1165,9 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::advancedConfig :
       memcpy(&advancedConfig, data, sizeof(advancedConfig));
+      #ifdef DEBUG_NUKI_READABLE_DATA
       logAdvancedConfig(advancedConfig);
+      #endif
       printBuffer((byte*)data, dataLen, false, "advancedConfig");
       break;
     case NukiCommand::addTimeControlEntry :
@@ -1215,7 +1202,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     case NukiCommand::keypadCodeCount :
       printBuffer((byte*)data, dataLen, false, "keypadCodeCount");
-      #ifdef DEBU_NUKI_READABLE_DATA
+      #ifdef DEBUG_NUKI_READABLE_DATA
       log_d("keyPadCodeCount: %d", data);
       #endif
       memcpy(&nrOfKeypadCodes, data, 2);
