@@ -483,30 +483,6 @@ void NukiBle::requestBatteryReport() {
   addActionToQueue(action);
 }
 
-void NukiBle::requestAuthorizationEntryCount() {
-  NukiAction action;
-  uint16_t payload = (uint16_t)NukiCommand::requestAuthorizationEntries;
-
-  action.cmdType = NukiCommandType::command;
-  action.command = NukiCommand::requestData;
-  memcpy(&action.payload[0], &payload, sizeof(payload));
-  action.payloadLen = sizeof(payload);
-
-  addActionToQueue(action);
-}
-
-void NukiBle::requestOpeningsClosingsSummary() {
-  NukiAction action;
-  uint16_t payload = (uint16_t)NukiCommand::openingsClosingsSummary;
-
-  action.cmdType = NukiCommandType::command;
-  action.command = NukiCommand::requestData;
-  memcpy(&action.payload[0], &payload, sizeof(payload));
-  action.payloadLen = sizeof(payload);
-
-  addActionToQueue(action);
-}
-
 void NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags, unsigned char* nameSuffix) {
   NukiAction action;
   unsigned char payload[26] = {0};

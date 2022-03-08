@@ -54,8 +54,6 @@ void loop() {
       log_d("paired");
       paired = true;
 
-      // nukiBle.requestOpeningsClosingsSummary(); FAILS
-      // nukiBle.requestAuthorizationEntryCount(); FAILS
       nukiBle.updateKeyTurnerState();
       // nukiBle.requestConfig(false);
       // nukiBle.requestConfig(true);
