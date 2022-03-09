@@ -98,7 +98,7 @@ void NukiBle::unPairNuki() {
 
 bool NukiBle::connectBle(BLEAddress bleAddress) {
   //TODO fix esp crash when connection fails or is interupted...?
-  if (!bleConnected) {
+  if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
     while (connectRetry < 5) {
       if (pClient->connect(bleAddress, true)) {
@@ -1244,7 +1244,6 @@ void NukiBle::onConnect(BLEClient*) {
 };
 
 void NukiBle::onDisconnect(BLEClient*) {
-  bleConnected = false;
   #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE disconnected");
   #endif
