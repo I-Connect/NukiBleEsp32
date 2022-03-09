@@ -103,7 +103,6 @@ bool NukiBle::connectBle(BLEAddress bleAddress) {
     while (connectRetry < 5) {
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
-          bleConnected = true;
           return true;
         } else {
           log_w("BLE register on pairing or data Service/Char failed");

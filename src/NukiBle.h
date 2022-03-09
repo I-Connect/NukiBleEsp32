@@ -56,7 +56,6 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
-    bool bleConnected = false;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
