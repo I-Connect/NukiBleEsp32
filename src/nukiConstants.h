@@ -310,7 +310,7 @@ struct __attribute__((packed)) Config {
   uint8_t currentTimeHour;
   uint8_t currentTimeMinute;
   uint8_t currentTimeSecond;
-  int16_t timeZOneOffset;
+  int16_t timeZoneOffset;
   uint8_t dstMode;
   uint8_t  hasFob;
   uint8_t  fobAction1;

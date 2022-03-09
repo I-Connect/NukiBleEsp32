@@ -569,6 +569,34 @@ void NukiBle::requestConfig(bool advanced) {
   addActionToQueue(action);
 }
 
+void NukiBle::setConfig(Config config) {
+  NukiAction action;
+  unsigned char payload[8] = {0};
+  memcpy(payload, config.name, 32);
+  memcpy(&payload[32], &config.latitide, 4);
+  memcpy(&payload[36], &config.longitude, 4);
+  memcpy(&payload[40], &config.autoUnlatch, 1);
+  memcpy(&payload[41], &config.pairingEnabled, 1);
+  memcpy(&payload[42], &config.buttonEnabled, 1);
+  memcpy(&payload[43], &config.ledEnabled, 1);
+  memcpy(&payload[44], &config.ledBrightness, 1);
+  memcpy(&payload[45], &config.timeZoneOffset, 2);
+  memcpy(&payload[47], &config.dstMode, 1);
+  memcpy(&payload[48], &config.fobAction1, 1);
+  memcpy(&payload[49], &config.fobAction2, 1);
+  memcpy(&payload[50], &config.fobAction3, 1);
+  memcpy(&payload[51], &config.singleLock, 1);
+  memcpy(&payload[52], &config.advertisingMode, 1);
+  memcpy(&payload[53], &config.timeZoneId, 2);
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::setConfig;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  addActionToQueue(action);
+}
+
 void NukiBle::saveCredentials() {
   unsigned char buff[6];
   buff[0] = bleAddress.getNative()[5];

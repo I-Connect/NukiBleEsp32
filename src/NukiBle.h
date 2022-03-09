@@ -38,11 +38,14 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     void updateKeyTurnerState();
     void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
     void requestConfig(bool advanced);
+    void setConfig(Config config);
     void requestBatteryReport();
     void requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
 
     void requestKeyPadCodes(uint16_t offset, uint16_t count);
     void addKeypadEntry(NewKeypadEntry newKeypadEntry);
+
+    static void logConfig(Config config);
 
     virtual void initialize();
     void runStateMachine();

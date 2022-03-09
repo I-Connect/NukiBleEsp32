@@ -184,7 +184,7 @@ void NukiBle::logErrorCode(uint8_t errorCode) {
   }
 }
 
-void logConfig(Config config) {
+void NukiBle::logConfig(Config config) {
   log_d("nukiId :%d", config.nukiId);
   log_d("name :%s", config.name);
   log_d("latitide :%f", config.latitide);
@@ -200,7 +200,7 @@ void logConfig(Config config) {
   log_d("currentTime Hour :%d", config.currentTimeHour);
   log_d("currentTime Minute :%d", config.currentTimeMinute);
   log_d("currentTime Second :%d", config.currentTimeSecond);
-  log_d("timeZOneOffset :%d", config.timeZOneOffset);
+  log_d("timeZoneOffset :%d", config.timeZoneOffset);
   log_d("dstMode :%d", config.dstMode);
   log_d("hasFob :%d", config.hasFob);
   log_d("fobAction1 :%d", config.fobAction1);
