@@ -58,7 +58,7 @@ void loop() {
       // nukiBle.requestConfig(false);
       // nukiBle.requestConfig(true);
       // nukiBle.requestBatteryReport();
-      // nukiBle.requestKeyPadCodes(0, 2);
+      nukiBle.requestKeyPadCodes(0, 2);
       // nukiBle.requestLogEntries(0, 10, 0, true);
 
       //execute action
@@ -67,5 +67,7 @@ void loop() {
     }
   }
 
-  delay(10000);
+  delay(20000);
+
+  nukiBle.updateKeyTurnerState();
 }

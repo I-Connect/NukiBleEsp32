@@ -13,7 +13,7 @@
 #include <esp_task_wdt.h>
 
 #define GENERAL_TIMEOUT 10000
-#define CMD_TIMEOUT 3000
+#define CMD_TIMEOUT 5000
 #define PAIRING_TIMEOUT 30000
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
@@ -48,12 +48,8 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     static void logConfig(Config config);
 
     virtual void initialize();
-    void runStateMachine();
 
   private:
-    TaskHandle_t TaskHandleNukiBle;
-    BaseType_t xHigherPriorityTaskWoken;
-    QueueHandle_t  nukiBleRequestQueue;
     void startNukiBleXtask();
 
     bool connectBle(BLEAddress bleAddress);
@@ -99,11 +95,12 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
 
-    enum class NukiConnectionState {
-      checkPaired         = 1,
-      paired              = 2
+    enum NukiCmdResult : uint8_t {
+      success   = 1,
+      failed    = 2,
+      timeOut   = 3,
+      working   = 4
     };
-    NukiConnectionState nukiConnectionState = NukiConnectionState::checkPaired;
 
     enum class NukiPairingState {
       initPairing       = 0,
@@ -143,10 +140,10 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
       uint8_t payloadLen = 0;
     };
 
-    void addActionToQueue(NukiAction action);
-    bool cmdStateMachine(NukiAction action);
-    bool cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
-    bool cmdChallAccStateMachine(NukiAction action);
+    NukiCmdResult cmdStateMachine(NukiAction action);
+    bool executeAction(NukiAction action);
+    NukiCmdResult cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
+    NukiCmdResult cmdChallAccStateMachine(NukiAction action);
 
     NukiPairingState nukiPairingState = NukiPairingState::initPairing;
     NukiCommandState nukiCommandState = NukiCommandState::idle;
