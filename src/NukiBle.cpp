@@ -931,20 +931,26 @@ bool NukiBle::registerOnGdioChar() {
   pKeyturnerPairingService = pClient->getService(STRING(keyturnerPairingServiceUUID));
   //Obtain reference to GDIO char
   pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(STRING(keyturnerGdioUUID));
-  if (pGdioCharacteristic->canIndicate()) {
-    pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
-    #ifdef DEBUG_NUKI_COMMUNICATION
-    log_d("GDIO characteristic registered");
-    #endif
-    delay(100);
-    return true;
-  }
-  else {
-    #ifdef DEBUG_NUKI_COMMUNICATION
-    log_d("GDIO characteristic canIndicate false, stop connecting");
-    #endif
+  if (pGdioCharacteristic != nullptr) {
+    if (pGdioCharacteristic->canIndicate()) {
+      pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
+      #ifdef DEBUG_NUKI_COMMUNICATION
+      log_d("GDIO characteristic registered");
+      #endif
+      delay(100);
+      return true;
+    }
+    else {
+      #ifdef DEBUG_NUKI_COMMUNICATION
+      log_d("GDIO characteristic canIndicate false, stop connecting");
+      #endif
+      return false;
+    }
+  } else {
+    log_w("Unable to get GDIO characteristic");
     return false;
   }
+
   return false;
 }
 
@@ -953,18 +959,23 @@ bool NukiBle::registerOnUsdioChar() {
   pKeyturnerDataService = pClient->getService(STRING(keyturnerServiceUUID));
   //Obtain reference to NDIO char
   pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(userDataUUID));
-  if (pUsdioCharacteristic->canIndicate()) {
-    pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
-    #ifdef DEBUG_NUKI_COMMUNICATION
-    log_d("USDIO characteristic registered");
-    #endif
-    delay(100);
-    return true;
-  }
-  else {
-    #ifdef DEBUG_NUKI_COMMUNICATION
-    log_d("USDIO characteristic canIndicate false, stop connecting");
-    #endif
+  if (pUsdioCharacteristic != nullptr) {
+    if (pUsdioCharacteristic->canIndicate()) {
+      pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
+      #ifdef DEBUG_NUKI_COMMUNICATION
+      log_d("USDIO characteristic registered");
+      #endif
+      delay(100);
+      return true;
+    }
+    else {
+      #ifdef DEBUG_NUKI_COMMUNICATION
+      log_d("USDIO characteristic canIndicate false, stop connecting");
+      #endif
+      return false;
+    }
+  } else {
+    log_w("Unable to get USDIO characteristic");
     return false;
   }
   return false;
