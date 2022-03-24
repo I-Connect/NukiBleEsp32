@@ -34,6 +34,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
 
     bool pairNuki();
     void unPairNuki();
+    bool savePincode(uint16_t pinCode);
 
     uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
     uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
@@ -45,6 +46,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t retreiveKeypadEntries(uint16_t offset, uint16_t count);
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
     uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
+    uint8_t setSecurityPin(uint16_t newSecurityPin);
 
     static void logConfig(Config config);
     virtual void initialize();

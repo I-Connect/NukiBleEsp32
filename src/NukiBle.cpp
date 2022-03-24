@@ -24,7 +24,7 @@ bool crcCheckOke;
 unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char authorizationId[4] = {0x00, 0x00, 0x0, 0x00};
-uint16_t pinCode = 1108;
+uint16_t pinCode = 0000;
 unsigned char lockId[16];
 unsigned char secretKeyK[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 unsigned char sharedKeyS[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
@@ -659,6 +659,31 @@ uint8_t NukiBle::setConfig(Config config) {
   return uint8_t(errorCode);
 }
 
+uint8_t NukiBle::setSecurityPin(uint16_t newSecurityPin) {
+  NukiAction action;
+  unsigned char payload[2] = {0};
+  memcpy(payload, &newSecurityPin, 2);
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::setSecurityPin;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    pinCode = newSecurityPin;
+    saveCredentials();
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+bool NukiBle::savePincode(uint16_t pinCode) {
+  return (preferences.putBytes("securityPinCode", &pinCode, 2) == 2);
+}
+
 void NukiBle::saveCredentials() {
   unsigned char buff[6];
   buff[0] = bleAddress.getNative()[5];
@@ -670,12 +695,14 @@ void NukiBle::saveCredentials() {
 
   if ( (preferences.putBytes("secretKeyK", secretKeyK, 32) == 32 )
        && ( preferences.putBytes("bleAddress", buff, 6) == 6 )
-       && ( preferences.putBytes("authorizationId", authorizationId, 4) == 4 ) ) {
+       && ( preferences.putBytes("authorizationId", authorizationId, 4) == 4 )
+       && preferences.putBytes("securityPinCode", &pinCode, 2) == 2) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials saved:");
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
     printBuffer(buff, 6, false, "bleAddress");
     printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+    log_d("pincode: %d", pinCode);
     #endif
   } else {
     log_w("ERROR saving credentials");
@@ -687,13 +714,15 @@ bool NukiBle::retreiveCredentials() {
   unsigned char buff[6];
   if ( (preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
        && (preferences.getBytes("bleAddress", buff, 6) > 0)
-       && (preferences.getBytes("authorizationId", authorizationId, 4) > 0) ) {
+       && (preferences.getBytes("authorizationId", authorizationId, 4) > 0)
+       && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0) ) {
     bleAddress = BLEAddress(buff);
     #ifdef DEBUG_NUKI_CONNECT
     log_d("[%s] Credentials retreived :", deviceName.c_str());
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
     log_d("bleAddress: %s", bleAddress.toString().c_str());
     printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+    log_d("PinCode: %d", pinCode);
     #endif
 
   } else {

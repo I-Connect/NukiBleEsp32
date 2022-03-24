@@ -18,14 +18,6 @@ BatteryReport _batteryReport;
 std::list<LogEntry> requestedLogEntries;
 std::list<KeypadEntry> requestedKeypadEntries;
 
-void setup() {
-  Serial.begin(115200);
-  log_d("Starting NUKI BLE...");
-  nukiBle.initialize();
-
-  // nukiBle.unPairNuki();
-}
-
 void addKeypadEntry() {
   NewKeypadEntry newKeypadEntry;
   unsigned char nameBuff[20] = "test";
@@ -104,12 +96,32 @@ void requestKeyPadEntries() {
   }
 }
 
+void setPincode(uint16_t pincode) {
+  uint8_t result = nukiBle.setSecurityPin(pincode);
+  if ( result == 1) {
+    log_d("Set pincode done");
+
+  } else {
+    log_d("Set pincode failed: %d", result);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  log_d("Starting NUKI BLE...");
+  nukiBle.initialize();
+
+  // nukiBle.savePincode(9999);
+  // nukiBle.unPairNuki();
+}
+
 void loop() {
   if (!paired) {
     if (nukiBle.pairNuki()) {
       log_d("paired");
       paired = true;
 
+      // setPincode(9999);
       // nukiBle.requestConfig(false);
       // nukiBle.requestConfig(true);
 
@@ -123,9 +135,11 @@ void loop() {
     }
   }
 
+  keyTurnerState();
   // batteryReport();
   // requestLogEntries();
-  requestKeyPadEntries();
+  // requestKeyPadEntries();
+
 
   delay(20000);
 }
