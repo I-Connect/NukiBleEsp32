@@ -1097,24 +1097,29 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
   lastMsgCodeReceived = returnCode;
 
   switch (returnCode) {
-    case NukiCommand::requestData :
+    case NukiCommand::requestData : {
       log_d("requestData");
       break;
-    case NukiCommand::publicKey :
+    }
+    case NukiCommand::publicKey : {
       memcpy(remotePublicKey, data, 32);
       printBuffer(remotePublicKey, sizeof(remotePublicKey), false,  "Remote public key");
       break;
-    case NukiCommand::challenge :
+    }
+    case NukiCommand::challenge : {
       memcpy(challengeNonceK, data, 32);
       printBuffer((byte*)data, dataLen, false, "Challenge");
       break;
-    case NukiCommand::authorizationAuthenticator :
+    }
+    case NukiCommand::authorizationAuthenticator : {
       printBuffer((byte*)data, dataLen, false, "authorizationAuthenticator");
       break;
-    case NukiCommand::authorizationData :
+    }
+    case NukiCommand::authorizationData : {
       printBuffer((byte*)data, dataLen, false, "authorizationData");
       break;
-    case NukiCommand::authorizationId :
+    }
+    case NukiCommand::authorizationId : {
       printBuffer((byte*)data, dataLen, false, "authorizationId data");
       memcpy(authorizationId, &data[32], 4);
       memcpy(lockId, &data[36], sizeof(lockId));
@@ -1122,29 +1127,36 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
       printBuffer(lockId, sizeof(lockId), false, "lockId");
       break;
-    case NukiCommand::removeUserAuthorization :
+    }
+    case NukiCommand::removeUserAuthorization : {
       printBuffer((byte*)data, dataLen, false, "removeUserAuthorization");
       break;
-    case NukiCommand::requestAuthorizationEntries :
+    }
+    case NukiCommand::requestAuthorizationEntries : {
       printBuffer((byte*)data, dataLen, false, "requestAuthorizationEntries");
       break;
-    case NukiCommand::authorizationEntry :
+    }
+    case NukiCommand::authorizationEntry : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntry");
       break;
-    case NukiCommand::authorizationDatInvite :
+    }
+    case NukiCommand::authorizationDatInvite : {
       printBuffer((byte*)data, dataLen, false, "authorizationDatInvite");
       break;
-    case NukiCommand::keyturnerStates :
+    }
+    case NukiCommand::keyturnerStates : {
       printBuffer((byte*)data, dataLen, false, "keyturnerStates");
       memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logKeyturnerState(keyTurnerState);
       #endif
       break;
-    case NukiCommand::lockAction :
+    }
+    case NukiCommand::lockAction : {
       printBuffer((byte*)data, dataLen, false, "LockAction");
       break;
-    case NukiCommand::status :
+    }
+    case NukiCommand::status : {
       printBuffer((byte*)data, dataLen, false, "status");
       receivedStatus = data[0];
       #ifdef DEBUG_NUKI_READABLE_DATA
@@ -1155,75 +1167,96 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       }
       #endif
       break;
-    case NukiCommand::mostRecentCommand :
+    }
+    case NukiCommand::mostRecentCommand : {
       printBuffer((byte*)data, dataLen, false, "mostRecentCommand");
       break;
-    case NukiCommand::openingsClosingsSummary :
+    }
+    case NukiCommand::openingsClosingsSummary : {
       printBuffer((byte*)data, dataLen, false, "openingsClosingsSummary");
       log_w("NOT IMPLEMENTED"); //command is not available on Nuki v2 (only on Nuki v1)
       break;
-    case NukiCommand::batteryReport :
+    }
+    case NukiCommand::batteryReport : {
       printBuffer((byte*)data, dataLen, false, "batteryReport");
       memcpy(&batteryReport, data, sizeof(batteryReport));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logBatteryReport(batteryReport);
       #endif
       break;
-    case NukiCommand::errorReport :
+    }
+    case NukiCommand::errorReport : {
       log_e("Error: %02x for command: %02x:%02x", data[0], data[2], data[1]);
       memcpy(&errorCode, &data[0], sizeof(errorCode));
       logErrorCode(data[0]);
       break;
-    case NukiCommand::setConfig :
+    }
+    case NukiCommand::setConfig : {
       printBuffer((byte*)data, dataLen, false, "setConfig");
       break;
-    case NukiCommand::requestConfig :
+    }
+    case NukiCommand::requestConfig : {
       printBuffer((byte*)data, dataLen, false, "requestConfig");
       break;
-    case NukiCommand::config :
+    }
+    case NukiCommand::config : {
       memcpy(&config, data, sizeof(config));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logConfig(config);
       #endif
       printBuffer((byte*)data, dataLen, false, "config");
       break;
-    case NukiCommand::setSecurityPin :
+    }
+    case NukiCommand::setSecurityPin : {
       printBuffer((byte*)data, dataLen, false, "setSecurityPin");
       break;
-    case NukiCommand::requestCalibration :
+    }
+    case NukiCommand::requestCalibration : {
       printBuffer((byte*)data, dataLen, false, "requestCalibration");
       break;
-    case NukiCommand::requestReboot :
+    }
+    case NukiCommand::requestReboot : {
       printBuffer((byte*)data, dataLen, false, "requestReboot");
       break;
-    case NukiCommand::authorizationIdConfirmation :
+    }
+    case NukiCommand::authorizationIdConfirmation : {
       printBuffer((byte*)data, dataLen, false, "authorizationIdConfirmation");
       break;
-    case NukiCommand::authorizationIdInvite :
+    }
+    case NukiCommand::authorizationIdInvite : {
       printBuffer((byte*)data, dataLen, false, "authorizationIdInvite");
       break;
-    case NukiCommand::verifySecurityPin :
+    }
+    case NukiCommand::verifySecurityPin : {
       printBuffer((byte*)data, dataLen, false, "verifySecurityPin");
       break;
-    case NukiCommand::updateTime :
+    }
+    case NukiCommand::updateTime : {
       printBuffer((byte*)data, dataLen, false, "updateTime");
       break;
-    case NukiCommand::updateUserAuthorization :
+    }
+    case NukiCommand::updateUserAuthorization : {
       printBuffer((byte*)data, dataLen, false, "updateUserAuthorization");
       break;
-    case NukiCommand::authorizationEntryCount :
+    }
+    case NukiCommand::authorizationEntryCount : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntryCount");
-      log_d("authorizationEntryCount: %d", data);
+      uint16_t count = 0;
+      memcpy(&count, data, 2);
+      log_d("authorizationEntryCount: %d", count);
       break;
-    case NukiCommand::requestLogEntries :
+    }
+    case NukiCommand::requestLogEntries : {
       printBuffer((byte*)data, dataLen, false, "requestLogEntries");
       break;
-    case NukiCommand::logEntry :
+    }
+    case NukiCommand::logEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry");
       memcpy(&logEntry, data, sizeof(logEntry));
       logLogEntry(logEntry);
       break;
-    case NukiCommand::logEntryCount :
+    }
+    case NukiCommand::logEntryCount : {
       memcpy(&loggingEnabled, data, sizeof(logEntryCount));
       memcpy(&logEntryCount, &data[1], sizeof(logEntryCount));
       #ifdef DEBUG_NUKI_READABLE_DATA
@@ -1231,78 +1264,101 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       #endif
       printBuffer((byte*)data, dataLen, false, "logEntryCount");
       break;
-    case NukiCommand::enableLogging :
+    }
+    case NukiCommand::enableLogging : {
       printBuffer((byte*)data, dataLen, false, "enableLogging");
       break;
-    case NukiCommand::setAdvancedConfig :
+    }
+    case NukiCommand::setAdvancedConfig : {
       printBuffer((byte*)data, dataLen, false, "setAdvancedConfig");
       break;
-    case NukiCommand::requestAdvancedConfig :
+    }
+    case NukiCommand::requestAdvancedConfig : {
       printBuffer((byte*)data, dataLen, false, "requestAdvancedConfig");
       break;
-    case NukiCommand::advancedConfig :
+    }
+    case NukiCommand::advancedConfig : {
       memcpy(&advancedConfig, data, sizeof(advancedConfig));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logAdvancedConfig(advancedConfig);
       #endif
       printBuffer((byte*)data, dataLen, false, "advancedConfig");
       break;
-    case NukiCommand::addTimeControlEntry :
+    }
+    case NukiCommand::addTimeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "addTimeControlEntry");
       break;
-    case NukiCommand::timeControlEntryId :
+    }
+    case NukiCommand::timeControlEntryId : {
       printBuffer((byte*)data, dataLen, false, "timeControlEntryId");
       break;
-    case NukiCommand::removeTimeControlEntry :
+    }
+    case NukiCommand::removeTimeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "removeTimeControlEntry");
       break;
-    case NukiCommand::requestTimeControlEntries :
+    }
+    case NukiCommand::requestTimeControlEntries : {
       printBuffer((byte*)data, dataLen, false, "requestTimeControlEntries");
       break;
-    case NukiCommand::timeControlEntryCount :
+    }
+    case NukiCommand::timeControlEntryCount : {
       printBuffer((byte*)data, dataLen, false, "timeControlEntryCount");
       break;
-    case NukiCommand::timeControlEntry :
+    }
+    case NukiCommand::timeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "timeControlEntry");
       break;
-    case NukiCommand::updateTimeControlEntry :
+    }
+    case NukiCommand::updateTimeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "updateTimeControlEntry");
       break;
-    case NukiCommand::addKeypadCode :
+    }
+    case NukiCommand::addKeypadCode : {
       printBuffer((byte*)data, dataLen, false, "addKeypadCode");
       break;
-    case NukiCommand::keypadCodeId :
+    }
+    case NukiCommand::keypadCodeId : {
       printBuffer((byte*)data, dataLen, false, "keypadCodeId");
       break;
-    case NukiCommand::requestKeypadCodes :
+    }
+    case NukiCommand::requestKeypadCodes : {
       printBuffer((byte*)data, dataLen, false, "requestKeypadCodes");
       break;
-    case NukiCommand::keypadCodeCount :
+    }
+    case NukiCommand::keypadCodeCount : {
       printBuffer((byte*)data, dataLen, false, "keypadCodeCount");
       #ifdef DEBUG_NUKI_READABLE_DATA
-      log_d("keyPadCodeCount: %d", data);
+      uint16_t count = 0;
+      memcpy(&count, data, 2);
+      log_d("keyPadCodeCount: %d", count);
       #endif
       memcpy(&nrOfKeypadCodes, data, 2);
       break;
-    case NukiCommand::keypadCode :
+    }
+    case NukiCommand::keypadCode : {
       printBuffer((byte*)data, dataLen, false, "keypadCode");
       #ifdef DEBUG_NUKI_READABLE_DATA
       memcpy(&keypadEntry, data, sizeof(KeypadEntry));
       logKeypadEntry(keypadEntry);
       #endif
       break;
-    case NukiCommand::updateKeypadCode :
+    }
+    case NukiCommand::updateKeypadCode : {
       printBuffer((byte*)data, dataLen, false, "updateKeypadCode");
       break;
-    case NukiCommand::removeKeypadCode :
+    }
+    case NukiCommand::removeKeypadCode : {
       printBuffer((byte*)data, dataLen, false, "removeKeypadCode");
       break;
-    case NukiCommand::keypadAction :
+    }
+    case NukiCommand::keypadAction : {
       printBuffer((byte*)data, dataLen, false, "keypadAction");
       break;
-    case NukiCommand::simpleLockAction :
+    }
+    case NukiCommand::simpleLockAction : {
       printBuffer((byte*)data, dataLen, false, "simpleLockAction");
       break;
+    }
     default:
       log_e("UNKNOWN RETURN COMMAND: %02x", returnCode);
   }
