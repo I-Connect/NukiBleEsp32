@@ -40,9 +40,10 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t requestConfig(Config* retreivedConfig, bool advanced);
     uint8_t setConfig(Config config);
     uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
-    uint8_t requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
-
-    uint8_t requestKeyPadCodes(uint16_t offset, uint16_t count);
+    uint8_t retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
+    void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+    uint8_t retreiveKeypadEntries(uint16_t offset, uint16_t count);
+    void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
     uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
 
     static void logConfig(Config config);

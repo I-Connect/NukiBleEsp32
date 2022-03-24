@@ -14,6 +14,9 @@ NukiBle nukiBle(deviceName, deviceId);
 bool paired = false;
 
 KeyTurnerState retreivedKeyTurnerState;
+BatteryReport _batteryReport;
+std::list<LogEntry> requestedLogEntries;
+std::list<KeypadEntry> requestedKeypadEntries;
 
 void setup() {
   Serial.begin(115200);
@@ -50,25 +53,16 @@ void addKeypadEntry() {
   nukiBle.addKeypadEntry(newKeypadEntry);
 }
 
-void loop() {
-  if (!paired) {
-    if (nukiBle.pairNuki()) {
-      log_d("paired");
-      paired = true;
-
-      // nukiBle.requestKeyTurnerState(&keyTurnerState);
-      // nukiBle.requestConfig(false);
-      // nukiBle.requestConfig(true);
-      // nukiBle.requestBatteryReport();
-      nukiBle.requestKeyPadCodes(0, 2);
-      // nukiBle.requestLogEntries(0, 10, 0, true);
-
-      //execute action
-      // nukiBle.lockAction(LockAction::lock, 0, 0);
-      // addKeypadEntry();
-    }
+void batteryReport() {
+  uint8_t result = nukiBle.requestBatteryReport(&_batteryReport);
+  if (result == 1) {
+    log_d("Bat report voltage: %d Crit state: %d, start temp: %d", _batteryReport.batteryVoltage, _batteryReport.criticalBatteryState, _batteryReport.startTemperature);
+  } else {
+    log_d("Bat report failed: %d", result);
   }
+}
 
+void keyTurnerState() {
   uint8_t result = nukiBle.requestKeyTurnerState(&retreivedKeyTurnerState);
   if ( result == 1) {
     log_d("Bat state: %d, lock state: %d %d:%d:%d",
@@ -78,6 +72,60 @@ void loop() {
     log_d("cmd failed: %d", result);
   }
 
+}
+
+void requestLogEntries() {
+  uint8_t result = nukiBle.retreiveLogEntries(0, 10, 0, true);
+  if ( result == 1) {
+    delay(5000);
+    nukiBle.getLogEntries(&requestedLogEntries);
+    std::list<LogEntry>::iterator it = requestedLogEntries.begin();
+    while (it != requestedLogEntries.end()) {
+      log_d("Log[%d] %d-%d-%d %d:%d:%d", it->index, it->timeStampYear, it->timeStampMonth, it->timeStampDay, it->timeStampHour, it->timeStampMinute, it->timeStampSecond);
+      it++;
+    }
+  } else {
+    log_d("get log failed: %d", result);
+  }
+}
+
+void requestKeyPadEntries() {
+  uint8_t result = nukiBle.retreiveKeypadEntries(0, 10);
+  if ( result == 1) {
+    delay(5000);
+    nukiBle.getKeypadEntries(&requestedKeypadEntries);
+    std::list<KeypadEntry>::iterator it = requestedKeypadEntries.begin();
+    while (it != requestedKeypadEntries.end()) {
+      log_d("Keypad entry[%d] %d", it->codeId, it->code);
+      it++;
+    }
+  } else {
+    log_d("get keypadentries failed: %d", result);
+  }
+}
+
+void loop() {
+  if (!paired) {
+    if (nukiBle.pairNuki()) {
+      log_d("paired");
+      paired = true;
+
+      // nukiBle.requestConfig(false);
+      // nukiBle.requestConfig(true);
+
+
+      // nukiBle.requestKeyPadCodes(0, 2);
+
+
+      //execute action
+      // nukiBle.lockAction(LockAction::lock, 0, 0);
+      // addKeypadEntry();
+    }
+  }
+
+  // batteryReport();
+  // requestLogEntries();
+  requestKeyPadEntries();
 
   delay(20000);
 }

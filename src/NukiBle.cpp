@@ -38,10 +38,10 @@ BatteryReport batteryReport;
 NukiErrorCode errorCode;
 NukiCommand lastMsgCodeReceived = NukiCommand::empty;
 uint16_t nrOfKeypadCodes = 0;
-KeypadEntry keypadEntry;
 uint16_t logEntryCount = 0;
 bool loggingEnabled = false;
-LogEntry logEntry;
+std::list<LogEntry> listOfLogEntries;
+std::list<KeypadEntry> listOfKeyPadEntries;
 
 NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
@@ -98,7 +98,6 @@ void NukiBle::unPairNuki() {
 }
 
 bool NukiBle::connectBle(BLEAddress bleAddress) {
-  //TODO fix esp crash when connection fails or is interupted...?
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
     while (connectRetry < 5) {
@@ -515,7 +514,7 @@ uint8_t NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t f
   return uint8_t(errorCode);
 }
 
-uint8_t NukiBle::requestKeyPadCodes(uint16_t offset, uint16_t count) {
+uint8_t NukiBle::retreiveKeypadEntries(uint16_t offset, uint16_t count) {
   NukiAction action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
@@ -526,9 +525,10 @@ uint8_t NukiBle::requestKeyPadCodes(uint16_t offset, uint16_t count) {
   memcpy(action.payload, &payload, sizeof(payload));
   action.payloadLen = sizeof(payload);
 
+  listOfKeyPadEntries.clear();
+
   uint8_t result = executeAction(action);
   if (result == NukiCmdResult::success) {
-    //TODO return set of keypadcodes
     return true;
   } else if (result == NukiCmdResult::timeOut) {
     return NukiCmdResult::timeOut;
@@ -561,7 +561,17 @@ uint8_t NukiBle::addKeypadEntry(NewKeypadEntry newKeyPadEntry) {
   return uint8_t(errorCode);
 }
 
-uint8_t NukiBle::requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
+void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
+  requestedKeypadCodes->clear();
+  std::list<KeypadEntry>::iterator it = listOfKeyPadEntries.begin();
+  while (it != listOfKeyPadEntries.end())
+  {
+    requestedKeypadCodes->push_back(*it);
+    it++;
+  }
+}
+
+uint8_t NukiBle::retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
   NukiAction action;
   unsigned char payload[8] = {0};
   memcpy(payload, &startIndex, 4);
@@ -574,14 +584,25 @@ uint8_t NukiBle::requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t 
   memcpy(action.payload, &payload, sizeof(payload));
   action.payloadLen = sizeof(payload);
 
+  listOfLogEntries.clear();
+
   uint8_t result = executeAction(action);
   if (result == NukiCmdResult::success) {
-    //TODO return set of log entries
     return true;
   } else if (result == NukiCmdResult::timeOut) {
     return NukiCmdResult::timeOut;
   }
   return uint8_t(errorCode);
+}
+
+void NukiBle::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
+  requestedLogEntries->clear();
+  std::list<LogEntry>::iterator it = listOfLogEntries.begin();
+  while (it != listOfLogEntries.end())
+  {
+    requestedLogEntries->push_back(*it);
+    it++;
+  }
 }
 
 uint8_t NukiBle::requestConfig(Config* retreivedConfig, bool advanced) {
@@ -1252,8 +1273,12 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
     }
     case NukiCommand::logEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry");
+      LogEntry logEntry;
       memcpy(&logEntry, data, sizeof(logEntry));
+      listOfLogEntries.push_back(logEntry);
+      #ifdef DEBUG_NUKI_READABLE_DATA
       logLogEntry(logEntry);
+      #endif
       break;
     }
     case NukiCommand::logEntryCount : {
@@ -1338,7 +1363,9 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
     case NukiCommand::keypadCode : {
       printBuffer((byte*)data, dataLen, false, "keypadCode");
       #ifdef DEBUG_NUKI_READABLE_DATA
+      KeypadEntry keypadEntry;
       memcpy(&keypadEntry, data, sizeof(KeypadEntry));
+      listOfKeyPadEntries.push_back(keypadEntry);
       logKeypadEntry(keypadEntry);
       #endif
       break;
