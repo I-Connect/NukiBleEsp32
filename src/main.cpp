@@ -13,6 +13,8 @@ NukiBle nukiBle(deviceName, deviceId);
 
 bool paired = false;
 
+KeyTurnerState retreivedKeyTurnerState;
+
 void setup() {
   Serial.begin(115200);
   log_d("Starting NUKI BLE...");
@@ -54,7 +56,7 @@ void loop() {
       log_d("paired");
       paired = true;
 
-      nukiBle.updateKeyTurnerState();
+      // nukiBle.requestKeyTurnerState(&keyTurnerState);
       // nukiBle.requestConfig(false);
       // nukiBle.requestConfig(true);
       // nukiBle.requestBatteryReport();
@@ -67,7 +69,15 @@ void loop() {
     }
   }
 
-  delay(20000);
+  uint8_t result = nukiBle.requestKeyTurnerState(&retreivedKeyTurnerState);
+  if ( result == 1) {
+    log_d("Bat state: %d, lock state: %d %d:%d:%d",
+          retreivedKeyTurnerState.criticalBatteryState, retreivedKeyTurnerState.lockState, retreivedKeyTurnerState.currentTimeHour,
+          retreivedKeyTurnerState.currentTimeMinute, retreivedKeyTurnerState.currentTimeSecond);
+  } else {
+    log_d("cmd failed: %d", result);
+  }
 
-  nukiBle.updateKeyTurnerState();
+
+  delay(20000);
 }

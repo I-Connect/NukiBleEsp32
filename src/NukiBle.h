@@ -35,18 +35,17 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     bool pairNuki();
     void unPairNuki();
 
-    void updateKeyTurnerState();
-    void lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
-    void requestConfig(bool advanced);
-    void setConfig(Config config);
-    void requestBatteryReport();
-    void requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
+    uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
+    uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
+    uint8_t requestConfig(Config* retreivedConfig, bool advanced);
+    uint8_t setConfig(Config config);
+    uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
+    uint8_t requestLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
 
-    void requestKeyPadCodes(uint16_t offset, uint16_t count);
-    void addKeypadEntry(NewKeypadEntry newKeypadEntry);
+    uint8_t requestKeyPadCodes(uint16_t offset, uint16_t count);
+    uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
 
     static void logConfig(Config config);
-
     virtual void initialize();
 
   private:
@@ -98,7 +97,8 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
       success   = 1,
       failed    = 2,
       timeOut   = 3,
-      working   = 4
+      working   = 4,
+      notPaired = 5
     };
 
     enum class NukiPairingState {
@@ -140,7 +140,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     };
 
     NukiCmdResult cmdStateMachine(NukiAction action);
-    bool executeAction(NukiAction action);
+    uint8_t executeAction(NukiAction action);
     NukiCmdResult cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
     NukiCmdResult cmdChallAccStateMachine(NukiAction action);
 
