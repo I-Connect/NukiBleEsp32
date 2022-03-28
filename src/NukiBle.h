@@ -38,8 +38,12 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
 
     uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
     uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
+
     uint8_t requestConfig(Config* retreivedConfig, bool advanced);
     uint8_t setConfig(Config config);
+    //uint8_t requestAdvancedConfig();
+    //uint8_t setAdvancedConfig();
+
     uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
     bool batteryCritical();
     bool batteryIsCharging();
@@ -56,6 +60,11 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     void getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries);
     uint8_t addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
     uint8_t updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
+
+    uint8_t requestCalibration();
+    uint8_t requestReboot();
+
+    uint8_t updateTime(TimeValue time);
 
     uint8_t setSecurityPin(uint16_t newSecurityPin);
 

@@ -815,6 +815,67 @@ uint8_t NukiBle::setSecurityPin(uint16_t newSecurityPin) {
   return uint8_t(errorCode);
 }
 
+uint8_t NukiBle::requestCalibration() {
+  NukiAction action;
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::requestCalibration;
+  action.payloadLen = 0;
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("Calibration executed");
+    #endif
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+uint8_t NukiBle::requestReboot() {
+  NukiAction action;
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::requestReboot;
+  action.payloadLen = 0;
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("Reboot executed");
+    #endif
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+uint8_t NukiBle::updateTime(TimeValue time) {
+  NukiAction action;
+  unsigned char payload[sizeof(TimeValue)] = {0};
+  memcpy(payload, &time, sizeof(TimeValue));
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::updateTime;
+  memcpy(action.payload, &payload, sizeof(TimeValue));
+  action.payloadLen = sizeof(TimeValue);
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("Time set: %d-%d-%d %d:%d:%d", time.year, time.month, time.day, time.hour, time.minute, time.second);
+    #endif
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+}
+
 bool NukiBle::savePincode(uint16_t pinCode) {
   return (preferences.putBytes("securityPinCode", &pinCode, 2) == 2);
 }
@@ -1336,6 +1397,9 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       AuthorizationEntry authEntry;
       memcpy(&authEntry, data, sizeof(authEntry));
       listOfAuthorizationEntries.push_back(authEntry);
+      #ifdef DEBUG_NUKI_READABLE_DATA
+      logAuthorizationEntry(authEntry);
+      #endif
       break;
     }
     case NukiCommand::authorizationDatInvite : {

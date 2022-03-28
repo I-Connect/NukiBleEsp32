@@ -483,3 +483,12 @@ struct __attribute__((packed)) UpdatedAuthorizationEntry {
   uint8_t allowedUntillTimeHour;
   uint8_t allowedUntillTimeMin;
 };
+
+struct __attribute__((packed)) TimeValue {
+  uint16_t year;
+  uint8_t month;
+  uint8_t day;
+  uint8_t hour;
+  uint8_t minute;
+  uint16_t second;
+};

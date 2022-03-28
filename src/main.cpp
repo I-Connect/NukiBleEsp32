@@ -139,6 +139,7 @@ void loop() {
       // setPincode(9999);
       // nukiBle.requestConfig(false);
       // nukiBle.requestConfig(true);
+      nukiBle.requestCalibration();
 
 
       // nukiBle.requestKeyPadCodes(0, 2);
@@ -154,7 +155,7 @@ void loop() {
   // batteryReport();
   // requestLogEntries();
   // requestKeyPadEntries();
-  requestAuthorizationEntries();
+  // requestAuthorizationEntries();
 
 
   delay(20000);
