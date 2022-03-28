@@ -57,13 +57,12 @@ void batteryReport() {
 void keyTurnerState() {
   uint8_t result = nukiBle.requestKeyTurnerState(&retreivedKeyTurnerState);
   if ( result == 1) {
-    log_d("Bat state: %d, lock state: %d %d:%d:%d",
-          retreivedKeyTurnerState.criticalBatteryState, retreivedKeyTurnerState.lockState, retreivedKeyTurnerState.currentTimeHour,
+    log_d("Bat crit: %d, Bat perc:%d lock state: %d %d:%d:%d",
+          nukiBle.batteryCritical(), nukiBle.getBatteryPerc(), retreivedKeyTurnerState.lockState, retreivedKeyTurnerState.currentTimeHour,
           retreivedKeyTurnerState.currentTimeMinute, retreivedKeyTurnerState.currentTimeSecond);
   } else {
     log_d("cmd failed: %d", result);
   }
-
 }
 
 void requestLogEntries() {

@@ -13,7 +13,7 @@
 #include <esp_task_wdt.h>
 
 #define GENERAL_TIMEOUT 10000
-#define CMD_TIMEOUT 5000
+#define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
@@ -41,6 +41,9 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t requestConfig(Config* retreivedConfig, bool advanced);
     uint8_t setConfig(Config config);
     uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
+    bool batteryCritical();
+    bool batteryIsCharging();
+    uint8_t getBatteryPerc();
     uint8_t retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
     uint8_t retreiveKeypadEntries(uint16_t offset, uint16_t count);

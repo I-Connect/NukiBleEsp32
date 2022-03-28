@@ -467,6 +467,33 @@ uint8_t NukiBle::requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState) 
   return uint8_t(errorCode);
 }
 
+bool NukiBle::batteryCritical() {
+  //MSB/LSB!
+  return keyTurnerState.criticalBatteryState & (1 << 7);
+}
+
+bool NukiBle::batteryIsCharging() {
+  //MSB/LSB!
+  return keyTurnerState.criticalBatteryState & (1 << 6);
+}
+
+uint8_t NukiBle::getBatteryPerc() {
+  // Note: Bits 2-7 represent the battery load state from 0-100% in steps of two (e.g. 50% is represented as 25).
+  //MSB/LSB!
+
+  uint8_t value = keyTurnerState.criticalBatteryState & 0xFC;
+
+  uint8_t result = value & 1; // perc will be reversed bits of value; first get LSB of value
+  uint8_t s = sizeof(value);
+
+  for (value >>= 1; value; value >>= 1) {
+    result <<= 1;
+    result |= value & 1;
+    s--;
+  }
+  return 2 * result;
+}
+
 uint8_t NukiBle::requestBatteryReport(BatteryReport* retreivedBatteryReport) {
   NukiAction action;
   uint16_t payload = (uint16_t)NukiCommand::batteryReport;
@@ -1039,55 +1066,65 @@ void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, unsigned char* pay
 bool NukiBle::registerOnGdioChar() {
   // Obtain a reference to the KeyTurner Pairing service
   pKeyturnerPairingService = pClient->getService(STRING(keyturnerPairingServiceUUID));
-  //Obtain reference to GDIO char
-  pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(STRING(keyturnerGdioUUID));
-  if (pGdioCharacteristic != nullptr) {
-    if (pGdioCharacteristic->canIndicate()) {
-      pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("GDIO characteristic registered");
-      #endif
-      delay(100);
-      return true;
-    }
-    else {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("GDIO characteristic canIndicate false, stop connecting");
-      #endif
+  if (pKeyturnerPairingService != nullptr) {
+    //Obtain reference to GDIO char
+    pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(STRING(keyturnerGdioUUID));
+    if (pGdioCharacteristic != nullptr) {
+      if (pGdioCharacteristic->canIndicate()) {
+        pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("GDIO characteristic registered");
+        #endif
+        delay(100);
+        return true;
+      }
+      else {
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("GDIO characteristic canIndicate false, stop connecting");
+        #endif
+        return false;
+      }
+    } else {
+      log_w("Unable to get GDIO characteristic");
       return false;
     }
   } else {
-    log_w("Unable to get GDIO characteristic");
+    log_w("Unable to get keyturner pairing service");
     return false;
   }
-
   return false;
 }
 
 bool NukiBle::registerOnUsdioChar() {
   // Obtain a reference to the KeyTurner service
   pKeyturnerDataService = pClient->getService(STRING(keyturnerServiceUUID));
-  //Obtain reference to NDIO char
-  pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(userDataUUID));
-  if (pUsdioCharacteristic != nullptr) {
-    if (pUsdioCharacteristic->canIndicate()) {
-      pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("USDIO characteristic registered");
-      #endif
-      delay(100);
-      return true;
-    }
-    else {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("USDIO characteristic canIndicate false, stop connecting");
-      #endif
+  if (pKeyturnerDataService != nullptr) {
+    //Obtain reference to NDIO char
+    pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(userDataUUID));
+    if (pUsdioCharacteristic != nullptr) {
+      if (pUsdioCharacteristic->canIndicate()) {
+        pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("USDIO characteristic registered");
+        #endif
+        delay(100);
+        return true;
+      }
+      else {
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("USDIO characteristic canIndicate false, stop connecting");
+        #endif
+        return false;
+      }
+    } else {
+      log_w("Unable to get USDIO characteristic");
       return false;
     }
   } else {
-    log_w("Unable to get USDIO characteristic");
+    log_w("Unable to get keyturner data service");
     return false;
   }
+
   return false;
 }
 

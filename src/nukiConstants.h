@@ -146,11 +146,6 @@ enum class NukiTrigger : uint8_t {
   autoLock        = 0x06
 };
 
-enum class CriticalBatteryState : uint8_t {
-  oke             = 0x00,
-  critical        = 0x01
-};
-
 enum class DoorSensorState : uint8_t {
   unavailable       = 0x00,
   deactivated       = 0x01,
@@ -285,7 +280,7 @@ struct __attribute__((packed)) KeyTurnerState {
   uint8_t currentTimeMinute;
   uint8_t currentTimeSecond;
   int16_t timeZoneOffset;
-  CriticalBatteryState criticalBatteryState;
+  uint8_t criticalBatteryState;
   uint8_t configUpdateCount;
   bool lockNgoTimer;
   LockAction lastLockAction;

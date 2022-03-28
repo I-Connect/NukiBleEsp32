@@ -389,7 +389,7 @@ void logKeyturnerState(KeyTurnerState keyTurnerState) {
   log_d("currentTimeMinute: %d", keyTurnerState.currentTimeMinute);
   log_d("currentTimeSecond: %d", keyTurnerState.currentTimeSecond);
   log_d("timeZoneOffset: %d", keyTurnerState.timeZoneOffset);
-  log_d("criticalBatteryState: %d", keyTurnerState.criticalBatteryState);
+  log_d("criticalBatteryState composed value: %d", keyTurnerState.criticalBatteryState);
   log_d("configUpdateCount: %d", keyTurnerState.configUpdateCount);
   log_d("lockNgoTimer: %d", keyTurnerState.lockNgoTimer);
   logLockAction((LockAction)keyTurnerState.lastLockAction);
