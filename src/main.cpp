@@ -17,6 +17,7 @@ KeyTurnerState retreivedKeyTurnerState;
 BatteryReport _batteryReport;
 std::list<LogEntry> requestedLogEntries;
 std::list<KeypadEntry> requestedKeypadEntries;
+std::list<AuthorizationEntry> requestedAuthorizationEntries;
 
 void addKeypadEntry() {
   NewKeypadEntry newKeypadEntry;
@@ -95,6 +96,21 @@ void requestKeyPadEntries() {
   }
 }
 
+void requestAuthorizationEntries() {
+  uint8_t result = nukiBle.retreiveAuthorizationEntries(0, 10);
+  if ( result == 1) {
+    delay(5000);
+    nukiBle.getAuthorizationEntries(&requestedAuthorizationEntries);
+    std::list<AuthorizationEntry>::iterator it = requestedAuthorizationEntries.begin();
+    while (it != requestedAuthorizationEntries.end()) {
+      log_d("Authorization entry[%d] type: %d name: %s", it->authId, it->idType, it->name);
+      it++;
+    }
+  } else {
+    log_d("get authorization entries failed: %d", result);
+  }
+}
+
 void setPincode(uint16_t pincode) {
   uint8_t result = nukiBle.setSecurityPin(pincode);
   if ( result == 1) {
@@ -138,6 +154,7 @@ void loop() {
   // batteryReport();
   // requestLogEntries();
   // requestKeyPadEntries();
+  requestAuthorizationEntries();
 
 
   delay(20000);

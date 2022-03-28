@@ -46,9 +46,17 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t getBatteryPerc();
     uint8_t retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+
+    uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
+    uint8_t updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
     uint8_t retreiveKeypadEntries(uint16_t offset, uint16_t count);
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
-    uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
+
+    uint8_t retreiveAuthorizationEntries(uint16_t offset, uint16_t count);
+    void getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries);
+    uint8_t addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
+    uint8_t updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
+
     uint8_t setSecurityPin(uint16_t newSecurityPin);
 
     static void logConfig(Config config);

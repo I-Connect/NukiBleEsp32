@@ -276,6 +276,119 @@ void logKeypadEntry(KeypadEntry keypadEntry) {
   log_d("allowedUntillTimeMin:%d", keypadEntry.allowedUntillTimeMin);
 }
 
+void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
+  log_d("codeId:%d", updatedKeypadEntry.codeId);
+  log_d("code:%d", updatedKeypadEntry.code);
+  log_d("name:%s", updatedKeypadEntry.name);
+  log_d("enabled:%d", updatedKeypadEntry.enabled);
+  log_d("timeLimited:%d", updatedKeypadEntry.timeLimited);
+  log_d("allowedFromYear:%d", updatedKeypadEntry.allowedFromYear);
+  log_d("allowedFromMonth:%d", updatedKeypadEntry.allowedFromMonth);
+  log_d("allowedFromDay:%d", updatedKeypadEntry.allowedFromDay);
+  log_d("allowedFromHour:%d", updatedKeypadEntry.allowedFromHour);
+  log_d("allowedFromMin:%d", updatedKeypadEntry.allowedFromMin);
+  log_d("allowedFromSec:%d", updatedKeypadEntry.allowedFromSec);
+  log_d("allowedUntillYear:%d", updatedKeypadEntry.allowedUntillYear);
+  log_d("allowedUntillMonth:%d", updatedKeypadEntry.allowedUntillMonth);
+  log_d("allowedUntillDay:%d", updatedKeypadEntry.allowedUntillDay);
+  log_d("allowedUntillHour:%d", updatedKeypadEntry.allowedUntillHour);
+  log_d("allowedUntillMin:%d", updatedKeypadEntry.allowedUntillMin);
+  log_d("allowedUntillSec:%d", updatedKeypadEntry.allowedUntillSec);
+  log_d("allowedWeekdays:%d", updatedKeypadEntry.allowedWeekdays);
+  log_d("allowedFromTimeHour:%d", updatedKeypadEntry.allowedFromTimeHour);
+  log_d("allowedFromTimeMin:%d", updatedKeypadEntry.allowedFromTimeMin);
+  log_d("allowedUntillTimeHour:%d", updatedKeypadEntry.allowedUntillTimeHour);
+  log_d("allowedUntillTimeMin:%d", updatedKeypadEntry.allowedUntillTimeMin);
+}
+
+void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
+  log_d("id:%d", authorizationEntry.authId);
+  log_d("idType:%d", authorizationEntry.idType);
+  log_d("name:%s", authorizationEntry.name);
+  log_d("enabled:%d", authorizationEntry.enabled);
+  log_d("remoteAllowed:%d", authorizationEntry.remoteAllowed);
+  log_d("createdYear:%d", authorizationEntry.createdYear);
+  log_d("createdMonth:%d", authorizationEntry.createdMonth);
+  log_d("createdDay:%d", authorizationEntry.createdDay);
+  log_d("createdHour:%d", authorizationEntry.createdHour);
+  log_d("createdMin:%d", authorizationEntry.createdMinute);
+  log_d("createdSec:%d", authorizationEntry.createdSecond);
+  log_d("lastactYear:%d", authorizationEntry.lastActYear);
+  log_d("lastactMonth:%d", authorizationEntry.lastActMonth);
+  log_d("lastactDay:%d", authorizationEntry.lastActDay);
+  log_d("lastactHour:%d", authorizationEntry.lastActHour);
+  log_d("lastactMin:%d", authorizationEntry.lastActMinute);
+  log_d("lastactSec:%d", authorizationEntry.lastActSecond);
+  log_d("lockCount:%d", authorizationEntry.lockCount);
+  log_d("timeLimited:%d", authorizationEntry.timeLimited);
+  log_d("allowedFromYear:%d", authorizationEntry.allowedFromYear);
+  log_d("allowedFromMonth:%d", authorizationEntry.allowedFromMonth);
+  log_d("allowedFromDay:%d", authorizationEntry.allowedFromDay);
+  log_d("allowedFromHour:%d", authorizationEntry.allowedFromHour);
+  log_d("allowedFromMin:%d", authorizationEntry.allowedFromMinute);
+  log_d("allowedFromSec:%d", authorizationEntry.allowedFromSecond);
+  log_d("allowedUntilYear:%d", authorizationEntry.allowedUntilYear);
+  log_d("allowedUntilMonth:%d", authorizationEntry.allowedUntilMonth);
+  log_d("allowedUntilDay:%d", authorizationEntry.allowedUntilDay);
+  log_d("allowedUntilHour:%d", authorizationEntry.allowedUntilHour);
+  log_d("allowedUntilMin:%d", authorizationEntry.allowedUntilMinute);
+  log_d("allowedUntilSec:%d", authorizationEntry.allowedUntilSecond);
+  log_d("allowedWeekdays:%d", authorizationEntry.allowedWeekdays);
+  log_d("allowedFromTimeHour:%d", authorizationEntry.allowedFromTimeHour);
+  log_d("allowedFromTimeMin:%d", authorizationEntry.allowedFromTimeMin);
+  log_d("allowedUntillTimeHour:%d", authorizationEntry.allowedUntillTimeHour);
+  log_d("allowedUntillTimeMin:%d", authorizationEntry.allowedUntillTimeMin);
+}
+
+void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
+  log_d("name:%s", newAuthorizationEntry.name);
+  log_d("idType:%d", newAuthorizationEntry.idType);
+  log_d("remoteAllowed:%d", newAuthorizationEntry.remoteAllowed);
+  log_d("timeLimited:%d", newAuthorizationEntry.timeLimited);
+  log_d("allowedFromYear:%d", newAuthorizationEntry.allowedFromYear);
+  log_d("allowedFromMonth:%d", newAuthorizationEntry.allowedFromMonth);
+  log_d("allowedFromDay:%d", newAuthorizationEntry.allowedFromDay);
+  log_d("allowedFromHour:%d", newAuthorizationEntry.allowedFromHour);
+  log_d("allowedFromMin:%d", newAuthorizationEntry.allowedFromMinute);
+  log_d("allowedFromSec:%d", newAuthorizationEntry.allowedFromSecond);
+  log_d("allowedUntilYear:%d", newAuthorizationEntry.allowedUntilYear);
+  log_d("allowedUntilMonth:%d", newAuthorizationEntry.allowedUntilMonth);
+  log_d("allowedUntilDay:%d", newAuthorizationEntry.allowedUntilDay);
+  log_d("allowedUntilHour:%d", newAuthorizationEntry.allowedUntilHour);
+  log_d("allowedUntilMin:%d", newAuthorizationEntry.allowedUntilMinute);
+  log_d("allowedUntilSec:%d", newAuthorizationEntry.allowedUntilSecond);
+  log_d("allowedWeekdays:%d", newAuthorizationEntry.allowedWeekdays);
+  log_d("allowedFromTimeHour:%d", newAuthorizationEntry.allowedFromTimeHour);
+  log_d("allowedFromTimeMin:%d", newAuthorizationEntry.allowedFromTimeMin);
+  log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntillTimeHour);
+  log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntillTimeMin);
+}
+
+void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
+  log_d("id:%d", updatedAuthorizationEntry.authId);
+  log_d("name:%s", updatedAuthorizationEntry.name);
+  log_d("enabled:%d", updatedAuthorizationEntry.enabled);
+  log_d("remoteAllowed:%d", updatedAuthorizationEntry.remoteAllowed);
+  log_d("timeLimited:%d", updatedAuthorizationEntry.timeLimited);
+  log_d("allowedFromYear:%d", updatedAuthorizationEntry.allowedFromYear);
+  log_d("allowedFromMonth:%d", updatedAuthorizationEntry.allowedFromMonth);
+  log_d("allowedFromDay:%d", updatedAuthorizationEntry.allowedFromDay);
+  log_d("allowedFromHour:%d", updatedAuthorizationEntry.allowedFromHour);
+  log_d("allowedFromMin:%d", updatedAuthorizationEntry.allowedFromMinute);
+  log_d("allowedFromSec:%d", updatedAuthorizationEntry.allowedFromSecond);
+  log_d("allowedUntilYear:%d", updatedAuthorizationEntry.allowedUntilYear);
+  log_d("allowedUntilMonth:%d", updatedAuthorizationEntry.allowedUntilMonth);
+  log_d("allowedUntilDay:%d", updatedAuthorizationEntry.allowedUntilDay);
+  log_d("allowedUntilHour:%d", updatedAuthorizationEntry.allowedUntilHour);
+  log_d("allowedUntilMin:%d", updatedAuthorizationEntry.allowedUntilMinute);
+  log_d("allowedUntilSec:%d", updatedAuthorizationEntry.allowedUntilSecond);
+  log_d("allowedWeekdays:%d", updatedAuthorizationEntry.allowedWeekdays);
+  log_d("allowedFromTimeHour:%d", updatedAuthorizationEntry.allowedFromTimeHour);
+  log_d("allowedFromTimeMin:%d", updatedAuthorizationEntry.allowedFromTimeMin);
+  log_d("allowedUntillTimeHour:%d", updatedAuthorizationEntry.allowedUntillTimeHour);
+  log_d("allowedUntillTimeMin:%d", updatedAuthorizationEntry.allowedUntillTimeMin);
+}
+
 void logCompletionStatus(CompletionStatus completionStatus) {
   switch (completionStatus)
   {

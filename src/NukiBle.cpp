@@ -42,6 +42,7 @@ uint16_t logEntryCount = 0;
 bool loggingEnabled = false;
 std::list<LogEntry> listOfLogEntries;
 std::list<KeypadEntry> listOfKeyPadEntries;
+std::list<AuthorizationEntry> listOfAuthorizationEntries;
 
 NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
@@ -588,6 +589,31 @@ uint8_t NukiBle::addKeypadEntry(NewKeypadEntry newKeyPadEntry) {
   return uint8_t(errorCode);
 }
 
+uint8_t NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry) {
+  //TODO verify data validity
+  NukiAction action;
+  unsigned char payload[sizeof(UpdatedKeypadEntry)] = {0};
+  memcpy(payload, &updatedKeyPadEntry, sizeof(UpdatedKeypadEntry));
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::updateKeypadCode;
+  memcpy(action.payload, &payload, sizeof(UpdatedKeypadEntry));
+  action.payloadLen = sizeof(UpdatedKeypadEntry);
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("addKeyPadEntry, payloadlen: %d", sizeof(UpdatedKeypadEntry));
+    printBuffer(action.payload, sizeof(UpdatedKeypadEntry), false, "updatedKeypad content: ");
+    logUpdatedKeypadEntry(updatedKeyPadEntry);
+    #endif
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
 void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
   requestedKeypadCodes->clear();
   std::list<KeypadEntry>::iterator it = listOfKeyPadEntries.begin();
@@ -596,6 +622,88 @@ void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
     requestedKeypadCodes->push_back(*it);
     it++;
   }
+}
+
+uint8_t NukiBle::retreiveAuthorizationEntries(uint16_t offset, uint16_t count) {
+  NukiAction action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &offset, 2);
+  memcpy(&payload[2], &count, 2);
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::requestAuthorizationEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfAuthorizationEntries.clear();
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+void NukiBle::getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries) {
+  requestedAuthorizationEntries->clear();
+  std::list<AuthorizationEntry>::iterator it = listOfAuthorizationEntries.begin();
+  while (it != listOfAuthorizationEntries.end())
+  {
+    requestedAuthorizationEntries->push_back(*it);
+    it++;
+  }
+}
+
+uint8_t NukiBle::addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
+  //TODO verify data validity
+  NukiAction action;
+  unsigned char payload[sizeof(NewAuthorizationEntry)] = {0};
+  memcpy(payload, &newAuthorizationEntry, sizeof(NewAuthorizationEntry));
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::authorizationDatInvite;
+  memcpy(action.payload, &payload, sizeof(NewAuthorizationEntry));
+  action.payloadLen = sizeof(NewAuthorizationEntry);
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("addAuthorizationEntry, payloadlen: %d", sizeof(NewAuthorizationEntry));
+    printBuffer(action.payload, sizeof(NewAuthorizationEntry), false, "addAuthorizationEntry content: ");
+    logNewAuthorizationEntry(newAuthorizationEntry);
+    #endif
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+uint8_t NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
+  //TODO verify data validity
+  NukiAction action;
+  unsigned char payload[sizeof(UpdatedAuthorizationEntry)] = {0};
+  memcpy(payload, &updatedAuthorizationEntry, sizeof(UpdatedAuthorizationEntry));
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::updateAuthorization;
+  memcpy(action.payload, &payload, sizeof(UpdatedAuthorizationEntry));
+  action.payloadLen = sizeof(UpdatedAuthorizationEntry);
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("addAuthorizationEntry, payloadlen: %d", sizeof(UpdatedAuthorizationEntry));
+    printBuffer(action.payload, sizeof(UpdatedAuthorizationEntry), false, "updatedKeypad content: ");
+    logUpdatedAuthorizationEntry(updatedAuthorizationEntry);
+    #endif
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
 }
 
 uint8_t NukiBle::retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
@@ -1225,6 +1333,9 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
     }
     case NukiCommand::authorizationEntry : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntry");
+      AuthorizationEntry authEntry;
+      memcpy(&authEntry, data, sizeof(authEntry));
+      listOfAuthorizationEntries.push_back(authEntry);
       break;
     }
     case NukiCommand::authorizationDatInvite : {
@@ -1322,7 +1433,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       printBuffer((byte*)data, dataLen, false, "updateTime");
       break;
     }
-    case NukiCommand::updateUserAuthorization : {
+    case NukiCommand::updateAuthorization : {
       printBuffer((byte*)data, dataLen, false, "updateUserAuthorization");
       break;
     }

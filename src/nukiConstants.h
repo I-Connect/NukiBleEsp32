@@ -45,7 +45,7 @@ enum class NukiCommand : uint16_t {
   authorizationIdInvite	        = 0x001F,
   verifySecurityPin	            = 0x0020,
   updateTime	                  = 0x0021,
-  updateUserAuthorization	      = 0x0025,
+  updateAuthorization	          = 0x0025,
   authorizationEntryCount	      = 0x0027,
   requestLogEntries	            = 0x0031,
   logEntry	                    = 0x0032,
@@ -269,6 +269,31 @@ struct __attribute__((packed)) KeypadEntry {
   uint8_t allowedUntillTimeMin;
 };
 
+struct __attribute__((packed)) UpdatedKeypadEntry {
+  uint16_t codeId;
+  uint32_t code;
+  uint8_t name[20];
+  uint8_t enabled;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMin;
+  uint8_t allowedFromSec;
+  uint16_t allowedUntillYear;
+  uint8_t allowedUntillMonth;
+  uint8_t allowedUntillDay;
+  uint8_t allowedUntillHour;
+  uint8_t allowedUntillMin;
+  uint8_t allowedUntillSec;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
 struct __attribute__((packed)) KeyTurnerState {
   NukiState nukiState;
   LockState lockState;
@@ -368,4 +393,93 @@ struct __attribute__((packed)) LogEntry {
   uint8_t name[32];
   LoggingType loggingType;
   uint8_t data[5];
+};
+
+struct __attribute__((packed)) AuthorizationEntry {
+  uint32_t authId;
+  uint8_t idType;
+  uint8_t name[32];
+  uint8_t enabled;
+  uint8_t remoteAllowed;
+  uint16_t createdYear;
+  uint8_t createdMonth;
+  uint8_t createdDay;
+  uint8_t createdHour;
+  uint8_t createdMinute;
+  uint8_t createdSecond;
+  uint16_t lastActYear;
+  uint8_t lastActMonth;
+  uint8_t lastActDay;
+  uint8_t lastActHour;
+  uint8_t lastActMinute;
+  uint8_t lastActSecond;
+  uint16_t lockCount;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMinute;
+  uint8_t allowedFromSecond;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMinute;
+  uint8_t allowedUntilSecond;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
+struct __attribute__((packed)) NewAuthorizationEntry {
+  uint8_t name[32];
+  uint8_t idType;
+  uint8_t sharedKey[32];  //TODO: add shared key within class
+  uint8_t remoteAllowed;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMinute;
+  uint8_t allowedFromSecond;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMinute;
+  uint8_t allowedUntilSecond;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
+struct __attribute__((packed)) UpdatedAuthorizationEntry {
+  uint32_t authId;
+  uint8_t name[32];
+  uint8_t enabled;
+  uint8_t remoteAllowed;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMinute;
+  uint8_t allowedFromSecond;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMinute;
+  uint8_t allowedUntilSecond;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
 };
