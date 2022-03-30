@@ -45,7 +45,7 @@ enum class NukiCommand : uint16_t {
   authorizationIdInvite	        = 0x001F,
   verifySecurityPin	            = 0x0020,
   updateTime	                  = 0x0021,
-  updateUserAuthorization	      = 0x0025,
+  updateAuthorization	          = 0x0025,
   authorizationEntryCount	      = 0x0027,
   requestLogEntries	            = 0x0031,
   logEntry	                    = 0x0032,
@@ -144,11 +144,6 @@ enum class NukiTrigger : uint8_t {
   button          = 0x02,
   automatic       = 0x03,
   autoLock        = 0x06
-};
-
-enum class CriticalBatteryState : uint8_t {
-  oke             = 0x00,
-  critical        = 0x01
 };
 
 enum class DoorSensorState : uint8_t {
@@ -274,6 +269,31 @@ struct __attribute__((packed)) KeypadEntry {
   uint8_t allowedUntillTimeMin;
 };
 
+struct __attribute__((packed)) UpdatedKeypadEntry {
+  uint16_t codeId;
+  uint32_t code;
+  uint8_t name[20];
+  uint8_t enabled;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMin;
+  uint8_t allowedFromSec;
+  uint16_t allowedUntillYear;
+  uint8_t allowedUntillMonth;
+  uint8_t allowedUntillDay;
+  uint8_t allowedUntillHour;
+  uint8_t allowedUntillMin;
+  uint8_t allowedUntillSec;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
 struct __attribute__((packed)) KeyTurnerState {
   NukiState nukiState;
   LockState lockState;
@@ -285,7 +305,7 @@ struct __attribute__((packed)) KeyTurnerState {
   uint8_t currentTimeMinute;
   uint8_t currentTimeSecond;
   int16_t timeZoneOffset;
-  CriticalBatteryState criticalBatteryState;
+  uint8_t criticalBatteryState;
   uint8_t configUpdateCount;
   bool lockNgoTimer;
   LockAction lastLockAction;
@@ -325,6 +345,25 @@ struct __attribute__((packed)) Config {
   uint16_t timeZoneId;
 };
 
+struct __attribute__((packed)) NewConfig {
+  unsigned char name[32];
+  float latitide;
+  float longitude;
+  uint8_t autoUnlatch;
+  uint8_t pairingEnabled;
+  uint8_t buttonEnabled;
+  uint8_t ledEnabled;
+  uint8_t ledBrightness;
+  int16_t timeZoneOffset;
+  uint8_t dstMode;
+  uint8_t  fobAction1;
+  uint8_t  fobAction2;
+  uint8_t  fobAction3;
+  uint8_t  singleLock;
+  uint8_t advertisingMode;
+  uint16_t timeZoneId;
+};
+
 struct __attribute__((packed)) AdvancedConfig {
   uint16_t totalDegrees;
   int16_t unlockedPositionOffsetDegrees;
@@ -346,6 +385,34 @@ struct __attribute__((packed)) AdvancedConfig {
   uint8_t nightModeAutoLockEnabled;
   uint8_t nightModeAutoUnlockDisabled;
   uint8_t  nightModeImmediateLockOnStart;
+  uint8_t autoLockEnabled;
+  uint8_t immediateAutoLockEnabled;
+  uint8_t autoUpdateEnabled;
+};
+
+struct __attribute__((packed)) NewAdvancedConfig {
+  int16_t unlockedPositionOffsetDegrees;
+  int16_t lockedPositionOffsetDegrees;
+  int16_t singleLockedPositionOffsetDegrees;
+  int16_t unlockedToLockedTransitionOffsetDegrees;
+  uint8_t lockNgoTimeout;
+  ButtonPressAction singleButtonPressAction;
+  ButtonPressAction doubleButtonPressAction;
+  uint8_t detachedCylinder;
+  BatteryType batteryType;
+  uint8_t automaticBatteryTypeDetection;
+  uint8_t unlatchDuration;
+  uint16_t autoLockTimeOut;
+  uint8_t autoLockDisabled;
+  uint8_t nightModeEnabled;
+  unsigned char nightModeStartTime[2];
+  unsigned char nightModeEndTime[2];
+  uint8_t nightModeAutoLockEnabled;
+  uint8_t nightModeAutoUnlockDisabled;
+  uint8_t  nightModeImmediateLockOnStart;
+  uint8_t autoLockEnabled;
+  uint8_t immediateAutoLockEnabled;
+  uint8_t autoUpdateEnabled;
 };
 
 struct __attribute__((packed)) BatteryReport {
@@ -373,4 +440,118 @@ struct __attribute__((packed)) LogEntry {
   uint8_t name[32];
   LoggingType loggingType;
   uint8_t data[5];
+};
+
+struct __attribute__((packed)) AuthorizationEntry {
+  uint32_t authId;
+  uint8_t idType;
+  uint8_t name[32];
+  uint8_t enabled;
+  uint8_t remoteAllowed;
+  uint16_t createdYear;
+  uint8_t createdMonth;
+  uint8_t createdDay;
+  uint8_t createdHour;
+  uint8_t createdMinute;
+  uint8_t createdSecond;
+  uint16_t lastActYear;
+  uint8_t lastActMonth;
+  uint8_t lastActDay;
+  uint8_t lastActHour;
+  uint8_t lastActMinute;
+  uint8_t lastActSecond;
+  uint16_t lockCount;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMinute;
+  uint8_t allowedFromSecond;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMinute;
+  uint8_t allowedUntilSecond;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
+struct __attribute__((packed)) NewAuthorizationEntry {
+  uint8_t name[32];
+  uint8_t idType;
+  uint8_t sharedKey[32];  //TODO: add shared key within class
+  uint8_t remoteAllowed;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMinute;
+  uint8_t allowedFromSecond;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMinute;
+  uint8_t allowedUntilSecond;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
+struct __attribute__((packed)) UpdatedAuthorizationEntry {
+  uint32_t authId;
+  uint8_t name[32];
+  uint8_t enabled;
+  uint8_t remoteAllowed;
+  uint8_t timeLimited;
+  uint16_t allowedFromYear;
+  uint8_t allowedFromMonth;
+  uint8_t allowedFromDay;
+  uint8_t allowedFromHour;
+  uint8_t allowedFromMinute;
+  uint8_t allowedFromSecond;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMinute;
+  uint8_t allowedUntilSecond;
+  uint8_t allowedWeekdays;
+  uint8_t allowedFromTimeHour;
+  uint8_t allowedFromTimeMin;
+  uint8_t allowedUntillTimeHour;
+  uint8_t allowedUntillTimeMin;
+};
+
+struct __attribute__((packed)) TimeControlEntry {
+  uint8_t entryId;
+  uint8_t enabled;
+  uint8_t weekdays;
+  uint8_t timeHour;
+  uint8_t timeMin;
+  LockAction lockAction;
+};
+
+struct __attribute__((packed)) NewTimeControlEntry {
+  uint8_t weekdays;
+  uint8_t timeHour;
+  uint8_t timeMin;
+  LockAction lockAction;
+};
+
+struct __attribute__((packed)) TimeValue {
+  uint16_t year;
+  uint8_t month;
+  uint8_t day;
+  uint8_t hour;
+  uint8_t minute;
+  uint16_t second;
 };

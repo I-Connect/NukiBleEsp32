@@ -17,6 +17,8 @@ KeyTurnerState retreivedKeyTurnerState;
 BatteryReport _batteryReport;
 std::list<LogEntry> requestedLogEntries;
 std::list<KeypadEntry> requestedKeypadEntries;
+std::list<AuthorizationEntry> requestedAuthorizationEntries;
+std::list<TimeControlEntry> requestedTimeControlEntries;
 
 void addKeypadEntry() {
   NewKeypadEntry newKeypadEntry;
@@ -57,13 +59,12 @@ void batteryReport() {
 void keyTurnerState() {
   uint8_t result = nukiBle.requestKeyTurnerState(&retreivedKeyTurnerState);
   if ( result == 1) {
-    log_d("Bat state: %d, lock state: %d %d:%d:%d",
-          retreivedKeyTurnerState.criticalBatteryState, retreivedKeyTurnerState.lockState, retreivedKeyTurnerState.currentTimeHour,
+    log_d("Bat crit: %d, Bat perc:%d lock state: %d %d:%d:%d",
+          nukiBle.batteryCritical(), nukiBle.getBatteryPerc(), retreivedKeyTurnerState.lockState, retreivedKeyTurnerState.currentTimeHour,
           retreivedKeyTurnerState.currentTimeMinute, retreivedKeyTurnerState.currentTimeSecond);
   } else {
     log_d("cmd failed: %d", result);
   }
-
 }
 
 void requestLogEntries() {
@@ -96,6 +97,21 @@ void requestKeyPadEntries() {
   }
 }
 
+void requestAuthorizationEntries() {
+  uint8_t result = nukiBle.retreiveAuthorizationEntries(0, 10);
+  if ( result == 1) {
+    delay(5000);
+    nukiBle.getAuthorizationEntries(&requestedAuthorizationEntries);
+    std::list<AuthorizationEntry>::iterator it = requestedAuthorizationEntries.begin();
+    while (it != requestedAuthorizationEntries.end()) {
+      log_d("Authorization entry[%d] type: %d name: %s", it->authId, it->idType, it->name);
+      it++;
+    }
+  } else {
+    log_d("get authorization entries failed: %d", result);
+  }
+}
+
 void setPincode(uint16_t pincode) {
   uint8_t result = nukiBle.setSecurityPin(pincode);
   if ( result == 1) {
@@ -103,6 +119,31 @@ void setPincode(uint16_t pincode) {
 
   } else {
     log_d("Set pincode failed: %d", result);
+  }
+}
+
+void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, LockAction lockAction) {
+  NewTimeControlEntry newEntry;
+  newEntry.weekdays = weekdays;
+  newEntry.timeHour = hour;
+  newEntry.timeMin = minute;
+  newEntry.lockAction = lockAction;
+
+  nukiBle.addTimeControlEntry(newEntry);
+}
+
+void requestTimeControlEntries() {
+  uint8_t result = nukiBle.retreiveTimeControlEntries();
+  if ( result == 1) {
+    delay(5000);
+    nukiBle.getTimeControlEntries(&requestedTimeControlEntries);
+    std::list<TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
+    while (it != requestedTimeControlEntries.end()) {
+      log_d("TimeEntry[%d] weekdays:%d %d:%d enabled: %d lock action: %d", it->entryId, it->weekdays, it->timeHour, it->timeMin, it->enabled, it->lockAction);
+      it++;
+    }
+  } else {
+    log_d("get log failed: %d", result);
   }
 }
 
@@ -121,17 +162,9 @@ void loop() {
       log_d("paired");
       paired = true;
 
-      // setPincode(9999);
-      // nukiBle.requestConfig(false);
-      // nukiBle.requestConfig(true);
-
-
-      // nukiBle.requestKeyPadCodes(0, 2);
-
-
-      //execute action
-      // nukiBle.lockAction(LockAction::lock, 0, 0);
+      // nukiBle.requestCalibration();
       // addKeypadEntry();
+      // addTimeControl(5, 21, 0, LockAction::lock);
     }
   }
 
@@ -139,6 +172,10 @@ void loop() {
   // batteryReport();
   // requestLogEntries();
   // requestKeyPadEntries();
+  // requestAuthorizationEntries();
+  // nukiBle.verifySecurityPin();
+  // requestTimeControlEntries();
+  // nukiBle.removeTimeControlEntry(2);
 
 
   delay(20000);

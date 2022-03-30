@@ -13,7 +13,7 @@
 #include <esp_task_wdt.h>
 
 #define GENERAL_TIMEOUT 10000
-#define CMD_TIMEOUT 5000
+#define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
@@ -38,15 +38,42 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
 
     uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
     uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
-    uint8_t requestConfig(Config* retreivedConfig, bool advanced);
-    uint8_t setConfig(Config config);
+
+    uint8_t requestConfig(Config* retreivedConfig);
+    uint8_t setConfig(NewConfig newConfig);
+    uint8_t requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig);
+    uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+
     uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
+    bool batteryCritical();
+    bool batteryIsCharging();
+    uint8_t getBatteryPerc();
     uint8_t retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+
+    uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
+    uint8_t updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
     uint8_t retreiveKeypadEntries(uint16_t offset, uint16_t count);
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
-    uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
+
+    uint8_t retreiveAuthorizationEntries(uint16_t offset, uint16_t count);
+    void getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries);
+    uint8_t addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
+    uint8_t updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
+
+    uint8_t requestCalibration();
+    uint8_t requestReboot();
+
+    uint8_t updateTime(TimeValue time);
+
+    uint8_t addTimeControlEntry(NewTimeControlEntry newTimecontrolEntry);
+    uint8_t updateTimeControlEntry(TimeControlEntry TimeControlEntry);
+    uint8_t removeTimeControlEntry(uint8_t entryId);
+    uint8_t retreiveTimeControlEntries();
+    void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
+
     uint8_t setSecurityPin(uint16_t newSecurityPin);
+    uint8_t verifySecurityPin();
 
     static void logConfig(Config config);
     virtual void initialize();
