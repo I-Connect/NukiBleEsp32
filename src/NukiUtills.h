@@ -389,6 +389,20 @@ void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorization
   log_d("allowedUntillTimeMin:%d", updatedAuthorizationEntry.allowedUntillTimeMin);
 }
 
+void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
+  log_d("weekdays:%d", newTimeControlEntry.weekdays);
+  log_d("time:%d:%d", newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
+  log_d("lockAction:%d", newTimeControlEntry.lockAction);
+}
+
+void logTimeControlEntry(TimeControlEntry timeControlEntry) {
+  log_d("entryId:%d", timeControlEntry.entryId);
+  log_d("enabled:%d", timeControlEntry.enabled);
+  log_d("weekdays:%d", timeControlEntry.weekdays);
+  log_d("time:%d:%d", timeControlEntry.timeHour, timeControlEntry.timeMin);
+  log_d("lockAction:%d", timeControlEntry.lockAction);
+}
+
 void logCompletionStatus(CompletionStatus completionStatus) {
   switch (completionStatus)
   {

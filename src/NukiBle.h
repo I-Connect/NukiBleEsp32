@@ -66,6 +66,12 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
 
     uint8_t updateTime(TimeValue time);
 
+    uint8_t addTimeControlEntry(NewTimeControlEntry newTimecontrolEntry);
+    uint8_t updateTimeControlEntry(TimeControlEntry TimeControlEntry);
+    uint8_t removeTimeControlEntry(uint8_t entryId);
+    uint8_t retreiveTimeControlEntries();
+    void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
+
     uint8_t setSecurityPin(uint16_t newSecurityPin);
     uint8_t verifySecurityPin();
 

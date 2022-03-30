@@ -18,6 +18,7 @@ BatteryReport _batteryReport;
 std::list<LogEntry> requestedLogEntries;
 std::list<KeypadEntry> requestedKeypadEntries;
 std::list<AuthorizationEntry> requestedAuthorizationEntries;
+std::list<TimeControlEntry> requestedTimeControlEntries;
 
 void addKeypadEntry() {
   NewKeypadEntry newKeypadEntry;
@@ -121,6 +122,31 @@ void setPincode(uint16_t pincode) {
   }
 }
 
+void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, LockAction lockAction) {
+  NewTimeControlEntry newEntry;
+  newEntry.weekdays = weekdays;
+  newEntry.timeHour = hour;
+  newEntry.timeMin = minute;
+  newEntry.lockAction = lockAction;
+
+  nukiBle.addTimeControlEntry(newEntry);
+}
+
+void requestTimeControlEntries() {
+  uint8_t result = nukiBle.retreiveTimeControlEntries();
+  if ( result == 1) {
+    delay(5000);
+    nukiBle.getTimeControlEntries(&requestedTimeControlEntries);
+    std::list<TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
+    while (it != requestedTimeControlEntries.end()) {
+      log_d("TimeEntry[%d] weekdays:%d %d:%d enabled: %d lock action: %d", it->entryId, it->weekdays, it->timeHour, it->timeMin, it->enabled, it->lockAction);
+      it++;
+    }
+  } else {
+    log_d("get log failed: %d", result);
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   log_d("Starting NUKI BLE...");
@@ -138,6 +164,7 @@ void loop() {
 
       // nukiBle.requestCalibration();
       // addKeypadEntry();
+      // addTimeControl(5, 21, 0, LockAction::lock);
     }
   }
 
@@ -146,7 +173,9 @@ void loop() {
   // requestLogEntries();
   // requestKeyPadEntries();
   // requestAuthorizationEntries();
-  nukiBle.verifySecurityPin();
+  // nukiBle.verifySecurityPin();
+  // requestTimeControlEntries();
+  // nukiBle.removeTimeControlEntry(2);
 
 
   delay(20000);

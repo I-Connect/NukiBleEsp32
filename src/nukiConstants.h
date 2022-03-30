@@ -531,6 +531,22 @@ struct __attribute__((packed)) UpdatedAuthorizationEntry {
   uint8_t allowedUntillTimeMin;
 };
 
+struct __attribute__((packed)) TimeControlEntry {
+  uint8_t entryId;
+  uint8_t enabled;
+  uint8_t weekdays;
+  uint8_t timeHour;
+  uint8_t timeMin;
+  LockAction lockAction;
+};
+
+struct __attribute__((packed)) NewTimeControlEntry {
+  uint8_t weekdays;
+  uint8_t timeHour;
+  uint8_t timeMin;
+  LockAction lockAction;
+};
+
 struct __attribute__((packed)) TimeValue {
   uint16_t year;
   uint8_t month;
