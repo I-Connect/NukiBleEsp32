@@ -596,4 +596,7 @@ void logAdvancedConfig(AdvancedConfig advancedConfig) {
   log_d("nightModeAutoLockEnabled :%d", advancedConfig.nightModeAutoLockEnabled);
   log_d("nightModeAutoUnlockDisabled :%d", advancedConfig.nightModeAutoUnlockDisabled);
   log_d("nightModeImmediateLockOnStart :%d", advancedConfig.nightModeImmediateLockOnStart);
+  log_d("autoLockEnabled :%d", advancedConfig.autoLockEnabled);
+  log_d("immediateAutoLockEnabled :%d", advancedConfig.immediateAutoLockEnabled);
+  log_d("autoUpdateEnabled :%d", advancedConfig.autoUpdateEnabled);
 }

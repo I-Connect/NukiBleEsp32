@@ -345,6 +345,25 @@ struct __attribute__((packed)) Config {
   uint16_t timeZoneId;
 };
 
+struct __attribute__((packed)) NewConfig {
+  unsigned char name[32];
+  float latitide;
+  float longitude;
+  uint8_t autoUnlatch;
+  uint8_t pairingEnabled;
+  uint8_t buttonEnabled;
+  uint8_t ledEnabled;
+  uint8_t ledBrightness;
+  int16_t timeZoneOffset;
+  uint8_t dstMode;
+  uint8_t  fobAction1;
+  uint8_t  fobAction2;
+  uint8_t  fobAction3;
+  uint8_t  singleLock;
+  uint8_t advertisingMode;
+  uint16_t timeZoneId;
+};
+
 struct __attribute__((packed)) AdvancedConfig {
   uint16_t totalDegrees;
   int16_t unlockedPositionOffsetDegrees;
@@ -366,6 +385,34 @@ struct __attribute__((packed)) AdvancedConfig {
   uint8_t nightModeAutoLockEnabled;
   uint8_t nightModeAutoUnlockDisabled;
   uint8_t  nightModeImmediateLockOnStart;
+  uint8_t autoLockEnabled;
+  uint8_t immediateAutoLockEnabled;
+  uint8_t autoUpdateEnabled;
+};
+
+struct __attribute__((packed)) NewAdvancedConfig {
+  int16_t unlockedPositionOffsetDegrees;
+  int16_t lockedPositionOffsetDegrees;
+  int16_t singleLockedPositionOffsetDegrees;
+  int16_t unlockedToLockedTransitionOffsetDegrees;
+  uint8_t lockNgoTimeout;
+  ButtonPressAction singleButtonPressAction;
+  ButtonPressAction doubleButtonPressAction;
+  uint8_t detachedCylinder;
+  BatteryType batteryType;
+  uint8_t automaticBatteryTypeDetection;
+  uint8_t unlatchDuration;
+  uint16_t autoLockTimeOut;
+  uint8_t autoLockDisabled;
+  uint8_t nightModeEnabled;
+  unsigned char nightModeStartTime[2];
+  unsigned char nightModeEndTime[2];
+  uint8_t nightModeAutoLockEnabled;
+  uint8_t nightModeAutoUnlockDisabled;
+  uint8_t  nightModeImmediateLockOnStart;
+  uint8_t autoLockEnabled;
+  uint8_t immediateAutoLockEnabled;
+  uint8_t autoUpdateEnabled;
 };
 
 struct __attribute__((packed)) BatteryReport {

@@ -39,10 +39,10 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
     uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
-    uint8_t requestConfig(Config* retreivedConfig, bool advanced);
-    uint8_t setConfig(Config config);
-    //uint8_t requestAdvancedConfig();
-    //uint8_t setAdvancedConfig();
+    uint8_t requestConfig(Config* retreivedConfig);
+    uint8_t setConfig(NewConfig newConfig);
+    uint8_t requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig);
+    uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
 
     uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
     bool batteryCritical();
@@ -67,6 +67,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t updateTime(TimeValue time);
 
     uint8_t setSecurityPin(uint16_t newSecurityPin);
+    uint8_t verifySecurityPin();
 
     static void logConfig(Config config);
     virtual void initialize();

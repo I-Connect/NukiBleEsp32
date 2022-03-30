@@ -136,17 +136,7 @@ void loop() {
       log_d("paired");
       paired = true;
 
-      // setPincode(9999);
-      // nukiBle.requestConfig(false);
-      // nukiBle.requestConfig(true);
-      nukiBle.requestCalibration();
-
-
-      // nukiBle.requestKeyPadCodes(0, 2);
-
-
-      //execute action
-      // nukiBle.lockAction(LockAction::lock, 0, 0);
+      // nukiBle.requestCalibration();
       // addKeypadEntry();
     }
   }
@@ -156,6 +146,7 @@ void loop() {
   // requestLogEntries();
   // requestKeyPadEntries();
   // requestAuthorizationEntries();
+  nukiBle.verifySecurityPin();
 
 
   delay(20000);

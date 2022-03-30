@@ -740,15 +740,11 @@ void NukiBle::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
   }
 }
 
-uint8_t NukiBle::requestConfig(Config* retreivedConfig, bool advanced) {
+uint8_t NukiBle::requestConfig(Config* retreivedConfig) {
   NukiAction action;
 
   action.cmdType = NukiCommandType::commandWithChallenge;
-  if (advanced) {
-    action.command = NukiCommand::requestAdvancedConfig;
-  } else {
-    action.command = NukiCommand::requestConfig;
-  }
+  action.command = NukiCommand::requestConfig;
 
   uint8_t result = executeAction(action);
   if (result == NukiCmdResult::success) {
@@ -760,28 +756,48 @@ uint8_t NukiBle::requestConfig(Config* retreivedConfig, bool advanced) {
   return uint8_t(errorCode);
 }
 
-uint8_t NukiBle::setConfig(Config config) {
+uint8_t NukiBle::requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig) {
   NukiAction action;
-  unsigned char payload[8] = {0};
-  memcpy(payload, config.name, 32);
-  memcpy(&payload[32], &config.latitide, 4);
-  memcpy(&payload[36], &config.longitude, 4);
-  memcpy(&payload[40], &config.autoUnlatch, 1);
-  memcpy(&payload[41], &config.pairingEnabled, 1);
-  memcpy(&payload[42], &config.buttonEnabled, 1);
-  memcpy(&payload[43], &config.ledEnabled, 1);
-  memcpy(&payload[44], &config.ledBrightness, 1);
-  memcpy(&payload[45], &config.timeZoneOffset, 2);
-  memcpy(&payload[47], &config.dstMode, 1);
-  memcpy(&payload[48], &config.fobAction1, 1);
-  memcpy(&payload[49], &config.fobAction2, 1);
-  memcpy(&payload[50], &config.fobAction3, 1);
-  memcpy(&payload[51], &config.singleLock, 1);
-  memcpy(&payload[52], &config.advertisingMode, 1);
-  memcpy(&payload[53], &config.timeZoneId, 2);
+
+  action.cmdType = NukiCommandType::commandWithChallenge;
+  action.command = NukiCommand::requestAdvancedConfig;
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    memcpy(retreivedAdvancedConfig, &advancedConfig, sizeof(AdvancedConfig));
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+uint8_t NukiBle::setConfig(NewConfig newConfig) {
+  NukiAction action;
+  unsigned char payload[sizeof(NewConfig)] = {0};
+  memcpy(payload, &newConfig, sizeof(NewConfig));
 
   action.cmdType = NukiCommandType::commandWithChallengeAndPin;
   action.command = NukiCommand::setConfig;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+uint8_t NukiBle::setAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
+  NukiAction action;
+  unsigned char payload[sizeof(NewAdvancedConfig)] = {0};
+  memcpy(payload, &newAdvancedConfig, sizeof(NewAdvancedConfig));
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::setAdvancedConfig;
   memcpy(action.payload, &payload, sizeof(payload));
   action.payloadLen = sizeof(payload);
 
@@ -808,6 +824,25 @@ uint8_t NukiBle::setSecurityPin(uint16_t newSecurityPin) {
   if (result == NukiCmdResult::success) {
     pinCode = newSecurityPin;
     saveCredentials();
+    return true;
+  } else if (result == NukiCmdResult::timeOut) {
+    return NukiCmdResult::timeOut;
+  }
+  return uint8_t(errorCode);
+}
+
+uint8_t NukiBle::verifySecurityPin() {
+  NukiAction action;
+
+  action.cmdType = NukiCommandType::commandWithChallengeAndPin;
+  action.command = NukiCommand::verifySecurityPin;
+  action.payloadLen = 0;
+
+  uint8_t result = executeAction(action);
+  if (result == NukiCmdResult::success) {
+    #ifdef DEBUG_NUKI_READABLE_DATA
+    log_d("Verify security pin code success");
+    #endif
     return true;
   } else if (result == NukiCmdResult::timeOut) {
     return NukiCmdResult::timeOut;
@@ -873,7 +908,6 @@ uint8_t NukiBle::updateTime(TimeValue time) {
     return NukiCmdResult::timeOut;
   }
   return uint8_t(errorCode);
-}
 }
 
 bool NukiBle::savePincode(uint16_t pinCode) {
@@ -1384,14 +1418,6 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       printBuffer(lockId, sizeof(lockId), false, "lockId");
       break;
     }
-    case NukiCommand::removeUserAuthorization : {
-      printBuffer((byte*)data, dataLen, false, "removeUserAuthorization");
-      break;
-    }
-    case NukiCommand::requestAuthorizationEntries : {
-      printBuffer((byte*)data, dataLen, false, "requestAuthorizationEntries");
-      break;
-    }
     case NukiCommand::authorizationEntry : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntry");
       AuthorizationEntry authEntry;
@@ -1402,20 +1428,12 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       #endif
       break;
     }
-    case NukiCommand::authorizationDatInvite : {
-      printBuffer((byte*)data, dataLen, false, "authorizationDatInvite");
-      break;
-    }
     case NukiCommand::keyturnerStates : {
       printBuffer((byte*)data, dataLen, false, "keyturnerStates");
       memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logKeyturnerState(keyTurnerState);
       #endif
-      break;
-    }
-    case NukiCommand::lockAction : {
-      printBuffer((byte*)data, dataLen, false, "LockAction");
       break;
     }
     case NukiCommand::status : {
@@ -1430,13 +1448,9 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       #endif
       break;
     }
-    case NukiCommand::mostRecentCommand : {
-      printBuffer((byte*)data, dataLen, false, "mostRecentCommand");
-      break;
-    }
     case NukiCommand::openingsClosingsSummary : {
       printBuffer((byte*)data, dataLen, false, "openingsClosingsSummary");
-      log_w("NOT IMPLEMENTED"); //command is not available on Nuki v2 (only on Nuki v1)
+      log_w("NOT IMPLEMENTED ONLY FOR NUKI v1"); //command is not available on Nuki v2 (only on Nuki v1)
       break;
     }
     case NukiCommand::batteryReport : {
@@ -1453,32 +1467,12 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       logErrorCode(data[0]);
       break;
     }
-    case NukiCommand::setConfig : {
-      printBuffer((byte*)data, dataLen, false, "setConfig");
-      break;
-    }
-    case NukiCommand::requestConfig : {
-      printBuffer((byte*)data, dataLen, false, "requestConfig");
-      break;
-    }
     case NukiCommand::config : {
       memcpy(&config, data, sizeof(config));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logConfig(config);
       #endif
       printBuffer((byte*)data, dataLen, false, "config");
-      break;
-    }
-    case NukiCommand::setSecurityPin : {
-      printBuffer((byte*)data, dataLen, false, "setSecurityPin");
-      break;
-    }
-    case NukiCommand::requestCalibration : {
-      printBuffer((byte*)data, dataLen, false, "requestCalibration");
-      break;
-    }
-    case NukiCommand::requestReboot : {
-      printBuffer((byte*)data, dataLen, false, "requestReboot");
       break;
     }
     case NukiCommand::authorizationIdConfirmation : {
@@ -1489,27 +1483,11 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       printBuffer((byte*)data, dataLen, false, "authorizationIdInvite");
       break;
     }
-    case NukiCommand::verifySecurityPin : {
-      printBuffer((byte*)data, dataLen, false, "verifySecurityPin");
-      break;
-    }
-    case NukiCommand::updateTime : {
-      printBuffer((byte*)data, dataLen, false, "updateTime");
-      break;
-    }
-    case NukiCommand::updateAuthorization : {
-      printBuffer((byte*)data, dataLen, false, "updateUserAuthorization");
-      break;
-    }
     case NukiCommand::authorizationEntryCount : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntryCount");
       uint16_t count = 0;
       memcpy(&count, data, 2);
       log_d("authorizationEntryCount: %d", count);
-      break;
-    }
-    case NukiCommand::requestLogEntries : {
-      printBuffer((byte*)data, dataLen, false, "requestLogEntries");
       break;
     }
     case NukiCommand::logEntry : {
@@ -1531,40 +1509,12 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       printBuffer((byte*)data, dataLen, false, "logEntryCount");
       break;
     }
-    case NukiCommand::enableLogging : {
-      printBuffer((byte*)data, dataLen, false, "enableLogging");
-      break;
-    }
-    case NukiCommand::setAdvancedConfig : {
-      printBuffer((byte*)data, dataLen, false, "setAdvancedConfig");
-      break;
-    }
-    case NukiCommand::requestAdvancedConfig : {
-      printBuffer((byte*)data, dataLen, false, "requestAdvancedConfig");
-      break;
-    }
     case NukiCommand::advancedConfig : {
       memcpy(&advancedConfig, data, sizeof(advancedConfig));
       #ifdef DEBUG_NUKI_READABLE_DATA
       logAdvancedConfig(advancedConfig);
       #endif
       printBuffer((byte*)data, dataLen, false, "advancedConfig");
-      break;
-    }
-    case NukiCommand::addTimeControlEntry : {
-      printBuffer((byte*)data, dataLen, false, "addTimeControlEntry");
-      break;
-    }
-    case NukiCommand::timeControlEntryId : {
-      printBuffer((byte*)data, dataLen, false, "timeControlEntryId");
-      break;
-    }
-    case NukiCommand::removeTimeControlEntry : {
-      printBuffer((byte*)data, dataLen, false, "removeTimeControlEntry");
-      break;
-    }
-    case NukiCommand::requestTimeControlEntries : {
-      printBuffer((byte*)data, dataLen, false, "requestTimeControlEntries");
       break;
     }
     case NukiCommand::timeControlEntryCount : {
@@ -1575,20 +1525,8 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       printBuffer((byte*)data, dataLen, false, "timeControlEntry");
       break;
     }
-    case NukiCommand::updateTimeControlEntry : {
-      printBuffer((byte*)data, dataLen, false, "updateTimeControlEntry");
-      break;
-    }
-    case NukiCommand::addKeypadCode : {
-      printBuffer((byte*)data, dataLen, false, "addKeypadCode");
-      break;
-    }
     case NukiCommand::keypadCodeId : {
       printBuffer((byte*)data, dataLen, false, "keypadCodeId");
-      break;
-    }
-    case NukiCommand::requestKeypadCodes : {
-      printBuffer((byte*)data, dataLen, false, "requestKeypadCodes");
       break;
     }
     case NukiCommand::keypadCodeCount : {
@@ -1611,20 +1549,8 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       #endif
       break;
     }
-    case NukiCommand::updateKeypadCode : {
-      printBuffer((byte*)data, dataLen, false, "updateKeypadCode");
-      break;
-    }
-    case NukiCommand::removeKeypadCode : {
-      printBuffer((byte*)data, dataLen, false, "removeKeypadCode");
-      break;
-    }
     case NukiCommand::keypadAction : {
       printBuffer((byte*)data, dataLen, false, "keypadAction");
-      break;
-    }
-    case NukiCommand::simpleLockAction : {
-      printBuffer((byte*)data, dataLen, false, "simpleLockAction");
       break;
     }
     default:
