@@ -46,9 +46,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
     uint8_t requestConfig(Config* retreivedConfig);
-    uint8_t setConfig(NewConfig newConfig);
     uint8_t requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig);
-    uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
 
     uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
     bool batteryCritical();
@@ -81,7 +79,28 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     uint8_t setSecurityPin(uint16_t newSecurityPin);
     uint8_t verifySecurityPin();
 
-    static void logConfig(Config config);
+    //basic config changes
+    uint8_t setName(std::string name);
+    uint8_t enablePairing(bool enable);
+    uint8_t enableButton(bool enable);
+    uint8_t enableLedFlash(bool enable);
+    uint8_t setLedBrightness(uint8_t level);
+    uint8_t enableSingleLock(bool enable);
+    uint8_t setAdvertisingMode(AdvertisingMode mode);
+    uint8_t enableDst(bool enable);
+    uint8_t setTimeZoneOffset(int16_t minutes);
+    uint8_t setTimeZoneId(TimeZoneId timeZoneId);
+
+    //advanced config changes
+    uint8_t setSingleButtonPressAction(ButtonPressAction action);
+    uint8_t setDoubleButtonPressAction(ButtonPressAction action);
+    uint8_t setBatteryType(BatteryType type);
+    uint8_t enableAutoBatteryTypeDetection(bool enable);
+    uint8_t disableAutoUnlock(bool disable);
+    uint8_t enableAutoLock(bool enable);
+    uint8_t enableImmediateAutoLock(bool enable);
+    uint8_t enableAutoUpdate(bool enable);
+
     virtual void initialize();
     void update();
 
@@ -109,6 +128,11 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void deleteCredentials();
     uint8_t pairStateMachine();
     static bool crcValid(uint8_t* pData, uint16_t length);
+
+    uint8_t setConfig(NewConfig newConfig);
+    uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+    void createNewConfig(Config* oldConfig, NewConfig* newConfig);
+    void createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
 
     //TODO generate public and private keys?
     const unsigned char myPrivateKey[32] = {0x8C, 0xAA, 0x54, 0x67, 0x23, 0x07, 0xBF, 0xFD, 0xF5, 0xEA, 0x18, 0x3F, 0xC6, 0x07, 0x15, 0x8D, 0x20, 0x11, 0xD0, 0x08, 0xEC, 0xA6, 0xA1, 0x08, 0x86, 0x14, 0xFF, 0x08, 0x53, 0xA5, 0xAA, 0x07};

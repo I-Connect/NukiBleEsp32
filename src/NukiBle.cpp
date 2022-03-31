@@ -64,6 +64,10 @@ void NukiBle::initialize() {
 
   bleScanner.initialize(deviceName);
   bleScanner.subscribe(this);
+
+  // TODO
+  //disable auto update to prevent unchecked updates in case lock connects with app
+  //disable pairing when lock is paired with C-Sense to prevent user to pair with phone?
 }
 
 void NukiBle::update()
@@ -1066,6 +1070,424 @@ uint8_t NukiBle::updateTime(TimeValue time) {
   return uint8_t(errorCode);
 }
 
+void NukiBle::createNewConfig(Config* oldConfig, NewConfig* newConfig) {
+  memcpy(newConfig->name, oldConfig->name, sizeof(newConfig->name));
+  newConfig->latitide = oldConfig->latitide;
+  newConfig->longitude = oldConfig->longitude;
+  newConfig->autoUnlatch = oldConfig->autoUnlatch;
+  newConfig->pairingEnabled = oldConfig->pairingEnabled;
+  newConfig->buttonEnabled = oldConfig->buttonEnabled;
+  newConfig->ledEnabled = oldConfig->ledEnabled;
+  newConfig->ledBrightness = oldConfig->ledBrightness;
+  newConfig->timeZoneOffset = oldConfig->timeZoneOffset;
+  newConfig->dstMode = oldConfig->dstMode;
+  newConfig->fobAction1 = oldConfig->fobAction1;
+  newConfig->fobAction2 = oldConfig->fobAction2;
+  newConfig->fobAction3 = oldConfig->fobAction3;
+  newConfig->singleLock = oldConfig->singleLock;
+  newConfig->advertisingMode = oldConfig->advertisingMode;
+  newConfig->timeZoneId = oldConfig->timeZoneId;
+}
+
+//basic config change methods
+uint8_t NukiBle::setName(std::string name) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  if (name.length() <= 32) {
+    result = requestConfig(&oldConfig);
+    if (result == 1) {
+      memcpy(oldConfig.name, name.c_str(), name.length());
+      createNewConfig(&oldConfig, &newConfig);
+      result = setConfig(newConfig);
+      if ( result == 1) {
+        return true;
+      } else {
+        return result;
+      }
+    } else {
+      return result;
+    }
+  } else {
+    log_w("setName, too long (max32)");
+    return false;
+  }
+}
+
+uint8_t NukiBle::enablePairing(bool enable) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.pairingEnabled = enable;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableButton(bool enable) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.buttonEnabled = enable;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableLedFlash(bool enable) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.ledEnabled = enable;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::setLedBrightness(uint8_t level) {
+  //level is from 0 (off) to 5(max)
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  if (level > 5) {
+    level = 5;
+  }
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.ledBrightness = level;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableSingleLock(bool enable) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.singleLock = enable;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::setAdvertisingMode(AdvertisingMode mode) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.advertisingMode = mode;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableDst(bool enable) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.dstMode = enable;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::setTimeZoneOffset(int16_t minutes) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.timeZoneOffset = minutes;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::setTimeZoneId(TimeZoneId timeZoneId) {
+  Config oldConfig;
+  NewConfig newConfig;
+  uint8_t result;
+
+  result = requestConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.timeZoneId = timeZoneId;
+    createNewConfig(&oldConfig, &newConfig);
+    result = setConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+void NukiBle::createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig) {
+  newConfig->unlockedPositionOffsetDegrees = oldConfig->unlockedPositionOffsetDegrees;
+  newConfig->lockedPositionOffsetDegrees = oldConfig->lockedPositionOffsetDegrees;
+  newConfig->singleLockedPositionOffsetDegrees = oldConfig->singleLockedPositionOffsetDegrees;
+  newConfig->unlockedToLockedTransitionOffsetDegrees = oldConfig->unlockedToLockedTransitionOffsetDegrees;
+  newConfig->lockNgoTimeout = oldConfig->lockNgoTimeout;
+  newConfig->singleButtonPressAction = oldConfig->singleButtonPressAction;
+  newConfig->doubleButtonPressAction = oldConfig->doubleButtonPressAction;
+  newConfig->detachedCylinder = oldConfig->detachedCylinder;
+  newConfig->batteryType = oldConfig->batteryType;
+  newConfig->automaticBatteryTypeDetection = oldConfig->automaticBatteryTypeDetection;
+  newConfig->unlatchDuration = oldConfig->unlatchDuration;
+  newConfig->autoLockTimeOut = oldConfig->autoLockTimeOut;
+  newConfig->autoUnLockDisabled = oldConfig->autoUnLockDisabled;
+  newConfig->nightModeEnabled = oldConfig->nightModeEnabled;
+  memcpy(newConfig->nightModeStartTime, oldConfig->nightModeStartTime, sizeof(newConfig->nightModeStartTime));
+  memcpy(newConfig->nightModeEndTime, oldConfig->nightModeEndTime, sizeof(newConfig->nightModeEndTime));
+  newConfig->nightModeAutoLockEnabled = oldConfig->nightModeAutoLockEnabled;
+  newConfig->nightModeAutoUnlockDisabled = oldConfig->nightModeAutoUnlockDisabled;
+  newConfig->nightModeImmediateLockOnStart = oldConfig->nightModeImmediateLockOnStart;
+  newConfig->autoLockEnabled = oldConfig->autoLockEnabled;
+  newConfig->immediateAutoLockEnabled = oldConfig->immediateAutoLockEnabled;
+  newConfig->autoUpdateEnabled = oldConfig->autoUpdateEnabled;
+
+}
+
+//advanced config change methods
+uint8_t NukiBle::setSingleButtonPressAction(ButtonPressAction action) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.singleButtonPressAction = action;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = 1;
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::setDoubleButtonPressAction(ButtonPressAction action) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.doubleButtonPressAction = action;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::setBatteryType(BatteryType type) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.batteryType = type;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableAutoBatteryTypeDetection(bool enable) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.automaticBatteryTypeDetection = enable;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::disableAutoUnlock(bool disable) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.autoUnLockDisabled = disable;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableAutoLock(bool enable) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.autoLockEnabled = enable;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableImmediateAutoLock(bool enable) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.immediateAutoLockEnabled = enable;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
+uint8_t NukiBle::enableAutoUpdate(bool enable) {
+  AdvancedConfig oldConfig;
+  NewAdvancedConfig newConfig;
+  uint8_t result;
+
+  result = requestAdvancedConfig(&oldConfig);
+  if (result == 1) {
+    oldConfig.autoUpdateEnabled = enable;
+    createNewAdvancedConfig(&oldConfig, &newConfig);
+    result = setAdvancedConfig(newConfig);
+    if ( result == 1) {
+      return true;
+    } else {
+      return result;
+    }
+  } else {
+    return result;
+  }
+}
+
 bool NukiBle::savePincode(uint16_t pinCode) {
   return (preferences.putBytes("securityPinCode", &pinCode, 2) == 2);
 }
@@ -1359,7 +1781,6 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char*
 
   //Encrypt plain data
   unsigned char plainDataEncr[ sizeof(plainDataWithCrc) + crypto_secretbox_MACBYTES] = {0};
-  //TODO is giving "sizeof(plainDataWithCrc)" correct?
   int encrMsgLen = encode(plainDataEncr, plainDataWithCrc, sizeof(plainDataWithCrc), sentNonce, secretKeyK);
   log_d("encrypted msgLen: %d", sizeof(plainDataEncr));
 
