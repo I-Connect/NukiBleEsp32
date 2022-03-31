@@ -9,8 +9,8 @@ Implementation is according to [Nuki Smart Lock BLE API](https://developer.nuki.
 
 ## V0.0.1
 lib is ready for beta testing, most if not all Nuki lock v2 functionality is implemented.
-Most of the basic methods have been tested, some of the more advanced (mostly settings related) methods wtill need to be tested
-There can still be braking changes....
+Most of the basic methods have been tested, some of the more advanced (mostly settings related) methods still need to be tested
+There can still be braking changes....!
 Implementation is according to Nuki Smart Lock API V2.2.1 (22.06.2021)
 
 ## Wip
