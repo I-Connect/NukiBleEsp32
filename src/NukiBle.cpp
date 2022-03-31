@@ -48,7 +48,9 @@ std::list<TimeControlEntry> listOfTimeControlEntries;
 NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
     deviceId(deviceId)
-{}
+{
+    keyTurnerUUIDString = STRING(keyturnerServiceUUID);
+}
 
 NukiBle::~NukiBle() {}
 
@@ -60,6 +62,13 @@ void NukiBle::initialize() {
   pClient  = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
+  bleScanner.initialize(deviceName);
+  bleScanner.subscribe(this);
+}
+
+void NukiBle::update()
+{
+    bleScanner.update();
 }
 
 bool NukiBle::pairNuki() {
@@ -67,27 +76,28 @@ bool NukiBle::pairNuki() {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
     #endif
+    isPaired = true;
     return true;
   }
   bool result = false;
 
-  if (scanForPairingNuki()) {
-    if (bleAddress != BLEAddress("") ) {
-      if (connectBle(bleAddress)) {
-        while (pairStateMachine() == 99) {
-          //run pair state machine, it has a timeout
-        }
-        if (nukiPairingState == NukiPairingState::success) {
-          saveCredentials();
-          result = true;
-        }
+  scanForPairingNuki();
+  if (bleAddress != BLEAddress("") ) {
+    if (connectBle(bleAddress)) {
+      while (pairStateMachine() == 99) {
+        //run pair state machine, it has a timeout
       }
-    } else {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("No nuki in pairing mode found");
-      #endif
+      if (nukiPairingState == NukiPairingState::success) {
+        saveCredentials();
+        result = true;
+      }
     }
+  } else {
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("No nuki in pairing mode found");
+    #endif
   }
+  isPaired = result;
   return result;
 }
 
@@ -128,36 +138,77 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   // log_d("Advertised Device: %s", advertisedDevice->toString().c_str());
   #endif
 
-  if (advertisedDevice->haveServiceData()) {
-    if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "") {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
-      #endif
-      bleAddress = advertisedDevice->getAddress();
+  if(isPaired)
+  {
+    if(bleAddress == advertisedDevice->getAddress())
+    {
+      std::string manufacturerData = advertisedDevice->getManufacturerData();
+      uint8_t *manufacturerDataPtr = (uint8_t *)manufacturerData.data();
+      char *pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
+
+      bool isKeyTurnerUUID = true;
+      size_t len = keyTurnerUUIDString.length();
+      int offset = 0;
+      for(int i=0; i<len; i++)
+      {
+        if(keyTurnerUUIDString[i+offset] == '-')
+        {
+          ++offset;
+          --len;
+        }
+
+        if(pHex[i+8] != keyTurnerUUIDString.at(i + offset))
+        {
+          isKeyTurnerUUID = false;
+        }
+      }
+      free(pHex);
+
+      if(isKeyTurnerUUID)
+      {
+        bool keyturnerStateChanged = manufacturerDataPtr[manufacturerData.length() - 1] & 0x01 > 0;
+        if(keyturnerStateChanged)
+        {
+          eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
+        }
+      }
+    }
+  }
+  else
+  {
+    if (advertisedDevice->haveServiceData())
+    {
+      if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "")
+      {
+        #ifdef DEBUG_NUKI_CONNECT \
+        log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+        #endif
+        bleAddress = advertisedDevice->getAddress();
+      }
     }
   }
 }
 
-int NukiBle::scanForPairingNuki() {
+void NukiBle::scanForPairingNuki() {
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Scanning for Nuki in pairing mode...");
   #endif
   bleAddress = BLEAddress("");
-  BLEDevice::init("");
-  pBLEScan = BLEDevice::getScan();
-  pBLEScan->setAdvertisedDeviceCallbacks(this);
-  pBLEScan->setActiveScan(true);
-  pBLEScan->setInterval(100);
-  pBLEScan->setFilterPolicy(BLE_HCI_SCAN_FILT_NO_WL);
-  pBLEScan->setWindow(99);
+//  BLEDevice::init("");
+//  pBLEScan = BLEDevice::getScan();
+//  pBLEScan->setAdvertisedDeviceCallbacks(this);
+//  pBLEScan->setActiveScan(true);
+//  pBLEScan->setInterval(100);
+//  pBLEScan->setFilterPolicy(BLE_HCI_SCAN_FILT_NO_WL);
+//  pBLEScan->setWindow(99);
+  delay(5000);
 
-  BLEScanResults foundDevices = pBLEScan->start(5, false);
+//  BLEScanResults foundDevices = pBLEScan->start(5, false);
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Scan done total Devices found: %d", foundDevices.getCount());
   #endif
 
   pBLEScan->clearResults();
-  return foundDevices.getCount();
 }
 
 uint8_t NukiBle::executeAction(NukiAction action) {
