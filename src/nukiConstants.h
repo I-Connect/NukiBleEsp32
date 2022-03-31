@@ -208,6 +208,64 @@ enum class LoggingType : uint8_t {
   doorSensorLoggingEnabled  = 0x07
 };
 
+enum class AdvertisingMode : uint8_t {
+  automatic                 = 0x00,
+  normal                    = 0x01,
+  slow                      = 0x02,
+  slowest                   = 0x03
+};
+
+enum class TimeZoneId : uint16_t {
+  Africa_Cairo = 0,  // UTC+2 EET dst: no
+  Africa_Lagos = 1,  // UTC+1 WAT dst: no
+  Africa_Maputo = 2,  // UTC+2 CAT, SAST dst: no
+  Africa_Nairobi = 3,  // UTC+3 EAT dst: no
+  America_Anchorage = 4,  // UTC-9/-8 AKDT dst: yes
+  America_Argentina_Buenos_Aires = 5,  // UTC-3 ART, UYT dst: no
+  America_Chicago = 6,  // UTC-6/-5 CDT dst: yes
+  America_Denver = 7,  // UTC-7/-6 MDT dst: yes
+  America_Halifax = 8,  // UTC-4/-3 ADT dst: yes
+  America_Los_Angeles = 9,  // UTC-8/-7 PDT dst: yes
+  America_Manaus = 10,  // UTC-4 AMT, BOT, VET, AST, GYT dst: no
+  America_Mexico_City = 11,  // UTC-6/-5 CDT dst: yes
+  America_New_York = 12,  // UTC-5/-4 EDT dst: yes
+  America_Phoenix = 13,  // UTC-7 MST dst: no
+  America_Regina = 14,  // UTC-6 CST dst: no
+  America_Santiago = 15,  // UTC-4/-3 CLST, AMST, WARST, PYST dst: yes
+  America_Sao_Paulo = 16,  // UTC-3 BRT dst: no
+  America_St_Johns = 17,  // UTC-3½/ -2½ NDT dst: yes
+  Asia_Bangkok = 18,  // UTC+7 ICT, WIB dst: no
+  Asia_Dubai = 19,  // UTC+4 SAMT, GET, AZT, GST, MUT, RET, SCT, AMT-Arm dst: no
+  Asia_Hong_Kong = 20,  // UTC+8 HKT dst: no
+  Asia_Jerusalem = 21,  // UTC+2/+3 IDT dst: yes
+  Asia_Karachi = 22,  // UTC+5 PKT, YEKT, TMT, UZT, TJT, ORAT dst: no
+  Asia_Kathmandu = 23,  // UTC+5¾ NPT dst: no
+  Asia_Kolkata = 24,  // UTC+5½ IST dst: no
+  Asia_Riyadh = 25,  // UTC+3 AST-Arabia dst: no
+  Asia_Seoul = 26,  // UTC+9 KST dst: no
+  Asia_Shanghai = 27,  // UTC+8 CST, ULAT, IRKT, PHT, BND, WITA dst: no
+  Asia_Tehran = 28,  // UTC+3½ ARST dst: no
+  Asia_Tokyo = 29,  // UTC+9 JST, WIT, PWT, YAKT dst: no
+  Asia_Yangon = 30,  // UTC+6½ MMT dst: no
+  Australia_Adelaide = 31,  // UTC+9½/10½ ACDT dst: yes
+  Australia_Brisbane = 32,  // UTC+10 AEST, PGT, VLAT dst: no
+  Australia_Darwin = 33,  // UTC+9½ ACST dst: no
+  Australia_Hobart = 34,  // UTC+10/+11 AEDT dst: yes
+  Australia_Perth = 35,  // UTC+8 AWST dst: no
+  Australia_Sydney = 36,  // UTC+10/+11 AEDT dst: yes
+  Europe_Berlin = 37,  // UTC+1/+2 CEST dst: yes
+  Europe_Helsinki = 38,  // UTC+2/+3 EEST dst: yes
+  Europe_Istanbul = 39,  // UTC+3 TRT dst: no
+  Europe_London = 40,  // UTC+0/+1 BST, IST dst: yes
+  Europe_Moscow = 41,  // UTC+3 MSK dst: no
+  Pacific_Auckland = 42,  // UTC+12/+13 NZDT dst: yes
+  Pacific_Guam = 43,  // UTC+10 ChST dst: no
+  Pacific_Honolulu = 44,  // UTC-10 H(A)ST dst: no
+  Pacific_Pago_Pago = 45,  // UTC-11 SST dst: no
+  None = 65535,  //
+
+};
+
 struct __attribute__((packed)) NewKeypadEntry {
   uint32_t code;  //needs to be 6 digits
   uint8_t name[20];
@@ -337,12 +395,12 @@ struct __attribute__((packed)) Config {
   uint8_t  fobAction2;
   uint8_t  fobAction3;
   uint8_t  singleLock;
-  uint8_t advertisingMode;
+  AdvertisingMode advertisingMode;
   uint8_t hasKeypad;
   unsigned char firmwareVersion[3];
   unsigned char hardwareRevision[2];
   uint8_t homeKitStatus;
-  uint16_t timeZoneId;
+  TimeZoneId timeZoneId;
 };
 
 struct __attribute__((packed)) NewConfig {
@@ -360,8 +418,8 @@ struct __attribute__((packed)) NewConfig {
   uint8_t  fobAction2;
   uint8_t  fobAction3;
   uint8_t  singleLock;
-  uint8_t advertisingMode;
-  uint16_t timeZoneId;
+  AdvertisingMode advertisingMode;
+  TimeZoneId timeZoneId;
 };
 
 struct __attribute__((packed)) AdvancedConfig {
@@ -378,7 +436,7 @@ struct __attribute__((packed)) AdvancedConfig {
   uint8_t automaticBatteryTypeDetection;
   uint8_t unlatchDuration;
   uint16_t autoLockTimeOut;
-  uint8_t autoLockDisabled;
+  uint8_t autoUnLockDisabled;
   uint8_t nightModeEnabled;
   unsigned char nightModeStartTime[2];
   unsigned char nightModeEndTime[2];
@@ -403,7 +461,7 @@ struct __attribute__((packed)) NewAdvancedConfig {
   uint8_t automaticBatteryTypeDetection;
   uint8_t unlatchDuration;
   uint16_t autoLockTimeOut;
-  uint8_t autoLockDisabled;
+  uint8_t autoUnLockDisabled;
   uint8_t nightModeEnabled;
   unsigned char nightModeStartTime[2];
   unsigned char nightModeEndTime[2];

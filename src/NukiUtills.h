@@ -184,7 +184,7 @@ void NukiBle::logErrorCode(uint8_t errorCode) {
   }
 }
 
-void NukiBle::logConfig(Config config) {
+void logConfig(Config config) {
   log_d("nukiId :%d", config.nukiId);
   log_d("name :%s", config.name);
   log_d("latitide :%f", config.latitide);
@@ -213,6 +213,25 @@ void NukiBle::logConfig(Config config) {
   log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
   log_d("homeKitStatus :%d", config.homeKitStatus);
   log_d("timeZoneId :%d", config.timeZoneId);
+}
+
+void logNewConfig(NewConfig newConfig) {
+  log_d("name :%s", newConfig.name);
+  log_d("latitide :%f", newConfig.latitide);
+  log_d("longitude :%f", newConfig.longitude);
+  log_d("autoUnlatch :%d", newConfig.autoUnlatch);
+  log_d("pairingEnabled :%d", newConfig.pairingEnabled);
+  log_d("buttonEnabled :%d", newConfig.buttonEnabled);
+  log_d("ledEnabled :%d", newConfig.ledEnabled);
+  log_d("ledBrightness :%d", newConfig.ledBrightness);
+  log_d("timeZoneOffset :%d", newConfig.timeZoneOffset);
+  log_d("dstMode :%d", newConfig.dstMode);
+  log_d("fobAction1 :%d", newConfig.fobAction1);
+  log_d("fobAction2 :%d", newConfig.fobAction2);
+  log_d("fobAction3 :%d", newConfig.fobAction3);
+  log_d("singleLock :%d", newConfig.singleLock);
+  log_d("advertisingMode :%d", newConfig.advertisingMode);
+  log_d("timeZoneId :%d", newConfig.timeZoneId);
 }
 
 void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
@@ -601,7 +620,7 @@ void logAdvancedConfig(AdvancedConfig advancedConfig) {
   log_d("automaticBatteryTypeDetection :%d", advancedConfig.automaticBatteryTypeDetection);
   log_d("unlatchDuration :%d", advancedConfig.unlatchDuration);
   log_d("autoLockTimeOut :%d", advancedConfig.autoLockTimeOut);
-  log_d("autoLockDisabled :%d", advancedConfig.autoLockDisabled);
+  log_d("autoUnLockDisabled :%d", advancedConfig.autoUnLockDisabled);
   log_d("nightModeEnabled :%d", advancedConfig.nightModeEnabled);
   log_d("nightModeStartTime Hour :%d", advancedConfig.nightModeStartTime[0]);
   log_d("nightModeStartTime Minute :%d", advancedConfig.nightModeStartTime[1]);
@@ -613,4 +632,31 @@ void logAdvancedConfig(AdvancedConfig advancedConfig) {
   log_d("autoLockEnabled :%d", advancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", advancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", advancedConfig.autoUpdateEnabled);
+}
+
+void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
+  log_d("unlockedPositionOffsetDegrees :%d", newAdvancedConfig.unlockedPositionOffsetDegrees);
+  log_d("lockedPositionOffsetDegrees :%f", newAdvancedConfig.lockedPositionOffsetDegrees);
+  log_d("singleLockedPositionOffsetDegrees :%f", newAdvancedConfig.singleLockedPositionOffsetDegrees);
+  log_d("unlockedToLockedTransitionOffsetDegrees :%d", newAdvancedConfig.unlockedToLockedTransitionOffsetDegrees);
+  log_d("lockNgoTimeout :%d", newAdvancedConfig.lockNgoTimeout);
+  log_d("singleButtonPressAction :%d", newAdvancedConfig.singleButtonPressAction);
+  log_d("doubleButtonPressAction :%d", newAdvancedConfig.doubleButtonPressAction);
+  log_d("detachedCylinder :%d", newAdvancedConfig.detachedCylinder);
+  log_d("batteryType :%d", newAdvancedConfig.batteryType);
+  log_d("automaticBatteryTypeDetection :%d", newAdvancedConfig.automaticBatteryTypeDetection);
+  log_d("unlatchDuration :%d", newAdvancedConfig.unlatchDuration);
+  log_d("autoUnLockTimeOut :%d", newAdvancedConfig.autoLockTimeOut);
+  log_d("autoUnLockDisabled :%d", newAdvancedConfig.autoUnLockDisabled);
+  log_d("nightModeEnabled :%d", newAdvancedConfig.nightModeEnabled);
+  log_d("nightModeStartTime Hour :%d", newAdvancedConfig.nightModeStartTime[0]);
+  log_d("nightModeStartTime Minute :%d", newAdvancedConfig.nightModeStartTime[1]);
+  log_d("nightModeEndTime Hour :%d", newAdvancedConfig.nightModeEndTime[0]);
+  log_d("nightModeEndTime Minute :%d", newAdvancedConfig.nightModeEndTime[1]);
+  log_d("nightModeAutoLockEnabled :%d", newAdvancedConfig.nightModeAutoLockEnabled);
+  log_d("nightModeAutoUnlockDisabled :%d", newAdvancedConfig.nightModeAutoUnlockDisabled);
+  log_d("nightModeImmediateLockOnStart :%d", newAdvancedConfig.nightModeImmediateLockOnStart);
+  log_d("autoLockEnabled :%d", newAdvancedConfig.autoLockEnabled);
+  log_d("immediateAutoLockEnabled :%d", newAdvancedConfig.immediateAutoLockEnabled);
+  log_d("autoUpdateEnabled :%d", newAdvancedConfig.autoUpdateEnabled);
 }

@@ -147,6 +147,15 @@ void requestTimeControlEntries() {
   }
 }
 
+void getConfig() {
+  Config config;
+  if (nukiBle.requestConfig(&config) == 1) {
+    log_d("Name: %s", config.name);
+  } else {
+    log_w("getConfig failed");
+  }
+
+}
 void setup() {
   Serial.begin(115200);
   log_d("Starting NUKI BLE...");
@@ -165,10 +174,13 @@ void loop() {
       // nukiBle.requestCalibration();
       // addKeypadEntry();
       // addTimeControl(5, 21, 0, LockAction::lock);
+      // nukiBle.setName("Deur");
+      nukiBle.setSingleButtonPressAction(ButtonPressAction::intelligent);
     }
   }
 
   keyTurnerState();
+  // getConfig();
   // batteryReport();
   // requestLogEntries();
   // requestKeyPadEntries();
