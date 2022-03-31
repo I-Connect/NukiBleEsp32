@@ -20,9 +20,8 @@
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
 bool checkCharArrayEmpty(unsigned char* array, uint16_t len);
 
-enum class NukiEventType
-{
-    KeyTurnerStatusUpdated
+enum class NukiEventType {
+  KeyTurnerStatusUpdated
 };
 
 class NukiSmartlockEventHandler {
