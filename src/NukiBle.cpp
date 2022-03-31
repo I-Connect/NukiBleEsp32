@@ -83,7 +83,6 @@ bool NukiBle::pairNuki() {
   }
   bool result = false;
 
-  scanForPairingNuki();
   if (bleAddress != BLEAddress("") ) {
     if (connectBle(bleAddress)) {
       while (pairStateMachine() == 99) {
@@ -178,28 +177,6 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
       }
     }
   }
-}
-
-void NukiBle::scanForPairingNuki() {
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("Scanning for Nuki in pairing mode...");
-  #endif
-  bleAddress = BLEAddress("");
-//  BLEDevice::init("");
-//  pBLEScan = BLEDevice::getScan();
-//  pBLEScan->setAdvertisedDeviceCallbacks(this);
-//  pBLEScan->setActiveScan(true);
-//  pBLEScan->setInterval(100);
-//  pBLEScan->setFilterPolicy(BLE_HCI_SCAN_FILT_NO_WL);
-//  pBLEScan->setWindow(99);
-  delay(5000);
-
-//  BLEScanResults foundDevices = pBLEScan->start(5, false);
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("Scan done total Devices found: %d", foundDevices.getCount());
-  #endif
-
-  pBLEScan->clearResults();
 }
 
 uint8_t NukiBle::executeAction(NukiAction action) {

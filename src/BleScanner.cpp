@@ -22,7 +22,6 @@ void BleScanner::update() {
   if (bleScan->isScanning()) {
     return;
   }
-  Serial.println("start scan");
   bool result = bleScan->start(30, nullptr, false);
   if (!result) {
     Serial.println("BLE Scan error");
