@@ -44,7 +44,7 @@ void NukiBle::update() {
 }
 
 bool NukiBle::pairNuki() {
-  if (retreiveCredentials()) {
+  if (retrieveCredentials()) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
     #endif
@@ -55,8 +55,9 @@ bool NukiBle::pairNuki() {
 
   if (bleAddress != BLEAddress("") ) {
     if (connectBle(bleAddress)) {
-      while (pairStateMachine() == 99) {
-        //running pair state machine, it has a timeout
+      NukiPairingState nukiPairingState = NukiPairingState::InitPairing;
+      while ((nukiPairingState != NukiPairingState::Success) && (nukiPairingState != NukiPairingState::Timeout)) {
+        nukiPairingState = pairStateMachine(nukiPairingState);
       }
       if (nukiPairingState == NukiPairingState::Success) {
         saveCredentials();
@@ -167,7 +168,7 @@ uint8_t NukiBle::executeAction(NukiAction action) {
   #ifdef DEBUG_NUKI_CONNECT
   log_d("************************ CHECK PAIRED ************************");
   #endif
-  if ( retreiveCredentials() ) {
+  if ( retrieveCredentials() ) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials retreived from preferences, ready for commands");
     #endif
@@ -1462,7 +1463,7 @@ void NukiBle::saveCredentials() {
   }
 }
 
-bool NukiBle::retreiveCredentials() {
+bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
   if ( (preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
@@ -1494,15 +1495,14 @@ void NukiBle::deleteCredentials() {
   #endif
 }
 
-uint8_t NukiBle::pairStateMachine() {
+NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingState) {
   switch (nukiPairingState) {
     case NukiPairingState::InitPairing: {
 
       memset(challengeNonceK, 0, sizeof(challengeNonceK));
       memset(remotePublicKey, 0, sizeof(remotePublicKey));
       receivedStatus = 0xff;
-      nukiPairingState = NukiPairingState::ReqRemPubKey;
-      break;
+      return NukiPairingState::ReqRemPubKey;
     }
     case NukiPairingState::ReqRemPubKey: {
       //Request remote public key (Sent message should be 0100030027A7)
@@ -1514,17 +1514,12 @@ uint8_t NukiBle::pairStateMachine() {
       memcpy(buff, &cmd, sizeof(NukiCommand));
       sendPlainMessage(NukiCommand::RequestData, buff, sizeof(NukiCommand));
       timeNow = millis();
-      nukiPairingState = NukiPairingState::RecRemPubKey;
-      break;
+      return NukiPairingState::RecRemPubKey;
     }
     case NukiPairingState::RecRemPubKey: {
       if (checkCharArrayEmpty(remotePublicKey, sizeof(remotePublicKey))) {
-        nukiPairingState = NukiPairingState::SendPubKey;
-      } else if (millis() - timeNow > GENERAL_TIMEOUT) {
-        log_w("Remote public key receive timeout");
-        return false;
+        return NukiPairingState::SendPubKey;
       }
-      delay(50);
       break;
     }
     case NukiPairingState::SendPubKey: {
@@ -1533,8 +1528,7 @@ uint8_t NukiBle::pairStateMachine() {
       #endif
       //TODO generate public and private keys?
       sendPlainMessage(NukiCommand::PublicKey, myPublicKey, sizeof(myPublicKey));
-      nukiPairingState = NukiPairingState::GenKeyPair;
-      break;
+      return NukiPairingState::GenKeyPair;
     }
     case NukiPairingState::GenKeyPair: {
       #ifdef DEBUG_NUKI_CONNECT
@@ -1552,8 +1546,7 @@ uint8_t NukiBle::pairStateMachine() {
       crypto_core_hsalsa20(secretKeyK, _0, sharedKeyS, sigma);
       printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
       timeNow = millis();
-      nukiPairingState = NukiPairingState::CalculateAuth;
-      break;
+      return NukiPairingState::CalculateAuth;
     }
     case NukiPairingState::CalculateAuth: {
       if (checkCharArrayEmpty(challengeNonceK, sizeof(challengeNonceK))) {
@@ -1569,12 +1562,8 @@ uint8_t NukiBle::pairStateMachine() {
         crypto_auth_hmacsha256(authenticator, hmacPayload, sizeof(hmacPayload), secretKeyK);
         printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result");
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
-        nukiPairingState = NukiPairingState::SendAuth;
-      } else if (millis() - timeNow > GENERAL_TIMEOUT) {
-        log_w("Challenge 1 receive timeout");
-        return false;
+        return NukiPairingState::SendAuth;
       }
-      delay(50);
       break;
     }
     case NukiPairingState::SendAuth: {
@@ -1583,8 +1572,7 @@ uint8_t NukiBle::pairStateMachine() {
       #endif
       sendPlainMessage(NukiCommand::AuthorizationAuthenticator, authenticator, sizeof(authenticator));
       timeNow = millis();
-      nukiPairingState = NukiPairingState::SendAuthData;
-      break;
+      return NukiPairingState::SendAuthData;
     }
     case NukiPairingState::SendAuthData: {
       if (checkCharArrayEmpty(challengeNonceK, sizeof(challengeNonceK))) {
@@ -1622,12 +1610,8 @@ uint8_t NukiBle::pairStateMachine() {
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
         sendPlainMessage(NukiCommand::AuthorizationData, authorizationDataMessage, sizeof(authorizationDataMessage));
         timeNow = millis();
-        nukiPairingState = NukiPairingState::SendAuthIdConf;
-      } else if (millis() - timeNow > GENERAL_TIMEOUT) {
-        log_w("Challenge 2 receive timeout");
-        return false;
+        return NukiPairingState::SendAuthIdConf;
       }
-      delay(50);
       break;
     }
     case NukiPairingState::SendAuthIdConf: {
@@ -1648,12 +1632,8 @@ uint8_t NukiBle::pairStateMachine() {
         memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
         sendPlainMessage(NukiCommand::AuthorizationIdConfirmation, confirmationDataMessage, sizeof(confirmationDataMessage));
         timeNow = millis();
-        nukiPairingState = NukiPairingState::RecStatus;
-      } else if (millis() - timeNow > GENERAL_TIMEOUT) {
-        log_w("Authorization id receive timeout");
-        return false;
+        return NukiPairingState::RecStatus;
       }
-      delay(50);
       break;
     }
     case NukiPairingState::RecStatus: {
@@ -1661,26 +1641,23 @@ uint8_t NukiBle::pairStateMachine() {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("####################### PAIRING DONE ###############################################");
         #endif
-        nukiPairingState = NukiPairingState::Success;
-        return true;
-      } else if (millis() - timeNow > GENERAL_TIMEOUT) {
-        log_w("pairing FAILED");
-        return false;
+        return NukiPairingState::Success;
       }
-      delay(50);
       break;
     }
     default: {
       log_e("Unknown pairing status");
-      break;
+      return NukiPairingState::Timeout;
     }
   }
 
   if (millis() - timeNow > PAIRING_TIMEOUT) {
     log_w("Pairing timeout");
-    return 0;
+    return NukiPairingState::Timeout;
   }
-  return 99;
+
+  // Nothing happend, returned same state
+  return nukiPairingState;
 }
 
 void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen) {

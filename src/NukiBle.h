@@ -109,9 +109,9 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
     void saveCredentials();
-    bool retreiveCredentials();
+    bool retrieveCredentials();
     void deleteCredentials();
-    uint8_t pairStateMachine();
+    NukiPairingState pairStateMachine(const NukiPairingState nukiPairingState);
 
     uint8_t setConfig(NewConfig newConfig);
     uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
@@ -140,7 +140,6 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     NukiCmdResult cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
     NukiCmdResult cmdChallAccStateMachine(NukiAction action);
 
-    NukiPairingState nukiPairingState = NukiPairingState::InitPairing;
     NukiCommandState nukiCommandState = NukiCommandState::Idle;
 
     uint32_t timeNow = 0;

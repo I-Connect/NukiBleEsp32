@@ -32,7 +32,8 @@ enum class NukiPairingState {
   SendAuthData      = 7,
   SendAuthIdConf    = 8,
   RecStatus         = 9,
-  Success           = 10
+  Success           = 10,
+  Timeout           = 99
 };
 
 enum class NukiCommandState {
