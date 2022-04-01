@@ -3,7 +3,7 @@
 #include "sodium/crypto_secretbox.h"
 #include "Crc16.h"
 
-void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
+void NukiBle::printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   #ifdef DEBUG_NUKI_HEX_DATA
   delay(10); //delay otherwise first part of print will not be shown
   char tmp[16];

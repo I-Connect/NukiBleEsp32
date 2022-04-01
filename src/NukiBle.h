@@ -37,6 +37,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     bool savePincode(uint16_t pinCode);
 
     uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
+    void retreiveKeyTunerState(KeyTurnerState* retreivedKeyTurnerState);
     uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
     uint8_t requestConfig(Config* retreivedConfig);
@@ -98,7 +99,6 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     virtual void initialize();
 
   private:
-    void startNukiBleXtask();
 
     bool connectBle(BLEAddress bleAddress);
     void onConnect(BLEClient*) override;
@@ -146,6 +146,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
 
     // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
     void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
+    static void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
 
     enum NukiCmdResult : uint8_t {
       success   = 1,

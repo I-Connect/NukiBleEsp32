@@ -472,6 +472,10 @@ uint8_t NukiBle::requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState) 
   return uint8_t(errorCode);
 }
 
+void NukiBle::retreiveKeyTunerState(KeyTurnerState* retreivedKeyTurnerState) {
+  memcpy(retreivedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
+}
+
 bool NukiBle::batteryCritical() {
   //MSB/LSB!
   return keyTurnerState.criticalBatteryState & (1 << 7);
