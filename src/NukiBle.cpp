@@ -1816,7 +1816,10 @@ bool NukiBle::registerOnGdioChar() {
     pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(keyturnerGdioUUID);
     if (pGdioCharacteristic != nullptr) {
       if (pGdioCharacteristic->canIndicate()) {
-        pGdioCharacteristic->subscribe(false, notifyCallback); //false = indication, true = notification
+
+        using namespace std::placeholders;
+        notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
+        pGdioCharacteristic->subscribe(false, callback); //false = indication, true = notification
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("GDIO characteristic registered");
         #endif
@@ -1847,7 +1850,11 @@ bool NukiBle::registerOnUsdioChar() {
     pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(userDataUUID);
     if (pUsdioCharacteristic != nullptr) {
       if (pUsdioCharacteristic->canIndicate()) {
-        pUsdioCharacteristic->subscribe(false, notifyCallback); //false = indication, true = notification
+
+        using namespace std::placeholders;
+        notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
+
+        pUsdioCharacteristic->subscribe(false, callback); //false = indication, true = notification
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("USDIO characteristic registered");
         #endif

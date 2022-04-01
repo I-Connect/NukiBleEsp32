@@ -105,8 +105,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void sendPlainMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen);
     void sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen);
 
-    static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
-    static void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
+    void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
+    void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
     void saveCredentials();
     bool retreiveCredentials();
     void deleteCredentials();
