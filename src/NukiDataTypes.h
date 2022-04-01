@@ -14,42 +14,42 @@ class NukiSmartlockEventHandler {
 };
 
 enum NukiCmdResult : uint8_t {
-  success   = 1,
-  failed    = 2,
-  timeOut   = 3,
-  working   = 4,
-  notPaired = 5
+  Success   = 1,
+  Failed    = 2,
+  TimeOut   = 3,
+  Working   = 4,
+  NotPaired = 5
 };
 
 enum class NukiPairingState {
-  initPairing       = 0,
-  reqRemPubKey      = 1,
-  recRemPubKey      = 2,
-  sendPubKey        = 3,
-  genKeyPair        = 4,
-  calculateAuth     = 5,
-  sendAuth          = 6,
-  sendAuthData      = 7,
-  sendAuthIdConf    = 8,
-  recStatus         = 9,
-  success           = 10
+  InitPairing       = 0,
+  ReqRemPubKey      = 1,
+  RecRemPubKey      = 2,
+  SendPubKey        = 3,
+  GenKeyPair        = 4,
+  CalculateAuth     = 5,
+  SendAuth          = 6,
+  SendAuthData      = 7,
+  SendAuthIdConf    = 8,
+  RecStatus         = 9,
+  Success           = 10
 };
 
 enum class NukiCommandState {
-  idle                  = 0,
-  cmdReceived           = 1,
-  challengeSent         = 2,
-  challengeRespReceived = 3,
-  cmdSent               = 4,
-  cmdAccepted           = 5,
-  timeOut               = 6
+  Idle                  = 0,
+  CmdReceived           = 1,
+  ChallengeSent         = 2,
+  ChallengeRespReceived = 3,
+  CmdSent               = 4,
+  CmdAccepted           = 5,
+  TimeOut               = 6
 };
 
 enum class NukiCommandType {
-  command                       = 0,
-  commandWithChallenge          = 1,
-  commandWithChallengeAndAccept = 2,
-  commandWithChallengeAndPin    = 3
+  Command                       = 0,
+  CommandWithChallenge          = 1,
+  CommandWithChallengeAndAccept = 2,
+  CommandWithChallengeAndPin    = 3
 };
 
 struct NukiAction {

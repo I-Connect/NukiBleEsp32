@@ -23,59 +23,59 @@ const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a6
 
 
 enum class NukiCommand : uint16_t {
-  empty                         = 0x0000,
-  requestData	                  = 0x0001,
-  publicKey	                    = 0x0003,
-  challenge	                    = 0x0004,
-  authorizationAuthenticator	  = 0x0005,
-  authorizationData	            = 0x0006,
-  authorizationId	              = 0x0007,
-  removeUserAuthorization	      = 0x0008,
-  requestAuthorizationEntries	  = 0x0009,
-  authorizationEntry	          = 0x000A,
-  authorizationDatInvite	      = 0x000B,
-  keyturnerStates	              = 0x000C,
-  lockAction	                  = 0x000D,
-  status	                      = 0x000E,
-  mostRecentCommand	            = 0x000F,
-  openingsClosingsSummary	      = 0x0010,
-  batteryReport	                = 0x0011,
-  errorReport	                  = 0x0012,
-  setConfig	                    = 0x0013,
-  requestConfig	                = 0x0014,
-  config	                      = 0x0015,
-  setSecurityPin	              = 0x0019,
-  requestCalibration	          = 0x001A,
-  requestReboot	                = 0x001D,
-  authorizationIdConfirmation	  = 0x001E,
-  authorizationIdInvite	        = 0x001F,
-  verifySecurityPin	            = 0x0020,
-  updateTime	                  = 0x0021,
-  updateAuthorization	          = 0x0025,
-  authorizationEntryCount	      = 0x0027,
-  requestLogEntries	            = 0x0031,
-  logEntry	                    = 0x0032,
-  logEntryCount	                = 0x0033,
-  enableLogging	                = 0x0034,
-  setAdvancedConfig	            = 0x0035,
-  requestAdvancedConfig	        = 0x0036,
-  advancedConfig	              = 0x0037,
-  addTimeControlEntry	          = 0x0039,
-  timeControlEntryId	          = 0x003A,
-  removeTimeControlEntry	      = 0x003B,
-  requestTimeControlEntries	    = 0x003C,
-  timeControlEntryCount	        = 0x003D,
-  timeControlEntry	            = 0x003E,
-  updateTimeControlEntry	      = 0x003F,
-  addKeypadCode	                = 0x0041,
-  keypadCodeId	                = 0x0042,
-  requestKeypadCodes	          = 0x0043,
-  keypadCodeCount	              = 0x0044,
-  keypadCode	                  = 0x0045,
-  updateKeypadCode	            = 0x0046,
-  removeKeypadCode	            = 0x0047,
-  keypadAction	                = 0x0048,
-  simpleLockAction	            = 0x0100
+  Empty                         = 0x0000,
+  RequestData	                  = 0x0001,
+  PublicKey	                    = 0x0003,
+  Challenge	                    = 0x0004,
+  AuthorizationAuthenticator	  = 0x0005,
+  AuthorizationData	            = 0x0006,
+  AuthorizationId	              = 0x0007,
+  RemoveUserAuthorization	      = 0x0008,
+  RequestAuthorizationEntries	  = 0x0009,
+  AuthorizationEntry	          = 0x000A,
+  AuthorizationDatInvite	      = 0x000B,
+  KeyturnerStates	              = 0x000C,
+  LockAction	                  = 0x000D,
+  Status	                      = 0x000E,
+  MostRecentCommand	            = 0x000F,
+  OpeningsClosingsSummary	      = 0x0010,
+  BatteryReport	                = 0x0011,
+  ErrorReport	                  = 0x0012,
+  SetConfig	                    = 0x0013,
+  RequestConfig	                = 0x0014,
+  Config	                      = 0x0015,
+  SetSecurityPin	              = 0x0019,
+  RequestCalibration	          = 0x001A,
+  RequestReboot	                = 0x001D,
+  AuthorizationIdConfirmation	  = 0x001E,
+  AuthorizationIdInvite	        = 0x001F,
+  VerifySecurityPin	            = 0x0020,
+  UpdateTime	                  = 0x0021,
+  UpdateAuthorization	          = 0x0025,
+  AuthorizationEntryCount	      = 0x0027,
+  RequestLogEntries	            = 0x0031,
+  LogEntry	                    = 0x0032,
+  LogEntryCount	                = 0x0033,
+  EnableLogging	                = 0x0034,
+  SetAdvancedConfig	            = 0x0035,
+  RequestAdvancedConfig	        = 0x0036,
+  AdvancedConfig	              = 0x0037,
+  AddTimeControlEntry	          = 0x0039,
+  TimeControlEntryId	          = 0x003A,
+  RemoveTimeControlEntry	      = 0x003B,
+  RequestTimeControlEntries	    = 0x003C,
+  TimeControlEntryCount	        = 0x003D,
+  TimeControlEntry	            = 0x003E,
+  UpdateTimeControlEntry	      = 0x003F,
+  AddKeypadCode	                = 0x0041,
+  KeypadCodeId	                = 0x0042,
+  RequestKeypadCodes	          = 0x0043,
+  KeypadCodeCount	              = 0x0044,
+  KeypadCode	                  = 0x0045,
+  UpdateKeypadCode	            = 0x0046,
+  RemoveKeypadCode	            = 0x0047,
+  KeypadAction	                = 0x0048,
+  SimpleLockAction	            = 0x0100
 };
 
 enum class NukiErrorCode : uint8_t {
@@ -118,107 +118,107 @@ enum class NukiErrorCode : uint8_t {
 };
 
 enum class CommandStatus : uint8_t {
-  complete        = 0x00,
-  accepted        = 0x01
+  Complete        = 0x00,
+  Accepted        = 0x01
 };
 
 enum class NukiState : uint8_t {
-  uninitialized   = 0x00,
-  pairingMode     = 0x01,
-  doorMode        = 0x02,
-  maintenanceMode = 0x04
+  Uninitialized   = 0x00,
+  PairingMode     = 0x01,
+  DoorMode        = 0x02,
+  MaintenanceMode = 0x04
 };
 
 enum class LockState : uint8_t {
-  uncalibrated    = 0x00,
-  locked          = 0x01,
-  unlocking       = 0x02,
-  unlocked        = 0x03,
-  locking         = 0x04,
-  unlatched       = 0x05,
-  unlockedLnga    = 0x06,
-  unlatching      = 0x07,
-  calibration     = 0xFC,
-  bootRun         = 0xFD,
-  motorBlocked    = 0xFE,
-  undefined       = 0xFF
+  Uncalibrated    = 0x00,
+  Locked          = 0x01,
+  Unlocking       = 0x02,
+  Unlocked        = 0x03,
+  Locking         = 0x04,
+  Unlatched       = 0x05,
+  UnlockedLnga    = 0x06,
+  Unlatching      = 0x07,
+  Calibration     = 0xFC,
+  BootRun         = 0xFD,
+  MotorBlocked    = 0xFE,
+  Undefined       = 0xFF
 };
 
 enum class NukiTrigger : uint8_t {
-  system          = 0x00,
-  manual          = 0x01,
-  button          = 0x02,
-  automatic       = 0x03,
-  autoLock        = 0x06
+  System          = 0x00,
+  Manual          = 0x01,
+  Button          = 0x02,
+  Automatic       = 0x03,
+  AutoLock        = 0x06
 };
 
 enum class DoorSensorState : uint8_t {
-  unavailable       = 0x00,
-  deactivated       = 0x01,
-  doorClosed        = 0x02,
-  doorOpened        = 0x03,
-  doorStateUnknown  = 0x04,
-  calibrating       = 0x05
+  Unavailable       = 0x00,
+  Deactivated       = 0x01,
+  DoorClosed        = 0x02,
+  DoorOpened        = 0x03,
+  DoorStateUnknown  = 0x04,
+  Calibrating       = 0x05
 };
 
 enum class LockAction : uint8_t {
-  unlock          = 0x01,
-  lock            = 0x02,
-  unlatch         = 0x03,
-  lockNgo         = 0x04,
-  lockNgoUnlatch  = 0x05,
-  fullLock        = 0x06,
-  fobAction1      = 0x81,
-  fobAction2      = 0x82,
-  fobAction3      = 0x83
+  Unlock          = 0x01,
+  Lock            = 0x02,
+  Unlatch         = 0x03,
+  LockNgo         = 0x04,
+  LockNgoUnlatch  = 0x05,
+  FullLock        = 0x06,
+  FobAction1      = 0x81,
+  FobAction2      = 0x82,
+  FobAction3      = 0x83
 };
 
 enum class CompletionStatus : uint8_t {
-  success           = 0x00,
-  motorBlocked      = 0x01,
-  canceled          = 0x02,
-  tooRecent         = 0x03,
-  busy              = 0x04,
-  lowMotorVoltage   = 0x05,
-  clutchFailure     = 0x06,
-  motorPowerFailure = 0x07,
-  incompleteFailure = 0x08,
-  invalidCode       = 0xE0,
-  otherError        = 0xFE,
-  unknown           = 0xFF
+  Success           = 0x00,
+  MotorBlocked      = 0x01,
+  Canceled          = 0x02,
+  TooRecent         = 0x03,
+  Busy              = 0x04,
+  LowMotorVoltage   = 0x05,
+  ClutchFailure     = 0x06,
+  MotorPowerFailure = 0x07,
+  IncompleteFailure = 0x08,
+  InvalidCode       = 0xE0,
+  OtherError        = 0xFE,
+  Unknown           = 0xFF
 };
 
 enum class ButtonPressAction : uint8_t {
-  noAction          = 0x00,
-  intelligent       = 0x01,
-  unlock            = 0x02,
-  lock              = 0x03,
-  unlatch           = 0x04,
-  lockNgo           = 0x05,
-  showStatus        = 0x06
+  NoAction          = 0x00,
+  Intelligent       = 0x01,
+  Unlock            = 0x02,
+  Lock              = 0x03,
+  Unlatch           = 0x04,
+  LockNgo           = 0x05,
+  ShowStatus        = 0x06
 };
 
 enum class BatteryType : uint8_t {
-  alkali            = 0x00,
-  accumulators      = 0x01,
-  lithium           = 0x02
+  Alkali            = 0x00,
+  Accumulators      = 0x01,
+  Lithium           = 0x02
 };
 
 enum class LoggingType : uint8_t {
-  loggingEnabled            = 0x01,
-  lockAction                = 0x02,
-  calibration               = 0x03,
-  initializationRun         = 0x04,
-  keypadAction              = 0x05,
-  doorSensor                = 0x06,
-  doorSensorLoggingEnabled  = 0x07
+  LoggingEnabled            = 0x01,
+  LockAction                = 0x02,
+  Calibration               = 0x03,
+  InitializationRun         = 0x04,
+  KeypadAction              = 0x05,
+  DoorSensor                = 0x06,
+  DoorSensorLoggingEnabled  = 0x07
 };
 
 enum class AdvertisingMode : uint8_t {
-  automatic                 = 0x00,
-  normal                    = 0x01,
-  slow                      = 0x02,
-  slowest                   = 0x03
+  Automatic                 = 0x00,
+  Normal                    = 0x01,
+  Slow                      = 0x02,
+  Slowest                   = 0x03
 };
 
 enum class TimeZoneId : uint16_t {

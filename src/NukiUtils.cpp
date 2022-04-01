@@ -444,37 +444,37 @@ void logTimeControlEntry(TimeControlEntry timeControlEntry) {
 
 void logCompletionStatus(CompletionStatus completionStatus) {
   switch (completionStatus) {
-    case CompletionStatus::busy :
+    case CompletionStatus::Busy :
       log_d("Completion status: busy");
       break;
-    case CompletionStatus::canceled :
+    case CompletionStatus::Canceled :
       log_d("Completion status: canceled");
       break;
-    case CompletionStatus::clutchFailure :
+    case CompletionStatus::ClutchFailure :
       log_d("Completion status: clutchFailure");
       break;
-    case CompletionStatus::incompleteFailure :
+    case CompletionStatus::IncompleteFailure :
       log_d("Completion status: incompleteFailure");
       break;
-    case CompletionStatus::lowMotorVoltage :
+    case CompletionStatus::LowMotorVoltage :
       log_d("Completion status: lowMotorVoltage");
       break;
-    case CompletionStatus::motorBlocked :
+    case CompletionStatus::MotorBlocked :
       log_d("Completion status: motorBlocked");
       break;
-    case CompletionStatus::motorPowerFailure :
+    case CompletionStatus::MotorPowerFailure :
       log_d("Completion status: motorPowerFailure");
       break;
-    case CompletionStatus::otherError :
+    case CompletionStatus::OtherError :
       log_d("Completion status: otherError");
       break;
-    case CompletionStatus::success :
+    case CompletionStatus::Success :
       log_d("Completion status: success");
       break;
-    case CompletionStatus::tooRecent :
+    case CompletionStatus::TooRecent :
       log_d("Completion status: tooRecent");
       break;
-    case CompletionStatus::invalidCode :
+    case CompletionStatus::InvalidCode :
       log_d("Completion status: invalid code");
       break;
     default:
@@ -485,19 +485,19 @@ void logCompletionStatus(CompletionStatus completionStatus) {
 
 void logNukiTrigger(NukiTrigger nukiTrigger) {
   switch (nukiTrigger) {
-    case NukiTrigger::autoLock :
+    case NukiTrigger::AutoLock :
       log_d("Trigger: autoLock");
       break;
-    case NukiTrigger::automatic :
+    case NukiTrigger::Automatic :
       log_d("Trigger: automatic");
       break;
-    case NukiTrigger::button :
+    case NukiTrigger::Button :
       log_d("Trigger: button");
       break;
-    case NukiTrigger::manual :
+    case NukiTrigger::Manual :
       log_d("Trigger: manual");
       break;
-    case NukiTrigger::system :
+    case NukiTrigger::System :
       log_d("Trigger: system");
       break;
     default:
@@ -508,31 +508,31 @@ void logNukiTrigger(NukiTrigger nukiTrigger) {
 
 void logLockAction(LockAction lockAction) {
   switch (lockAction) {
-    case LockAction::fobAction1 :
+    case LockAction::FobAction1 :
       log_d("action: autoLock");
       break;
-    case LockAction::fobAction2 :
+    case LockAction::FobAction2 :
       log_d("action: automatic");
       break;
-    case LockAction::fobAction3 :
+    case LockAction::FobAction3 :
       log_d("action: button");
       break;
-    case LockAction::fullLock :
+    case LockAction::FullLock :
       log_d("action: manual");
       break;
-    case LockAction::lock :
+    case LockAction::Lock :
       log_d("action: system");
       break;
-    case LockAction::lockNgo :
+    case LockAction::LockNgo :
       log_d("action: system");
       break;
-    case LockAction::lockNgoUnlatch :
+    case LockAction::LockNgoUnlatch :
       log_d("action: system");
       break;
-    case LockAction::unlatch :
+    case LockAction::Unlatch :
       log_d("action: system");
       break;
-    case LockAction::unlock :
+    case LockAction::Unlock :
       log_d("action: system");
       break;
     default:
@@ -578,20 +578,20 @@ void logLogEntry(LogEntry logEntry) {
   log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
 
   switch (logEntry.loggingType) {
-    case LoggingType::loggingEnabled: {
+    case LoggingType::LoggingEnabled: {
       log_d("Logging enabled: %d", logEntry.data[0]);
       break;
     }
-    case LoggingType::lockAction:
-    case LoggingType::calibration:
-    case LoggingType::initializationRun: {
+    case LoggingType::LockAction:
+    case LoggingType::Calibration:
+    case LoggingType::InitializationRun: {
       logLockAction((LockAction)logEntry.data[0]);
       logNukiTrigger((NukiTrigger)logEntry.data[1]);
       log_d("Flags: %d", logEntry.data[2]);
       logCompletionStatus((CompletionStatus)logEntry.data[3]);
       break;
     }
-    case LoggingType::keypadAction: {
+    case LoggingType::KeypadAction: {
       logLockAction((LockAction)logEntry.data[0]);
       log_d("Source: %d", logEntry.data[1]);
       logCompletionStatus((CompletionStatus)logEntry.data[2]);
@@ -600,7 +600,7 @@ void logLogEntry(LogEntry logEntry) {
       log_d("Code id: %d", codeId);
       break;
     }
-    case LoggingType::doorSensor: {
+    case LoggingType::DoorSensor: {
       if (logEntry.data[0] == 0x00) {
         log_d("Door opened") ;
       }
@@ -612,7 +612,7 @@ void logLogEntry(LogEntry logEntry) {
       }
       break;
     }
-    case LoggingType::doorSensorLoggingEnabled: {
+    case LoggingType::DoorSensorLoggingEnabled: {
       log_d("Logging enabled: %d", logEntry.data[0]);
       break;
     }

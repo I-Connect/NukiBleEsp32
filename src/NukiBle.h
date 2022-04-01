@@ -140,8 +140,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     NukiCmdResult cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
     NukiCmdResult cmdChallAccStateMachine(NukiAction action);
 
-    NukiPairingState nukiPairingState = NukiPairingState::initPairing;
-    NukiCommandState nukiCommandState = NukiCommandState::idle;
+    NukiPairingState nukiPairingState = NukiPairingState::InitPairing;
+    NukiCommandState nukiCommandState = NukiCommandState::Idle;
 
     uint32_t timeNow = 0;
 
@@ -167,7 +167,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     AdvancedConfig advancedConfig;
     BatteryReport batteryReport;
     NukiErrorCode errorCode;
-    NukiCommand lastMsgCodeReceived = NukiCommand::empty;
+    NukiCommand lastMsgCodeReceived = NukiCommand::Empty;
     uint16_t nrOfKeypadCodes = 0;
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
