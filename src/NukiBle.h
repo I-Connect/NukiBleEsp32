@@ -158,7 +158,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     uint16_t pinCode = 0000;
     unsigned char lockId[16];
     unsigned char secretKeyK[32] = {0x00};
-    unsigned char sharedKeyS[32] = {0x00};
+    
     unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
 
     KeyTurnerState keyTurnerState;

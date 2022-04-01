@@ -58,6 +58,7 @@ bool NukiBle::pairNuki() {
       NukiPairingState nukiPairingState = NukiPairingState::InitPairing;
       while ((nukiPairingState != NukiPairingState::Success) && (nukiPairingState != NukiPairingState::Timeout)) {
         nukiPairingState = pairStateMachine(nukiPairingState);
+        delay(50);
       }
       if (nukiPairingState == NukiPairingState::Success) {
         saveCredentials();
@@ -1534,6 +1535,7 @@ NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingSta
       #ifdef DEBUG_NUKI_CONNECT
       log_d("##################### CALCULATE DH SHARED KEY s #########################");
       #endif
+      unsigned char sharedKeyS[32] = {0x00};
       crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
       printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s");
 
