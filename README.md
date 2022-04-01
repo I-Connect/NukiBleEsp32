@@ -6,6 +6,7 @@ Implementation is according to [Nuki Smart Lock BLE API](https://developer.nuki.
 ## Tested Hardware
 - ESP32 wroom
 - Nuki smart lock v2
+- Nuki smart lock v3
 
 ## V0.0.2
 - Added eventhandler

@@ -174,7 +174,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
                 ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
                 oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
           // #endif
-          if (oBeacon.getSignalPower() == -59) {
+          if (oBeacon.getSignalPower() & 0x01 > 0) {
             if (eventHandler) {
               eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
             }
