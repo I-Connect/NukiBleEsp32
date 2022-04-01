@@ -25,7 +25,7 @@ void NukiBle::initialize() {
 
   preferences.begin(deviceName.c_str(), false);
   if (!BLEDevice::getInitialized()) {
-    BLEDevice::init("ESP32_test");
+    BLEDevice::init(deviceName);
   }
 
   pClient = BLEDevice::createClient();
@@ -55,11 +55,13 @@ bool NukiBle::pairNuki() {
 
   if (bleAddress != BLEAddress("") ) {
     if (connectBle(bleAddress)) {
+
       NukiPairingState nukiPairingState = NukiPairingState::InitPairing;
-      while ((nukiPairingState != NukiPairingState::Success) && (nukiPairingState != NukiPairingState::Timeout)) {
+      do {
         nukiPairingState = pairStateMachine(nukiPairingState);
         delay(50);
-      }
+      } while ((nukiPairingState != NukiPairingState::Success) && (nukiPairingState != NukiPairingState::Timeout));
+
       if (nukiPairingState == NukiPairingState::Success) {
         saveCredentials();
         result = true;
