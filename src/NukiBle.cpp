@@ -12,10 +12,12 @@
 #include "sodium/crypto_core_hsalsa20.h"
 #include "sodium/crypto_auth_hmacsha256.h"
 #include "sodium/crypto_secretbox.h"
+#include "NimBLEBeacon.h"
 
 // #define crypto_secretbox_KEYBYTES 32
 #define crypto_box_NONCEBYTES 24
 // #define crypto_secretbox_MACBYTES 16
+#define ENDIAN_CHANGE_U16(x) ((((x)&0xFF00) >> 8) + (((x)&0xFF) << 8))
 
 uint8_t receivedStatus;
 bool crcCheckOke;
@@ -86,7 +88,7 @@ bool NukiBle::pairNuki() {
   if (bleAddress != BLEAddress("") ) {
     if (connectBle(bleAddress)) {
       while (pairStateMachine() == 99) {
-        //run pair state machine, it has a timeout
+        //running pair state machine, it has a timeout
       }
       if (nukiPairingState == NukiPairingState::success) {
         saveCredentials();
@@ -135,10 +137,6 @@ bool NukiBle::connectBle(BLEAddress bleAddress) {
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
-  #ifdef DEBUG_NUKI_CONNECT
-  // log_d("Advertised Device: %s", advertisedDevice->toString().c_str());
-  #endif
-
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
       std::string manufacturerData = advertisedDevice->getManufacturerData();
@@ -161,16 +159,33 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
       free(pHex);
 
       if (isKeyTurnerUUID) {
-        bool keyturnerStateChanged = manufacturerDataPtr[manufacturerData.length() - 1] & 0x01 > 0;
-        if (keyturnerStateChanged) {
-          eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
+        #ifdef DEBUG_NUKI_CONNECT
+        log_d("Nuki Advertising: %s", advertisedDevice->toString().c_str());
+        #endif
+
+        uint8_t cManufacturerData[100];
+        manufacturerData.copy((char*)cManufacturerData, manufacturerData.length(), 0);
+
+        if (manufacturerData.length() == 25 && cManufacturerData[0] == 0x4C && cManufacturerData[1] == 0x00) {
+          BLEBeacon oBeacon = BLEBeacon();
+          oBeacon.setData(manufacturerData);
+          // #ifdef DEBUG_NUKI_CONNECT
+          log_d("iBeacon ID: %04X Major: %d Minor: %d UUID: %s Power: %d\n", oBeacon.getManufacturerId(),
+                ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
+                oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
+          // #endif
+          if (oBeacon.getSignalPower() == -59) {
+            if (eventHandlerSet) {
+              eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
+            }
+          }
         }
       }
     }
   } else {
     if (advertisedDevice->haveServiceData()) {
       if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "") {
-        #ifdef DEBUG_NUKI_CONNECT \
+        #ifdef DEBUG_NUKI_CONNECT
         log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
         #endif
         bleAddress = advertisedDevice->getAddress();
@@ -1742,7 +1757,6 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char*
   //Encrypt plain data
   unsigned char plainDataEncr[ sizeof(plainDataWithCrc) + crypto_secretbox_MACBYTES] = {0};
   int encrMsgLen = encode(plainDataEncr, plainDataWithCrc, sizeof(plainDataWithCrc), sentNonce, secretKeyK);
-  log_d("encrypted msgLen: %d", sizeof(plainDataEncr));
 
   if (encrMsgLen >= 0) {
     int16_t length = sizeof(plainDataEncr);
@@ -2129,4 +2143,5 @@ bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
 
 void NukiBle::setEventHandler(NukiSmartlockEventHandler* handler) {
   eventHandler = handler;
+  eventHandlerSet = true;
 }

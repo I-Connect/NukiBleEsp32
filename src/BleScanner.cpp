@@ -19,13 +19,13 @@ void BleScanner::initialize(const std::string& deviceName) {
 }
 
 void BleScanner::update() {
-  if (bleScan->isScanning()) {
-    return;
-  }
-  bool result = bleScan->start(30, nullptr, false);
-  if (!result) {
-    Serial.println("BLE Scan error");
-  }
+    if (bleScan->isScanning()) {
+      return;
+    }
+    bool result = bleScan->start(10, nullptr, false);
+    if (!result) {
+      log_w("BLE Scan error");
+    }
 }
 
 void BleScanner::subscribe(BLEScannerSubscriber* subscriber) {
@@ -47,3 +47,4 @@ void BleScanner::onResult(NimBLEAdvertisedDevice* advertisedDevice) {
     subscriber->onResult(advertisedDevice);
   }
 }
+

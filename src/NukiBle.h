@@ -214,4 +214,5 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     std::string keyTurnerUUIDString;
 
     NukiSmartlockEventHandler* eventHandler;
+    bool eventHandlerSet = false;
 };

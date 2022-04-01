@@ -56,7 +56,7 @@ void batteryReport() {
   }
 }
 
-void keyTurnerState() {
+bool keyTurnerState() {
   uint8_t result = nukiBle.requestKeyTurnerState(&retreivedKeyTurnerState);
   if ( result == 1) {
     log_d("Bat crit: %d, Bat perc:%d lock state: %d %d:%d:%d",
@@ -65,6 +65,7 @@ void keyTurnerState() {
   } else {
     log_d("cmd failed: %d", result);
   }
+  return result;
 }
 
 void requestLogEntries() {
@@ -156,6 +157,18 @@ void getConfig() {
   }
 
 }
+
+bool notified = false;
+class Handler: public NukiSmartlockEventHandler {
+  public:
+    virtual ~Handler() {};
+    void notify(NukiEventType eventType) {
+      notified = true;
+    }
+};
+
+Handler handler;
+
 void setup() {
   Serial.begin(115200);
   log_d("Starting NUKI BLE...");
@@ -166,29 +179,20 @@ void setup() {
 }
 
 void loop() {
+  nukiBle.update();
   if (!paired) {
     if (nukiBle.pairNuki()) {
       log_d("paired");
       paired = true;
-
-      // nukiBle.requestCalibration();
-      // addKeypadEntry();
-      // addTimeControl(5, 21, 0, LockAction::lock);
-      // nukiBle.setName("Deur");
-      nukiBle.setSingleButtonPressAction(ButtonPressAction::intelligent);
+      nukiBle.setEventHandler(&handler);
     }
   }
 
-  keyTurnerState();
-  // getConfig();
-  // batteryReport();
-  // requestLogEntries();
-  // requestKeyPadEntries();
-  // requestAuthorizationEntries();
-  // nukiBle.verifySecurityPin();
-  // requestTimeControlEntries();
-  // nukiBle.removeTimeControlEntry(2);
+  if (notified) {
+    if (keyTurnerState()) {
+      notified = false;
+    }
 
-
-  delay(20000);
+  }
+  delay(500);
 }
