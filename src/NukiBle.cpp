@@ -6,7 +6,7 @@
  */
 
 #include "NukiBle.h"
-#include "NukiUtills.h"
+#include "NukiUtils.h"
 #include "string.h"
 #include "sodium/crypto_scalarmult.h"
 #include "sodium/crypto_core_hsalsa20.h"
@@ -23,13 +23,13 @@ uint8_t receivedStatus;
 bool crcCheckOke;
 
 //TODO, these need to move to the class
-unsigned char remotePublicKey[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-unsigned char challengeNonceK[32] = {0x00, 0x00, 0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-unsigned char authorizationId[4] = {0x00, 0x00, 0x0, 0x00};
+unsigned char remotePublicKey[32] = {0x00};
+unsigned char challengeNonceK[32] = {0x00};
+unsigned char authorizationId[4] = {0x00};
 uint16_t pinCode = 0000;
 unsigned char lockId[16];
-unsigned char secretKeyK[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-unsigned char sharedKeyS[32] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+unsigned char secretKeyK[32] = {0x00};
+unsigned char sharedKeyS[32] = {0x00};
 unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
 
 //TODO, these need to move to the class
@@ -255,7 +255,7 @@ uint8_t NukiBle::executeAction(NukiAction action) {
   return false;
 }
 
-NukiBle::NukiCmdResult NukiBle::cmdStateMachine(NukiAction action) {
+NukiCmdResult NukiBle::cmdStateMachine(NukiAction action) {
   switch (nukiCommandState) {
     case NukiCommandState::idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
@@ -299,7 +299,7 @@ NukiBle::NukiCmdResult NukiBle::cmdStateMachine(NukiAction action) {
   return NukiCmdResult::working;
 }
 
-NukiBle::NukiCmdResult NukiBle::cmdChallStateMachine(NukiAction action, bool sendPinCode) {
+NukiCmdResult NukiBle::cmdChallStateMachine(NukiAction action, bool sendPinCode) {
   switch (nukiCommandState) {
     case NukiCommandState::idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
@@ -385,7 +385,7 @@ NukiBle::NukiCmdResult NukiBle::cmdChallStateMachine(NukiAction action, bool sen
   return NukiCmdResult::working;
 }
 
-NukiBle::NukiCmdResult NukiBle::cmdChallAccStateMachine(NukiAction action) {
+NukiCmdResult NukiBle::cmdChallAccStateMachine(NukiAction action) {
   switch (nukiCommandState) {
     case NukiCommandState::idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
@@ -1725,17 +1725,12 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char*
   unsigned char plainData[6 + payloadLen] = {};
   unsigned char plainDataWithCrc[8 + payloadLen] = {};
 
-  Crc16 crcObj;
-  uint16_t dataCrc;
-
   memcpy(&plainData[0], &authorizationId, sizeof(authorizationId));
   memcpy(&plainData[4], &commandIdentifier, sizeof(commandIdentifier));
   memcpy(&plainData[6], payload, payloadLen);
 
   //get crc over plain data
-  crcObj.clearCrc();
-  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
-  dataCrc = crcObj.fastCrc((uint8_t*)plainData, 0, sizeof(plainData), false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+  uint16_t dataCrc = calculateCrc((uint8_t*)plainData, 0, sizeof(plainData));
 
   memcpy(&plainDataWithCrc[0], &plainData, sizeof(plainData));
   memcpy(&plainDataWithCrc[sizeof(plainData)], &dataCrc, sizeof(dataCrc));
@@ -1791,18 +1786,12 @@ void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, unsigned char* pay
   #      2 byte        #   n byte    #  2 byte  #
   */
 
-  Crc16 crcObj;
-  uint16_t dataCrc;
-
   //compose data
   char dataToSend[200];
   memcpy(&dataToSend, &commandIdentifier, sizeof(commandIdentifier));
   memcpy(&dataToSend[2], payload, payloadLen);
 
-  //get crc over data (data is both command identifier and payload)
-  crcObj.clearCrc();
-  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
-  dataCrc = crcObj.fastCrc((uint8_t*)dataToSend, 0, payloadLen + 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+  uint16_t dataCrc = calculateCrc((uint8_t*)dataToSend, 0, sizeof(dataToSend));
 
   memcpy(&dataToSend[2 + payloadLen], &dataCrc, sizeof(dataCrc));
   printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message");
@@ -2124,10 +2113,7 @@ void NukiBle::onDisconnect(BLEClient*) {
 
 bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
   uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
-  Crc16 crcObj;
-  uint16_t dataCrc;
-  crcObj.clearCrc();
-  dataCrc = crcObj.fastCrc(pData, 0, length - 2, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+  uint16_t dataCrc = calculateCrc(pData, 0, length - 2);
 
   if (!(receivedCrc == dataCrc)) {
     log_e("CRC CHECK FAILED!");

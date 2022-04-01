@@ -1,9 +1,9 @@
-#pragma once
+#include "NukiUtils.h"
 
 #include "sodium/crypto_secretbox.h"
 #include "Crc16.h"
 
-void NukiBle::printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
+void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   #ifdef DEBUG_NUKI_HEX_DATA
   delay(10); //delay otherwise first part of print will not be shown
   char tmp[16];
@@ -26,19 +26,15 @@ void NukiBle::printBuffer(const byte* buff, const uint8_t size, const boolean as
 }
 
 bool checkCharArrayEmpty(unsigned char* array, uint16_t len) {
-  uint16_t zeroCount = 0;
   for (size_t i = 0; i < len; i++) {
-    if (array[i] == 0) {
-      zeroCount++;
+    if (array[i] != 0) {
+      return false;
     }
-  }
-  if (zeroCount == len) {
-    return false;
   }
   return true;
 }
 
-int NukiBle::encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
+int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
   int result = crypto_secretbox_easy(output, input, len, nonce, keyS);
 
   if (result) {
@@ -48,7 +44,7 @@ int NukiBle::encode(unsigned char* output, unsigned char* input, unsigned long l
   return len;
 }
 
-int NukiBle::decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
+int decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
 
   int result = crypto_secretbox_open_easy(output, input, len, nonce, keyS);
 
@@ -59,7 +55,7 @@ int NukiBle::decode(unsigned char* output, unsigned char* input, unsigned long l
   return len;
 }
 
-void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
+void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
 
   for (int i = 0 ; i < nrOfBytes ; i++) {
     randomSeed(millis());
@@ -68,7 +64,16 @@ void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
   printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
 }
 
-void NukiBle::logErrorCode(uint8_t errorCode) {
+unsigned int calculateCrc(uint8_t data[], uint8_t start, uint16_t length) {
+  Crc16 crcObj;
+  crcObj.clearCrc();
+
+  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
+  return crcObj.fastCrc(data, start, length, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+}
+
+
+void logErrorCode(uint8_t errorCode) {
 
   switch (errorCode) {
     case (uint8_t)NukiErrorCode::ERROR_BAD_CRC :

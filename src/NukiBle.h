@@ -8,6 +8,7 @@
 
 #include "NimBLEDevice.h"
 #include "NukiConstants.h"
+#include "NukiDataTypes.h"
 #include "Arduino.h"
 #include <Preferences.h>
 #include <esp_task_wdt.h>
@@ -17,18 +18,6 @@
 #define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
 
-void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
-bool checkCharArrayEmpty(unsigned char* array, uint16_t len);
-
-enum class NukiEventType {
-  KeyTurnerStatusUpdated
-};
-
-class NukiSmartlockEventHandler {
-  public:
-    virtual ~NukiSmartlockEventHandler() {};
-    virtual void notify(NukiEventType eventType) = 0;
-};
 
 class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
   public:
@@ -115,11 +104,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     void sendPlainMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen);
     void sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char* payload, uint8_t payloadLen);
-    static int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce,  unsigned char* keyS);
-    static int decode(unsigned char* output, unsigned char* input,  unsigned long long len, unsigned char* nonce, unsigned char* keyS);
 
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
-    static void logErrorCode(uint8_t errorCode);
     static void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
     void saveCredentials();
     bool retreiveCredentials();
@@ -148,56 +134,6 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     BLERemoteService* pKeyturnerDataService = nullptr;
     BLERemoteCharacteristic* pUsdioCharacteristic = nullptr;
-
-    // void keyGen(uint8_t *key, uint8_t keyLen, uint8_t seedPin);
-    void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
-    static void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
-
-    enum NukiCmdResult : uint8_t {
-      success   = 1,
-      failed    = 2,
-      timeOut   = 3,
-      working   = 4,
-      notPaired = 5
-    };
-
-    enum class NukiPairingState {
-      initPairing       = 0,
-      reqRemPubKey      = 1,
-      recRemPubKey      = 2,
-      sendPubKey        = 3,
-      genKeyPair        = 4,
-      calculateAuth     = 5,
-      sendAuth          = 6,
-      sendAuthData      = 7,
-      sendAuthIdConf    = 8,
-      recStatus         = 9,
-      success           = 10
-    };
-
-    enum class NukiCommandState {
-      idle                  = 0,
-      cmdReceived           = 1,
-      challengeSent         = 2,
-      challengeRespReceived = 3,
-      cmdSent               = 4,
-      cmdAccepted           = 5,
-      timeOut               = 6
-    };
-
-    enum class NukiCommandType {
-      command                       = 0,
-      commandWithChallenge          = 1,
-      commandWithChallengeAndAccept = 2,
-      commandWithChallengeAndPin    = 3
-    };
-
-    struct NukiAction {
-      NukiCommandType cmdType;
-      NukiCommand command;
-      unsigned char payload[100] {0};
-      uint8_t payloadLen = 0;
-    };
 
     NukiCmdResult cmdStateMachine(NukiAction action);
     uint8_t executeAction(NukiAction action);
