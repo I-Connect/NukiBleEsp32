@@ -1542,10 +1542,10 @@ NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingSta
       #ifdef DEBUG_NUKI_CONNECT
       log_d("##################### DERIVE LONG TERM SHARED SECRET KEY k #########################");
       #endif
-      unsigned char _0[16];
-      memset(_0, 0, 16);
+      unsigned char in[16];
+      memset(in, 0, 16);
       unsigned char sigma[] = "expand 32-byte k";
-      crypto_core_hsalsa20(secretKeyK, _0, sharedKeyS, sigma);
+      crypto_core_hsalsa20(secretKeyK, in, sharedKeyS, sigma);
       printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
       timeNow = millis();
       return NukiPairingState::CalculateAuth;
