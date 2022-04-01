@@ -1866,13 +1866,13 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     unsigned char recNonce[crypto_secretbox_NONCEBYTES];
     unsigned char recAuthorizationId[4];
     unsigned char recMsgLen[2];
-    memcpy(recNonce, &recData[0], 24);
-    memcpy(recAuthorizationId, &recData[24], 4);
-    memcpy(recMsgLen, &recData[28], 2);
+    memcpy(recNonce, &recData[0], crypto_secretbox_NONCEBYTES);
+    memcpy(recAuthorizationId, &recData[crypto_secretbox_NONCEBYTES], 4);
+    memcpy(recMsgLen, &recData[crypto_secretbox_NONCEBYTES + 4], 2);
     uint16_t encrMsgLen = 0;
     memcpy(&encrMsgLen, recMsgLen, 2);
     unsigned char encrData[encrMsgLen];
-    memcpy(&encrData, &recData[30], encrMsgLen);
+    memcpy(&encrData, &recData[crypto_secretbox_NONCEBYTES + 6], encrMsgLen);
 
     unsigned char decrData[encrMsgLen - crypto_secretbox_MACBYTES];
     decode(decrData, encrData, encrMsgLen, recNonce, secretKeyK);
