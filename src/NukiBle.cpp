@@ -47,8 +47,9 @@ std::list<TimeControlEntry> listOfTimeControlEntries;
 
 NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
-    deviceId(deviceId)
-{}
+    deviceId(deviceId) {
+  keyTurnerUUIDString = STRING(keyturnerServiceUUID);
+}
 
 NukiBle::~NukiBle() {}
 
@@ -60,9 +61,16 @@ void NukiBle::initialize() {
   pClient  = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
+  bleScanner.initialize(deviceName);
+  bleScanner.subscribe(this);
+
   // TODO
   //disable auto update to prevent unchecked updates in case lock connects with app
   //disable pairing when lock is paired with C-Sense to prevent user to pair with phone?
+}
+
+void NukiBle::update() {
+  bleScanner.update();
 }
 
 bool NukiBle::pairNuki() {
@@ -70,27 +78,27 @@ bool NukiBle::pairNuki() {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
     #endif
+    isPaired = true;
     return true;
   }
   bool result = false;
 
-  if (scanForPairingNuki()) {
-    if (bleAddress != BLEAddress("") ) {
-      if (connectBle(bleAddress)) {
-        while (pairStateMachine() == 99) {
-          //run pair state machine, it has a timeout
-        }
-        if (nukiPairingState == NukiPairingState::success) {
-          saveCredentials();
-          result = true;
-        }
+  if (bleAddress != BLEAddress("") ) {
+    if (connectBle(bleAddress)) {
+      while (pairStateMachine() == 99) {
+        //run pair state machine, it has a timeout
       }
-    } else {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("No nuki in pairing mode found");
-      #endif
+      if (nukiPairingState == NukiPairingState::success) {
+        saveCredentials();
+        result = true;
+      }
     }
+  } else {
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("No nuki in pairing mode found");
+    #endif
   }
+  isPaired = result;
   return result;
 }
 
@@ -131,36 +139,44 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   // log_d("Advertised Device: %s", advertisedDevice->toString().c_str());
   #endif
 
-  if (advertisedDevice->haveServiceData()) {
-    if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "") {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
-      #endif
-      bleAddress = advertisedDevice->getAddress();
+  if (isPaired) {
+    if (bleAddress == advertisedDevice->getAddress()) {
+      std::string manufacturerData = advertisedDevice->getManufacturerData();
+      uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
+      char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
+
+      bool isKeyTurnerUUID = true;
+      size_t len = keyTurnerUUIDString.length();
+      int offset = 0;
+      for (int i = 0; i < len; i++) {
+        if (keyTurnerUUIDString[i + offset] == '-') {
+          ++offset;
+          --len;
+        }
+
+        if (pHex[i + 8] != keyTurnerUUIDString.at(i + offset)) {
+          isKeyTurnerUUID = false;
+        }
+      }
+      free(pHex);
+
+      if (isKeyTurnerUUID) {
+        bool keyturnerStateChanged = manufacturerDataPtr[manufacturerData.length() - 1] & 0x01 > 0;
+        if (keyturnerStateChanged) {
+          eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
+        }
+      }
+    }
+  } else {
+    if (advertisedDevice->haveServiceData()) {
+      if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "") {
+        #ifdef DEBUG_NUKI_CONNECT \
+        log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+        #endif
+        bleAddress = advertisedDevice->getAddress();
+      }
     }
   }
-}
-
-int NukiBle::scanForPairingNuki() {
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("Scanning for Nuki in pairing mode...");
-  #endif
-  bleAddress = BLEAddress("");
-  BLEDevice::init("");
-  pBLEScan = BLEDevice::getScan();
-  pBLEScan->setAdvertisedDeviceCallbacks(this);
-  pBLEScan->setActiveScan(true);
-  pBLEScan->setInterval(100);
-  pBLEScan->setFilterPolicy(BLE_HCI_SCAN_FILT_NO_WL);
-  pBLEScan->setWindow(99);
-
-  BLEScanResults foundDevices = pBLEScan->start(5, false);
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("Scan done total Devices found: %d", foundDevices.getCount());
-  #endif
-
-  pBLEScan->clearResults();
-  return foundDevices.getCount();
 }
 
 uint8_t NukiBle::executeAction(NukiAction action) {
@@ -225,8 +241,7 @@ uint8_t NukiBle::executeAction(NukiAction action) {
 }
 
 NukiBle::NukiCmdResult NukiBle::cmdStateMachine(NukiAction action) {
-  switch (nukiCommandState)
-  {
+  switch (nukiCommandState) {
     case NukiCommandState::idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ SENDING COMMAND ************************");
@@ -270,8 +285,7 @@ NukiBle::NukiCmdResult NukiBle::cmdStateMachine(NukiAction action) {
 }
 
 NukiBle::NukiCmdResult NukiBle::cmdChallStateMachine(NukiAction action, bool sendPinCode) {
-  switch (nukiCommandState)
-  {
+  switch (nukiCommandState) {
     case NukiCommandState::idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ SENDING CHALLENGE ************************");
@@ -357,8 +371,7 @@ NukiBle::NukiCmdResult NukiBle::cmdChallStateMachine(NukiAction action, bool sen
 }
 
 NukiBle::NukiCmdResult NukiBle::cmdChallAccStateMachine(NukiAction action) {
-  switch (nukiCommandState)
-  {
+  switch (nukiCommandState) {
     case NukiCommandState::idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ SENDING CHALLENGE ************************");
@@ -625,8 +638,7 @@ uint8_t NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry) {
 void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
   requestedKeypadCodes->clear();
   std::list<KeypadEntry>::iterator it = listOfKeyPadEntries.begin();
-  while (it != listOfKeyPadEntries.end())
-  {
+  while (it != listOfKeyPadEntries.end()) {
     requestedKeypadCodes->push_back(*it);
     it++;
   }
@@ -657,8 +669,7 @@ uint8_t NukiBle::retreiveAuthorizationEntries(uint16_t offset, uint16_t count) {
 void NukiBle::getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries) {
   requestedAuthorizationEntries->clear();
   std::list<AuthorizationEntry>::iterator it = listOfAuthorizationEntries.begin();
-  while (it != listOfAuthorizationEntries.end())
-  {
+  while (it != listOfAuthorizationEntries.end()) {
     requestedAuthorizationEntries->push_back(*it);
     it++;
   }
@@ -741,8 +752,7 @@ uint8_t NukiBle::retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t
 void NukiBle::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
   requestedLogEntries->clear();
   std::list<LogEntry>::iterator it = listOfLogEntries.begin();
-  while (it != listOfLogEntries.end())
-  {
+  while (it != listOfLogEntries.end()) {
     requestedLogEntries->push_back(*it);
     it++;
   }
@@ -915,8 +925,7 @@ uint8_t NukiBle::retreiveTimeControlEntries() {
 void NukiBle::getTimeControlEntries(std::list<TimeControlEntry>* requestedTimeControlEntries) {
   requestedTimeControlEntries->clear();
   std::list<TimeControlEntry>::iterator it = listOfTimeControlEntries.begin();
-  while (it != listOfTimeControlEntries.end())
-  {
+  while (it != listOfTimeControlEntries.end()) {
     requestedTimeControlEntries->push_back(*it);
     it++;
   }
@@ -1502,8 +1511,7 @@ void NukiBle::deleteCredentials() {
 }
 
 uint8_t NukiBle::pairStateMachine() {
-  switch (nukiPairingState)
-  {
+  switch (nukiPairingState) {
     case NukiPairingState::initPairing: {
 
       memset(challengeNonceK, 0, sizeof(challengeNonceK));
@@ -1809,8 +1817,7 @@ bool NukiBle::registerOnGdioChar() {
         #endif
         delay(100);
         return true;
-      }
-      else {
+      } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("GDIO characteristic canIndicate false, stop connecting");
         #endif
@@ -1841,8 +1848,7 @@ bool NukiBle::registerOnUsdioChar() {
         #endif
         delay(100);
         return true;
-      }
-      else {
+      } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("USDIO characteristic canIndicate false, stop connecting");
         #endif

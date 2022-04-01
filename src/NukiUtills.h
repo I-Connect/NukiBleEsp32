@@ -423,8 +423,7 @@ void logTimeControlEntry(TimeControlEntry timeControlEntry) {
 }
 
 void logCompletionStatus(CompletionStatus completionStatus) {
-  switch (completionStatus)
-  {
+  switch (completionStatus) {
     case CompletionStatus::busy :
       log_d("Completion status: busy");
       break;
@@ -465,8 +464,7 @@ void logCompletionStatus(CompletionStatus completionStatus) {
 }
 
 void logNukiTrigger(NukiTrigger nukiTrigger) {
-  switch (nukiTrigger)
-  {
+  switch (nukiTrigger) {
     case NukiTrigger::autoLock :
       log_d("Trigger: autoLock");
       break;
@@ -489,8 +487,7 @@ void logNukiTrigger(NukiTrigger nukiTrigger) {
 }
 
 void logLockAction(LockAction lockAction) {
-  switch (lockAction)
-  {
+  switch (lockAction) {
     case LockAction::fobAction1 :
       log_d("action: autoLock");
       break;
@@ -560,8 +557,7 @@ void logBatteryReport(BatteryReport batteryReport) {
 void logLogEntry(LogEntry logEntry) {
   log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
 
-  switch (logEntry.loggingType)
-  {
+  switch (logEntry.loggingType) {
     case LoggingType::loggingEnabled: {
       log_d("Logging enabled: %d", logEntry.data[0]);
       break;

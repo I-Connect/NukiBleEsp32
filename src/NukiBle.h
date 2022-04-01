@@ -11,6 +11,7 @@
 #include "Arduino.h"
 #include <Preferences.h>
 #include <esp_task_wdt.h>
+#include <BleScanner.h>
 
 #define GENERAL_TIMEOUT 10000
 #define CMD_TIMEOUT 10000
@@ -19,13 +20,17 @@
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
 bool checkCharArrayEmpty(unsigned char* array, uint16_t len);
 
+enum class NukiEventType {
+  KeyTurnerStatusUpdated
+};
+
 class NukiSmartlockEventHandler {
   public:
     virtual ~NukiSmartlockEventHandler() {};
-    virtual void handleEvent() = 0;
+    virtual void notify(NukiEventType eventType) = 0;
 };
 
-class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
+class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
   public:
     NukiBle(const std::string& deviceName, const uint32_t deviceId);
     virtual ~NukiBle();
@@ -97,6 +102,7 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     uint8_t enableAutoUpdate(bool enable);
 
     virtual void initialize();
+    void update();
 
   private:
 
@@ -115,7 +121,6 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     static void logErrorCode(uint8_t errorCode);
     static void handleReturnMessage(NukiCommand returnCode, unsigned char* data, uint16_t dataLen);
-    int scanForPairingNuki();
     void saveCredentials();
     bool retreiveCredentials();
     void deleteCredentials();
@@ -203,6 +208,10 @@ class NukiBle : public BLEClientCallbacks, BLEAdvertisedDeviceCallbacks {
     NukiCommandState nukiCommandState = NukiCommandState::idle;
 
     uint32_t timeNow = 0;
+
+    BleScanner bleScanner;
+    bool isPaired = false;
+    std::string keyTurnerUUIDString;
 
     NukiSmartlockEventHandler* eventHandler;
 };

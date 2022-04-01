@@ -1,3 +1,4 @@
+--style=java
 --indent=spaces=2
 --indent-classes
 --indent-preproc-cond
