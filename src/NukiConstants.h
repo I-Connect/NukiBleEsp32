@@ -17,6 +17,11 @@ const NimBLEUUID keyturnerDataUUID  = NimBLEUUID("a92ee201-5501-11e4-916c-080020
 //User-Specific Data Input Output characteristic
 const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
 
+// #define crypto_secretbox_KEYBYTES 32
+#define CRYPTO_BOX_NONCEBYTES 24
+// #define crypto_secretbox_MACBYTES 16
+
+
 enum class NukiCommand : uint16_t {
   empty                         = 0x0000,
   requestData	                  = 0x0001,

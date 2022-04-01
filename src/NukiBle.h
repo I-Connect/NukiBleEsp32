@@ -13,6 +13,7 @@
 #include <Preferences.h>
 #include <esp_task_wdt.h>
 #include <BleScanner.h>
+#include "sodium/crypto_secretbox.h"
 
 #define GENERAL_TIMEOUT 10000
 #define CMD_TIMEOUT 10000
@@ -148,4 +149,30 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool isPaired = false;
 
     NukiSmartlockEventHandler* eventHandler;
+
+    uint8_t receivedStatus;
+    bool crcCheckOke;
+
+    unsigned char remotePublicKey[32] = {0x00};
+    unsigned char challengeNonceK[32] = {0x00};
+    unsigned char authorizationId[4] = {0x00};
+    uint16_t pinCode = 0000;
+    unsigned char lockId[16];
+    unsigned char secretKeyK[32] = {0x00};
+    unsigned char sharedKeyS[32] = {0x00};
+    unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
+
+    KeyTurnerState keyTurnerState;
+    Config config;
+    AdvancedConfig advancedConfig;
+    BatteryReport batteryReport;
+    NukiErrorCode errorCode;
+    NukiCommand lastMsgCodeReceived = NukiCommand::empty;
+    uint16_t nrOfKeypadCodes = 0;
+    uint16_t logEntryCount = 0;
+    bool loggingEnabled = false;
+    std::list<LogEntry> listOfLogEntries;
+    std::list<KeypadEntry> listOfKeyPadEntries;
+    std::list<AuthorizationEntry> listOfAuthorizationEntries;
+    std::list<TimeControlEntry> listOfTimeControlEntries;
 };

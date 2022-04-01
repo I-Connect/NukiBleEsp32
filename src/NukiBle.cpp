@@ -14,39 +14,6 @@
 #include "sodium/crypto_secretbox.h"
 #include "NimBLEBeacon.h"
 
-// #define crypto_secretbox_KEYBYTES 32
-#define crypto_box_NONCEBYTES 24
-// #define crypto_secretbox_MACBYTES 16
-#define ENDIAN_CHANGE_U16(x) ((((x)&0xFF00) >> 8) + (((x)&0xFF) << 8))
-
-uint8_t receivedStatus;
-bool crcCheckOke;
-
-//TODO, these need to move to the class
-unsigned char remotePublicKey[32] = {0x00};
-unsigned char challengeNonceK[32] = {0x00};
-unsigned char authorizationId[4] = {0x00};
-uint16_t pinCode = 0000;
-unsigned char lockId[16];
-unsigned char secretKeyK[32] = {0x00};
-unsigned char sharedKeyS[32] = {0x00};
-unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
-
-//TODO, these need to move to the class
-KeyTurnerState keyTurnerState;
-Config config;
-AdvancedConfig advancedConfig;
-BatteryReport batteryReport;
-NukiErrorCode errorCode;
-NukiCommand lastMsgCodeReceived = NukiCommand::empty;
-uint16_t nrOfKeypadCodes = 0;
-uint16_t logEntryCount = 0;
-bool loggingEnabled = false;
-std::list<LogEntry> listOfLogEntries;
-std::list<KeypadEntry> listOfKeyPadEntries;
-std::list<AuthorizationEntry> listOfAuthorizationEntries;
-std::list<TimeControlEntry> listOfTimeControlEntries;
-
 NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
     deviceId(deviceId) {
@@ -171,12 +138,12 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
         if (manufacturerData.length() == 25 && cManufacturerData[0] == 0x4C && cManufacturerData[1] == 0x00) {
           BLEBeacon oBeacon = BLEBeacon();
           oBeacon.setData(manufacturerData);
-          // #ifdef DEBUG_NUKI_CONNECT
+          #ifdef DEBUG_NUKI_CONNECT
           log_d("iBeacon ID: %04X Major: %d Minor: %d UUID: %s Power: %d\n", oBeacon.getManufacturerId(),
                 ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
                 oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
-          // #endif
-          if (oBeacon.getSignalPower() & 0x01 > 0) {
+          #endif
+          if ((oBeacon.getSignalPower() & 0x01) > 0) {
             if (eventHandler) {
               eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
             }
