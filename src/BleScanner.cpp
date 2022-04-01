@@ -7,25 +7,25 @@ BleScanner::BleScanner(int reservedSubscribers) {
   subscribers.reserve(reservedSubscribers);
 }
 
-void BleScanner::initialize(const std::string& deviceName) {
+void BleScanner::initialize(const std::string& deviceName, bool wantDuplicates, uint16_t interval, uint16_t window) {
   if (!BLEDevice::getInitialized()) {
     BLEDevice::init(deviceName);
   }
   bleScan = BLEDevice::getScan();
-  bleScan->setAdvertisedDeviceCallbacks(this);
-  bleScan->setActiveScan(true); //active scan uses more power, but get results faster
-  bleScan->setInterval(0x50);
-  bleScan->setWindow(0x30);
+  bleScan->setAdvertisedDeviceCallbacks(this, wantDuplicates);
+  bleScan->setActiveScan(true);
+  bleScan->setInterval(interval);
+  bleScan->setWindow(window);
 }
 
 void BleScanner::update() {
-    if (bleScan->isScanning()) {
-      return;
-    }
-    bool result = bleScan->start(10, nullptr, false);
-    if (!result) {
-      log_w("BLE Scan error");
-    }
+  if (bleScan->isScanning()) {
+    return;
+  }
+  bool result = bleScan->start(10, nullptr, false);
+  if (!result) {
+    log_w("BLE Scan error");
+  }
 }
 
 void BleScanner::subscribe(BLEScannerSubscriber* subscriber) {
