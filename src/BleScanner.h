@@ -11,7 +11,7 @@ class BleScanner : public BLEAdvertisedDeviceCallbacks {
     BleScanner(int reservedSubscribers = 10);
     ~BleScanner() = default;
 
-    void initialize(const std::string& deviceName = "blescanner");
+    void initialize(const std::string& deviceName = "blescanner", bool wantDuplicates = false, uint16_t interval = 80, uint16_t window = 40);
     void update();
 
     void subscribe(BLEScannerSubscriber* subscriber);
