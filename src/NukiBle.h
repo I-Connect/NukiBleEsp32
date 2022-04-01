@@ -147,7 +147,6 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     BleScanner bleScanner;
     bool isPaired = false;
-    std::string keyTurnerUUIDString;
 
     NukiSmartlockEventHandler* eventHandler;
 };

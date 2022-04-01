@@ -50,7 +50,6 @@ std::list<TimeControlEntry> listOfTimeControlEntries;
 NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
     deviceId(deviceId) {
-  keyTurnerUUIDString = STRING(keyturnerServiceUUID);
 }
 
 NukiBle::~NukiBle() {}
@@ -144,15 +143,16 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
       char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
 
       bool isKeyTurnerUUID = true;
-      size_t len = keyTurnerUUIDString.length();
+      std::string serviceUUID = keyturnerServiceUUID.toString();
+      size_t len = serviceUUID.length();
       int offset = 0;
       for (int i = 0; i < len; i++) {
-        if (keyTurnerUUIDString[i + offset] == '-') {
+        if (serviceUUID[i + offset] == '-') {
           ++offset;
           --len;
         }
 
-        if (pHex[i + 8] != keyTurnerUUIDString.at(i + offset)) {
+        if (pHex[i + 8] != serviceUUID.at(i + offset)) {
           isKeyTurnerUUID = false;
         }
       }
@@ -184,7 +184,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
     }
   } else {
     if (advertisedDevice->haveServiceData()) {
-      if (advertisedDevice->getServiceData(NimBLEUUID(STRING(keyturnerPairingServiceUUID))) != "") {
+      if (advertisedDevice->getServiceData(keyturnerPairingServiceUUID) != "") {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
         #endif
@@ -1808,10 +1808,10 @@ void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, unsigned char* pay
 
 bool NukiBle::registerOnGdioChar() {
   // Obtain a reference to the KeyTurner Pairing service
-  pKeyturnerPairingService = pClient->getService(STRING(keyturnerPairingServiceUUID));
+  pKeyturnerPairingService = pClient->getService(keyturnerPairingServiceUUID);
   if (pKeyturnerPairingService != nullptr) {
     //Obtain reference to GDIO char
-    pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(STRING(keyturnerGdioUUID));
+    pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(keyturnerGdioUUID);
     if (pGdioCharacteristic != nullptr) {
       if (pGdioCharacteristic->canIndicate()) {
         pGdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
@@ -1839,10 +1839,10 @@ bool NukiBle::registerOnGdioChar() {
 
 bool NukiBle::registerOnUsdioChar() {
   // Obtain a reference to the KeyTurner service
-  pKeyturnerDataService = pClient->getService(STRING(keyturnerServiceUUID));
+  pKeyturnerDataService = pClient->getService(keyturnerServiceUUID);
   if (pKeyturnerDataService != nullptr) {
     //Obtain reference to NDIO char
-    pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(STRING(userDataUUID));
+    pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(userDataUUID);
     if (pUsdioCharacteristic != nullptr) {
       if (pUsdioCharacteristic->canIndicate()) {
         pUsdioCharacteristic->registerForNotify(notifyCallback, false); //false = indication, true = notification
@@ -1876,10 +1876,7 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   #endif
   printBuffer((byte*)recData, length, false, "Received data");
 
-  std::string gdioUuid = STRING(keyturnerGdioUUID);
-  std::string udioUuid = STRING(userDataUUID);
-
-  if (pBLERemoteCharacteristic->getUUID().toString() ==  gdioUuid) {
+  if (pBLERemoteCharacteristic->getUUID() == keyturnerGdioUUID) {
     //handle not encrypted msg
     uint16_t returnCode = ((uint16_t)recData[1] << 8) | recData[0];
     if (crcValid(recData, length)) {
@@ -1887,7 +1884,7 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
       memcpy(plainData, &recData[2], length - 4);
       handleReturnMessage((NukiCommand)returnCode, plainData, length - 4);
     }
-  } else if (pBLERemoteCharacteristic->getUUID().toString() == udioUuid) {
+  } else if (pBLERemoteCharacteristic->getUUID() == userDataUUID) {
     //handle encrypted msg
     unsigned char recNonce[crypto_secretbox_NONCEBYTES];
     unsigned char recAuthorizationId[4];

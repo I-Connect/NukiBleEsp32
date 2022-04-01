@@ -1,20 +1,21 @@
 #pragma once
 
-//Keyturner initialization service
-#define keyturnerInitServiceUUID           a92ee000-5501-11e4-916c-0800200c9a66
-//Keyturner Pairing Service
-#define keyturnerPairingServiceUUID        a92ee100-5501-11e4-916c-0800200c9a66
-//Keyturner pairing Data Input Output characteristic
-#define keyturnerGdioUUID                  a92ee101-5501-11e4-916c-0800200c9a66
-//Keyturner Service
-#define keyturnerServiceUUID               a92ee200-5501-11e4-916c-0800200c9a66
-//Keyturner Data Input Output characteristic
-#define keyturnerDataUUID                  a92ee201-5501-11e4-916c-0800200c9a66
-//User-Specific Data Input Output characteristic
-#define userDataUUID                       a92ee202-5501-11e4-916c-0800200c9a66
+#include "NimBLEUUID.h"
 
-#define STRINGIFY_(x) #x
-#define STRING(VAR) STRINGIFY_(VAR)
+// TODO Is this really constant or dependent on physical lock?
+//Keyturner Service
+const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
+
+//Keyturner initialization service
+const NimBLEUUID keyturnerInitServiceUUID = NimBLEUUID("a92ee000-5501-11e4-916c-0800200c9a66");
+//Keyturner Pairing Service
+const NimBLEUUID keyturnerPairingServiceUUID  = NimBLEUUID("a92ee100-5501-11e4-916c-0800200c9a66");
+//Keyturner pairing Data Input Output characteristic
+const NimBLEUUID keyturnerGdioUUID  = NimBLEUUID("a92ee101-5501-11e4-916c-0800200c9a66");
+//Keyturner Data Input Output characteristic
+const NimBLEUUID keyturnerDataUUID  = NimBLEUUID("a92ee201-5501-11e4-916c-0800200c9a66");
+//User-Specific Data Input Output characteristic
+const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
 
 enum class NukiCommand : uint16_t {
   empty                         = 0x0000,
