@@ -4,7 +4,7 @@
 #include "NukiDataTypes.h"
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
-bool checkCharArrayEmpty(unsigned char* array, uint16_t len);
+bool isCharArrayNotEmpty(unsigned char* array, uint16_t len);
 int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS);
 int decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS);
 void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);

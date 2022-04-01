@@ -1518,7 +1518,7 @@ NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingSta
       return NukiPairingState::RecRemPubKey;
     }
     case NukiPairingState::RecRemPubKey: {
-      if (checkCharArrayEmpty(remotePublicKey, sizeof(remotePublicKey))) {
+      if (isCharArrayNotEmpty(remotePublicKey, sizeof(remotePublicKey))) {
         return NukiPairingState::SendPubKey;
       }
       break;
@@ -1551,7 +1551,7 @@ NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingSta
       return NukiPairingState::CalculateAuth;
     }
     case NukiPairingState::CalculateAuth: {
-      if (checkCharArrayEmpty(challengeNonceK, sizeof(challengeNonceK))) {
+      if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("##################### CALCULATE/VERIFY AUTHENTICATOR #########################");
         #endif
@@ -1577,7 +1577,7 @@ NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingSta
       return NukiPairingState::SendAuthData;
     }
     case NukiPairingState::SendAuthData: {
-      if (checkCharArrayEmpty(challengeNonceK, sizeof(challengeNonceK))) {
+      if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("##################### SEND AUTHORIZATION DATA #########################");
         #endif
@@ -1617,7 +1617,7 @@ NukiPairingState NukiBle::pairStateMachine(const NukiPairingState nukiPairingSta
       break;
     }
     case NukiPairingState::SendAuthIdConf: {
-      if (checkCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
+      if (isCharArrayNotEmpty(authorizationId, sizeof(authorizationId))) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("##################### SEND AUTHORIZATION ID confirmation #########################");
         #endif
