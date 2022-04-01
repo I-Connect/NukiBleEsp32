@@ -57,9 +57,11 @@ NukiBle::~NukiBle() {}
 void NukiBle::initialize() {
 
   preferences.begin(deviceName.c_str(), false);
-  BLEDevice::init("ESP32_test");
+  if (!BLEDevice::getInitialized()) {
+    BLEDevice::init("ESP32_test");
+  }
 
-  pClient  = BLEDevice::createClient();
+  pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
   bleScanner.initialize(deviceName);
@@ -105,10 +107,10 @@ bool NukiBle::pairNuki() {
 
 void NukiBle::unPairNuki() {
   // TODO: unpair selected nuki based on deviceName
+  deleteCredentials();
   #ifdef DEBUG_NUKI_CONNECT
   log_d("[%s] Credentials deleted", deviceName.c_str());
   #endif
-  deleteCredentials();
 }
 
 bool NukiBle::connectBle(BLEAddress bleAddress) {
@@ -1879,7 +1881,8 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   if (pBLERemoteCharacteristic->getUUID() == keyturnerGdioUUID) {
     //handle not encrypted msg
     uint16_t returnCode = ((uint16_t)recData[1] << 8) | recData[0];
-    if (crcValid(recData, length)) {
+    crcCheckOke = crcValid(recData, length);
+    if (crcCheckOke) {
       unsigned char plainData[200];
       memcpy(plainData, &recData[2], length - 4);
       handleReturnMessage((NukiCommand)returnCode, plainData, length - 4);
@@ -1908,7 +1911,8 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     printBuffer(encrData, sizeof(encrData), false, "Rec encrypted data");
     printBuffer(decrData, sizeof(decrData), false, "Decrypted data");
 
-    if (crcValid(decrData, sizeof(decrData))) {
+    crcCheckOke = crcValid(decrData, sizeof(decrData));
+    if (crcCheckOke) {
       uint16_t returnCode = 0;
       memcpy(&returnCode, &decrData[4], 2);
       unsigned char payload[sizeof(decrData) - 8];
@@ -2107,22 +2111,6 @@ void NukiBle::onDisconnect(BLEClient*) {
   log_d("BLE disconnected");
   #endif
 };
-
-bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
-  uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
-  uint16_t dataCrc = calculateCrc(pData, 0, length - 2);
-
-  if (!(receivedCrc == dataCrc)) {
-    log_e("CRC CHECK FAILED!");
-    crcCheckOke = false;
-    return false;
-  }
-  #ifdef DEBUG_NUKI_COMMUNICATION
-  log_d("CRC CHECK OKE");
-  #endif
-  crcCheckOke = true;
-  return true;
-}
 
 void NukiBle::setEventHandler(NukiSmartlockEventHandler* handler) {
   eventHandler = handler;

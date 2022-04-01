@@ -72,6 +72,21 @@ unsigned int calculateCrc(uint8_t data[], uint8_t start, uint16_t length) {
   return crcObj.fastCrc(data, start, length, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
 }
 
+bool crcValid(uint8_t* pData, uint16_t length) {
+  uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
+  uint16_t dataCrc = calculateCrc(pData, 0, length - 2);
+
+  if (!(receivedCrc == dataCrc)) {
+    log_e("CRC CHECK FAILED!");
+    return false;
+  }
+  #ifdef DEBUG_NUKI_COMMUNICATION
+  log_d("CRC CHECK OKE");
+  #endif
+  return true;
+}
+
+
 
 void logErrorCode(uint8_t errorCode) {
 

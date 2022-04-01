@@ -10,6 +10,7 @@ int decode(unsigned char* output, unsigned char* input, unsigned long long len, 
 void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
 
 unsigned int calculateCrc(uint8_t data[], uint8_t start, uint16_t length);
+bool crcValid(uint8_t* pData, uint16_t length);
 
 void logErrorCode(uint8_t errorCode);
 void logConfig(Config config);

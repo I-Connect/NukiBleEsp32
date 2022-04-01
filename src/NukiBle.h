@@ -111,7 +111,6 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool retreiveCredentials();
     void deleteCredentials();
     uint8_t pairStateMachine();
-    static bool crcValid(uint8_t* pData, uint16_t length);
 
     uint8_t setConfig(NewConfig newConfig);
     uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
