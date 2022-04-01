@@ -175,7 +175,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
                 oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
           // #endif
           if (oBeacon.getSignalPower() == -59) {
-            if (eventHandlerSet) {
+            if (eventHandler) {
               eventHandler->notify(NukiEventType::KeyTurnerStatusUpdated);
             }
           }
@@ -2143,5 +2143,4 @@ bool NukiBle::crcValid(uint8_t* pData, uint16_t length) {
 
 void NukiBle::setEventHandler(NukiSmartlockEventHandler* handler) {
   eventHandler = handler;
-  eventHandlerSet = true;
 }
