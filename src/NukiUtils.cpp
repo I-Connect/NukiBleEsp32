@@ -86,8 +86,6 @@ bool crcValid(uint8_t* pData, uint16_t length) {
   return true;
 }
 
-
-
 void logErrorCode(uint8_t errorCode) {
 
   switch (errorCode) {
@@ -205,6 +203,7 @@ void logErrorCode(uint8_t errorCode) {
 }
 
 void logConfig(Config config) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("nukiId :%d", config.nukiId);
   log_d("name :%s", config.name);
   log_d("latitide :%f", config.latitide);
@@ -233,9 +232,11 @@ void logConfig(Config config) {
   log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
   log_d("homeKitStatus :%d", config.homeKitStatus);
   log_d("timeZoneId :%d", config.timeZoneId);
+  #endif
 }
 
 void logNewConfig(NewConfig newConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("name :%s", newConfig.name);
   log_d("latitide :%f", newConfig.latitide);
   log_d("longitude :%f", newConfig.longitude);
@@ -252,9 +253,11 @@ void logNewConfig(NewConfig newConfig) {
   log_d("singleLock :%d", newConfig.singleLock);
   log_d("advertisingMode :%d", newConfig.advertisingMode);
   log_d("timeZoneId :%d", newConfig.timeZoneId);
+  #endif
 }
 
 void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("code:%d", newKeypadEntry.code);
   log_d("name:%s", newKeypadEntry.name);
   log_d("timeLimited:%d", newKeypadEntry.timeLimited);
@@ -275,9 +278,11 @@ void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
   log_d("allowedFromTimeMin:%d", newKeypadEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", newKeypadEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", newKeypadEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logKeypadEntry(KeypadEntry keypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("codeId:%d", keypadEntry.codeId);
   log_d("code:%d", keypadEntry.code);
   log_d("name:%s", keypadEntry.name);
@@ -313,9 +318,11 @@ void logKeypadEntry(KeypadEntry keypadEntry) {
   log_d("allowedFromTimeMin:%d", keypadEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", keypadEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", keypadEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("codeId:%d", updatedKeypadEntry.codeId);
   log_d("code:%d", updatedKeypadEntry.code);
   log_d("name:%s", updatedKeypadEntry.name);
@@ -338,9 +345,11 @@ void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
   log_d("allowedFromTimeMin:%d", updatedKeypadEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", updatedKeypadEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", updatedKeypadEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("id:%d", authorizationEntry.authId);
   log_d("idType:%d", authorizationEntry.idType);
   log_d("name:%s", authorizationEntry.name);
@@ -377,9 +386,11 @@ void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
   log_d("allowedFromTimeMin:%d", authorizationEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", authorizationEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", authorizationEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("name:%s", newAuthorizationEntry.name);
   log_d("idType:%d", newAuthorizationEntry.idType);
   log_d("remoteAllowed:%d", newAuthorizationEntry.remoteAllowed);
@@ -401,9 +412,11 @@ void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
   log_d("allowedFromTimeMin:%d", newAuthorizationEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntillTimeHour);
   log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("id:%d", updatedAuthorizationEntry.authId);
   log_d("name:%s", updatedAuthorizationEntry.name);
   log_d("enabled:%d", updatedAuthorizationEntry.enabled);
@@ -426,20 +439,25 @@ void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorization
   log_d("allowedFromTimeMin:%d", updatedAuthorizationEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", updatedAuthorizationEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", updatedAuthorizationEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("weekdays:%d", newTimeControlEntry.weekdays);
   log_d("time:%d:%d", newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
   log_d("lockAction:%d", newTimeControlEntry.lockAction);
+  #endif
 }
 
 void logTimeControlEntry(TimeControlEntry timeControlEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("entryId:%d", timeControlEntry.entryId);
   log_d("enabled:%d", timeControlEntry.enabled);
   log_d("weekdays:%d", timeControlEntry.weekdays);
   log_d("time:%d:%d", timeControlEntry.timeHour, timeControlEntry.timeMin);
   log_d("lockAction:%d", timeControlEntry.lockAction);
+  #endif
 }
 
 void logCompletionStatus(CompletionStatus completionStatus) {
@@ -542,6 +560,7 @@ void logLockAction(LockAction lockAction) {
 }
 
 void logKeyturnerState(KeyTurnerState keyTurnerState) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("nukiState: %02x", keyTurnerState.nukiState);
   log_d("lockState: %d", keyTurnerState.lockState);
   logNukiTrigger(keyTurnerState.trigger);
@@ -559,9 +578,11 @@ void logKeyturnerState(KeyTurnerState keyTurnerState) {
   log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
   logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus);
   log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
+  #endif
 }
 
 void logBatteryReport(BatteryReport batteryReport) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("batteryDrain:%d", batteryReport.batteryDrain);
   log_d("batteryVoltage:%d", batteryReport.batteryVoltage);
   log_d("criticalBatteryState:%d", batteryReport.criticalBatteryState);
@@ -572,6 +593,7 @@ void logBatteryReport(BatteryReport batteryReport) {
   log_d("startTemperature:%d", batteryReport.startTemperature);
   log_d("maxTurnCurrent:%d", batteryReport.maxTurnCurrent);
   log_d("batteryResistance:%d", batteryReport.batteryResistance);
+  #endif
 }
 
 void logLogEntry(LogEntry logEntry) {
@@ -623,6 +645,7 @@ void logLogEntry(LogEntry logEntry) {
 }
 
 void logAdvancedConfig(AdvancedConfig advancedConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("totalDegrees :%d", advancedConfig.totalDegrees);
   log_d("unlockedPositionOffsetDegrees :%d", advancedConfig.unlockedPositionOffsetDegrees);
   log_d("lockedPositionOffsetDegrees :%f", advancedConfig.lockedPositionOffsetDegrees);
@@ -648,9 +671,11 @@ void logAdvancedConfig(AdvancedConfig advancedConfig) {
   log_d("autoLockEnabled :%d", advancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", advancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", advancedConfig.autoUpdateEnabled);
+  #endif
 }
 
 void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("unlockedPositionOffsetDegrees :%d", newAdvancedConfig.unlockedPositionOffsetDegrees);
   log_d("lockedPositionOffsetDegrees :%f", newAdvancedConfig.lockedPositionOffsetDegrees);
   log_d("singleLockedPositionOffsetDegrees :%f", newAdvancedConfig.singleLockedPositionOffsetDegrees);
@@ -675,4 +700,5 @@ void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
   log_d("autoLockEnabled :%d", newAdvancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", newAdvancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", newAdvancedConfig.autoUpdateEnabled);
+  #endif
 }
