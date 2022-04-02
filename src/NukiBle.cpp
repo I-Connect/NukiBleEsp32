@@ -173,11 +173,11 @@ NukiCmdResult NukiBle::executeAction(NukiAction action) {
   #endif
   if ( retrieveCredentials() ) {
     #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials retreived from preferences, ready for commands");
+    log_d("Credentials retrieved from preferences, ready for commands");
     #endif
   } else {
     #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials NOT retreived from preferences, first pair with the lock");
+    log_d("Credentials NOT retrieved from preferences, first pair with the lock");
     #endif
     return NukiCmdResult::NotPaired;
   }
@@ -454,7 +454,7 @@ NukiCmdResult NukiBle::cmdChallAccStateMachine(NukiAction action) {
   return NukiCmdResult::Working;
 }
 
-NukiCmdResult NukiBle::requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState) {
+NukiCmdResult NukiBle::requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState) {
   NukiAction action;
   uint16_t payload = (uint16_t)NukiCommand::KeyturnerStates;
 
@@ -465,13 +465,13 @@ NukiCmdResult NukiBle::requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerS
 
   NukiCmdResult result = executeAction(action);
   if (result == NukiCmdResult::Success) {
-    memcpy(retreivedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
+    memcpy(retrievedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
   }
   return result;
 }
 
-void NukiBle::retreiveKeyTunerState(KeyTurnerState* retreivedKeyTurnerState) {
-  memcpy(retreivedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
+void NukiBle::retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState) {
+  memcpy(retrievedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
 }
 
 bool NukiBle::batteryCritical() {
@@ -501,7 +501,7 @@ uint8_t NukiBle::getBatteryPerc() {
   return 2 * result;
 }
 
-NukiCmdResult NukiBle::requestBatteryReport(BatteryReport* retreivedBatteryReport) {
+NukiCmdResult NukiBle::requestBatteryReport(BatteryReport* retrievedBatteryReport) {
   NukiAction action;
   uint16_t payload = (uint16_t)NukiCommand::BatteryReport;
 
@@ -512,7 +512,7 @@ NukiCmdResult NukiBle::requestBatteryReport(BatteryReport* retreivedBatteryRepor
 
   NukiCmdResult result = executeAction(action);
   if ( result == NukiCmdResult::Success) {
-    memcpy(retreivedBatteryReport, &batteryReport, sizeof(batteryReport));
+    memcpy(retrievedBatteryReport, &batteryReport, sizeof(batteryReport));
   }
   return result;
 }
@@ -539,7 +539,7 @@ NukiCmdResult NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uin
   return executeAction(action);
 }
 
-NukiCmdResult NukiBle::retreiveKeypadEntries(uint16_t offset, uint16_t count) {
+NukiCmdResult NukiBle::retrieveKeypadEntries(uint16_t offset, uint16_t count) {
   NukiAction action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
@@ -608,7 +608,7 @@ void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
   }
 }
 
-NukiCmdResult NukiBle::retreiveAuthorizationEntries(uint16_t offset, uint16_t count) {
+NukiCmdResult NukiBle::retrieveAuthorizationEntries(uint16_t offset, uint16_t count) {
   NukiAction action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
@@ -677,7 +677,7 @@ NukiCmdResult NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry update
   return result;
 }
 
-NukiCmdResult NukiBle::retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
+NukiCmdResult NukiBle::retrieveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
   NukiAction action;
   unsigned char payload[8] = {0};
   memcpy(payload, &startIndex, 4);
@@ -704,7 +704,7 @@ void NukiBle::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
   }
 }
 
-NukiCmdResult NukiBle::requestConfig(Config* retreivedConfig) {
+NukiCmdResult NukiBle::requestConfig(Config* retrievedConfig) {
   NukiAction action;
 
   action.cmdType = NukiCommandType::CommandWithChallenge;
@@ -712,12 +712,12 @@ NukiCmdResult NukiBle::requestConfig(Config* retreivedConfig) {
 
   NukiCmdResult result = executeAction(action);
   if (result == NukiCmdResult::Success) {
-    memcpy(retreivedConfig, &config, sizeof(Config));
+    memcpy(retrievedConfig, &config, sizeof(Config));
   }
   return result;
 }
 
-NukiCmdResult NukiBle::requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig) {
+NukiCmdResult NukiBle::requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig) {
   NukiAction action;
 
   action.cmdType = NukiCommandType::CommandWithChallenge;
@@ -725,7 +725,7 @@ NukiCmdResult NukiBle::requestAdvancedConfig(AdvancedConfig* retreivedAdvancedCo
 
   NukiCmdResult result = executeAction(action);
   if (result == NukiCmdResult::Success) {
-    memcpy(retreivedAdvancedConfig, &advancedConfig, sizeof(AdvancedConfig));
+    memcpy(retrievedAdvancedConfig, &advancedConfig, sizeof(AdvancedConfig));
   }
   return result;
 }
@@ -1228,7 +1228,7 @@ bool NukiBle::retrieveCredentials() {
        && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0) ) {
     bleAddress = BLEAddress(buff);
     #ifdef DEBUG_NUKI_CONNECT
-    log_d("[%s] Credentials retreived :", deviceName.c_str());
+    log_d("[%s] Credentials retrieved :", deviceName.c_str());
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
     log_d("bleAddress: %s", bleAddress.toString().c_str());
     printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");

@@ -31,29 +31,29 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void unPairNuki();
 
     NukiErrorCode getLastError() const;
-    
+
     bool savePincode(uint16_t pinCode);
 
-    NukiCmdResult requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
-    void retreiveKeyTunerState(KeyTurnerState* retreivedKeyTurnerState);
+    NukiCmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
+    void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
     NukiCmdResult lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
-    NukiCmdResult requestConfig(Config* retreivedConfig);
-    NukiCmdResult requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig);
+    NukiCmdResult requestConfig(Config* retrievedConfig);
+    NukiCmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
 
-    NukiCmdResult requestBatteryReport(BatteryReport* retreivedBatteryReport);
+    NukiCmdResult requestBatteryReport(BatteryReport* retrievedBatteryReport);
     bool batteryCritical();
     bool batteryIsCharging();
     uint8_t getBatteryPerc();
-    NukiCmdResult retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
+    NukiCmdResult retrieveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
 
     NukiCmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
     NukiCmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
-    NukiCmdResult retreiveKeypadEntries(uint16_t offset, uint16_t count);
+    NukiCmdResult retrieveKeypadEntries(uint16_t offset, uint16_t count);
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
 
-    NukiCmdResult retreiveAuthorizationEntries(uint16_t offset, uint16_t count);
+    NukiCmdResult retrieveAuthorizationEntries(uint16_t offset, uint16_t count);
     void getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries);
     NukiCmdResult addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
     NukiCmdResult updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
