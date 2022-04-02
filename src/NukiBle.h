@@ -119,7 +119,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     NukiCmdResult setConfig(NewConfig newConfig);
     NukiCmdResult setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
     void createNewConfig(Config* oldConfig, NewConfig* newConfig);
-    void createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
+    void createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
+    NukiCmdResult setFromAdvancedConfig(const AdvancedConfig config);
 
     //TODO generate public and private keys?
     const unsigned char myPrivateKey[32] = {0x8C, 0xAA, 0x54, 0x67, 0x23, 0x07, 0xBF, 0xFD, 0xF5, 0xEA, 0x18, 0x3F, 0xC6, 0x07, 0x15, 0x8D, 0x20, 0x11, 0xD0, 0x08, 0xEC, 0xA6, 0xA1, 0x08, 0x86, 0x14, 0xFF, 0x08, 0x53, 0xA5, 0xAA, 0x07};

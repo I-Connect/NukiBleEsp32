@@ -743,6 +743,12 @@ NukiCmdResult NukiBle::setConfig(NewConfig newConfig) {
   return executeAction(action);
 }
 
+NukiCmdResult NukiBle::setFromAdvancedConfig(const AdvancedConfig config) {
+  NewAdvancedConfig newConfig;
+  createNewAdvancedConfig(&config, &newConfig);
+  return setAdvancedConfig(newConfig);
+}
+
 NukiCmdResult NukiBle::setAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
   NukiAction action;
   unsigned char payload[sizeof(NewAdvancedConfig)] = {0};
@@ -1067,7 +1073,7 @@ NukiCmdResult NukiBle::setTimeZoneId(TimeZoneId timeZoneId) {
   return result;
 }
 
-void NukiBle::createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig) {
+void NukiBle::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig) {
   newConfig->unlockedPositionOffsetDegrees = oldConfig->unlockedPositionOffsetDegrees;
   newConfig->lockedPositionOffsetDegrees = oldConfig->lockedPositionOffsetDegrees;
   newConfig->singleLockedPositionOffsetDegrees = oldConfig->singleLockedPositionOffsetDegrees;
@@ -1096,96 +1102,80 @@ void NukiBle::createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConf
 //advanced config change methods
 NukiCmdResult NukiBle::setSingleButtonPressAction(ButtonPressAction action) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.singleButtonPressAction = action;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::setDoubleButtonPressAction(ButtonPressAction action) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.doubleButtonPressAction = action;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::setBatteryType(BatteryType type) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.batteryType = type;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableAutoBatteryTypeDetection(bool enable) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.automaticBatteryTypeDetection = enable;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::disableAutoUnlock(bool disable) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.autoUnLockDisabled = disable;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableAutoLock(bool enable) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.autoLockEnabled = enable;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableImmediateAutoLock(bool enable) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.immediateAutoLockEnabled = enable;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableAutoUpdate(bool enable) {
   AdvancedConfig oldConfig;
-  NewAdvancedConfig newConfig;
   NukiCmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.autoUpdateEnabled = enable;
-    createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = setAdvancedConfig(newConfig);
+    result = setFromAdvancedConfig(oldConfig);
   }
   return result;
 }
