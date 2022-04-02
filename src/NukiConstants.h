@@ -2,14 +2,12 @@
 
 #include "NimBLEUUID.h"
 
-// TODO Is this really constant or dependent on physical lock?
-//Keyturner Service
-const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
-
 //Keyturner initialization service
 const NimBLEUUID keyturnerInitServiceUUID = NimBLEUUID("a92ee000-5501-11e4-916c-0800200c9a66");
 //Keyturner Pairing Service
 const NimBLEUUID keyturnerPairingServiceUUID  = NimBLEUUID("a92ee100-5501-11e4-916c-0800200c9a66");
+//Keyturner Service
+const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
 //Keyturner pairing Data Input Output characteristic
 const NimBLEUUID keyturnerGdioUUID  = NimBLEUUID("a92ee101-5501-11e4-916c-0800200c9a66");
 //Keyturner Data Input Output characteristic

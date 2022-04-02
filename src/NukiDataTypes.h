@@ -18,7 +18,8 @@ enum NukiCmdResult : uint8_t {
   Failed    = 2,
   TimeOut   = 3,
   Working   = 4,
-  NotPaired = 5
+  NotPaired = 5,
+  Error     = 99
 };
 
 enum class NukiPairingState {

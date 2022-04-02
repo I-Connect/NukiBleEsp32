@@ -29,45 +29,48 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     bool pairNuki();
     void unPairNuki();
+
+    NukiErrorCode getLastError() const;
+    
     bool savePincode(uint16_t pinCode);
 
-    uint8_t requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
+    NukiCmdResult requestKeyTurnerState(KeyTurnerState* retreivedKeyTurnerState);
     void retreiveKeyTunerState(KeyTurnerState* retreivedKeyTurnerState);
-    uint8_t lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
+    NukiCmdResult lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
-    uint8_t requestConfig(Config* retreivedConfig);
-    uint8_t requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig);
+    NukiCmdResult requestConfig(Config* retreivedConfig);
+    NukiCmdResult requestAdvancedConfig(AdvancedConfig* retreivedAdvancedConfig);
 
-    uint8_t requestBatteryReport(BatteryReport* retreivedBatteryReport);
+    NukiCmdResult requestBatteryReport(BatteryReport* retreivedBatteryReport);
     bool batteryCritical();
     bool batteryIsCharging();
     uint8_t getBatteryPerc();
-    uint8_t retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
+    NukiCmdResult retreiveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
 
-    uint8_t addKeypadEntry(NewKeypadEntry newKeypadEntry);
-    uint8_t updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
-    uint8_t retreiveKeypadEntries(uint16_t offset, uint16_t count);
+    NukiCmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
+    NukiCmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
+    NukiCmdResult retreiveKeypadEntries(uint16_t offset, uint16_t count);
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
 
-    uint8_t retreiveAuthorizationEntries(uint16_t offset, uint16_t count);
+    NukiCmdResult retreiveAuthorizationEntries(uint16_t offset, uint16_t count);
     void getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries);
-    uint8_t addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
-    uint8_t updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
+    NukiCmdResult addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
+    NukiCmdResult updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
 
-    uint8_t requestCalibration();
-    uint8_t requestReboot();
+    NukiCmdResult requestCalibration();
+    NukiCmdResult requestReboot();
 
-    uint8_t updateTime(TimeValue time);
+    NukiCmdResult updateTime(TimeValue time);
 
-    uint8_t addTimeControlEntry(NewTimeControlEntry newTimecontrolEntry);
-    uint8_t updateTimeControlEntry(TimeControlEntry TimeControlEntry);
-    uint8_t removeTimeControlEntry(uint8_t entryId);
-    uint8_t retreiveTimeControlEntries();
+    NukiCmdResult addTimeControlEntry(NewTimeControlEntry newTimecontrolEntry);
+    NukiCmdResult updateTimeControlEntry(TimeControlEntry TimeControlEntry);
+    NukiCmdResult removeTimeControlEntry(uint8_t entryId);
+    NukiCmdResult retrieveTimeControlEntries();
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
-    uint8_t setSecurityPin(uint16_t newSecurityPin);
-    uint8_t verifySecurityPin();
+    NukiCmdResult setSecurityPin(uint16_t newSecurityPin);
+    NukiCmdResult verifySecurityPin();
 
     //basic config changes
     uint8_t setName(std::string name);
@@ -113,8 +116,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void deleteCredentials();
     NukiPairingState pairStateMachine(const NukiPairingState nukiPairingState);
 
-    uint8_t setConfig(NewConfig newConfig);
-    uint8_t setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+    NukiCmdResult setConfig(NewConfig newConfig);
+    NukiCmdResult setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
     void createNewConfig(Config* oldConfig, NewConfig* newConfig);
     void createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
 
@@ -136,7 +139,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     BLERemoteCharacteristic* pUsdioCharacteristic = nullptr;
 
     NukiCmdResult cmdStateMachine(NukiAction action);
-    uint8_t executeAction(NukiAction action);
+    NukiCmdResult executeAction(NukiAction action);
     NukiCmdResult cmdChallStateMachine(NukiAction action, bool sendPinCode = false);
     NukiCmdResult cmdChallAccStateMachine(NukiAction action);
 
@@ -158,7 +161,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     uint16_t pinCode = 0000;
     unsigned char lockId[16];
     unsigned char secretKeyK[32] = {0x00};
-    
+
     unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
 
     KeyTurnerState keyTurnerState;
