@@ -619,7 +619,7 @@ struct __attribute__((packed)) TimeValue {
   uint16_t second;
 };
 
-inline void nukiLockstateToString(const LockState state, char* str) {
+inline void lockstateToString(const LockState state, char* str) {
   switch (state) {
     case LockState::Uncalibrated:
       strcpy(str, "uncalibrated");
@@ -658,7 +658,7 @@ inline void nukiLockstateToString(const LockState state, char* str) {
 }
 
 
-inline void nukiTriggerToString(const Trigger trigger, char* str) {
+inline void triggerToString(const Trigger trigger, char* str) {
   switch (trigger) {
     case Trigger::AutoLock:
       strcpy(str, "autoLock");
@@ -681,7 +681,7 @@ inline void nukiTriggerToString(const Trigger trigger, char* str) {
   }
 }
 
-inline void nukiCompletionStatusToString(const CompletionStatus status, char* str) {
+inline void completionStatusToString(const CompletionStatus status, char* str) {
   switch (status) {
     case CompletionStatus::Success:
       strcpy(str, "success");
@@ -726,7 +726,7 @@ inline void nukiCompletionStatusToString(const CompletionStatus status, char* st
   }
 }
 
-inline void nukiDoorSensorStateToString(const DoorSensorState state, char* str) {
+inline void doorSensorStateToString(const DoorSensorState state, char* str) {
   switch (state) {
     case DoorSensorState::Unavailable:
       strcpy(str, "unavailable");
