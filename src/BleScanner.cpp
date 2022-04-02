@@ -3,13 +3,11 @@
 #include <NimBLEScan.h>
 #include <NimBLEAdvertisedDevice.h>
 
-namespace Nuki {
-
 BleScanner::BleScanner(int reservedSubscribers) {
   subscribers.reserve(reservedSubscribers);
 }
 
-void BleScanner::initialize(const std::string& deviceName, bool wantDuplicates, uint16_t interval, uint16_t window) {
+void BleScanner::initialize(const std::string& deviceName, const bool wantDuplicates, const uint16_t interval, const uint16_t window) {
   if (!BLEDevice::getInitialized()) {
     BLEDevice::init(deviceName);
   }
@@ -50,4 +48,3 @@ void BleScanner::onResult(NimBLEAdvertisedDevice* advertisedDevice) {
   }
 }
 
-} // namespace Nuki

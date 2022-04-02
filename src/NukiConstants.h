@@ -619,4 +619,137 @@ struct __attribute__((packed)) TimeValue {
   uint16_t second;
 };
 
+inline void lockstateToString(const LockState state, char* str) {
+  switch (state) {
+    case LockState::Uncalibrated:
+      strcpy(str, "uncalibrated");
+      break;
+    case LockState::Locked:
+      strcpy(str, "locked");
+      break;
+    case LockState::Locking:
+      strcpy(str, "locking");
+      break;
+    case LockState::Unlocked:
+      strcpy(str, "unlocked");
+      break;
+    case LockState::Unlatched:
+      strcpy(str, "unlatched");
+      break;
+    case LockState::UnlockedLnga:
+      strcpy(str, "unlockedLnga");
+      break;
+    case LockState::Unlatching:
+      strcpy(str, "unlatching");
+      break;
+    case LockState::Calibration:
+      strcpy(str, "calibration");
+      break;
+    case LockState::BootRun:
+      strcpy(str, "bootRun");
+      break;
+    case LockState::MotorBlocked:
+      strcpy(str, "motorBlocked");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+  }
+}
+
+
+inline void triggerToString(const Trigger trigger, char* str) {
+  switch (trigger) {
+    case Trigger::AutoLock:
+      strcpy(str, "autoLock");
+      break;
+    case Trigger::Automatic:
+      strcpy(str, "automatic");
+      break;
+    case Trigger::Button:
+      strcpy(str, "button");
+      break;
+    case Trigger::Manual:
+      strcpy(str, "manual");
+      break;
+    case Trigger::System:
+      strcpy(str, "system");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+  }
+}
+
+inline void completionStatusToString(const CompletionStatus status, char* str) {
+  switch (status) {
+    case CompletionStatus::Success:
+      strcpy(str, "success");
+      break;
+    case CompletionStatus::Busy:
+      strcpy(str, "busy");
+      break;
+    case CompletionStatus::Canceled:
+      strcpy(str, "canceled");
+      break;
+    case CompletionStatus::ClutchFailure:
+      strcpy(str, "clutchFailure");
+      break;
+    case CompletionStatus::IncompleteFailure:
+      strcpy(str, "incompleteFailure");
+      break;
+    case CompletionStatus::InvalidCode:
+      strcpy(str, "invalidCode");
+      break;
+    case CompletionStatus::LowMotorVoltage:
+      strcpy(str, "lowMotorVoltage");
+      break;
+    case CompletionStatus::MotorBlocked:
+      strcpy(str, "motorBlocked");
+      break;
+    case CompletionStatus::MotorPowerFailure:
+      strcpy(str, "motorPowerFailure");
+      break;
+    case CompletionStatus::OtherError:
+      strcpy(str, "otherError");
+      break;
+    case CompletionStatus::TooRecent:
+      strcpy(str, "tooRecent");
+      break;
+    case CompletionStatus::Unknown:
+      strcpy(str, "unknown");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+
+  }
+}
+
+inline void doorSensorStateToString(const DoorSensorState state, char* str) {
+  switch (state) {
+    case DoorSensorState::Unavailable:
+      strcpy(str, "unavailable");
+      break;
+    case DoorSensorState::Deactivated:
+      strcpy(str, "deactivated");
+      break;
+    case DoorSensorState::DoorClosed:
+      strcpy(str, "doorClosed");
+      break;
+    case DoorSensorState::DoorOpened:
+      strcpy(str, "doorOpened");
+      break;
+    case DoorSensorState::DoorStateUnknown:
+      strcpy(str, "doorStateUnknown");
+      break;
+    case DoorSensorState::Calibrating:
+      strcpy(str, "calibrating");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+  }
+}
+
 } // namespace Nuki
