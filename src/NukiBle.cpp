@@ -1177,165 +1177,100 @@ void NukiBle::createNewAdvancedConfig(AdvancedConfig* oldConfig, NewAdvancedConf
 }
 
 //advanced config change methods
-uint8_t NukiBle::setSingleButtonPressAction(ButtonPressAction action) {
+NukiCmdResult NukiBle::setSingleButtonPressAction(ButtonPressAction action) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.singleButtonPressAction = action;
     createNewAdvancedConfig(&oldConfig, &newConfig);
-    result = 1;
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::setDoubleButtonPressAction(ButtonPressAction action) {
+NukiCmdResult NukiBle::setDoubleButtonPressAction(ButtonPressAction action) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.doubleButtonPressAction = action;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::setBatteryType(BatteryType type) {
+NukiCmdResult NukiBle::setBatteryType(BatteryType type) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.batteryType = type;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::enableAutoBatteryTypeDetection(bool enable) {
+NukiCmdResult NukiBle::enableAutoBatteryTypeDetection(bool enable) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.automaticBatteryTypeDetection = enable;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::disableAutoUnlock(bool disable) {
+NukiCmdResult NukiBle::disableAutoUnlock(bool disable) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.autoUnLockDisabled = disable;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::enableAutoLock(bool enable) {
+NukiCmdResult NukiBle::enableAutoLock(bool enable) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.autoLockEnabled = enable;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::enableImmediateAutoLock(bool enable) {
+NukiCmdResult NukiBle::enableImmediateAutoLock(bool enable) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.immediateAutoLockEnabled = enable;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
-uint8_t NukiBle::enableAutoUpdate(bool enable) {
+NukiCmdResult NukiBle::enableAutoUpdate(bool enable) {
   AdvancedConfig oldConfig;
   NewAdvancedConfig newConfig;
-  uint8_t result;
-
-  result = requestAdvancedConfig(&oldConfig);
-  if (result == 1) {
+  NukiCmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == NukiCmdResult::Success) {
     oldConfig.autoUpdateEnabled = enable;
     createNewAdvancedConfig(&oldConfig, &newConfig);
     result = setAdvancedConfig(newConfig);
-    if ( result == 1) {
-      return true;
-    } else {
-      return result;
-    }
-  } else {
-    return result;
   }
+  return result;
 }
 
 bool NukiBle::savePincode(uint16_t pinCode) {

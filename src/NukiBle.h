@@ -85,14 +85,14 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     uint8_t setTimeZoneId(TimeZoneId timeZoneId);
 
     //advanced config changes
-    uint8_t setSingleButtonPressAction(ButtonPressAction action);
-    uint8_t setDoubleButtonPressAction(ButtonPressAction action);
-    uint8_t setBatteryType(BatteryType type);
-    uint8_t enableAutoBatteryTypeDetection(bool enable);
-    uint8_t disableAutoUnlock(bool disable);
-    uint8_t enableAutoLock(bool enable);
-    uint8_t enableImmediateAutoLock(bool enable);
-    uint8_t enableAutoUpdate(bool enable);
+    NukiCmdResult setSingleButtonPressAction(ButtonPressAction action);
+    NukiCmdResult setDoubleButtonPressAction(ButtonPressAction action);
+    NukiCmdResult setBatteryType(BatteryType type);
+    NukiCmdResult enableAutoBatteryTypeDetection(bool enable);
+    NukiCmdResult disableAutoUnlock(bool disable);
+    NukiCmdResult enableAutoLock(bool enable);
+    NukiCmdResult enableImmediateAutoLock(bool enable);
+    NukiCmdResult enableAutoUpdate(bool enable);
 
     virtual void initialize();
     void update();
