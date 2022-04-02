@@ -300,7 +300,6 @@ CmdResult NukiBle::cmdChallStateMachine(Action action, bool sendPinCode) {
         nukiCommandState = CommandState::Idle;
         return CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::Challenge) {
-        log_d("last msg code: %d, compared with: %d", lastMsgCodeReceived, Command::Challenge);
         nukiCommandState = CommandState::ChallengeRespReceived;
         lastMsgCodeReceived = Command::Empty;
       }
@@ -490,20 +489,7 @@ bool NukiBle::batteryIsCharging() {
 }
 
 uint8_t NukiBle::getBatteryPerc() {
-  // Note: Bits 2-7 represent the battery load state from 0-100% in steps of two (e.g. 50% is represented as 25).
-  //MSB/LSB!
-
-  uint8_t value = keyTurnerState.criticalBatteryState & 0xFC;
-
-  uint8_t result = value & 1; // perc will be reversed bits of value; first get LSB of value
-  uint8_t s = sizeof(value);
-
-  for (value >>= 1; value; value >>= 1) {
-    result <<= 1;
-    result |= value & 1;
-    s--;
-  }
-  return 2 * result;
+  return (keyTurnerState.criticalBatteryState & 0b11111100) >> 1;
 }
 
 CmdResult NukiBle::requestBatteryReport(BatteryReport* retrievedBatteryReport) {

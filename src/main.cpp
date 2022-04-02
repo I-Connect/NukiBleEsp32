@@ -10,6 +10,7 @@
 uint32_t deviceId = 2020001;
 std::string deviceName = "frontDoor";
 Nuki::NukiBle nukiBle(deviceName, deviceId);
+BleScanner scanner;
 
 bool paired = false;
 
@@ -172,19 +173,23 @@ Handler handler;
 void setup() {
   Serial.begin(115200);
   log_d("Starting NUKI BLE...");
+  scanner.initialize();
+  nukiBle.registerBleScanner(&scanner);
   nukiBle.initialize();
+
 
   // nukiBle.savePincode(9999);
   // nukiBle.unPairNuki();
 }
 
 void loop() {
-  nukiBle.update();
+  scanner.update();
   if (!paired) {
     if (nukiBle.pairNuki()) {
       log_d("paired");
       paired = true;
       nukiBle.setEventHandler(&handler);
+      nukiBle.enableLedFlash(true);
     }
   }
 
