@@ -1738,8 +1738,7 @@ void NukiBle::sendPlainMessage(NukiCommand commandIdentifier, unsigned char* pay
   char dataToSend[200];
   memcpy(&dataToSend, &commandIdentifier, sizeof(commandIdentifier));
   memcpy(&dataToSend[2], payload, payloadLen);
-
-  uint16_t dataCrc = calculateCrc((uint8_t*)dataToSend, 0, sizeof(dataToSend));
+  uint16_t dataCrc = calculateCrc((uint8_t*)dataToSend, 0, payloadLen + 2);
 
   memcpy(&dataToSend[2 + payloadLen], &dataCrc, sizeof(dataCrc));
   printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message");

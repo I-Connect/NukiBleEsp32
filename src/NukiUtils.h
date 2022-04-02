@@ -3,6 +3,8 @@
 #include "Arduino.h"
 #include "NukiDataTypes.h"
 
+#define ENDIAN_CHANGE_U16(x) ((((x)&0xFF00)>>8) + (((x)&0xFF)<<8))
+
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
 bool isCharArrayNotEmpty(unsigned char* array, uint16_t len);
 int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS);

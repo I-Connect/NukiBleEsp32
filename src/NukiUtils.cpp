@@ -64,10 +64,9 @@ void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
   printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
 }
 
-unsigned int calculateCrc(uint8_t data[], uint8_t start, uint16_t length) {
+unsigned int calculateCrc(uint8_t* data, uint8_t start, uint16_t length) {
   Crc16 crcObj;
   crcObj.clearCrc();
-
   // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
   return crcObj.fastCrc(data, start, length, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
 }
