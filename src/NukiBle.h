@@ -73,16 +73,16 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     NukiCmdResult verifySecurityPin();
 
     //basic config changes
-    uint8_t setName(std::string name);
-    uint8_t enablePairing(bool enable);
-    uint8_t enableButton(bool enable);
-    uint8_t enableLedFlash(bool enable);
-    uint8_t setLedBrightness(uint8_t level);
-    uint8_t enableSingleLock(bool enable);
-    uint8_t setAdvertisingMode(AdvertisingMode mode);
-    uint8_t enableDst(bool enable);
-    uint8_t setTimeZoneOffset(int16_t minutes);
-    uint8_t setTimeZoneId(TimeZoneId timeZoneId);
+    NukiCmdResult enablePairing(bool enable);
+    NukiCmdResult enableButton(bool enable);
+    NukiCmdResult enableLedFlash(bool enable);
+    NukiCmdResult setLedBrightness(uint8_t level);
+    NukiCmdResult enableSingleLock(bool enable);
+    NukiCmdResult setAdvertisingMode(AdvertisingMode mode);
+    NukiCmdResult setName(std::string name);
+    NukiCmdResult enableDst(bool enable);
+    NukiCmdResult setTimeZoneOffset(int16_t minutes);
+    NukiCmdResult setTimeZoneId(TimeZoneId timeZoneId);
 
     //advanced config changes
     NukiCmdResult setSingleButtonPressAction(ButtonPressAction action);
