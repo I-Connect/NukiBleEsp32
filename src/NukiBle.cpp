@@ -1395,7 +1395,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
   return nukiPairingState;
 }
 
-void NukiBle::sendEncryptedMessage(Command commandIdentifier, unsigned char* payload, uint8_t payloadLen) {
+void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen) {
   /*
   #     ADDITIONAL DATA (not encr)      #                    PLAIN DATA (encr)                             #
   #  nonce  # auth identifier # msg len # authorization identifier # command identifier # payload #  crc   #
@@ -1460,7 +1460,7 @@ void NukiBle::sendEncryptedMessage(Command commandIdentifier, unsigned char* pay
 
 }
 
-void NukiBle::sendPlainMessage(Command commandIdentifier, unsigned char* payload, uint8_t payloadLen) {
+void NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen) {
   /*
   #                PLAIN DATA                   #
   #command identifier  #   payload   #   crc    #
@@ -1634,6 +1634,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::AuthorizationId : {
+      unsigned char lockId[16];
       printBuffer((byte*)data, dataLen, false, "authorizationId data");
       memcpy(authorizationId, &data[32], 4);
       memcpy(lockId, &data[36], sizeof(lockId));
