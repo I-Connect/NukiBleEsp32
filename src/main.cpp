@@ -134,8 +134,8 @@ void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, LockAction l
 }
 
 void requestTimeControlEntries() {
-  uint8_t result = nukiBle.retreiveTimeControlEntries();
-  if ( result == 1) {
+  NukiCmdResult result = nukiBle.retrieveTimeControlEntries();
+  if ( result == NukiCmdResult::Success) {
     delay(5000);
     nukiBle.getTimeControlEntries(&requestedTimeControlEntries);
     std::list<TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
@@ -144,7 +144,7 @@ void requestTimeControlEntries() {
       it++;
     }
   } else {
-    log_d("get log failed: %d", result);
+    log_d("get log failed: %d, error %d", result, nukiBle.getLastError());
   }
 }
 

@@ -2,25 +2,18 @@
 
 #include "NimBLEUUID.h"
 
-// TODO Is this really constant or dependent on physical lock?
-//Keyturner Service
-const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
-
 //Keyturner initialization service
 const NimBLEUUID keyturnerInitServiceUUID = NimBLEUUID("a92ee000-5501-11e4-916c-0800200c9a66");
 //Keyturner Pairing Service
 const NimBLEUUID keyturnerPairingServiceUUID  = NimBLEUUID("a92ee100-5501-11e4-916c-0800200c9a66");
+//Keyturner Service
+const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
 //Keyturner pairing Data Input Output characteristic
 const NimBLEUUID keyturnerGdioUUID  = NimBLEUUID("a92ee101-5501-11e4-916c-0800200c9a66");
 //Keyturner Data Input Output characteristic
 const NimBLEUUID keyturnerDataUUID  = NimBLEUUID("a92ee201-5501-11e4-916c-0800200c9a66");
 //User-Specific Data Input Output characteristic
 const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
-
-// #define crypto_secretbox_KEYBYTES 32
-#define CRYPTO_BOX_NONCEBYTES 24
-// #define crypto_secretbox_MACBYTES 16
-
 
 enum class NukiCommand : uint16_t {
   Empty                         = 0x0000,
