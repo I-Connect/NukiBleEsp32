@@ -95,8 +95,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     CmdResult enableImmediateAutoLock(bool enable);
     CmdResult enableAutoUpdate(bool enable);
 
-    virtual void initialize();
-    void update();
+    void initialize();
+    void registerBleScanner(BLEScannerPublisher* bleScanner);
 
   private:
 
@@ -146,7 +146,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     uint32_t timeNow = 0;
 
-    BleScanner bleScanner;
+    BLEScannerPublisher* bleScanner = nullptr;
     bool isPaired = false;
 
     SmartlockEventHandler* eventHandler;

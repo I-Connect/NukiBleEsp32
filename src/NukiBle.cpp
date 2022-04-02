@@ -21,7 +21,12 @@ NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
     deviceId(deviceId) {
 }
 
-NukiBle::~NukiBle() {}
+NukiBle::~NukiBle() {
+  if (bleScanner != nullptr) {
+    bleScanner->unsubscribe(this);
+    bleScanner = nullptr;
+  }
+}
 
 void NukiBle::initialize() {
 
@@ -33,16 +38,14 @@ void NukiBle::initialize() {
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
-  bleScanner.initialize(deviceName);
-  bleScanner.subscribe(this);
-
   // TODO
   //disable auto update to prevent unchecked updates in case lock connects with app
   //disable pairing when lock is paired with C-Sense to prevent user to pair with phone?
 }
 
-void NukiBle::update() {
-  bleScanner.update();
+void NukiBle::registerBleScanner(BLEScannerPublisher* bleScanner) {
+  this->bleScanner = bleScanner;
+  bleScanner->subscribe(this);
 }
 
 bool NukiBle::pairNuki() {
