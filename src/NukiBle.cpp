@@ -1803,7 +1803,7 @@ void NukiBle::handleReturnMessage(NukiCommand returnCode, unsigned char* data, u
       break;
     }
     default:
-      log_e("UNKNOWN RETURN COMMAND: %02x", returnCode);
+      log_e("UNKNOWN RETURN COMMAND: %04x", returnCode);
   }
 }
 
