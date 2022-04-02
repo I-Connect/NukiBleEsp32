@@ -730,6 +730,12 @@ NukiCmdResult NukiBle::requestAdvancedConfig(AdvancedConfig* retrievedAdvancedCo
   return result;
 }
 
+NukiCmdResult NukiBle::setFromConfig(const Config config) {
+  NewConfig newConfig;
+  createNewConfig(&config, &newConfig);
+  return setConfig(newConfig);
+}
+
 NukiCmdResult NukiBle::setConfig(NewConfig newConfig) {
   NukiAction action;
   unsigned char payload[sizeof(NewConfig)] = {0};
@@ -926,7 +932,7 @@ NukiCmdResult NukiBle::updateTime(TimeValue time) {
   return result;
 }
 
-void NukiBle::createNewConfig(Config* oldConfig, NewConfig* newConfig) {
+void NukiBle::createNewConfig(const Config* oldConfig, NewConfig* newConfig) {
   memcpy(newConfig->name, oldConfig->name, sizeof(newConfig->name));
   newConfig->latitide = oldConfig->latitide;
   newConfig->longitude = oldConfig->longitude;
@@ -950,12 +956,10 @@ NukiCmdResult NukiBle::setName(std::string name) {
 
   if (name.length() <= 32) {
     Config oldConfig;
-    NewConfig newConfig;
     NukiCmdResult result = requestConfig(&oldConfig);
     if (result == NukiCmdResult::Success) {
       memcpy(oldConfig.name, name.c_str(), name.length());
-      createNewConfig(&oldConfig, &newConfig);
-      result = setConfig(newConfig);
+      result = setFromConfig(oldConfig);
     }
     return result;
   } else {
@@ -966,36 +970,30 @@ NukiCmdResult NukiBle::setName(std::string name) {
 
 NukiCmdResult NukiBle::enablePairing(bool enable) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.pairingEnabled = enable;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableButton(bool enable) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.buttonEnabled = enable;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableLedFlash(bool enable) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.ledEnabled = enable;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
@@ -1003,72 +1001,60 @@ NukiCmdResult NukiBle::enableLedFlash(bool enable) {
 NukiCmdResult NukiBle::setLedBrightness(uint8_t level) {
   //level is from 0 (off) to 5(max)
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.ledBrightness = level > 5 ? 5 : level;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableSingleLock(bool enable) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.singleLock = enable;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::setAdvertisingMode(AdvertisingMode mode) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.advertisingMode = mode;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::enableDst(bool enable) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.dstMode = enable;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::setTimeZoneOffset(int16_t minutes) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.timeZoneOffset = minutes;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }
 
 NukiCmdResult NukiBle::setTimeZoneId(TimeZoneId timeZoneId) {
   Config oldConfig;
-  NewConfig newConfig;
   NukiCmdResult result = requestConfig(&oldConfig);
   if (result == NukiCmdResult::Success) {
     oldConfig.timeZoneId = timeZoneId;
-    createNewConfig(&oldConfig, &newConfig);
-    result = setConfig(newConfig);
+    result = setFromConfig(oldConfig);
   }
   return result;
 }

@@ -117,8 +117,9 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     NukiPairingState pairStateMachine(const NukiPairingState nukiPairingState);
 
     NukiCmdResult setConfig(NewConfig newConfig);
+    NukiCmdResult setFromConfig(const Config config);
     NukiCmdResult setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
-    void createNewConfig(Config* oldConfig, NewConfig* newConfig);
+    void createNewConfig(const Config* oldConfig, NewConfig* newConfig);
     void createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
     NukiCmdResult setFromAdvancedConfig(const AdvancedConfig config);
 
