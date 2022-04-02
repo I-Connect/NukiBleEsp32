@@ -9,19 +9,19 @@
 
 uint32_t deviceId = 2020001;
 std::string deviceName = "frontDoor";
-NukiBle nukiBle(deviceName, deviceId);
+Nuki::NukiBle nukiBle(deviceName, deviceId);
 
 bool paired = false;
 
-KeyTurnerState retrievedKeyTurnerState;
-BatteryReport _batteryReport;
-std::list<LogEntry> requestedLogEntries;
-std::list<KeypadEntry> requestedKeypadEntries;
-std::list<AuthorizationEntry> requestedAuthorizationEntries;
-std::list<TimeControlEntry> requestedTimeControlEntries;
+Nuki::KeyTurnerState retrievedKeyTurnerState;
+Nuki::BatteryReport _batteryReport;
+std::list<Nuki::LogEntry> requestedLogEntries;
+std::list<Nuki::KeypadEntry> requestedKeypadEntries;
+std::list<Nuki::AuthorizationEntry> requestedAuthorizationEntries;
+std::list<Nuki::TimeControlEntry> requestedTimeControlEntries;
 
 void addKeypadEntry() {
-  NewKeypadEntry newKeypadEntry;
+  Nuki::NewKeypadEntry newKeypadEntry;
   unsigned char nameBuff[20] = "test";
 
   newKeypadEntry.code = 111111;
@@ -73,7 +73,7 @@ void requestLogEntries() {
   if (result == 1) {
     delay(5000);
     nukiBle.getLogEntries(&requestedLogEntries);
-    std::list<LogEntry>::iterator it = requestedLogEntries.begin();
+    std::list<Nuki::LogEntry>::iterator it = requestedLogEntries.begin();
     while (it != requestedLogEntries.end()) {
       log_d("Log[%d] %d-%d-%d %d:%d:%d", it->index, it->timeStampYear, it->timeStampMonth, it->timeStampDay, it->timeStampHour, it->timeStampMinute, it->timeStampSecond);
       it++;
@@ -88,7 +88,7 @@ void requestKeyPadEntries() {
   if (result == 1) {
     delay(5000);
     nukiBle.getKeypadEntries(&requestedKeypadEntries);
-    std::list<KeypadEntry>::iterator it = requestedKeypadEntries.begin();
+    std::list<Nuki::KeypadEntry>::iterator it = requestedKeypadEntries.begin();
     while (it != requestedKeypadEntries.end()) {
       log_d("Keypad entry[%d] %d", it->codeId, it->code);
       it++;
@@ -103,7 +103,7 @@ void requestAuthorizationEntries() {
   if (result == 1) {
     delay(5000);
     nukiBle.getAuthorizationEntries(&requestedAuthorizationEntries);
-    std::list<AuthorizationEntry>::iterator it = requestedAuthorizationEntries.begin();
+    std::list<Nuki::AuthorizationEntry>::iterator it = requestedAuthorizationEntries.begin();
     while (it != requestedAuthorizationEntries.end()) {
       log_d("Authorization entry[%d] type: %d name: %s", it->authId, it->idType, it->name);
       it++;
@@ -123,8 +123,8 @@ void setPincode(uint16_t pincode) {
   }
 }
 
-void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, LockAction lockAction) {
-  NewTimeControlEntry newEntry;
+void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, Nuki::LockAction lockAction) {
+  Nuki::NewTimeControlEntry newEntry;
   newEntry.weekdays = weekdays;
   newEntry.timeHour = hour;
   newEntry.timeMin = minute;
@@ -134,11 +134,11 @@ void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, LockAction l
 }
 
 void requestTimeControlEntries() {
-  NukiCmdResult result = nukiBle.retrieveTimeControlEntries();
-  if (result == NukiCmdResult::Success) {
+  Nuki::CmdResult result = nukiBle.retrieveTimeControlEntries();
+  if (result == Nuki::CmdResult::Success) {
     delay(5000);
     nukiBle.getTimeControlEntries(&requestedTimeControlEntries);
-    std::list<TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
+    std::list<Nuki::TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
     while (it != requestedTimeControlEntries.end()) {
       log_d("TimeEntry[%d] weekdays:%d %d:%d enabled: %d lock action: %d", it->entryId, it->weekdays, it->timeHour, it->timeMin, it->enabled, it->lockAction);
       it++;
@@ -149,7 +149,7 @@ void requestTimeControlEntries() {
 }
 
 void getConfig() {
-  Config config;
+  Nuki::Config config;
   if (nukiBle.requestConfig(&config) == 1) {
     log_d("Name: %s", config.name);
   } else {
@@ -159,10 +159,10 @@ void getConfig() {
 }
 
 bool notified = false;
-class Handler: public NukiSmartlockEventHandler {
+class Handler: public Nuki::SmartlockEventHandler {
   public:
     virtual ~Handler() {};
-    void notify(NukiEventType eventType) {
+    void notify(Nuki::EventType eventType) {
       notified = true;
     }
 };

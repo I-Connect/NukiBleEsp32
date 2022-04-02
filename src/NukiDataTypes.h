@@ -3,17 +3,19 @@
 #include "Arduino.h"
 #include "NukiConstants.h"
 
-enum class NukiEventType {
+namespace Nuki {
+
+enum class EventType {
   KeyTurnerStatusUpdated
 };
 
-class NukiSmartlockEventHandler {
+class SmartlockEventHandler {
   public:
-    virtual ~NukiSmartlockEventHandler() {};
-    virtual void notify(NukiEventType eventType) = 0;
+    virtual ~SmartlockEventHandler() {};
+    virtual void notify(EventType eventType) = 0;
 };
 
-enum NukiCmdResult : uint8_t {
+enum CmdResult : uint8_t {
   Success   = 1,
   Failed    = 2,
   TimeOut   = 3,
@@ -22,7 +24,7 @@ enum NukiCmdResult : uint8_t {
   Error     = 99
 };
 
-enum class NukiPairingState {
+enum class PairingState {
   InitPairing       = 0,
   ReqRemPubKey      = 1,
   RecRemPubKey      = 2,
@@ -37,7 +39,7 @@ enum class NukiPairingState {
   Timeout           = 99
 };
 
-enum class NukiCommandState {
+enum class CommandState {
   Idle                  = 0,
   CmdReceived           = 1,
   ChallengeSent         = 2,
@@ -47,18 +49,19 @@ enum class NukiCommandState {
   TimeOut               = 6
 };
 
-enum class NukiCommandType {
+enum class CommandType {
   Command                       = 0,
   CommandWithChallenge          = 1,
   CommandWithChallengeAndAccept = 2,
   CommandWithChallengeAndPin    = 3
 };
 
-struct NukiAction {
-  NukiCommandType cmdType;
-  NukiCommand command;
+struct Action {
+  CommandType cmdType;
+  Command command;
   unsigned char payload[100] {0};
   uint8_t payloadLen = 0;
 };
 
 
+} // namespace Nuki

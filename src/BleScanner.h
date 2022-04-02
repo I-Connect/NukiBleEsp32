@@ -1,6 +1,8 @@
 #include <string>
 #include <NimBLEDevice.h>
 
+namespace Nuki {
+
 class BLEScannerSubscriber {
   public:
     virtual void onResult(NimBLEAdvertisedDevice* advertisedDevice) = 0;
@@ -23,3 +25,5 @@ class BleScanner : public BLEAdvertisedDeviceCallbacks {
     BLEScan* bleScan = nullptr;
     std::vector<BLEScannerSubscriber*> subscribers;
 };
+
+} // namespace Nuki

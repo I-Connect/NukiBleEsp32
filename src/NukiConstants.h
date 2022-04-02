@@ -2,6 +2,8 @@
 
 #include "NimBLEUUID.h"
 
+namespace Nuki {
+
 //Keyturner initialization service
 const NimBLEUUID keyturnerInitServiceUUID = NimBLEUUID("a92ee000-5501-11e4-916c-0800200c9a66");
 //Keyturner Pairing Service
@@ -15,7 +17,7 @@ const NimBLEUUID keyturnerDataUUID  = NimBLEUUID("a92ee201-5501-11e4-916c-080020
 //User-Specific Data Input Output characteristic
 const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
 
-enum class NukiCommand : uint16_t {
+enum class Command : uint16_t {
   Empty                         = 0x0000,
   RequestData	                  = 0x0001,
   PublicKey	                    = 0x0003,
@@ -71,7 +73,7 @@ enum class NukiCommand : uint16_t {
   SimpleLockAction	            = 0x0100
 };
 
-enum class NukiErrorCode : uint8_t {
+enum class ErrorCode : uint8_t {
   ERROR_BAD_CRC	                    = 0xFD,
   ERROR_BAD_LENGTH	                = 0xFE,
   ERROR_UNKNOWN	                    = 0xFF,
@@ -115,7 +117,7 @@ enum class CommandStatus : uint8_t {
   Accepted        = 0x01
 };
 
-enum class NukiState : uint8_t {
+enum class State : uint8_t {
   Uninitialized   = 0x00,
   PairingMode     = 0x01,
   DoorMode        = 0x02,
@@ -137,7 +139,7 @@ enum class LockState : uint8_t {
   Undefined       = 0xFF
 };
 
-enum class NukiTrigger : uint8_t {
+enum class Trigger : uint8_t {
   System          = 0x00,
   Manual          = 0x01,
   Button          = 0x02,
@@ -352,9 +354,9 @@ struct __attribute__((packed)) UpdatedKeypadEntry {
 };
 
 struct __attribute__((packed)) KeyTurnerState {
-  NukiState nukiState;
+  State nukiState;
   LockState lockState;
-  NukiTrigger trigger;
+  Trigger trigger;
   uint16_t currentTimeYear;
   uint8_t currentTimeMonth;
   uint8_t currentTimeDay;
@@ -366,7 +368,7 @@ struct __attribute__((packed)) KeyTurnerState {
   uint8_t configUpdateCount;
   bool lockNgoTimer;
   LockAction lastLockAction;
-  NukiTrigger lastLockActionTrigger;
+  Trigger lastLockActionTrigger;
   CompletionStatus lastLockActionCompletionStatus;
   DoorSensorState doorSensorState;
 };
@@ -612,3 +614,5 @@ struct __attribute__((packed)) TimeValue {
   uint8_t minute;
   uint16_t second;
 };
+
+} // namespace Nuki

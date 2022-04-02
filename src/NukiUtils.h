@@ -3,6 +3,8 @@
 #include "Arduino.h"
 #include "NukiDataTypes.h"
 
+namespace Nuki {
+
 #define ENDIAN_CHANGE_U16(x) ((((x)&0xFF00)>>8) + (((x)&0xFF)<<8))
 
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
@@ -26,10 +28,12 @@ void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorization
 void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry);
 void logTimeControlEntry(TimeControlEntry timeControlEntry);
 void logCompletionStatus(CompletionStatus completionStatus);
-void logNukiTrigger(NukiTrigger nukiTrigger);
+void logNukiTrigger(Trigger nukiTrigger);
 void logLockAction(LockAction lockAction);
 void logKeyturnerState(KeyTurnerState keyTurnerState);
 void logBatteryReport(BatteryReport batteryReport);
 void logLogEntry(LogEntry logEntry);
 void logAdvancedConfig(AdvancedConfig advancedConfig);
 void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+
+} // namespace Nuki

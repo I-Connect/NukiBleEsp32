@@ -3,6 +3,8 @@
 #include "sodium/crypto_secretbox.h"
 #include "Crc16.h"
 
+namespace Nuki {
+
 void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   #ifdef DEBUG_NUKI_HEX_DATA
   delay(10); //delay otherwise first part of print will not be shown
@@ -88,112 +90,112 @@ bool crcValid(uint8_t* pData, uint16_t length) {
 void logErrorCode(uint8_t errorCode) {
 
   switch (errorCode) {
-    case (uint8_t)NukiErrorCode::ERROR_BAD_CRC :
+    case (uint8_t)ErrorCode::ERROR_BAD_CRC :
       log_e("ERROR_BAD_CRC");
       break;
-    case (uint8_t)NukiErrorCode::ERROR_BAD_LENGTH :
+    case (uint8_t)ErrorCode::ERROR_BAD_LENGTH :
       log_e("ERROR_BAD_LENGTH");
       break;
-    case (uint8_t)NukiErrorCode::ERROR_UNKNOWN :
+    case (uint8_t)ErrorCode::ERROR_UNKNOWN :
       log_e("ERROR_UNKNOWN");
       break;
-    case (uint8_t)NukiErrorCode::P_ERROR_NOT_PAIRING :
+    case (uint8_t)ErrorCode::P_ERROR_NOT_PAIRING :
       log_e("P_ERROR_NOT_PAIRING");
       break;
-    case (uint8_t)NukiErrorCode::P_ERROR_BAD_AUTHENTICATOR :
+    case (uint8_t)ErrorCode::P_ERROR_BAD_AUTHENTICATOR :
       log_e("P_ERROR_BAD_AUTHENTICATOR");
       break;
-    case (uint8_t)NukiErrorCode::P_ERROR_BAD_PARAMETER :
+    case (uint8_t)ErrorCode::P_ERROR_BAD_PARAMETER :
       log_e("P_ERROR_BAD_PARAMETER");
       break;
-    case (uint8_t)NukiErrorCode::P_ERROR_MAX_USER :
+    case (uint8_t)ErrorCode::P_ERROR_MAX_USER :
       log_e("P_ERROR_MAX_USER");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
+    case (uint8_t)ErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
       log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_NONCE :
+    case (uint8_t)ErrorCode::K_ERROR_BAD_NONCE :
       log_e("K_ERROR_BAD_NONCE");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PARAMETER :
+    case (uint8_t)ErrorCode::K_ERROR_BAD_PARAMETER :
       log_e("K_ERROR_BAD_PARAMETER");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BAD_PIN :
+    case (uint8_t)ErrorCode::K_ERROR_BAD_PIN :
       log_e("K_ERROR_BAD_PIN");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_BUSY :
+    case (uint8_t)ErrorCode::K_ERROR_BUSY :
       log_e("K_ERROR_BUSY");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CANCELED :
+    case (uint8_t)ErrorCode::K_ERROR_CANCELED :
       log_e("K_ERROR_CANCELED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_FAILURE :
+    case (uint8_t)ErrorCode::K_ERROR_CLUTCH_FAILURE :
       log_e("K_ERROR_CLUTCH_FAILURE");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
+    case (uint8_t)ErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
       log_e("K_ERROR_CLUTCH_POWER_FAILURE");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
+    case (uint8_t)ErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
       log_e("K_ERROR_CODE_ALREADY_EXISTS");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID :
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID :
       log_e("K_ERROR_CODE_INVALID");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
       log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
       log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
       log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_DISABLED :
+    case (uint8_t)ErrorCode::K_ERROR_DISABLED :
       log_e("K_ERROR_DISABLED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
+    case (uint8_t)ErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
       log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_INVALID_AUTH_ID :
+    case (uint8_t)ErrorCode::K_ERROR_INVALID_AUTH_ID :
       log_e("K_ERROR_INVALID_AUTH_ID");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_BLOCKED :
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_BLOCKED :
       log_e("K_ERROR_MOTOR_BLOCKED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
       log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
       log_e("K_ERROR_MOTOR_POSITION_LIMIT");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
       log_e("K_ERROR_MOTOR_POWER_FAILURE");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_MOTOR_TIMEOUT :
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_TIMEOUT :
       log_e("K_ERROR_MOTOR_TIMEOUT");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_NOT_AUTHORIZED :
+    case (uint8_t)ErrorCode::K_ERROR_NOT_AUTHORIZED :
       log_e("K_ERROR_NOT_AUTHORIZED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_NOT_CALIBRATED :
+    case (uint8_t)ErrorCode::K_ERROR_NOT_CALIBRATED :
       log_e("K_ERROR_NOT_CALIBRATED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_POSITION_UNKNOWN :
+    case (uint8_t)ErrorCode::K_ERROR_POSITION_UNKNOWN :
       log_e("K_ERROR_POSITION_UNKNOWN");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
+    case (uint8_t)ErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
       log_e("K_ERROR_REMOTE_NOT_ALLOWED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TIME_NOT_ALLOWED :
+    case (uint8_t)ErrorCode::K_ERROR_TIME_NOT_ALLOWED :
       log_e("K_ERROR_TIME_NOT_ALLOWED");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_ENTRIES :
+    case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_ENTRIES :
       log_e("K_ERROR_TOO_MANY_ENTRIES");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
+    case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
       log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
       break;
-    case (uint8_t)NukiErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
+    case (uint8_t)ErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
       log_e("K_ERROR_VOLTAGE_TOO_LOW");
       break;
     default:
@@ -500,21 +502,21 @@ void logCompletionStatus(CompletionStatus completionStatus) {
   }
 }
 
-void logNukiTrigger(NukiTrigger nukiTrigger) {
+void logNukiTrigger(Trigger nukiTrigger) {
   switch (nukiTrigger) {
-    case NukiTrigger::AutoLock :
+    case Trigger::AutoLock :
       log_d("Trigger: autoLock");
       break;
-    case NukiTrigger::Automatic :
+    case Trigger::Automatic :
       log_d("Trigger: automatic");
       break;
-    case NukiTrigger::Button :
+    case Trigger::Button :
       log_d("Trigger: button");
       break;
-    case NukiTrigger::Manual :
+    case Trigger::Manual :
       log_d("Trigger: manual");
       break;
-    case NukiTrigger::System :
+    case Trigger::System :
       log_d("Trigger: system");
       break;
     default:
@@ -607,7 +609,7 @@ void logLogEntry(LogEntry logEntry) {
     case LoggingType::Calibration:
     case LoggingType::InitializationRun: {
       logLockAction((LockAction)logEntry.data[0]);
-      logNukiTrigger((NukiTrigger)logEntry.data[1]);
+      logNukiTrigger((Trigger)logEntry.data[1]);
       log_d("Flags: %d", logEntry.data[2]);
       logCompletionStatus((CompletionStatus)logEntry.data[3]);
       break;
@@ -701,3 +703,5 @@ void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
   log_d("autoUpdateEnabled :%d", newAdvancedConfig.autoUpdateEnabled);
   #endif
 }
+
+} // namespace Nuki

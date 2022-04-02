@@ -3,6 +3,8 @@
 #include <NimBLEScan.h>
 #include <NimBLEAdvertisedDevice.h>
 
+namespace Nuki {
+
 BleScanner::BleScanner(int reservedSubscribers) {
   subscribers.reserve(reservedSubscribers);
 }
@@ -48,3 +50,4 @@ void BleScanner::onResult(NimBLEAdvertisedDevice* advertisedDevice) {
   }
 }
 
+} // namespace Nuki
