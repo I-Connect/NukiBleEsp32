@@ -1,9 +1,9 @@
-#pragma once
+#include "NukiUtils.h"
 
 #include "sodium/crypto_secretbox.h"
 #include "Crc16.h"
 
-void NukiBle::printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
+void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header) {
   #ifdef DEBUG_NUKI_HEX_DATA
   delay(10); //delay otherwise first part of print will not be shown
   char tmp[16];
@@ -25,20 +25,16 @@ void NukiBle::printBuffer(const byte* buff, const uint8_t size, const boolean as
   #endif
 }
 
-bool checkCharArrayEmpty(unsigned char* array, uint16_t len) {
-  uint16_t zeroCount = 0;
+bool isCharArrayNotEmpty(unsigned char* array, uint16_t len) {
   for (size_t i = 0; i < len; i++) {
-    if (array[i] == 0) {
-      zeroCount++;
+    if (array[i] != 0) {
+      return true;
     }
   }
-  if (zeroCount == len) {
-    return false;
-  }
-  return true;
+  return false;
 }
 
-int NukiBle::encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
+int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
   int result = crypto_secretbox_easy(output, input, len, nonce, keyS);
 
   if (result) {
@@ -48,7 +44,7 @@ int NukiBle::encode(unsigned char* output, unsigned char* input, unsigned long l
   return len;
 }
 
-int NukiBle::decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
+int decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
 
   int result = crypto_secretbox_open_easy(output, input, len, nonce, keyS);
 
@@ -59,7 +55,7 @@ int NukiBle::decode(unsigned char* output, unsigned char* input, unsigned long l
   return len;
 }
 
-void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
+void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
 
   for (int i = 0 ; i < nrOfBytes ; i++) {
     randomSeed(millis());
@@ -68,7 +64,28 @@ void NukiBle::generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
   printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
 }
 
-void NukiBle::logErrorCode(uint8_t errorCode) {
+unsigned int calculateCrc(uint8_t* data, uint8_t start, uint16_t length) {
+  Crc16 crcObj;
+  crcObj.clearCrc();
+  // CCITT-False:	width=16 poly=0x1021 init=0xffff refin=false refout=false xorout=0x0000 check=0x29b1
+  return crcObj.fastCrc(data, start, length, false, false, 0x1021, 0xffff, 0x0000, 0x8000, 0xffff);
+}
+
+bool crcValid(uint8_t* pData, uint16_t length) {
+  uint16_t receivedCrc = ((uint16_t)pData[length - 1] << 8) | pData[length - 2];
+  uint16_t dataCrc = calculateCrc(pData, 0, length - 2);
+
+  if (!(receivedCrc == dataCrc)) {
+    log_e("CRC CHECK FAILED!");
+    return false;
+  }
+  #ifdef DEBUG_NUKI_COMMUNICATION
+  log_d("CRC CHECK OKE");
+  #endif
+  return true;
+}
+
+void logErrorCode(uint8_t errorCode) {
 
   switch (errorCode) {
     case (uint8_t)NukiErrorCode::ERROR_BAD_CRC :
@@ -185,6 +202,7 @@ void NukiBle::logErrorCode(uint8_t errorCode) {
 }
 
 void logConfig(Config config) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("nukiId :%d", config.nukiId);
   log_d("name :%s", config.name);
   log_d("latitide :%f", config.latitide);
@@ -213,9 +231,11 @@ void logConfig(Config config) {
   log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
   log_d("homeKitStatus :%d", config.homeKitStatus);
   log_d("timeZoneId :%d", config.timeZoneId);
+  #endif
 }
 
 void logNewConfig(NewConfig newConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("name :%s", newConfig.name);
   log_d("latitide :%f", newConfig.latitide);
   log_d("longitude :%f", newConfig.longitude);
@@ -232,9 +252,11 @@ void logNewConfig(NewConfig newConfig) {
   log_d("singleLock :%d", newConfig.singleLock);
   log_d("advertisingMode :%d", newConfig.advertisingMode);
   log_d("timeZoneId :%d", newConfig.timeZoneId);
+  #endif
 }
 
 void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("code:%d", newKeypadEntry.code);
   log_d("name:%s", newKeypadEntry.name);
   log_d("timeLimited:%d", newKeypadEntry.timeLimited);
@@ -255,9 +277,11 @@ void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
   log_d("allowedFromTimeMin:%d", newKeypadEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", newKeypadEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", newKeypadEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logKeypadEntry(KeypadEntry keypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("codeId:%d", keypadEntry.codeId);
   log_d("code:%d", keypadEntry.code);
   log_d("name:%s", keypadEntry.name);
@@ -293,9 +317,11 @@ void logKeypadEntry(KeypadEntry keypadEntry) {
   log_d("allowedFromTimeMin:%d", keypadEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", keypadEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", keypadEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("codeId:%d", updatedKeypadEntry.codeId);
   log_d("code:%d", updatedKeypadEntry.code);
   log_d("name:%s", updatedKeypadEntry.name);
@@ -318,9 +344,11 @@ void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
   log_d("allowedFromTimeMin:%d", updatedKeypadEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", updatedKeypadEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", updatedKeypadEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("id:%d", authorizationEntry.authId);
   log_d("idType:%d", authorizationEntry.idType);
   log_d("name:%s", authorizationEntry.name);
@@ -357,9 +385,11 @@ void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
   log_d("allowedFromTimeMin:%d", authorizationEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", authorizationEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", authorizationEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("name:%s", newAuthorizationEntry.name);
   log_d("idType:%d", newAuthorizationEntry.idType);
   log_d("remoteAllowed:%d", newAuthorizationEntry.remoteAllowed);
@@ -381,9 +411,11 @@ void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
   log_d("allowedFromTimeMin:%d", newAuthorizationEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntillTimeHour);
   log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("id:%d", updatedAuthorizationEntry.authId);
   log_d("name:%s", updatedAuthorizationEntry.name);
   log_d("enabled:%d", updatedAuthorizationEntry.enabled);
@@ -406,55 +438,60 @@ void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorization
   log_d("allowedFromTimeMin:%d", updatedAuthorizationEntry.allowedFromTimeMin);
   log_d("allowedUntillTimeHour:%d", updatedAuthorizationEntry.allowedUntillTimeHour);
   log_d("allowedUntillTimeMin:%d", updatedAuthorizationEntry.allowedUntillTimeMin);
+  #endif
 }
 
 void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("weekdays:%d", newTimeControlEntry.weekdays);
   log_d("time:%d:%d", newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
   log_d("lockAction:%d", newTimeControlEntry.lockAction);
+  #endif
 }
 
 void logTimeControlEntry(TimeControlEntry timeControlEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("entryId:%d", timeControlEntry.entryId);
   log_d("enabled:%d", timeControlEntry.enabled);
   log_d("weekdays:%d", timeControlEntry.weekdays);
   log_d("time:%d:%d", timeControlEntry.timeHour, timeControlEntry.timeMin);
   log_d("lockAction:%d", timeControlEntry.lockAction);
+  #endif
 }
 
 void logCompletionStatus(CompletionStatus completionStatus) {
   switch (completionStatus) {
-    case CompletionStatus::busy :
+    case CompletionStatus::Busy :
       log_d("Completion status: busy");
       break;
-    case CompletionStatus::canceled :
+    case CompletionStatus::Canceled :
       log_d("Completion status: canceled");
       break;
-    case CompletionStatus::clutchFailure :
+    case CompletionStatus::ClutchFailure :
       log_d("Completion status: clutchFailure");
       break;
-    case CompletionStatus::incompleteFailure :
+    case CompletionStatus::IncompleteFailure :
       log_d("Completion status: incompleteFailure");
       break;
-    case CompletionStatus::lowMotorVoltage :
+    case CompletionStatus::LowMotorVoltage :
       log_d("Completion status: lowMotorVoltage");
       break;
-    case CompletionStatus::motorBlocked :
+    case CompletionStatus::MotorBlocked :
       log_d("Completion status: motorBlocked");
       break;
-    case CompletionStatus::motorPowerFailure :
+    case CompletionStatus::MotorPowerFailure :
       log_d("Completion status: motorPowerFailure");
       break;
-    case CompletionStatus::otherError :
+    case CompletionStatus::OtherError :
       log_d("Completion status: otherError");
       break;
-    case CompletionStatus::success :
+    case CompletionStatus::Success :
       log_d("Completion status: success");
       break;
-    case CompletionStatus::tooRecent :
+    case CompletionStatus::TooRecent :
       log_d("Completion status: tooRecent");
       break;
-    case CompletionStatus::invalidCode :
+    case CompletionStatus::InvalidCode :
       log_d("Completion status: invalid code");
       break;
     default:
@@ -465,19 +502,19 @@ void logCompletionStatus(CompletionStatus completionStatus) {
 
 void logNukiTrigger(NukiTrigger nukiTrigger) {
   switch (nukiTrigger) {
-    case NukiTrigger::autoLock :
+    case NukiTrigger::AutoLock :
       log_d("Trigger: autoLock");
       break;
-    case NukiTrigger::automatic :
+    case NukiTrigger::Automatic :
       log_d("Trigger: automatic");
       break;
-    case NukiTrigger::button :
+    case NukiTrigger::Button :
       log_d("Trigger: button");
       break;
-    case NukiTrigger::manual :
+    case NukiTrigger::Manual :
       log_d("Trigger: manual");
       break;
-    case NukiTrigger::system :
+    case NukiTrigger::System :
       log_d("Trigger: system");
       break;
     default:
@@ -488,31 +525,31 @@ void logNukiTrigger(NukiTrigger nukiTrigger) {
 
 void logLockAction(LockAction lockAction) {
   switch (lockAction) {
-    case LockAction::fobAction1 :
+    case LockAction::FobAction1 :
       log_d("action: autoLock");
       break;
-    case LockAction::fobAction2 :
+    case LockAction::FobAction2 :
       log_d("action: automatic");
       break;
-    case LockAction::fobAction3 :
+    case LockAction::FobAction3 :
       log_d("action: button");
       break;
-    case LockAction::fullLock :
+    case LockAction::FullLock :
       log_d("action: manual");
       break;
-    case LockAction::lock :
+    case LockAction::Lock :
       log_d("action: system");
       break;
-    case LockAction::lockNgo :
+    case LockAction::LockNgo :
       log_d("action: system");
       break;
-    case LockAction::lockNgoUnlatch :
+    case LockAction::LockNgoUnlatch :
       log_d("action: system");
       break;
-    case LockAction::unlatch :
+    case LockAction::Unlatch :
       log_d("action: system");
       break;
-    case LockAction::unlock :
+    case LockAction::Unlock :
       log_d("action: system");
       break;
     default:
@@ -522,6 +559,7 @@ void logLockAction(LockAction lockAction) {
 }
 
 void logKeyturnerState(KeyTurnerState keyTurnerState) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("nukiState: %02x", keyTurnerState.nukiState);
   log_d("lockState: %d", keyTurnerState.lockState);
   logNukiTrigger(keyTurnerState.trigger);
@@ -539,9 +577,11 @@ void logKeyturnerState(KeyTurnerState keyTurnerState) {
   log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
   logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus);
   log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
+  #endif
 }
 
 void logBatteryReport(BatteryReport batteryReport) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("batteryDrain:%d", batteryReport.batteryDrain);
   log_d("batteryVoltage:%d", batteryReport.batteryVoltage);
   log_d("criticalBatteryState:%d", batteryReport.criticalBatteryState);
@@ -552,26 +592,27 @@ void logBatteryReport(BatteryReport batteryReport) {
   log_d("startTemperature:%d", batteryReport.startTemperature);
   log_d("maxTurnCurrent:%d", batteryReport.maxTurnCurrent);
   log_d("batteryResistance:%d", batteryReport.batteryResistance);
+  #endif
 }
 
 void logLogEntry(LogEntry logEntry) {
   log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
 
   switch (logEntry.loggingType) {
-    case LoggingType::loggingEnabled: {
+    case LoggingType::LoggingEnabled: {
       log_d("Logging enabled: %d", logEntry.data[0]);
       break;
     }
-    case LoggingType::lockAction:
-    case LoggingType::calibration:
-    case LoggingType::initializationRun: {
+    case LoggingType::LockAction:
+    case LoggingType::Calibration:
+    case LoggingType::InitializationRun: {
       logLockAction((LockAction)logEntry.data[0]);
       logNukiTrigger((NukiTrigger)logEntry.data[1]);
       log_d("Flags: %d", logEntry.data[2]);
       logCompletionStatus((CompletionStatus)logEntry.data[3]);
       break;
     }
-    case LoggingType::keypadAction: {
+    case LoggingType::KeypadAction: {
       logLockAction((LockAction)logEntry.data[0]);
       log_d("Source: %d", logEntry.data[1]);
       logCompletionStatus((CompletionStatus)logEntry.data[2]);
@@ -580,7 +621,7 @@ void logLogEntry(LogEntry logEntry) {
       log_d("Code id: %d", codeId);
       break;
     }
-    case LoggingType::doorSensor: {
+    case LoggingType::DoorSensor: {
       if (logEntry.data[0] == 0x00) {
         log_d("Door opened") ;
       }
@@ -592,7 +633,7 @@ void logLogEntry(LogEntry logEntry) {
       }
       break;
     }
-    case LoggingType::doorSensorLoggingEnabled: {
+    case LoggingType::DoorSensorLoggingEnabled: {
       log_d("Logging enabled: %d", logEntry.data[0]);
       break;
     }
@@ -603,6 +644,7 @@ void logLogEntry(LogEntry logEntry) {
 }
 
 void logAdvancedConfig(AdvancedConfig advancedConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("totalDegrees :%d", advancedConfig.totalDegrees);
   log_d("unlockedPositionOffsetDegrees :%d", advancedConfig.unlockedPositionOffsetDegrees);
   log_d("lockedPositionOffsetDegrees :%f", advancedConfig.lockedPositionOffsetDegrees);
@@ -628,9 +670,11 @@ void logAdvancedConfig(AdvancedConfig advancedConfig) {
   log_d("autoLockEnabled :%d", advancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", advancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", advancedConfig.autoUpdateEnabled);
+  #endif
 }
 
 void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("unlockedPositionOffsetDegrees :%d", newAdvancedConfig.unlockedPositionOffsetDegrees);
   log_d("lockedPositionOffsetDegrees :%f", newAdvancedConfig.lockedPositionOffsetDegrees);
   log_d("singleLockedPositionOffsetDegrees :%f", newAdvancedConfig.singleLockedPositionOffsetDegrees);
@@ -655,4 +699,5 @@ void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
   log_d("autoLockEnabled :%d", newAdvancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", newAdvancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", newAdvancedConfig.autoUpdateEnabled);
+  #endif
 }
