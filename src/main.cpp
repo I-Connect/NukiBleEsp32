@@ -13,7 +13,7 @@ NukiBle nukiBle(deviceName, deviceId);
 
 bool paired = false;
 
-KeyTurnerState retreivedKeyTurnerState;
+KeyTurnerState retrievedKeyTurnerState;
 BatteryReport _batteryReport;
 std::list<LogEntry> requestedLogEntries;
 std::list<KeypadEntry> requestedKeypadEntries;
@@ -57,11 +57,11 @@ void batteryReport() {
 }
 
 bool keyTurnerState() {
-  uint8_t result = nukiBle.requestKeyTurnerState(&retreivedKeyTurnerState);
-  if ( result == 1) {
+  uint8_t result = nukiBle.requestKeyTurnerState(&retrievedKeyTurnerState);
+  if (result == 1) {
     log_d("Bat crit: %d, Bat perc:%d lock state: %d %d:%d:%d",
-          nukiBle.batteryCritical(), nukiBle.getBatteryPerc(), retreivedKeyTurnerState.lockState, retreivedKeyTurnerState.currentTimeHour,
-          retreivedKeyTurnerState.currentTimeMinute, retreivedKeyTurnerState.currentTimeSecond);
+          nukiBle.batteryCritical(), nukiBle.getBatteryPerc(), retrievedKeyTurnerState.lockState, retrievedKeyTurnerState.currentTimeHour,
+          retrievedKeyTurnerState.currentTimeMinute, retrievedKeyTurnerState.currentTimeSecond);
   } else {
     log_d("cmd failed: %d", result);
   }
@@ -69,8 +69,8 @@ bool keyTurnerState() {
 }
 
 void requestLogEntries() {
-  uint8_t result = nukiBle.retreiveLogEntries(0, 10, 0, true);
-  if ( result == 1) {
+  uint8_t result = nukiBle.retrieveLogEntries(0, 10, 0, true);
+  if (result == 1) {
     delay(5000);
     nukiBle.getLogEntries(&requestedLogEntries);
     std::list<LogEntry>::iterator it = requestedLogEntries.begin();
@@ -84,8 +84,8 @@ void requestLogEntries() {
 }
 
 void requestKeyPadEntries() {
-  uint8_t result = nukiBle.retreiveKeypadEntries(0, 10);
-  if ( result == 1) {
+  uint8_t result = nukiBle.retrieveKeypadEntries(0, 10);
+  if (result == 1) {
     delay(5000);
     nukiBle.getKeypadEntries(&requestedKeypadEntries);
     std::list<KeypadEntry>::iterator it = requestedKeypadEntries.begin();
@@ -99,8 +99,8 @@ void requestKeyPadEntries() {
 }
 
 void requestAuthorizationEntries() {
-  uint8_t result = nukiBle.retreiveAuthorizationEntries(0, 10);
-  if ( result == 1) {
+  uint8_t result = nukiBle.retrieveAuthorizationEntries(0, 10);
+  if (result == 1) {
     delay(5000);
     nukiBle.getAuthorizationEntries(&requestedAuthorizationEntries);
     std::list<AuthorizationEntry>::iterator it = requestedAuthorizationEntries.begin();
@@ -115,7 +115,7 @@ void requestAuthorizationEntries() {
 
 void setPincode(uint16_t pincode) {
   uint8_t result = nukiBle.setSecurityPin(pincode);
-  if ( result == 1) {
+  if (result == 1) {
     log_d("Set pincode done");
 
   } else {
@@ -135,7 +135,7 @@ void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, LockAction l
 
 void requestTimeControlEntries() {
   NukiCmdResult result = nukiBle.retrieveTimeControlEntries();
-  if ( result == NukiCmdResult::Success) {
+  if (result == NukiCmdResult::Success) {
     delay(5000);
     nukiBle.getTimeControlEntries(&requestedTimeControlEntries);
     std::list<TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
