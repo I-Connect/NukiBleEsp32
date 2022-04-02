@@ -6,6 +6,7 @@
 --indent-switches
 --pad-header
 --pad-oper
+--unpad-paren
 --align-pointer=type
 --align-reference=type
 --add-braces

@@ -53,7 +53,7 @@ bool NukiBle::pairNuki() {
   }
   bool result = false;
 
-  if (bleAddress != BLEAddress("") ) {
+  if (bleAddress != BLEAddress("")) {
     if (connectBle(bleAddress)) {
 
       NukiPairingState nukiPairingState = NukiPairingState::InitPairing;
@@ -171,7 +171,7 @@ NukiCmdResult NukiBle::executeAction(NukiAction action) {
   #ifdef DEBUG_NUKI_CONNECT
   log_d("************************ CHECK PAIRED ************************");
   #endif
-  if ( retrieveCredentials() ) {
+  if (retrieveCredentials()) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials retrieved from preferences, ready for commands");
     #endif
@@ -511,7 +511,7 @@ NukiCmdResult NukiBle::requestBatteryReport(BatteryReport* retrievedBatteryRepor
   action.payloadLen = sizeof(payload);
 
   NukiCmdResult result = executeAction(action);
-  if ( result == NukiCmdResult::Success) {
+  if (result == NukiCmdResult::Success) {
     memcpy(retrievedBatteryReport, &batteryReport, sizeof(batteryReport));
   }
   return result;
@@ -1203,10 +1203,10 @@ void NukiBle::saveCredentials() {
   buff[4] = bleAddress.getNative()[1];
   buff[5] = bleAddress.getNative()[0];
 
-  if ( (preferences.putBytes("secretKeyK", secretKeyK, 32) == 32 )
-       && ( preferences.putBytes("bleAddress", buff, 6) == 6 )
-       && ( preferences.putBytes("authorizationId", authorizationId, 4) == 4 )
-       && preferences.putBytes("securityPinCode", &pinCode, 2) == 2) {
+  if ((preferences.putBytes("secretKeyK", secretKeyK, 32) == 32)
+      && (preferences.putBytes("bleAddress", buff, 6) == 6)
+      && (preferences.putBytes("authorizationId", authorizationId, 4) == 4)
+      && preferences.putBytes("securityPinCode", &pinCode, 2) == 2) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials saved:");
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
@@ -1222,10 +1222,10 @@ void NukiBle::saveCredentials() {
 bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
-  if ( (preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
-       && (preferences.getBytes("bleAddress", buff, 6) > 0)
-       && (preferences.getBytes("authorizationId", authorizationId, 4) > 0)
-       && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0) ) {
+  if ((preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
+      && (preferences.getBytes("bleAddress", buff, 6) > 0)
+      && (preferences.getBytes("authorizationId", authorizationId, 4) > 0)
+      && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0)) {
     bleAddress = BLEAddress(buff);
     #ifdef DEBUG_NUKI_CONNECT
     log_d("[%s] Credentials retrieved :", deviceName.c_str());
@@ -1458,7 +1458,7 @@ void NukiBle::sendEncryptedMessage(NukiCommand commandIdentifier, unsigned char*
 
   if (encrMsgLen >= 0) {
     int16_t length = sizeof(plainDataEncr);
-    memcpy(&additionalData[28], &length, 2 );
+    memcpy(&additionalData[28], &length, 2);
 
     printBuffer((byte*)additionalData, 30, false, "Additional data: ");
     printBuffer((byte*)secretKeyK, sizeof(secretKeyK), false, "Encryption key (secretKey): ");
