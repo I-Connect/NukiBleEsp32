@@ -1,0 +1,51 @@
+name: PlatformIO Build
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        env: [debug, release]
+
+    steps:
+    - uses: fusion-engineering/setup-git-credentials@v2
+      with:
+        # GIT_CREDENTIALS secret should contain https://<username>:<token>@github.com
+        # where token is a Personal Access Token generated on https://github.com/settings/tokens
+        # It can also contain the account password but this might change in time 
+        credentials: ${{secrets.GIT_CREDENTIALS}}
+    - uses: actions/checkout@v2
+    - name: Cache pip
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Cache PlatformIO
+      uses: actions/cache@v2
+      with:
+        path: ~/.platformio
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+    - name: Set up Python
+      uses: actions/setup-python@v2
+    - name: Install PlatformIO
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade gitpython
+        pip install --upgrade platformio
+    - name: Run PlatformIO
+      run: |
+        # install libs before build
+        pio lib -e ${{ matrix.env }} install
+        pio run -e ${{ matrix.env }}
