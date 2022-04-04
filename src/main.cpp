@@ -177,7 +177,6 @@ void setup() {
   nukiBle.registerBleScanner(&scanner);
   nukiBle.initialize();
 
-
   // nukiBle.savePincode(9999);
   // nukiBle.unPairNuki();
 }
@@ -189,6 +188,8 @@ void loop() {
       log_d("paired");
       paired = true;
       nukiBle.setEventHandler(&handler);
+      getConfig();
+      nukiBle.enableLedFlash(false);
     }
   }
 
@@ -196,7 +197,7 @@ void loop() {
     if (keyTurnerState()) {
       notified = false;
     }
-
   }
+  // keyTurnerState();
   delay(500);
 }

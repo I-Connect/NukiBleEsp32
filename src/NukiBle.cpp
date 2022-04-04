@@ -12,6 +12,7 @@
 #include "sodium/crypto_core_hsalsa20.h"
 #include "sodium/crypto_auth_hmacsha256.h"
 #include "sodium/crypto_secretbox.h"
+#include "sodium/crypto_box.h"
 #include "NimBLEBeacon.h"
 
 namespace Nuki {
@@ -36,10 +37,11 @@ void NukiBle::initialize() {
   }
 
   pClient = BLEDevice::createClient();
+  // pClient->setConnectionParams()
   pClient->setClientCallbacks(this);
 
   // TODO
-  //disable auto update to prevent unchecked updates in case lock connects with app
+  //disable auto Fw update to prevent untested updates in case lock connects with app
   //disable pairing when lock is paired with C-Sense to prevent user to pair with phone?
 }
 
@@ -60,6 +62,7 @@ bool NukiBle::pairNuki() {
 
   if (bleAddress != BLEAddress("")) {
     if (connectBle(bleAddress)) {
+      crypto_box_keypair(myPublicKey, myPrivateKey);
 
       PairingState nukiPairingState = PairingState::InitPairing;
       do {
@@ -82,7 +85,6 @@ bool NukiBle::pairNuki() {
 }
 
 void NukiBle::unPairNuki() {
-  // TODO: unpair selected nuki based on deviceName
   deleteCredentials();
   #ifdef DEBUG_NUKI_CONNECT
   log_d("[%s] Credentials deleted", deviceName.c_str());
@@ -1162,22 +1164,36 @@ bool NukiBle::savePincode(uint16_t pinCode) {
 }
 
 void NukiBle::saveCredentials() {
-  unsigned char buff[6];
-  buff[0] = bleAddress.getNative()[5];
-  buff[1] = bleAddress.getNative()[4];
-  buff[2] = bleAddress.getNative()[3];
-  buff[3] = bleAddress.getNative()[2];
-  buff[4] = bleAddress.getNative()[1];
-  buff[5] = bleAddress.getNative()[0];
+  unsigned char currentBleAddress[6];
+  unsigned char storedBleAddress[6];
+  uint16_t defaultPincode = 0;
+  currentBleAddress[0] = bleAddress.getNative()[5];
+  currentBleAddress[1] = bleAddress.getNative()[4];
+  currentBleAddress[2] = bleAddress.getNative()[3];
+  currentBleAddress[3] = bleAddress.getNative()[2];
+  currentBleAddress[4] = bleAddress.getNative()[1];
+  currentBleAddress[5] = bleAddress.getNative()[0];
 
-  if ((preferences.putBytes("secretKeyK", secretKeyK, 32) == 32)
-      && (preferences.putBytes("bleAddress", buff, 6) == 6)
+  preferences.getBytes("bleAddress", storedBleAddress, 6);
+
+  if (compareCharArray(currentBleAddress, storedBleAddress, 6)) {
+    //only store earlier retreived pin code if address is the same
+    //otherwise it is a different/new lock
+    preferences.putBytes("securityPinCode", &pinCode, 2);
+    log_d("same");
+  } else {
+    preferences.putBytes("securityPinCode", &defaultPincode, 2);
+    log_d("new");
+  }
+
+  if ((preferences.putBytes("bleAddress", currentBleAddress, 6) == 6)
+      && (preferences.putBytes("secretKeyK", secretKeyK, 32) == 32)
       && (preferences.putBytes("authorizationId", authorizationId, 4) == 4)
-      && preferences.putBytes("securityPinCode", &pinCode, 2) == 2) {
+     ) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials saved:");
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
-    printBuffer(buff, 6, false, "bleAddress");
+    printBuffer(currentBleAddress, 6, false, "bleAddress");
     printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
     log_d("pincode: %d", pinCode);
     #endif
@@ -1189,11 +1205,15 @@ void NukiBle::saveCredentials() {
 bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
-  if ((preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
-      && (preferences.getBytes("bleAddress", buff, 6) > 0)
+  bool result = false;
+
+  if ((preferences.getBytes("bleAddress", buff, 6) > 0)
+      && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0)
+      && (preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
       && (preferences.getBytes("authorizationId", authorizationId, 4) > 0)
-      && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0)) {
+     ) {
     bleAddress = BLEAddress(buff);
+
     #ifdef DEBUG_NUKI_CONNECT
     log_d("[%s] Credentials retrieved :", deviceName.c_str());
     printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
@@ -1211,7 +1231,6 @@ bool NukiBle::retrieveCredentials() {
 
 void NukiBle::deleteCredentials() {
   preferences.remove("secretKeyK");
-  preferences.remove("bleAddress");
   preferences.remove("authorizationId");
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Credentials deleted");
@@ -1249,7 +1268,6 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       #ifdef DEBUG_NUKI_CONNECT
       log_d("##################### SEND CLIENT PUBLIC KEY #########################");
       #endif
-      //TODO generate public and private keys?
       sendPlainMessage(Command::PublicKey, myPublicKey, sizeof(myPublicKey));
       return PairingState::GenKeyPair;
     }

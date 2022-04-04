@@ -33,8 +33,6 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     ErrorCode getLastError() const;
 
-    bool savePincode(uint16_t pinCode);
-
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
     CmdResult lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
@@ -70,6 +68,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     CmdResult retrieveTimeControlEntries();
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
+    bool savePincode(uint16_t pinCode);
     CmdResult setSecurityPin(uint16_t newSecurityPin);
     CmdResult verifySecurityPin();
 
@@ -157,6 +156,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     unsigned char remotePublicKey[32] = {0x00};
     unsigned char challengeNonceK[32] = {0x00};
     unsigned char authorizationId[4] = {0x00};
+    unsigned char myPublicKey[32] = {0x00};
+    unsigned char myPrivateKey[32] = {0x00};
     uint16_t pinCode = 0000;
     unsigned char secretKeyK[32] = {0x00};
 

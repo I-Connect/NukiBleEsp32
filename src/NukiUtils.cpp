@@ -36,6 +36,15 @@ bool isCharArrayNotEmpty(unsigned char* array, uint16_t len) {
   return false;
 }
 
+bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len) {
+  for (int i = 0; i < len; i++) {
+    if (a[i] != b[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
   int result = crypto_secretbox_easy(output, input, len, nonce, keyS);
 
