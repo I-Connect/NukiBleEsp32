@@ -8,6 +8,12 @@ Implementation is according to [Nuki Smart Lock BLE API](https://developer.nuki.
 - Nuki smart lock v2
 - Nuki smart lock v3
 
+## V0.0.3
+- Cleanup and refactor
+- Fixed loosing pincode on re-pairing
+- Updated scanning intervals according to recommendations Nuki dev
+- Made BLE scanner injectable
+
 ## V0.0.2
 - Added eventhandler
 
@@ -18,10 +24,7 @@ There can still be braking changes....!
 Implementation is according to Nuki Smart Lock API V2.2.1 (22.06.2021)
 
 ## Wip
-- Cleanup and document methods
-- Some variables need to move inside the class (had no focus as we first wanted to implement/test the functionality)
+- Add documentation to the readme and classes
 
 ## Todo
-- Add documentation to the readme
 - Some data integrity could be checked
-- Add ability to unpair based on devicename
