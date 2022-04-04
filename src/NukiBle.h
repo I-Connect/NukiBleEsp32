@@ -32,6 +32,9 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void unPairNuki();
 
     ErrorCode getLastError() const;
+    bool isPairedWithLock() const {
+      return isPaired;
+    }
 
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
@@ -41,8 +44,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
 
     CmdResult requestBatteryReport(BatteryReport* retrievedBatteryReport);
-    bool batteryCritical();
-    bool batteryIsCharging();
+    bool isBatteryCritical();
+    bool isBatteryCharging();
     uint8_t getBatteryPerc();
     CmdResult retrieveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);

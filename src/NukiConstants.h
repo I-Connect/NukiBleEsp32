@@ -283,6 +283,8 @@ struct __attribute__((packed)) NewKeypadEntry {
   uint8_t allowedUntillHour;
   uint8_t allowedUntillMin;
   uint8_t allowedUntillSec;
+  // bit 7  6  5  4  3  2  1  0
+  //     -  M  T  W  T  F  S  S
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
@@ -321,6 +323,9 @@ struct __attribute__((packed)) KeypadEntry {
   uint8_t allowedUntillHour;
   uint8_t allowedUntillMin;
   uint8_t allowedUntillSec;
+
+  // bit 7  6  5  4  3  2  1  0
+  //     -  M  T  W  T  F  S  S
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
@@ -346,6 +351,8 @@ struct __attribute__((packed)) UpdatedKeypadEntry {
   uint8_t allowedUntillHour;
   uint8_t allowedUntillMin;
   uint8_t allowedUntillSec;
+  // bit 7  6  5  4  3  2  1  0
+  //     -  M  T  W  T  F  S  S
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;

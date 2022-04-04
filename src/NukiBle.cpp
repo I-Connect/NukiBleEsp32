@@ -40,9 +40,7 @@ void NukiBle::initialize() {
   // pClient->setConnectionParams()
   pClient->setClientCallbacks(this);
 
-  // TODO
-  //disable auto Fw update to prevent untested updates in case lock connects with app
-  //disable pairing when lock is paired with C-Sense to prevent user to pair with phone?
+  isPaired = retrieveCredentials();
 }
 
 void NukiBle::registerBleScanner(BLEScannerPublisher* bleScanner) {
@@ -480,12 +478,12 @@ void NukiBle::retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState) {
   memcpy(retrievedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
 }
 
-bool NukiBle::batteryCritical() {
+bool NukiBle::isBatteryCritical() {
   //MSB/LSB!
   return keyTurnerState.criticalBatteryState & (1 << 7);
 }
 
-bool NukiBle::batteryIsCharging() {
+bool NukiBle::isBatteryCharging() {
   //MSB/LSB!
   return keyTurnerState.criticalBatteryState & (1 << 6);
 }
@@ -551,12 +549,10 @@ CmdResult NukiBle::retrieveKeypadEntries(uint16_t offset, uint16_t count) {
 CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
   //TODO verify data validity
   Action action;
-  unsigned char payload[sizeof(NewKeypadEntry)] = {0};
-  memcpy(payload, &newKeypadEntry, sizeof(NewKeypadEntry));
 
   action.cmdType = CommandType::CommandWithChallengeAndPin;
   action.command = Command::AddKeypadCode;
-  memcpy(action.payload, &payload, sizeof(NewKeypadEntry));
+  memcpy(action.payload, &newKeypadEntry, sizeof(NewKeypadEntry));
   action.payloadLen = sizeof(NewKeypadEntry);
 
   CmdResult result = executeAction(action);
@@ -573,12 +569,10 @@ CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
 CmdResult NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry) {
   //TODO verify data validity
   Action action;
-  unsigned char payload[sizeof(UpdatedKeypadEntry)] = {0};
-  memcpy(payload, &updatedKeyPadEntry, sizeof(UpdatedKeypadEntry));
 
   action.cmdType = CommandType::CommandWithChallengeAndPin;
   action.command = Command::UpdateKeypadCode;
-  memcpy(action.payload, &payload, sizeof(UpdatedKeypadEntry));
+  memcpy(action.payload, &updatedKeyPadEntry, sizeof(UpdatedKeypadEntry));
   action.payloadLen = sizeof(UpdatedKeypadEntry);
 
   CmdResult result = executeAction(action);
@@ -1203,7 +1197,6 @@ void NukiBle::saveCredentials() {
 bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
-  bool result = false;
 
   if ((preferences.getBytes("bleAddress", buff, 6) > 0)
       && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0)
@@ -1221,7 +1214,6 @@ bool NukiBle::retrieveCredentials() {
     #endif
 
   } else {
-    log_w("ERROR retreiving credentials");
     return false;
   }
   return true;
