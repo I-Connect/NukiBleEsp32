@@ -1180,10 +1180,8 @@ void NukiBle::saveCredentials() {
     //only store earlier retreived pin code if address is the same
     //otherwise it is a different/new lock
     preferences.putBytes("securityPinCode", &pinCode, 2);
-    log_d("same");
   } else {
     preferences.putBytes("securityPinCode", &defaultPincode, 2);
-    log_d("new");
   }
 
   if ((preferences.putBytes("bleAddress", currentBleAddress, 6) == 6)
