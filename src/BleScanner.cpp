@@ -28,7 +28,7 @@ void BleScanner::update() {
   }
 }
 
-void BleScanner::setScanDuration(const value) {
+void BleScanner::setScanDuration(const uint32_t value) {
   scanDuration = value;
 }
 
