@@ -22,7 +22,7 @@ void BleScanner::update() {
   if (bleScan->isScanning()) {
     return;
   }
-  bool result = bleScan->start(10, nullptr, false);
+  bool result = bleScan->start(3, nullptr, false);
   if (!result) {
     log_w("BLE Scan error");
   }

@@ -189,7 +189,6 @@ void loop() {
       log_d("paired");
       paired = true;
       nukiBle.setEventHandler(&handler);
-      nukiBle.enableLedFlash(true);
     }
   }
 

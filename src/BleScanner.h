@@ -17,7 +17,7 @@ class BleScanner : public BLEScannerPublisher, BLEAdvertisedDeviceCallbacks {
     BleScanner(int reservedSubscribers = 10);
     ~BleScanner() = default;
 
-    void initialize(const std::string& deviceName = "blescanner", const bool wantDuplicates = false, const uint16_t interval = 80, const uint16_t window = 40);
+    void initialize(const std::string& deviceName = "blescanner", const bool wantDuplicates = false, const uint16_t interval = 40, const uint16_t window = 40);
     void update();
 
     void subscribe(BLEScannerSubscriber* subscriber) override;
