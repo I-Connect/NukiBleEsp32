@@ -175,6 +175,13 @@ void setup() {
   nukiBle.registerBleScanner(&scanner);
   nukiBle.initialize();
 
+  if (nukiBle.isPairedWithLock()) {
+    log_d("paired");
+    nukiBle.setEventHandler(&handler);
+    getConfig();
+    nukiBle.enableLedFlash(false);
+  }
+
   // nukiBle.savePincode(9999);
   // nukiBle.unPairNuki();
 }
