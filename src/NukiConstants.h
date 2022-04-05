@@ -17,6 +17,11 @@ const NimBLEUUID keyturnerDataUUID  = NimBLEUUID("a92ee201-5501-11e4-916c-080020
 //User-Specific Data Input Output characteristic
 const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
 
+const char BLE_ADDRESS_STORE_NAME[]       = "bleAddress";
+const char SECURITY_PINCODE_STORE_NAME[]  = "securityPinCode";
+const char SECRET_KEY_STORE_NAME[]        = "secretKeyK";
+const char AUTH_ID_STORE_NAME[]           = "authorizationId";
+
 enum class Command : uint16_t {
   Empty                         = 0x0000,
   RequestData	                  = 0x0001,

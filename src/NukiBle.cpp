@@ -1154,7 +1154,7 @@ CmdResult NukiBle::enableAutoUpdate(bool enable) {
 }
 
 bool NukiBle::savePincode(uint16_t pinCode) {
-  return (preferences.putBytes("securityPinCode", &pinCode, 2) == 2);
+  return (preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) == 2);
 }
 
 void NukiBle::saveCredentials() {
@@ -1168,25 +1168,25 @@ void NukiBle::saveCredentials() {
   currentBleAddress[4] = bleAddress.getNative()[1];
   currentBleAddress[5] = bleAddress.getNative()[0];
 
-  preferences.getBytes("bleAddress", storedBleAddress, 6);
+  preferences.getBytes(BLE_ADDRESS_STORE_NAME, storedBleAddress, 6);
 
   if (compareCharArray(currentBleAddress, storedBleAddress, 6)) {
     //only store earlier retreived pin code if address is the same
     //otherwise it is a different/new lock
-    preferences.putBytes("securityPinCode", &pinCode, 2);
+    preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2);
   } else {
-    preferences.putBytes("securityPinCode", &defaultPincode, 2);
+    preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &defaultPincode, 2);
   }
 
-  if ((preferences.putBytes("bleAddress", currentBleAddress, 6) == 6)
-      && (preferences.putBytes("secretKeyK", secretKeyK, 32) == 32)
-      && (preferences.putBytes("authorizationId", authorizationId, 4) == 4)
+  if ((preferences.putBytes(BLE_ADDRESS_STORE_NAME, currentBleAddress, 6) == 6)
+      && (preferences.putBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) == 32)
+      && (preferences.putBytes(AUTH_ID_STORE_NAME, authorizationId, 4) == 4)
      ) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Credentials saved:");
-    printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
-    printBuffer(currentBleAddress, 6, false, "bleAddress");
-    printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+    printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
+    printBuffer(currentBleAddress, 6, false, BLE_ADDRESS_STORE_NAME);
+    printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
     log_d("pincode: %d", pinCode);
     #endif
   } else {
@@ -1198,18 +1198,18 @@ bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
 
-  if ((preferences.getBytes("bleAddress", buff, 6) > 0)
-      && (preferences.getBytes("securityPinCode", &pinCode, 2) > 0)
-      && (preferences.getBytes("secretKeyK", secretKeyK, 32) > 0)
-      && (preferences.getBytes("authorizationId", authorizationId, 4) > 0)
+  if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
+      && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
+      && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
+      && (preferences.getBytes(AUTH_ID_STORE_NAME, authorizationId, 4) > 0)
      ) {
     bleAddress = BLEAddress(buff);
 
     #ifdef DEBUG_NUKI_CONNECT
     log_d("[%s] Credentials retrieved :", deviceName.c_str());
-    printBuffer(secretKeyK, sizeof(secretKeyK), false, "secretKeyK");
+    printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
     log_d("bleAddress: %s", bleAddress.toString().c_str());
-    printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+    printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
     log_d("PinCode: %d", pinCode);
     #endif
 
@@ -1220,8 +1220,8 @@ bool NukiBle::retrieveCredentials() {
 }
 
 void NukiBle::deleteCredentials() {
-  preferences.remove("secretKeyK");
-  preferences.remove("authorizationId");
+  preferences.remove(SECRET_KEY_STORE_NAME);
+  preferences.remove(AUTH_ID_STORE_NAME);
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Credentials deleted");
   #endif
@@ -1636,7 +1636,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       memcpy(authorizationId, &data[32], 4);
       memcpy(lockId, &data[36], sizeof(lockId));
       memcpy(challengeNonceK, &data[52], sizeof(challengeNonceK));
-      printBuffer(authorizationId, sizeof(authorizationId), false, "authorizationId");
+      printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
       printBuffer(lockId, sizeof(lockId), false, "lockId");
       break;
     }
