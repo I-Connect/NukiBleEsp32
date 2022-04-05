@@ -12,8 +12,6 @@ std::string deviceName = "frontDoor";
 Nuki::NukiBle nukiBle(deviceName, deviceId);
 BleScanner scanner;
 
-bool paired = false;
-
 Nuki::KeyTurnerState retrievedKeyTurnerState;
 Nuki::BatteryReport _batteryReport;
 std::list<Nuki::LogEntry> requestedLogEntries;
@@ -61,7 +59,7 @@ bool keyTurnerState() {
   uint8_t result = nukiBle.requestKeyTurnerState(&retrievedKeyTurnerState);
   if (result == 1) {
     log_d("Bat crit: %d, Bat perc:%d lock state: %d %d:%d:%d",
-          nukiBle.batteryCritical(), nukiBle.getBatteryPerc(), retrievedKeyTurnerState.lockState, retrievedKeyTurnerState.currentTimeHour,
+          nukiBle.isBatteryCritical(), nukiBle.getBatteryPerc(), retrievedKeyTurnerState.lockState, retrievedKeyTurnerState.currentTimeHour,
           retrievedKeyTurnerState.currentTimeMinute, retrievedKeyTurnerState.currentTimeSecond);
   } else {
     log_d("cmd failed: %d", result);
@@ -177,16 +175,22 @@ void setup() {
   nukiBle.registerBleScanner(&scanner);
   nukiBle.initialize();
 
+  if (nukiBle.isPairedWithLock()) {
+    log_d("paired");
+    nukiBle.setEventHandler(&handler);
+    getConfig();
+    nukiBle.enableLedFlash(false);
+  }
+
   // nukiBle.savePincode(9999);
   // nukiBle.unPairNuki();
 }
 
 void loop() {
   scanner.update();
-  if (!paired) {
+  if (!nukiBle.isPairedWithLock()) {
     if (nukiBle.pairNuki()) {
       log_d("paired");
-      paired = true;
       nukiBle.setEventHandler(&handler);
       getConfig();
       nukiBle.enableLedFlash(false);

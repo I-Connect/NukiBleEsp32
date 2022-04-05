@@ -96,6 +96,15 @@ bool crcValid(uint8_t* pData, uint16_t length) {
   return true;
 }
 
+template<std::size_t N>
+uint8_t getWeekdaysIntFromBitset(const std::bitset<N> bits) {
+  uint8_t result = 0;
+  for (auto idx = 0; idx < 7 && idx < N ; idx++) {
+    result |= bits[idx] << (7 - idx);
+  }
+  return result;
+}
+
 void logErrorCode(uint8_t errorCode) {
 
   switch (errorCode) {
