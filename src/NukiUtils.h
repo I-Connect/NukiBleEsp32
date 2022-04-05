@@ -2,6 +2,7 @@
 
 #include "Arduino.h"
 #include "NukiDataTypes.h"
+#include <bitset>
 
 namespace Nuki {
 
@@ -16,6 +17,16 @@ void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
 
 unsigned int calculateCrc(uint8_t data[], uint8_t start, uint16_t length);
 bool crcValid(uint8_t* pData, uint16_t length);
+
+/**
+ * @brief Translate a bitset<N> into Nuki weekdays int
+ *
+ * @tparam N
+ * @param bitset with bitset[0] = Monday ... bitset[7] = Sunday
+ * @return uint8_t with bit6 = Monday ... bit0 = Sunday
+ */
+template<std::size_t N>
+uint8_t getWeekdaysIntFromBitset(const std::bitset<N> bits);
 
 void logErrorCode(uint8_t errorCode);
 void logConfig(Config config);

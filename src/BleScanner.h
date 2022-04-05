@@ -1,16 +1,7 @@
+#pragma once
 #include <string>
 #include <NimBLEDevice.h>
-
-class BLEScannerSubscriber {
-  public:
-    virtual void onResult(NimBLEAdvertisedDevice* advertisedDevice) = 0;
-};
-
-class BLEScannerPublisher {
-  public:
-    virtual void subscribe(BLEScannerSubscriber* subscriber) = 0;
-    virtual void unsubscribe(BLEScannerSubscriber* subscriber) = 0;
-};
+#include "BleInterfaces.h"
 
 class BleScanner : public BLEScannerPublisher, BLEAdvertisedDeviceCallbacks {
   public:
