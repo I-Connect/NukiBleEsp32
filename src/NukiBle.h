@@ -71,7 +71,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     CmdResult retrieveTimeControlEntries();
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
-    bool savePincode(uint16_t pinCode);
+    bool saveSecurityPincode(uint16_t pinCode);
     CmdResult setSecurityPin(uint16_t newSecurityPin);
     CmdResult verifySecurityPin();
 

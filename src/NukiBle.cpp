@@ -109,7 +109,6 @@ bool NukiBle::connectBle(BLEAddress bleAddress) {
   } else {
     return true;
   }
-
   return false;
 }
 
@@ -1153,7 +1152,7 @@ CmdResult NukiBle::enableAutoUpdate(bool enable) {
   return result;
 }
 
-bool NukiBle::savePincode(uint16_t pinCode) {
+bool NukiBle::saveSecurityPincode(uint16_t pinCode) {
   return (preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) == 2);
 }
 
@@ -1212,6 +1211,10 @@ bool NukiBle::retrieveCredentials() {
     printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
     log_d("PinCode: %d", pinCode);
     #endif
+
+    if (pinCode == 0) {
+      log_w("Pincode is 000000");
+    }
 
   } else {
     return false;
@@ -1444,9 +1447,8 @@ void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     memcpy(&dataToSend[0], additionalData, sizeof(additionalData));
     memcpy(&dataToSend[30], plainDataEncr, sizeof(plainDataEncr));
 
-    printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
-
     if (connectBle(bleAddress)) {
+      printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
       pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
     } else {
       log_w("Send encr msg failed due to unable to connect");
