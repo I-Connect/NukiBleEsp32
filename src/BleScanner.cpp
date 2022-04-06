@@ -22,10 +22,14 @@ void BleScanner::update() {
   if (bleScan->isScanning()) {
     return;
   }
-  bool result = bleScan->start(3, nullptr, false);
+  bool result = bleScan->start(scanDuration, nullptr, false);
   if (!result) {
     log_w("BLE Scan error");
   }
+}
+
+void BleScanner::setScanDuration(const uint32_t value) {
+  scanDuration = value;
 }
 
 void BleScanner::subscribe(BLEScannerSubscriber* subscriber) {
