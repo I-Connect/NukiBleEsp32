@@ -37,7 +37,7 @@ void NukiBle::initialize() {
   }
 
   pClient = BLEDevice::createClient();
-  // pClient->setConnectionParams()
+  pClient->setConnectionParams(12, 12, 0, 200); //according to recommendations Nuki (15ms, 15ms, 0, 2sec)
   pClient->setClientCallbacks(this);
 
   isPaired = retrieveCredentials();

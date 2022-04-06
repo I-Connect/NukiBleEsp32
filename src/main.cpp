@@ -203,5 +203,5 @@ void loop() {
     }
   }
   // keyTurnerState();
-  delay(500);
+  delay(10);
 }
