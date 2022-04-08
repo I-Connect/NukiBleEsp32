@@ -366,8 +366,8 @@ struct __attribute__((packed)) UpdatedKeypadEntry {
 };
 
 struct __attribute__((packed)) KeyTurnerState {
-  State nukiState;
-  LockState lockState;
+  State nukiState = State::Uninitialized;
+  LockState lockState = LockState::Undefined;
   Trigger trigger;
   uint16_t currentTimeYear;
   uint8_t currentTimeMonth;
@@ -382,7 +382,7 @@ struct __attribute__((packed)) KeyTurnerState {
   LockAction lastLockAction;
   Trigger lastLockActionTrigger;
   CompletionStatus lastLockActionCompletionStatus;
-  DoorSensorState doorSensorState;
+  DoorSensorState doorSensorState = DoorSensorState::Unavailable;
 };
 
 struct __attribute__((packed)) Config {

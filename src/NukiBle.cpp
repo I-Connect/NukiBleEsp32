@@ -84,6 +84,7 @@ bool NukiBle::pairNuki() {
 
 void NukiBle::unPairNuki() {
   deleteCredentials();
+  isPaired = false;
   #ifdef DEBUG_NUKI_CONNECT
   log_d("[%s] Credentials deleted", deviceName.c_str());
   #endif
