@@ -3,6 +3,25 @@ This lib is made for communicating directly to a Nuki smart lock via BLE without
 Implementation is according to [Nuki Smart Lock BLE API](https://developer.nuki.io/page/nuki-smart-lock-api-2/2/) 
 (kudo's to the Nuki developers for providing such an accurate and well made documentation!)
 
+## How to use
+This library is runnable as is.
+
+When running main.cpp (with #define DEBUG_NUKI_CONNECT) there will initially be some logging "No nuki in pairing mode found", if you then press and hold the button on the Nuki lock for 10 secs (untill the led ring lights up) the esp should automatically find the lock in pairing mode and pair with it.
+Credentials will be saved and no pairing needs to be done the next time the esp starts.
+
+There are some example methods in main.cpp to get/write data and execute actions on the lock.
+
+Be aware that if you have set a pincode on the lock you will have to store this in the esp using nukiBle.savePincode() otherwise the methods that need a pincode (most methods that write settings) will fail.
+This only needs to be done once as the pincode will be stored in the preferences.
+
+Logging can be enabled by setting the following defines (these are also available in platformio.ini):
+- DEBUG_NUKI_CONNECT
+- DDEBUG_NUKI_COMMUNICATION
+- DEBUG_NUKI_HEX_DATA
+- DEBUG_NUKI_READABLE_DATA
+
+(More documentation will be added later)
+
 ## Tested Hardware
 - ESP32 wroom
 - Nuki smart lock v2

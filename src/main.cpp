@@ -193,7 +193,6 @@ void loop() {
       log_d("paired");
       nukiBle.setEventHandler(&handler);
       getConfig();
-      nukiBle.enableLedFlash(false);
     }
   }
 
@@ -202,6 +201,5 @@ void loop() {
       notified = false;
     }
   }
-  // keyTurnerState();
-  delay(10);
+  delay(500);
 }
