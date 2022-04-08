@@ -38,7 +38,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
-    CmdResult lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
+    CmdResult lockAction(LockAction lockAction, uint32_t nukiAppId = 1, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
 
     CmdResult requestConfig(Config* retrievedConfig);
     CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
