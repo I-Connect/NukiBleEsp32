@@ -35,7 +35,6 @@ NukiBle::~NukiBle() {
 
 void NukiBle::initialize() {
 
-  BLEDevice::deinit();
   preferences.begin(deviceName.c_str(), false);
   if (!BLEDevice::getInitialized()) {
     BLEDevice::init(deviceName);
@@ -351,7 +350,7 @@ CmdResult NukiBle::cmdChallStateMachine(Action action, bool sendPinCode) {
         memcpy(&payload[action.payloadLen + sizeof(challengeNonceK)], &pinCode, 2);
       }
 
-      if (sendEncryptedMessage(action.command, payload, payloadLen) ) {
+      if (sendEncryptedMessage(action.command, payload, payloadLen)) {
         timeNow = millis();
         nukiCommandState = CommandState::CmdSent;
       } else {
@@ -565,13 +564,13 @@ CmdResult NukiBle::requestBatteryReport(BatteryReport* retrievedBatteryReport) {
 
 CmdResult NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags, unsigned char* nameSuffix, uint8_t nameSuffixLen) {
   Action action;
-  unsigned char payload[26] = {0};
+  unsigned char payload[5 + nameSuffixLen] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
   memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
   memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
   uint8_t payloadLen = 0;
   if (nameSuffix) {
-    memcpy(&payload[sizeof(LockAction) + 4 + 1], &nameSuffix, nameSuffixLen);
+    memcpy(&payload[sizeof(LockAction) + 4 + 1], nameSuffix, nameSuffixLen);
     payloadLen = sizeof(LockAction) + 4 + 1 + nameSuffixLen;
   } else {
     payloadLen = sizeof(LockAction) + 4 + 1;
