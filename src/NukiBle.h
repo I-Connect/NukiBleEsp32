@@ -6,6 +6,7 @@
  *      Author: Jeroen
  */
 
+#include "FreeRTOS.h"
 #include "NimBLEDevice.h"
 #include "NukiConstants.h"
 #include "NukiDataTypes.h"
@@ -38,7 +39,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
-    CmdResult lockAction(LockAction lockAction, uint32_t nukiAppId = 1, uint8_t flags = 0, unsigned char* nameSuffix = nullptr);
+    CmdResult lockAction(LockAction lockAction, uint32_t nukiAppId = 1, uint8_t flags = 0, unsigned char* nameSuffix = nullptr, uint8_t nameSuffixLen = 0);
 
     CmdResult requestConfig(Config* retrievedConfig);
     CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
@@ -101,6 +102,9 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void registerBleScanner(BLEScannerPublisher* bleScanner);
 
   private:
+    FreeRTOS::Semaphore nukiBleSemaphore;
+    bool takeNukiBleSemaphore(std::string owner);
+    void giveNukiBleSemaphore();
 
     bool connectBle(BLEAddress bleAddress);
     void onConnect(BLEClient*) override;
@@ -109,8 +113,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
-    void sendPlainMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen);
-    void sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen);
+    bool sendPlainMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen);
+    bool sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen);
 
     void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
@@ -179,6 +183,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     std::list<TimeControlEntry> listOfTimeControlEntries;
+
 };
 
 } // namespace Nuki
