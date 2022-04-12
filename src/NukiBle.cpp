@@ -90,7 +90,7 @@ void NukiBle::unPairNuki() {
   #endif
 }
 
-bool NukiBle::connectBle(BLEAddress bleAddress) {
+bool NukiBle::connectBle(const BLEAddress bleAddress) {
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
     while (connectRetry < 5) {
@@ -172,7 +172,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   }
 }
 
-CmdResult NukiBle::executeAction(Action action) {
+CmdResult NukiBle::executeAction(const Action action) {
   #ifdef DEBUG_NUKI_CONNECT
   log_d("************************ CHECK PAIRED ************************");
   #endif
@@ -233,7 +233,7 @@ CmdResult NukiBle::executeAction(Action action) {
   return CmdResult::Failed;
 }
 
-CmdResult NukiBle::cmdStateMachine(Action action) {
+CmdResult NukiBle::cmdStateMachine(const Action action) {
   switch (nukiCommandState) {
     case CommandState::Idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
@@ -277,7 +277,7 @@ CmdResult NukiBle::cmdStateMachine(Action action) {
   return CmdResult::Working;
 }
 
-CmdResult NukiBle::cmdChallStateMachine(Action action, bool sendPinCode) {
+CmdResult NukiBle::cmdChallStateMachine(const Action action, const bool sendPinCode) {
   switch (nukiCommandState) {
     case CommandState::Idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
@@ -362,7 +362,7 @@ CmdResult NukiBle::cmdChallStateMachine(Action action, bool sendPinCode) {
   return CmdResult::Working;
 }
 
-CmdResult NukiBle::cmdChallAccStateMachine(Action action) {
+CmdResult NukiBle::cmdChallAccStateMachine(const Action action) {
   switch (nukiCommandState) {
     case CommandState::Idle: {
       #ifdef DEBUG_NUKI_COMMUNICATION
@@ -508,16 +508,17 @@ CmdResult NukiBle::requestBatteryReport(BatteryReport* retrievedBatteryReport) {
   return result;
 }
 
-CmdResult NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t flags, unsigned char* nameSuffix) {
+CmdResult NukiBle::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix) {
   Action action;
   unsigned char payload[26] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
   memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
   memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
   uint8_t payloadLen = 0;
-  if (nameSuffix) {
-    memcpy(&payload[sizeof(LockAction) + 4 + 1], &nameSuffix, sizeof(nameSuffix));
-    payloadLen = sizeof(LockAction) + 4 + 1 + sizeof(nameSuffix);
+  if (nameSuffix != nullptr) {
+    size_t length = strlen(nameSuffix);
+    memcpy(&payload[sizeof(LockAction) + 4 + 1], &nameSuffix, length);
+    payloadLen = sizeof(LockAction) + 4 + 1 + length;
   } else {
     payloadLen = sizeof(LockAction) + 4 + 1;
   }
@@ -530,7 +531,7 @@ CmdResult NukiBle::lockAction(LockAction lockAction, uint32_t nukiAppId, uint8_t
   return executeAction(action);
 }
 
-CmdResult NukiBle::retrieveKeypadEntries(uint16_t offset, uint16_t count) {
+CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint16_t count) {
   Action action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
@@ -595,7 +596,7 @@ void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
   }
 }
 
-CmdResult NukiBle::retrieveAuthorizationEntries(uint16_t offset, uint16_t count) {
+CmdResult NukiBle::retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count) {
   Action action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
@@ -664,7 +665,7 @@ CmdResult NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAut
   return result;
 }
 
-CmdResult NukiBle::retrieveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount) {
+CmdResult NukiBle::retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount) {
   Action action;
   unsigned char payload[8] = {0};
   memcpy(payload, &startIndex, 4);
@@ -834,7 +835,7 @@ void NukiBle::getTimeControlEntries(std::list<TimeControlEntry>* requestedTimeCo
   }
 }
 
-CmdResult NukiBle::setSecurityPin(uint16_t newSecurityPin) {
+CmdResult NukiBle::setSecurityPin(const uint16_t newSecurityPin) {
   Action action;
   unsigned char payload[2] = {0};
   memcpy(payload, &newSecurityPin, 2);
@@ -939,7 +940,7 @@ void NukiBle::createNewConfig(const Config* oldConfig, NewConfig* newConfig) {
 }
 
 //basic config change methods
-CmdResult NukiBle::setName(std::string name) {
+CmdResult NukiBle::setName(const std::string& name) {
 
   if (name.length() <= 32) {
     Config oldConfig;
@@ -955,7 +956,7 @@ CmdResult NukiBle::setName(std::string name) {
   }
 }
 
-CmdResult NukiBle::enablePairing(bool enable) {
+CmdResult NukiBle::enablePairing(const bool enable) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -965,7 +966,7 @@ CmdResult NukiBle::enablePairing(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::enableButton(bool enable) {
+CmdResult NukiBle::enableButton(const bool enable) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -975,7 +976,7 @@ CmdResult NukiBle::enableButton(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::enableLedFlash(bool enable) {
+CmdResult NukiBle::enableLedFlash(const bool enable) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -985,7 +986,7 @@ CmdResult NukiBle::enableLedFlash(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::setLedBrightness(uint8_t level) {
+CmdResult NukiBle::setLedBrightness(const uint8_t level) {
   //level is from 0 (off) to 5(max)
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
@@ -996,7 +997,7 @@ CmdResult NukiBle::setLedBrightness(uint8_t level) {
   return result;
 }
 
-CmdResult NukiBle::enableSingleLock(bool enable) {
+CmdResult NukiBle::enableSingleLock(const bool enable) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1006,7 +1007,7 @@ CmdResult NukiBle::enableSingleLock(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::setAdvertisingMode(AdvertisingMode mode) {
+CmdResult NukiBle::setAdvertisingMode(const AdvertisingMode mode) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1016,7 +1017,7 @@ CmdResult NukiBle::setAdvertisingMode(AdvertisingMode mode) {
   return result;
 }
 
-CmdResult NukiBle::enableDst(bool enable) {
+CmdResult NukiBle::enableDst(const bool enable) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1026,7 +1027,7 @@ CmdResult NukiBle::enableDst(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::setTimeZoneOffset(int16_t minutes) {
+CmdResult NukiBle::setTimeZoneOffset(const int16_t minutes) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1036,7 +1037,7 @@ CmdResult NukiBle::setTimeZoneOffset(int16_t minutes) {
   return result;
 }
 
-CmdResult NukiBle::setTimeZoneId(TimeZoneId timeZoneId) {
+CmdResult NukiBle::setTimeZoneId(const TimeZoneId timeZoneId) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1073,7 +1074,7 @@ void NukiBle::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvanc
 }
 
 //advanced config change methods
-CmdResult NukiBle::setSingleButtonPressAction(ButtonPressAction action) {
+CmdResult NukiBle::setSingleButtonPressAction(const ButtonPressAction action) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1083,7 +1084,7 @@ CmdResult NukiBle::setSingleButtonPressAction(ButtonPressAction action) {
   return result;
 }
 
-CmdResult NukiBle::setDoubleButtonPressAction(ButtonPressAction action) {
+CmdResult NukiBle::setDoubleButtonPressAction(const ButtonPressAction action) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1093,7 +1094,7 @@ CmdResult NukiBle::setDoubleButtonPressAction(ButtonPressAction action) {
   return result;
 }
 
-CmdResult NukiBle::setBatteryType(BatteryType type) {
+CmdResult NukiBle::setBatteryType(const BatteryType type) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1103,7 +1104,7 @@ CmdResult NukiBle::setBatteryType(BatteryType type) {
   return result;
 }
 
-CmdResult NukiBle::enableAutoBatteryTypeDetection(bool enable) {
+CmdResult NukiBle::enableAutoBatteryTypeDetection(const bool enable) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1113,7 +1114,7 @@ CmdResult NukiBle::enableAutoBatteryTypeDetection(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::disableAutoUnlock(bool disable) {
+CmdResult NukiBle::disableAutoUnlock(const bool disable) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1123,7 +1124,7 @@ CmdResult NukiBle::disableAutoUnlock(bool disable) {
   return result;
 }
 
-CmdResult NukiBle::enableAutoLock(bool enable) {
+CmdResult NukiBle::enableAutoLock(const bool enable) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1133,7 +1134,7 @@ CmdResult NukiBle::enableAutoLock(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::enableImmediateAutoLock(bool enable) {
+CmdResult NukiBle::enableImmediateAutoLock(const bool enable) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1143,7 +1144,7 @@ CmdResult NukiBle::enableImmediateAutoLock(bool enable) {
   return result;
 }
 
-CmdResult NukiBle::enableAutoUpdate(bool enable) {
+CmdResult NukiBle::enableAutoUpdate(const bool enable) {
   AdvancedConfig oldConfig;
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
@@ -1153,7 +1154,7 @@ CmdResult NukiBle::enableAutoUpdate(bool enable) {
   return result;
 }
 
-bool NukiBle::saveSecurityPincode(uint16_t pinCode) {
+bool NukiBle::saveSecurityPincode(const uint16_t pinCode) {
   return (preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) == 2);
 }
 
@@ -1396,7 +1397,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
   return nukiPairingState;
 }
 
-void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen) {
+void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
   /*
   #     ADDITIONAL DATA (not encr)      #                    PLAIN DATA (encr)                             #
   #  nonce  # auth identifier # msg len # authorization identifier # command identifier # payload #  crc   #
@@ -1460,7 +1461,7 @@ void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
 
 }
 
-void NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen) {
+void NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
   /*
   #                PLAIN DATA                   #
   #command identifier  #   payload   #   crc    #
@@ -1802,8 +1803,13 @@ void NukiBle::setEventHandler(SmartlockEventHandler* handler) {
   eventHandler = handler;
 }
 
-ErrorCode NukiBle::getLastError() const {
+const ErrorCode NukiBle::getLastError() const {
   return errorCode;
+}
+
+const bool NukiBle::isPairedWithLock() const
+{
+  return isPaired;
 };
 
 } // namespace Nuki
