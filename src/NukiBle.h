@@ -32,14 +32,12 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool pairNuki();
     void unPairNuki();
 
-    ErrorCode getLastError() const;
-    bool isPairedWithLock() const {
-      return isPaired;
-    }
+    const ErrorCode getLastError() const;
+    const bool isPairedWithLock() const;
 
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
-    CmdResult lockAction(LockAction lockAction, uint32_t nukiAppId = 1, uint8_t flags = 0, unsigned char* nameSuffix = nullptr, uint8_t nameSuffixLen = 0);
+    CmdResult lockAction(const LockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0, const char* nameSuffix = nullptr, const uint8_t nameSuffixLen = 0);
 
     CmdResult requestConfig(Config* retrievedConfig);
     CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
@@ -48,15 +46,15 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool isBatteryCritical();
     bool isBatteryCharging();
     uint8_t getBatteryPerc();
-    CmdResult retrieveLogEntries(uint32_t startIndex, uint16_t count, uint8_t sortOrder, bool totalCount);
+    CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, const bool totalCount);
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
 
     CmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
     CmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
-    CmdResult retrieveKeypadEntries(uint16_t offset, uint16_t count);
+    CmdResult retrieveKeypadEntries(const uint16_t offset, const uint16_t count);
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
 
-    CmdResult retrieveAuthorizationEntries(uint16_t offset, uint16_t count);
+    CmdResult retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count);
     void getAuthorizationEntries(std::list<AuthorizationEntry>* requestedAuthorizationEntries);
     CmdResult addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
     CmdResult updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
@@ -72,31 +70,31 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     CmdResult retrieveTimeControlEntries();
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
-    bool saveSecurityPincode(uint16_t pinCode);
-    CmdResult setSecurityPin(uint16_t newSecurityPin);
+    bool saveSecurityPincode(const uint16_t pinCode);
+    CmdResult setSecurityPin(const uint16_t newSecurityPin);
     CmdResult verifySecurityPin();
 
     //basic config changes
-    CmdResult enablePairing(bool enable);
-    CmdResult enableButton(bool enable);
-    CmdResult enableLedFlash(bool enable);
-    CmdResult setLedBrightness(uint8_t level);
-    CmdResult enableSingleLock(bool enable);
-    CmdResult setAdvertisingMode(AdvertisingMode mode);
-    CmdResult setName(std::string name);
-    CmdResult enableDst(bool enable);
-    CmdResult setTimeZoneOffset(int16_t minutes);
-    CmdResult setTimeZoneId(TimeZoneId timeZoneId);
+    CmdResult enablePairing(const bool enable);
+    CmdResult enableButton(const bool enable);
+    CmdResult enableLedFlash(const bool enable);
+    CmdResult setLedBrightness(const uint8_t level);
+    CmdResult enableSingleLock(const bool enable);
+    CmdResult setAdvertisingMode(const AdvertisingMode mode);
+    CmdResult setName(const std::string& name);
+    CmdResult enableDst(const bool enable);
+    CmdResult setTimeZoneOffset(const int16_t minutes);
+    CmdResult setTimeZoneId(const TimeZoneId timeZoneId);
 
     //advanced config changes
-    CmdResult setSingleButtonPressAction(ButtonPressAction action);
-    CmdResult setDoubleButtonPressAction(ButtonPressAction action);
-    CmdResult setBatteryType(BatteryType type);
-    CmdResult enableAutoBatteryTypeDetection(bool enable);
-    CmdResult disableAutoUnlock(bool disable);
-    CmdResult enableAutoLock(bool enable);
-    CmdResult enableImmediateAutoLock(bool enable);
-    CmdResult enableAutoUpdate(bool enable);
+    CmdResult setSingleButtonPressAction(const ButtonPressAction action);
+    CmdResult setDoubleButtonPressAction(const ButtonPressAction action);
+    CmdResult setBatteryType(const BatteryType type);
+    CmdResult enableAutoBatteryTypeDetection(const bool enable);
+    CmdResult disableAutoUnlock(const bool disable);
+    CmdResult enableAutoLock(const bool enable);
+    CmdResult enableImmediateAutoLock(const bool enable);
+    CmdResult enableAutoUpdate(const bool enable);
 
     void initialize();
     void registerBleScanner(BLEScannerPublisher* bleScanner);
@@ -106,15 +104,15 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool takeNukiBleSemaphore(std::string owner);
     void giveNukiBleSemaphore();
 
-    bool connectBle(BLEAddress bleAddress);
+    bool connectBle(const BLEAddress bleAddress);
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
-    bool sendPlainMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen);
-    bool sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, uint8_t payloadLen);
+    void sendPlainMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
+    void sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
 
     void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
@@ -143,10 +141,10 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     BLERemoteService* pKeyturnerDataService = nullptr;
     BLERemoteCharacteristic* pUsdioCharacteristic = nullptr;
 
-    CmdResult cmdStateMachine(Action action);
-    CmdResult executeAction(Action action);
-    CmdResult cmdChallStateMachine(Action action, bool sendPinCode = false);
-    CmdResult cmdChallAccStateMachine(Action action);
+    CmdResult cmdStateMachine(const Action action);
+    CmdResult executeAction(const Action action);
+    CmdResult cmdChallStateMachine(const Action action, const bool sendPinCode = false);
+    CmdResult cmdChallAccStateMachine(const Action action);
 
     CommandState nukiCommandState = CommandState::Idle;
 
