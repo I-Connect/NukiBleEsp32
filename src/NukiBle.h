@@ -6,6 +6,7 @@
  *      Author: Jeroen
  */
 
+#include "FreeRTOS.h"
 #include "NimBLEDevice.h"
 #include "NukiConstants.h"
 #include "NukiDataTypes.h"
@@ -36,7 +37,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
 
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
-    CmdResult lockAction(const LockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0, const char* nameSuffix = nullptr);
+    CmdResult lockAction(const LockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0, const char* nameSuffix = nullptr, const uint8_t nameSuffixLen = 0);
 
     CmdResult requestConfig(Config* retrievedConfig);
     CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
@@ -99,6 +100,9 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     void registerBleScanner(BLEScannerPublisher* bleScanner);
 
   private:
+    FreeRTOS::Semaphore nukiBleSemaphore;
+    bool takeNukiBleSemaphore(std::string owner);
+    void giveNukiBleSemaphore();
 
     bool connectBle(const BLEAddress bleAddress);
     void onConnect(BLEClient*) override;
@@ -177,6 +181,7 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     std::list<TimeControlEntry> listOfTimeControlEntries;
+
 };
 
 } // namespace Nuki
