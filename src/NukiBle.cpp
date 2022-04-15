@@ -562,7 +562,7 @@ CmdResult NukiBle::requestBatteryReport(BatteryReport* retrievedBatteryReport) {
   return result;
 }
 
-CmdResult NukiBle::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const unsigned char* nameSuffix, const uint8_t nameSuffixLen) {
+CmdResult NukiBle::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
   unsigned char payload[5 + nameSuffixLen] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
@@ -1450,7 +1450,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
   return nukiPairingState;
 }
 
-void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
+bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
   /*
   #     ADDITIONAL DATA (not encr)      #                    PLAIN DATA (encr)                             #
   #  nonce  # auth identifier # msg len # authorization identifier # command identifier # payload #  crc   #
@@ -1514,7 +1514,7 @@ void NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
   return false;
 }
 
-void NukiBle::sendPlainMessage(Command commandIdentifier, const char* payload, const uint8_t payloadLen) {
+bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
   /*
   #                PLAIN DATA                   #
   #command identifier  #   payload   #   crc    #
@@ -1861,8 +1861,7 @@ const ErrorCode NukiBle::getLastError() const {
   return errorCode;
 }
 
-const bool NukiBle::isPairedWithLock() const
-{
+const bool NukiBle::isPairedWithLock() const {
   return isPaired;
 };
 

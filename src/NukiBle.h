@@ -111,8 +111,8 @@ class NukiBle : public BLEClientCallbacks, BLEScannerSubscriber {
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
-    void sendPlainMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
-    void sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
+    bool sendPlainMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
+    bool sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
 
     void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
