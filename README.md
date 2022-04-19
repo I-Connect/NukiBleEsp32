@@ -22,10 +22,20 @@ Logging can be enabled by setting the following defines (these are also availabl
 
 (More documentation will be added later)
 
+## BT processes
+- The ESP establishes a new BT connection every time a command is sent, when no data is sent anymore the lock times out the connection.
+- Scanning goes on continuously on the ESP with intervals chosen in such a way that it will never miss an advertisement sent from the lock.
+- The lock always continuously sends advertisements (the interval is a setting in the config ( CmdResult setAdvertisingMode(AdvertisingMode mode); ), this interval determines the battery drain on the lock). When the lock state is changed a parameter is changed in the advertisement. This causes the SmartLockEventHandler to be triggered and then you could initiate a follow up like requesting the keyturner state.
+
 ## Tested Hardware
 - ESP32 wroom
 - Nuki smart lock v2
 - Nuki smart lock v3
+
+## V0.0.4
+- Added semaphores to make it (more) threadsafe
+- Fixed handling payload len in lock action in case in case a namesuffix is used
+- Some general refactoring
 
 ## V0.0.3
 - Cleanup and refactor
