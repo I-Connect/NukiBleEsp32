@@ -63,5 +63,29 @@ struct Action {
   uint8_t payloadLen = 0;
 };
 
-
+inline void cmdResultToString(const CmdResult state, char* str) {
+  switch (state) {
+    case CmdResult::Success:
+      strcpy(str, "success");
+      break;
+    case CmdResult::Failed:
+      strcpy(str, "failed");
+      break;
+    case CmdResult::TimeOut:
+      strcpy(str, "timeOut");
+      break;
+    case CmdResult::Working:
+      strcpy(str, "working");
+      break;
+    case CmdResult::NotPaired:
+      strcpy(str, "notPaired");
+      break;
+    case CmdResult::Error:
+      strcpy(str, "error");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+  }
+}
 } // namespace Nuki
