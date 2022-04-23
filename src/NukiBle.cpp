@@ -533,13 +533,11 @@ void NukiBle::retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState) {
 }
 
 bool NukiBle::isBatteryCritical() {
-  //MSB/LSB!
-  return keyTurnerState.criticalBatteryState & (1 << 7);
+  return keyTurnerState.criticalBatteryState & 1;
 }
 
 bool NukiBle::isBatteryCharging() {
-  //MSB/LSB!
-  return keyTurnerState.criticalBatteryState & (1 << 6);
+  return keyTurnerState.criticalBatteryState & (1 << 1);
 }
 
 uint8_t NukiBle::getBatteryPerc() {
