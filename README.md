@@ -3,6 +3,8 @@ This lib is made for communicating directly to a Nuki smart lock via BLE without
 Implementation is according to [Nuki Smart Lock BLE API](https://developer.nuki.io/page/nuki-smart-lock-api-2/2/) 
 (kudo's to the Nuki developers for providing such an accurate and well made documentation!)
 
+Implementation is based on Espressif platform version 4.x.x
+
 ## How to use
 This library is runnable as is.
 
@@ -31,6 +33,11 @@ Logging can be enabled by setting the following defines (these are also availabl
 - ESP32 wroom
 - Nuki smart lock v2
 - Nuki smart lock v3
+
+## V0.0.5
+- Updated to Espressif platform 4.x.x
+- Fixed battery indications
+- Some general refactoring
 
 ## V0.0.4
 - Added semaphores to make it (more) threadsafe
