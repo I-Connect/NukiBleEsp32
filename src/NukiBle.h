@@ -6,7 +6,7 @@
  *      Author: Jeroen
  */
 
-#include "FreeRTOS.h"
+#include "RTOS.h"
 #include "NimBLEDevice.h"
 #include "NukiConstants.h"
 #include "NukiDataTypes.h"

@@ -26,11 +26,11 @@
   "dependencies": [
     {
       "name": "NimBLE-Arduino",
-      "version": "https://github.com/h2zero/NimBLE-Arduino.git"
+      "version": "h2zero/NimBLE-Arduino @ ^1.3.7"
     },
     {
       "name": "CRC16",
-      "version": "https://github.com/vinmenn/Crc16.git"
+      "version": "https://github.com/vinmenn/Crc16"
     }
   ]
 }
