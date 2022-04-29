@@ -286,17 +286,17 @@ void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
   log_d("allowedFromHour:%d", newKeypadEntry.allowedFromHour);
   log_d("allowedFromMin:%d", newKeypadEntry.allowedFromMin);
   log_d("allowedFromSec:%d", newKeypadEntry.allowedFromSec);
-  log_d("allowedUntillYear:%d", newKeypadEntry.allowedUntillYear);
-  log_d("allowedUntillMonth:%d", newKeypadEntry.allowedUntillMonth);
-  log_d("allowedUntillDay:%d", newKeypadEntry.allowedUntillDay);
-  log_d("allowedUntillHour:%d", newKeypadEntry.allowedUntillHour);
-  log_d("allowedUntillMin:%d", newKeypadEntry.allowedUntillMin);
-  log_d("allowedUntillSec:%d", newKeypadEntry.allowedUntillSec);
+  log_d("allowedUntilYear:%d", newKeypadEntry.allowedUntilYear);
+  log_d("allowedUntilMonth:%d", newKeypadEntry.allowedUntilMonth);
+  log_d("allowedUntilDay:%d", newKeypadEntry.allowedUntilDay);
+  log_d("allowedUntilHour:%d", newKeypadEntry.allowedUntilHour);
+  log_d("allowedUntilMin:%d", newKeypadEntry.allowedUntilMin);
+  log_d("allowedUntilSec:%d", newKeypadEntry.allowedUntilSec);
   log_d("allowedWeekdays:%d", newKeypadEntry.allowedWeekdays);
   log_d("allowedFromTimeHour:%d", newKeypadEntry.allowedFromTimeHour);
   log_d("allowedFromTimeMin:%d", newKeypadEntry.allowedFromTimeMin);
-  log_d("allowedUntillTimeHour:%d", newKeypadEntry.allowedUntillTimeHour);
-  log_d("allowedUntillTimeMin:%d", newKeypadEntry.allowedUntillTimeMin);
+  log_d("allowedUntilTimeHour:%d", newKeypadEntry.allowedUntilTimeHour);
+  log_d("allowedUntilTimeMin:%d", newKeypadEntry.allowedUntilTimeMin);
   #endif
 }
 
@@ -326,17 +326,17 @@ void logKeypadEntry(KeypadEntry keypadEntry) {
   log_d("allowedFromHour:%d", keypadEntry.allowedFromHour);
   log_d("allowedFromMin:%d", keypadEntry.allowedFromMin);
   log_d("allowedFromSec:%d", keypadEntry.allowedFromSec);
-  log_d("allowedUntillYear:%d", keypadEntry.allowedUntillYear);
-  log_d("allowedUntillMonth:%d", keypadEntry.allowedUntillMonth);
-  log_d("allowedUntillDay:%d", keypadEntry.allowedUntillDay);
-  log_d("allowedUntillHour:%d", keypadEntry.allowedUntillHour);
-  log_d("allowedUntillMin:%d", keypadEntry.allowedUntillMin);
-  log_d("allowedUntillSec:%d", keypadEntry.allowedUntillSec);
+  log_d("allowedUntilYear:%d", keypadEntry.allowedUntilYear);
+  log_d("allowedUntilMonth:%d", keypadEntry.allowedUntilMonth);
+  log_d("allowedUntilDay:%d", keypadEntry.allowedUntilDay);
+  log_d("allowedUntilHour:%d", keypadEntry.allowedUntilHour);
+  log_d("allowedUntilMin:%d", keypadEntry.allowedUntilMin);
+  log_d("allowedUntilSec:%d", keypadEntry.allowedUntilSec);
   log_d("allowedWeekdays:%d", keypadEntry.allowedWeekdays);
   log_d("allowedFromTimeHour:%d", keypadEntry.allowedFromTimeHour);
   log_d("allowedFromTimeMin:%d", keypadEntry.allowedFromTimeMin);
-  log_d("allowedUntillTimeHour:%d", keypadEntry.allowedUntillTimeHour);
-  log_d("allowedUntillTimeMin:%d", keypadEntry.allowedUntillTimeMin);
+  log_d("allowedUntilTimeHour:%d", keypadEntry.allowedUntilTimeHour);
+  log_d("allowedUntilTimeMin:%d", keypadEntry.allowedUntilTimeMin);
   #endif
 }
 
@@ -353,17 +353,17 @@ void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
   log_d("allowedFromHour:%d", updatedKeypadEntry.allowedFromHour);
   log_d("allowedFromMin:%d", updatedKeypadEntry.allowedFromMin);
   log_d("allowedFromSec:%d", updatedKeypadEntry.allowedFromSec);
-  log_d("allowedUntillYear:%d", updatedKeypadEntry.allowedUntillYear);
-  log_d("allowedUntillMonth:%d", updatedKeypadEntry.allowedUntillMonth);
-  log_d("allowedUntillDay:%d", updatedKeypadEntry.allowedUntillDay);
-  log_d("allowedUntillHour:%d", updatedKeypadEntry.allowedUntillHour);
-  log_d("allowedUntillMin:%d", updatedKeypadEntry.allowedUntillMin);
-  log_d("allowedUntillSec:%d", updatedKeypadEntry.allowedUntillSec);
+  log_d("allowedUntilYear:%d", updatedKeypadEntry.allowedUntilYear);
+  log_d("allowedUntilMonth:%d", updatedKeypadEntry.allowedUntilMonth);
+  log_d("allowedUntilDay:%d", updatedKeypadEntry.allowedUntilDay);
+  log_d("allowedUntilHour:%d", updatedKeypadEntry.allowedUntilHour);
+  log_d("allowedUntilMin:%d", updatedKeypadEntry.allowedUntilMin);
+  log_d("allowedUntilSec:%d", updatedKeypadEntry.allowedUntilSec);
   log_d("allowedWeekdays:%d", updatedKeypadEntry.allowedWeekdays);
   log_d("allowedFromTimeHour:%d", updatedKeypadEntry.allowedFromTimeHour);
   log_d("allowedFromTimeMin:%d", updatedKeypadEntry.allowedFromTimeMin);
-  log_d("allowedUntillTimeHour:%d", updatedKeypadEntry.allowedUntillTimeHour);
-  log_d("allowedUntillTimeMin:%d", updatedKeypadEntry.allowedUntillTimeMin);
+  log_d("allowedUntilTimeHour:%d", updatedKeypadEntry.allowedUntilTimeHour);
+  log_d("allowedUntilTimeMin:%d", updatedKeypadEntry.allowedUntilTimeMin);
   #endif
 }
 
@@ -403,8 +403,8 @@ void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
   log_d("allowedWeekdays:%d", authorizationEntry.allowedWeekdays);
   log_d("allowedFromTimeHour:%d", authorizationEntry.allowedFromTimeHour);
   log_d("allowedFromTimeMin:%d", authorizationEntry.allowedFromTimeMin);
-  log_d("allowedUntillTimeHour:%d", authorizationEntry.allowedUntillTimeHour);
-  log_d("allowedUntillTimeMin:%d", authorizationEntry.allowedUntillTimeMin);
+  log_d("allowedUntilTimeHour:%d", authorizationEntry.allowedUntilTimeHour);
+  log_d("allowedUntilTimeMin:%d", authorizationEntry.allowedUntilTimeMin);
   #endif
 }
 
@@ -429,8 +429,8 @@ void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
   log_d("allowedWeekdays:%d", newAuthorizationEntry.allowedWeekdays);
   log_d("allowedFromTimeHour:%d", newAuthorizationEntry.allowedFromTimeHour);
   log_d("allowedFromTimeMin:%d", newAuthorizationEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntillTimeHour);
-  log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntillTimeMin);
+  log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntilTimeHour);
+  log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntilTimeMin);
   #endif
 }
 
@@ -456,8 +456,8 @@ void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorization
   log_d("allowedWeekdays:%d", updatedAuthorizationEntry.allowedWeekdays);
   log_d("allowedFromTimeHour:%d", updatedAuthorizationEntry.allowedFromTimeHour);
   log_d("allowedFromTimeMin:%d", updatedAuthorizationEntry.allowedFromTimeMin);
-  log_d("allowedUntillTimeHour:%d", updatedAuthorizationEntry.allowedUntillTimeHour);
-  log_d("allowedUntillTimeMin:%d", updatedAuthorizationEntry.allowedUntillTimeMin);
+  log_d("allowedUntilTimeHour:%d", updatedAuthorizationEntry.allowedUntilTimeHour);
+  log_d("allowedUntilTimeMin:%d", updatedAuthorizationEntry.allowedUntilTimeMin);
   #endif
 }
 

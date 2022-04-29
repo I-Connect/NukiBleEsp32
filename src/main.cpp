@@ -32,16 +32,16 @@ void addKeypadEntry() {
   newKeypadEntry.allowedFromHour = 0;
   newKeypadEntry.allowedFromMin = 0;
   newKeypadEntry.allowedFromSec = 0;
-  newKeypadEntry.allowedUntillYear = 2023;
-  newKeypadEntry.allowedUntillMonth = 1;
-  newKeypadEntry.allowedUntillDay = 1;
-  newKeypadEntry.allowedUntillHour = 0;
-  newKeypadEntry.allowedUntillMin = 0;
-  newKeypadEntry.allowedUntillSec = 0;
+  newKeypadEntry.allowedUntilYear = 2023;
+  newKeypadEntry.allowedUntilMonth = 1;
+  newKeypadEntry.allowedUntilDay = 1;
+  newKeypadEntry.allowedUntilHour = 0;
+  newKeypadEntry.allowedUntilMin = 0;
+  newKeypadEntry.allowedUntilSec = 0;
   newKeypadEntry.allowedFromTimeHour = 0;
   newKeypadEntry.allowedFromTimeMin = 0;
-  newKeypadEntry.allowedUntillTimeHour = 23;
-  newKeypadEntry.allowedUntillTimeMin = 59;
+  newKeypadEntry.allowedUntilTimeHour = 23;
+  newKeypadEntry.allowedUntilTimeMin = 59;
 
   nukiBle.addKeypadEntry(newKeypadEntry);
 }

@@ -2,6 +2,7 @@
 #include <NimBLEUtils.h>
 #include <NimBLEScan.h>
 #include <NimBLEAdvertisedDevice.h>
+#include "esp32-hal-log.h"
 
 BleScanner::BleScanner(int reservedSubscribers) {
   subscribers.reserve(reservedSubscribers);

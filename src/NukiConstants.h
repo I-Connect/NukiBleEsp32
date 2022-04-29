@@ -282,19 +282,19 @@ struct __attribute__((packed)) NewKeypadEntry {
   uint8_t allowedFromHour;
   uint8_t allowedFromMin;
   uint8_t allowedFromSec;
-  uint16_t allowedUntillYear;
-  uint8_t allowedUntillMonth;
-  uint8_t allowedUntillDay;
-  uint8_t allowedUntillHour;
-  uint8_t allowedUntillMin;
-  uint8_t allowedUntillSec;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMin;
+  uint8_t allowedUntilSec;
   // bit 7  6  5  4  3  2  1  0
   //     -  M  T  W  T  F  S  S
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
-  uint8_t allowedUntillTimeHour;
-  uint8_t allowedUntillTimeMin;
+  uint8_t allowedUntilTimeHour;
+  uint8_t allowedUntilTimeMin;
 };
 
 struct __attribute__((packed)) KeypadEntry {
@@ -322,20 +322,20 @@ struct __attribute__((packed)) KeypadEntry {
   uint8_t allowedFromHour;
   uint8_t allowedFromMin;
   uint8_t allowedFromSec;
-  uint16_t allowedUntillYear;
-  uint8_t allowedUntillMonth;
-  uint8_t allowedUntillDay;
-  uint8_t allowedUntillHour;
-  uint8_t allowedUntillMin;
-  uint8_t allowedUntillSec;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMin;
+  uint8_t allowedUntilSec;
 
   // bit 7  6  5  4  3  2  1  0
   //     -  M  T  W  T  F  S  S
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
-  uint8_t allowedUntillTimeHour;
-  uint8_t allowedUntillTimeMin;
+  uint8_t allowedUntilTimeHour;
+  uint8_t allowedUntilTimeMin;
 };
 
 struct __attribute__((packed)) UpdatedKeypadEntry {
@@ -350,19 +350,19 @@ struct __attribute__((packed)) UpdatedKeypadEntry {
   uint8_t allowedFromHour;
   uint8_t allowedFromMin;
   uint8_t allowedFromSec;
-  uint16_t allowedUntillYear;
-  uint8_t allowedUntillMonth;
-  uint8_t allowedUntillDay;
-  uint8_t allowedUntillHour;
-  uint8_t allowedUntillMin;
-  uint8_t allowedUntillSec;
+  uint16_t allowedUntilYear;
+  uint8_t allowedUntilMonth;
+  uint8_t allowedUntilDay;
+  uint8_t allowedUntilHour;
+  uint8_t allowedUntilMin;
+  uint8_t allowedUntilSec;
   // bit 7  6  5  4  3  2  1  0
   //     -  M  T  W  T  F  S  S
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
-  uint8_t allowedUntillTimeHour;
-  uint8_t allowedUntillTimeMin;
+  uint8_t allowedUntilTimeHour;
+  uint8_t allowedUntilTimeMin;
 };
 
 struct __attribute__((packed)) KeyTurnerState {
@@ -548,8 +548,8 @@ struct __attribute__((packed)) AuthorizationEntry {
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
-  uint8_t allowedUntillTimeHour;
-  uint8_t allowedUntillTimeMin;
+  uint8_t allowedUntilTimeHour;
+  uint8_t allowedUntilTimeMin;
 };
 
 struct __attribute__((packed)) NewAuthorizationEntry {
@@ -573,8 +573,8 @@ struct __attribute__((packed)) NewAuthorizationEntry {
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
-  uint8_t allowedUntillTimeHour;
-  uint8_t allowedUntillTimeMin;
+  uint8_t allowedUntilTimeHour;
+  uint8_t allowedUntilTimeMin;
 };
 
 struct __attribute__((packed)) UpdatedAuthorizationEntry {
@@ -598,8 +598,8 @@ struct __attribute__((packed)) UpdatedAuthorizationEntry {
   uint8_t allowedWeekdays;
   uint8_t allowedFromTimeHour;
   uint8_t allowedFromTimeMin;
-  uint8_t allowedUntillTimeHour;
-  uint8_t allowedUntillTimeMin;
+  uint8_t allowedUntilTimeHour;
+  uint8_t allowedUntilTimeMin;
 };
 
 struct __attribute__((packed)) TimeControlEntry {
