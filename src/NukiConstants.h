@@ -635,6 +635,9 @@ inline void lockstateToString(const LockState state, char* str) {
     case LockState::Locked:
       strcpy(str, "locked");
       break;
+    case LockState::Unlocking:
+      strcpy(str, "unlocking");
+      break;
     case LockState::Locking:
       strcpy(str, "locking");
       break;
