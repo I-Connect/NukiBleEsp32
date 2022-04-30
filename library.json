@@ -26,11 +26,15 @@
   "dependencies": [
     {
       "name": "NimBLE-Arduino",
-      "version": "h2zero/NimBLE-Arduino @ ^1.3.7"
+      "version": "h2zero/NimBLE-Arduino @ ^1.3.8"
     },
     {
       "name": "CRC16",
       "version": "https://github.com/vinmenn/Crc16"
+    },
+    {
+      "name": "BleScanner",
+      "version": "https://github.com/I-Connect/Blescanner"
     }
   ]
 }
