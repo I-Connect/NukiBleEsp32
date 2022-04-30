@@ -26,7 +26,7 @@
   "dependencies": [
     {
       "name": "NimBLE-Arduino",
-      "version": "h2zero/NimBLE-Arduino @ ^1.3.7"
+      "version": "h2zero/NimBLE-Arduino @ ^1.3.6"
     },
     {
       "name": "CRC16",
