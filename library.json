@@ -31,6 +31,10 @@
     {
       "name": "CRC16",
       "version": "https://github.com/vinmenn/Crc16"
+    },
+    {
+      "name": "BleScanner",
+      "version": "https://github.com/I-Connect/Blescanner"
     }
   ]
 }
