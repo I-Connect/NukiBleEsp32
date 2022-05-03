@@ -27,7 +27,7 @@
 
 namespace Nuki {
 
-class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
+class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
   public:
     NukiBle(const std::string& deviceName, const uint32_t deviceId);
     virtual ~NukiBle();
@@ -65,14 +65,14 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
     /**
      * @brief Requests keyturner state from Lock via BLE
      *
-     * @param retrievedKeyTurnerState Nuki api based datatype to store the retreived keyturnerstate
+     * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
      */
     CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
 
     /**
      * @brief Gets the last keyturner state stored on the esp
      *
-     * @param retrievedKeyTurnerState Nuki api based datatype to store the retreived keyturnerstate
+     * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
      */
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
 
@@ -92,26 +92,28 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
     /**
      * @brief Requests config from Lock via BLE
      *
-     * @param retrievedConfig Nuki api based datatype to store the retreived config
+     * @param retrievedConfig Nuki api based datatype to store the retrieved config
      */
     CmdResult requestConfig(Config* retrievedConfig);
 
     /**
      * @brief Requests advanced config from Lock via BLE
      *
-     * @param retrievedAdvancedConfig Nuki api based datatype to store the retreived advanced config
+     * @param retrievedAdvancedConfig Nuki api based datatype to store the retrieved advanced config
      */
     CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
 
     /**
      * @brief Requests battery status from Lock via BLE
      *
-     * @param retrievedBatteryReport Nuki api based datatype to store the retreived battery status
+     * @param retrievedBatteryReport Nuki api based datatype to store the retrieved battery status
      */
     CmdResult requestBatteryReport(BatteryReport* retrievedBatteryReport);
 
     /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
+     *
+     * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
      *
      * @return true if critical
      */
@@ -120,12 +122,16 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
     /**
      * @brief Returns battery charging state parsed from the battery state byte (battery critical byte)
      *
+     * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
+     *
      * @return true if charging
      */
     bool isBatteryCharging();
 
     /**
      * @brief Returns battery charge percentage state parsed from the battery state byte (battery critical byte)
+     *
+     * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
      *
      * @return percentage
      */
@@ -239,7 +245,7 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
      * (see addTimeControlEntry())
      *
      * @param TimeControlEntry Nuki api based datatype to send.
-     * The ID can be retreived via retrieveTimeControlEntries()
+     * The ID can be retrieved via retrieveTimeControlEntries()
      */
     CmdResult updateTimeControlEntry(TimeControlEntry TimeControlEntry);
 
@@ -247,7 +253,7 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
      * @brief Deletes a time(d) control entry via BLE to the lock.
      * (see addTimeControlEntry())
      *
-     * @param entryId The ID to be deleted, can be retreived via retrieveTimeControlEntries()
+     * @param entryId The ID to be deleted, can be retrieved via retrieveTimeControlEntries()
      */
     CmdResult removeTimeControlEntry(uint8_t entryId);
 
@@ -337,7 +343,7 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
      * @brief Gets the current config from the lock, updates the name parameter and sends the
      * new config to the lock via BLE
      *
-     * @param name 32 byte name
+     * @param name max 32 character name
      */
     CmdResult setName(const std::string& name);
 
@@ -448,9 +454,7 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
 
     /**
      * @brief Registers the BLE scanner to be used for scanning for advertisements from the lock.
-     * The scanner is not within this library to enable it to be used for other BLE devices
-     * if used in the same project
-     * https://github.com/I-Connect/BleScanner.git can be used to provide the scanner publisher
+     * BleScanner::Publisher is defined in dependent library https://github.com/I-Connect/BleScanner.git
      *
      * @param bleScanner the publisher of the BLE scanner
      */
