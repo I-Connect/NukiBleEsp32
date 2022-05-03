@@ -36,7 +36,7 @@ Logging can be enabled by setting the following defines (these are also availabl
 
         void setup() {
           scanner.initialize();
-          scanner.subscribe(&nukiBle);
+          nukiBle.registerBleScanner(&scanner);
           nukiBle.initialize();
           nukiBle.setEventHandler(&handler);
         }
