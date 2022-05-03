@@ -1,8 +1,13 @@
-/*
- * NukiBle.cpp
+/**
+ * @file NukiBle.cpp
  *
- *  Created on: 14 okt. 2020
- *      Author: Jeroen
+ * Created: 2022
+ * License: GNU GENERAL PUBLIC LICENSE (see LICENSE)
+ *
+ * This library implements the communication from an ESP32 via BLE to a Nuki smart lock.
+ * Based on the Nuki Smart Lock API V2.2.1
+ * https://developer.nuki.io/page/nuki-smart-lock-api-2/2/
+ *
  */
 
 #include "NukiBle.h"
@@ -41,13 +46,12 @@ void NukiBle::initialize() {
   }
 
   pClient = BLEDevice::createClient();
-  // pClient->setConnectionParams(12, 12, 0, 200); //according to recommendations Nuki (15ms, 15ms, 0, 2sec)
   pClient->setClientCallbacks(this);
 
   isPaired = retrieveCredentials();
 }
 
-void NukiBle::registerBleScanner(BLEScannerPublisher* bleScanner) {
+void NukiBle::registerBleScanner(BleScanner::Publisher* bleScanner) {
   this->bleScanner = bleScanner;
   bleScanner->subscribe(this);
 }
