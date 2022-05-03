@@ -23,28 +23,28 @@ Logging can be enabled by setting the following defines (these are also availabl
 - DEBUG_NUKI_READABLE_DATA
 
 ## Setup
-- Define a `Handler` class derived from `Nuki::SmartlockEventHandler` which will implement the `notify(Nuki::EventType eventType)` method. This method will be called by the `BleScanner` when an advertisement has been received
-- Create instances of `BleScanner::Scanner` and the `Handler`
-- Create an instance of `Nuki::NukiBle` with a devicename and the id of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
-- Register the NukiBle with the BleScanner
-- Initialize both the scanner and the nukiBle
-- Register an instance of the `Handler` with the `nukiBle`
+1. Define a `Handler` class derived from `Nuki::SmartlockEventHandler` which will implement the `notify(Nuki::EventType eventType)` method. This method will be called by the `BleScanner` when an advertisement has been received
+1. Create instances of `BleScanner::Scanner` and the `Handler`
+1. Create an instance of `Nuki::NukiBle` with a devicename and the id of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
+1. Register the NukiBle with the BleScanner
+1. Initialize both the scanner and the nukiBle
+1. Register an instance of the `Handler` with the `nukiBle`
 
-    Nuki::NukiBle nukiBle{deviceName, deviceId};
-    BleScanner::Scanner scanner;
-    Handler handler;
+        Nuki::NukiBle nukiBle{deviceName, deviceId};
+        BleScanner::Scanner scanner;
+        Handler handler;
 
-    void setup() {
-      scanner.initialize();
-      scanner.subscribe(&nukiBle);
-      nukiBle.initialize();
-      nukiBle.setEventHandler(&handler);
-    }
+        void setup() {
+          scanner.initialize();
+          scanner.subscribe(&nukiBle);
+          nukiBle.initialize();
+          nukiBle.setEventHandler(&handler);
+        }
 
-    void loop() {
-      scanner.update();
-      delay(10);
-    }
+        void loop() {
+          scanner.update();
+          delay(10);
+        }
 
 
 ## BT processes
