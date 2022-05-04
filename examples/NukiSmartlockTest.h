@@ -6,11 +6,12 @@
 #include "Arduino.h"
 #include "NukiBle.h"
 #include "NukiConstants.h"
+#include "BleScanner.h"
 
 uint32_t deviceId = 2020001;
 std::string deviceName = "frontDoor";
 Nuki::NukiBle nukiBle(deviceName, deviceId);
-BleScanner scanner;
+BleScanner::Scanner scanner;
 
 Nuki::KeyTurnerState retrievedKeyTurnerState;
 Nuki::BatteryReport _batteryReport;

@@ -1,4 +1,16 @@
 #pragma once
+/**
+ * @file NukiConstants.h
+ * Definitions of constants and data types based on Nuki smart lock api
+ *
+ * Created: 2022
+ * License: GNU GENERAL PUBLIC LICENSE (see LICENSE)
+ *
+ * This library implements the communication from an ESP32 via BLE to a Nuki smart lock.
+ * Based on the Nuki Smart Lock API V2.2.1
+ * https://developer.nuki.io/page/nuki-smart-lock-api-2/2/
+ *
+ */
 
 #include "NimBLEUUID.h"
 

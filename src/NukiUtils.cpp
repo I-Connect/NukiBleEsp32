@@ -1,3 +1,16 @@
+/**
+ * @file NukiUtills.cpp
+ * Implementation of generic/helper functions
+ *
+ * Created on: 2022
+ * License: GNU GENERAL PUBLIC LICENSE (see LICENSE)
+ *
+ * This library implements the communication from an ESP32 via BLE to a Nuki smart lock.
+ * Based on the Nuki Smart Lock API V2.2.1
+ * https://developer.nuki.io/page/nuki-smart-lock-api-2/2/
+ *
+ */
+
 #include "NukiUtils.h"
 
 #include "sodium/crypto_secretbox.h"
@@ -43,6 +56,32 @@ bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len) {
     }
   }
   return true;
+}
+
+inline void cmdResultToString(const CmdResult state, char* str) {
+  switch (state) {
+    case CmdResult::Success:
+      strcpy(str, "success");
+      break;
+    case CmdResult::Failed:
+      strcpy(str, "failed");
+      break;
+    case CmdResult::TimeOut:
+      strcpy(str, "timeOut");
+      break;
+    case CmdResult::Working:
+      strcpy(str, "working");
+      break;
+    case CmdResult::NotPaired:
+      strcpy(str, "notPaired");
+      break;
+    case CmdResult::Error:
+      strcpy(str, "error");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+  }
 }
 
 int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS) {
