@@ -603,7 +603,7 @@ CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint16_t c
 }
 
 CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
-  //TODO verify data validity
+  //TODO verify data validity, ie check for invalid chars in name
   Action action;
 
   action.cmdType = CommandType::CommandWithChallengeAndPin;

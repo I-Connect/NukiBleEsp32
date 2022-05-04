@@ -153,6 +153,9 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
      * @brief Send a new keypad entry to the lock via BLE
      *
      * @param newKeypadEntry Nuki api based datatype to be sent
+     * Keypad Codes that start with 12 are not allowed
+     * 0 is not allowed
+     * Duplicates are not allowed
      */
     CmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
 
@@ -160,6 +163,9 @@ class NukiBle : public BLEClientCallbacks, BleScanner::Subscriber {
      * @brief Send an updated keypad entry to the lock via BLE
      *
      * @param updatedKeypadEntry Nuki api based datatype to be sent
+     * Keypad Codes that start with 12 are not allowed
+     * 0 is not allowed
+     * Duplicates are not allowed
      */
     CmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
 
