@@ -740,11 +740,14 @@ CmdResult NukiBle::retrieveLogEntries(const uint32_t startIndex, const uint16_t 
 
 void NukiBle::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
   requestedLogEntries->clear();
-  std::list<LogEntry>::iterator it = listOfLogEntries.begin();
-  while (it != listOfLogEntries.end()) {
-    requestedLogEntries->push_back(*it);
-    it++;
+
+  for (const auto& it : listOfLogEntries) {
+    requestedLogEntries->push_back(it);
   }
+}
+
+uint16_t NukiBle::getLogEntryCount() {
+  return logEntryCount;
 }
 
 CmdResult NukiBle::requestConfig(Config* retrievedConfig) {
