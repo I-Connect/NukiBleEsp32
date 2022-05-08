@@ -58,7 +58,7 @@ bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len) {
   return true;
 }
 
-inline void cmdResultToString(const CmdResult state, char* str) {
+void cmdResultToString(const CmdResult state, char* str) {
   switch (state) {
     case CmdResult::Success:
       strcpy(str, "success");

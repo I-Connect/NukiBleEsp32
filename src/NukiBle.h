@@ -149,11 +149,16 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
                                  const bool totalCount);
 
     /**
-     * @brief Get the Log Entries stored on the esp (after executing retreieveLogEntries)
+     * @brief Get the Log Entries stored on the esp. Only available after executing retreieveLogEntries.
      *
      * @param requestedLogEntries list to store the returned log entries
      */
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+
+    /**
+     * @brief Returns the log entry count. Only available after executing retreieveLogEntries.
+     */
+    uint16_t getLogEntryCount();
 
     /**
      * @brief Send a new keypad entry to the lock via BLE
