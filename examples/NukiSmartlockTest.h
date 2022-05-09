@@ -190,7 +190,7 @@ void setup() {
 void loop() {
   scanner.update();
   if (!nukiBle.isPairedWithLock()) {
-    if (nukiBle.pairNuki()) {
+    if (nukiBle.pairNuki() == Nuki::PairingResult::Success) {
       log_d("paired");
       nukiBle.setEventHandler(&handler);
       getConfig();

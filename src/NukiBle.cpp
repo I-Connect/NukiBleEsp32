@@ -56,15 +56,15 @@ void NukiBle::registerBleScanner(BleScanner::Publisher* bleScanner) {
   bleScanner->subscribe(this);
 }
 
-bool NukiBle::pairNuki() {
+PairingResult NukiBle::pairNuki() {
   if (retrieveCredentials()) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
     #endif
     isPaired = true;
-    return true;
+    return PairingResult::Success;
   }
-  bool result = false;
+  PairingResult result = PairingResult::Pairing;
 
   if (bleAddress != BLEAddress("")) {
     if (connectBle(bleAddress)) {
@@ -78,7 +78,9 @@ bool NukiBle::pairNuki() {
 
       if (nukiPairingState == PairingState::Success) {
         saveCredentials();
-        result = true;
+        result = PairingResult::Success;
+      } else {
+        result = PairingResult::Timeout;
       }
     }
   } else {
@@ -86,7 +88,7 @@ bool NukiBle::pairNuki() {
     log_d("No nuki in pairing mode found");
     #endif
   }
-  isPaired = result;
+  isPaired = result == PairingResult::Success;
   return result;
 }
 
@@ -175,6 +177,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
         log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
         #endif
         bleAddress = advertisedDevice->getAddress();
+
       }
     }
   }

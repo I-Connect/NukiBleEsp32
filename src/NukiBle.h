@@ -42,10 +42,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     /**
      * @brief Checks if credentials are stored in preferences, if not initiate pairing
      *
-     * @return true if paired
-     * @return false if not paired or pairing failed
+     * @return
      */
-    bool pairNuki();
+    PairingResult pairNuki();
 
     /**
      * @brief Delete stored credentials

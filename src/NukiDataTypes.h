@@ -36,6 +36,12 @@ enum CmdResult : uint8_t {
   Error     = 99
 };
 
+enum PairingResult : uint8_t {
+  Pairing,
+  Success,
+  Timeout
+};
+
 enum class PairingState {
   InitPairing       = 0,
   ReqRemPubKey      = 1,
