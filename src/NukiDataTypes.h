@@ -36,7 +36,7 @@ enum CmdResult : uint8_t {
   Error     = 99
 };
 
-enum PairingResult : uint8_t {
+enum class PairingResult : uint8_t {
   Pairing,
   Success,
   Timeout
