@@ -88,6 +88,7 @@ PairingResult NukiBle::pairNuki() {
     log_d("No nuki in pairing mode found");
     #endif
   }
+  log_d("pairing result %d", result);
   isPaired = result == PairingResult::Success;
   return result;
 }
@@ -1260,34 +1261,42 @@ bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
 
-  if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
-      && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
-      && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
-      && (preferences.getBytes(AUTH_ID_STORE_NAME, authorizationId, 4) > 0)
-     ) {
-    bleAddress = BLEAddress(buff);
+  if (takeNukiBleSemaphore(NUKI_SEMAPHORE_OWNER)) {
+    if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
+        && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
+        && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
+        && (preferences.getBytes(AUTH_ID_STORE_NAME, authorizationId, 4) > 0)
+       ) {
+      bleAddress = BLEAddress(buff);
 
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("[%s] Credentials retrieved :", deviceName.c_str());
-    printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
-    log_d("bleAddress: %s", bleAddress.toString().c_str());
-    printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
-    log_d("PinCode: %d", pinCode);
-    #endif
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("[%s] Credentials retrieved :", deviceName.c_str());
+      printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
+      log_d("bleAddress: %s", bleAddress.toString().c_str());
+      printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
+      log_d("PinCode: %d", pinCode);
+      #endif
 
-    if (pinCode == 0) {
-      log_w("Pincode is 000000");
+      if (pinCode == 0) {
+        log_w("Pincode is 000000");
+      }
+
+    } else {
+      giveNukiBleSemaphore();
+      return false;
     }
-
-  } else {
-    return false;
+    giveNukiBleSemaphore();
   }
+
   return true;
 }
 
 void NukiBle::deleteCredentials() {
-  preferences.remove(SECRET_KEY_STORE_NAME);
-  preferences.remove(AUTH_ID_STORE_NAME);
+  if (takeNukiBleSemaphore(NUKI_SEMAPHORE_OWNER)) {
+    preferences.remove(SECRET_KEY_STORE_NAME);
+    preferences.remove(AUTH_ID_STORE_NAME);
+    giveNukiBleSemaphore();
+  }
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Credentials deleted");
   #endif
