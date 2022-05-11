@@ -66,7 +66,7 @@ PairingResult NukiBle::pairNuki() {
   }
   PairingResult result = PairingResult::Pairing;
 
-  if (bleAddress != BLEAddress("")) {
+  if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
     if (connectBle(bleAddress)) {
       crypto_box_keypair(myPublicKey, myPrivateKey);
 
@@ -82,13 +82,18 @@ PairingResult NukiBle::pairNuki() {
       } else {
         result = PairingResult::Timeout;
       }
+      pClient->disconnect();
     }
   } else {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("No nuki in pairing mode found");
     #endif
   }
+
+  #ifdef DEBUG_NUKI_CONNECT
   log_d("pairing result %d", result);
+  #endif
+  
   isPaired = result == PairingResult::Success;
   return result;
 }
@@ -102,16 +107,19 @@ void NukiBle::unPairNuki() {
 }
 
 bool NukiBle::connectBle(const BLEAddress bleAddress) {
+  bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
     while (connectRetry < 10) {
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
+          bleScanner->enableScanning(true);
           return true;
         } else {
           log_w("BLE register on pairing or data Service/Char failed");
         }
       } else {
+        pClient->disconnect();
         log_w("BLE Connect failed");
       }
       connectRetry++;
@@ -119,8 +127,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
       delay(500);
     }
   } else {
+    bleScanner->enableScanning(true);
     return true;
   }
+  bleScanner->enableScanning(true);
   return false;
 }
 
@@ -178,7 +188,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
         log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
         #endif
         bleAddress = advertisedDevice->getAddress();
-
+        pairingServiceAvailable = true;
       }
     }
   }
@@ -208,6 +218,7 @@ CmdResult NukiBle::executeAction(const Action action) {
         CmdResult result = cmdStateMachine(action);
         if (result != CmdResult::Working) {
           giveNukiBleSemaphore();
+          pClient->disconnect();
           return result;
         }
         esp_task_wdt_reset();
@@ -219,6 +230,7 @@ CmdResult NukiBle::executeAction(const Action action) {
         CmdResult result = cmdChallStateMachine(action);
         if (result != CmdResult::Working) {
           giveNukiBleSemaphore();
+          pClient->disconnect();
           return result;
         }
         esp_task_wdt_reset();
@@ -229,6 +241,7 @@ CmdResult NukiBle::executeAction(const Action action) {
         CmdResult result = cmdChallAccStateMachine(action);
         if (result != CmdResult::Working) {
           giveNukiBleSemaphore();
+          pClient->disconnect();
           return result;
         }
         esp_task_wdt_reset();
@@ -239,6 +252,7 @@ CmdResult NukiBle::executeAction(const Action action) {
         CmdResult result = cmdChallStateMachine(action, true);
         if (result != CmdResult::Working) {
           giveNukiBleSemaphore();
+          pClient->disconnect();
           return result;
         }
         esp_task_wdt_reset();

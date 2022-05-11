@@ -29,6 +29,7 @@ Logging can be enabled by setting the following defines (these are also availabl
 1. Register the NukiBle with the BleScanner
 1. Initialize both the scanner and the nukiBle
 1. Register an instance of the `Handler` with the `nukiBle`
+1. DO NOT execute any BLE actions within the `notify(Nuki::EventType eventType)` method as this runs in the BleScanner context and BLE is not able to handle this simultaniously
 
         Nuki::NukiBle nukiBle{deviceName, deviceId};
         BleScanner::Scanner scanner;

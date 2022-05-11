@@ -503,6 +503,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Preferences preferences;
 
     BLEAddress bleAddress = BLEAddress("");
+    bool pairingServiceAvailable = false;
     std::string deviceName;       //The name to be displayed for this authorization and used for storing preferences
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
     BLEClient* pClient;
