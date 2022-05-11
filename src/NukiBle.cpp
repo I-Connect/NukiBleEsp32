@@ -93,7 +93,7 @@ PairingResult NukiBle::pairNuki() {
   #ifdef DEBUG_NUKI_CONNECT
   log_d("pairing result %d", result);
   #endif
-  
+
   isPaired = result == PairingResult::Success;
   return result;
 }
@@ -217,8 +217,8 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdStateMachine(action);
         if (result != CmdResult::Working) {
-          giveNukiBleSemaphore();
           pClient->disconnect();
+          giveNukiBleSemaphore();
           return result;
         }
         esp_task_wdt_reset();
@@ -229,8 +229,8 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdChallStateMachine(action);
         if (result != CmdResult::Working) {
-          giveNukiBleSemaphore();
           pClient->disconnect();
+          giveNukiBleSemaphore();
           return result;
         }
         esp_task_wdt_reset();
@@ -240,8 +240,8 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdChallAccStateMachine(action);
         if (result != CmdResult::Working) {
-          giveNukiBleSemaphore();
           pClient->disconnect();
+          giveNukiBleSemaphore();
           return result;
         }
         esp_task_wdt_reset();
@@ -251,8 +251,8 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdChallStateMachine(action, true);
         if (result != CmdResult::Working) {
-          giveNukiBleSemaphore();
           pClient->disconnect();
+          giveNukiBleSemaphore();
           return result;
         }
         esp_task_wdt_reset();
