@@ -1,3 +1,8 @@
+## V0.0.7 (2022-05-17)
+- tweaked semaphore timeouts and delays
+- added option to check if communication is done and then disconnect ble (saves battery and speeds up getting advertisements)
+- improved semaphore logging
+
 ## V0.0.6 (2022-05-03)
 - Removed local BLE scanner from library to be able to use the same scanner for multiple BLE devices in 1 project. https://github.com/I-Connect/BleScanner.git can be used.
 - Added/updated header to all files

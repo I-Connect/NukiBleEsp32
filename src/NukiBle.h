@@ -52,6 +52,24 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void unPairNuki();
 
     /**
+     * @brief checks the time past after last connect/communication sent, if the time past > timeout
+     * it will disconnect the BLE connection with the lock so that lock will start sending advertisements.
+     *
+     * This method is optional as the lock will also disconnect automaticlally after ~20 sec.
+     * If used this method should be run in loop or a task.
+     *
+     */
+    void updateConnectionState();
+
+    /**
+     * @brief Set the BLE Disonnect Timeout, if longer than ~20 sec the lock will disconnect by itself
+     * if there is no BLE communication
+     *
+     * @param timeoutMs
+     */
+    void setDisonnectTimeout(uint32_t timeoutMs);
+
+    /**
      * @brief Get the Last Error code received from the lock
      */
     const ErrorCode getLastError() const;
@@ -472,10 +490,16 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
   private:
     FreeRTOS::Semaphore nukiBleSemaphore;
-    bool takeNukiBleSemaphore(std::string owner);
+    bool takeNukiBleSemaphore(std::string taker);
+    std::string owner = "free";
     void giveNukiBleSemaphore();
 
     bool connectBle(const BLEAddress bleAddress);
+    void extendDisonnectTimeout();
+    uint32_t disconnectTs = 0;
+    uint16_t disconnectTimeout = 1000;
+    bool connecting = false;
+
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;

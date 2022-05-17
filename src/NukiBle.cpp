@@ -20,7 +20,7 @@
 #include "sodium/crypto_box.h"
 #include "NimBLEBeacon.h"
 
-#define NUKI_SEMAPHORE_TIMEOUT 5000
+#define NUKI_SEMAPHORE_TIMEOUT 1000
 
 namespace Nuki {
 
@@ -82,7 +82,7 @@ PairingResult NukiBle::pairNuki() {
       } else {
         result = PairingResult::Timeout;
       }
-      pClient->disconnect();
+      extendDisonnectTimeout();
     }
   } else {
     #ifdef DEBUG_NUKI_CONNECT
@@ -107,6 +107,7 @@ void NukiBle::unPairNuki() {
 }
 
 bool NukiBle::connectBle(const BLEAddress bleAddress) {
+  connecting = true;
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
@@ -114,24 +115,50 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
           bleScanner->enableScanning(true);
+          connecting = false;
           return true;
         } else {
           log_w("BLE register on pairing or data Service/Char failed");
         }
       } else {
         pClient->disconnect();
-        log_w("BLE Connect failed");
+        log_w("BLE Connect failed, retrying");
       }
       connectRetry++;
-      esp_task_wdt_reset();
-      delay(500);
+      delay(10);
     }
   } else {
     bleScanner->enableScanning(true);
+    connecting = false;
     return true;
   }
   bleScanner->enableScanning(true);
+  connecting = false;
   return false;
+}
+
+void NukiBle::updateConnectionState() {
+  if (connecting) {
+    disconnectTs = 0;
+  }
+
+  if (disconnectTs != 0 && millis() > disconnectTs) {
+    if (pClient && pClient->isConnected()) {
+      pClient->disconnect();
+      disconnectTs = 0;
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("disconnecting BLE on timeout");
+      #endif
+    }
+  }
+}
+
+void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
+  disconnectTs = timeoutMs;
+}
+
+void NukiBle::extendDisonnectTimeout() {
+  disconnectTs = millis() + disconnectTimeout;
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
@@ -209,7 +236,7 @@ CmdResult NukiBle::executeAction(const Action action) {
     return CmdResult::NotPaired;
   }
 
-  if (takeNukiBleSemaphore(NUKI_SEMAPHORE_OWNER)) {
+  if (takeNukiBleSemaphore("exec Action")) {
     #ifdef DEBUG_NUKI_COMMUNICATION
     log_d("Start executing: %02x ", action.command);
     #endif
@@ -217,20 +244,19 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdStateMachine(action);
         if (result != CmdResult::Working) {
-          pClient->disconnect();
           giveNukiBleSemaphore();
+          extendDisonnectTimeout();
           return result;
         }
         esp_task_wdt_reset();
         delay(10);
       }
-
     } else if (action.cmdType == CommandType::CommandWithChallenge) {
       while (1) {
         CmdResult result = cmdChallStateMachine(action);
         if (result != CmdResult::Working) {
-          pClient->disconnect();
           giveNukiBleSemaphore();
+          extendDisonnectTimeout();
           return result;
         }
         esp_task_wdt_reset();
@@ -240,8 +266,8 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdChallAccStateMachine(action);
         if (result != CmdResult::Working) {
-          pClient->disconnect();
           giveNukiBleSemaphore();
+          extendDisonnectTimeout();
           return result;
         }
         esp_task_wdt_reset();
@@ -251,8 +277,8 @@ CmdResult NukiBle::executeAction(const Action action) {
       while (1) {
         CmdResult result = cmdChallStateMachine(action, true);
         if (result != CmdResult::Working) {
-          pClient->disconnect();
           giveNukiBleSemaphore();
+          extendDisonnectTimeout();
           return result;
         }
         esp_task_wdt_reset();
@@ -1275,7 +1301,7 @@ bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
 
-  if (takeNukiBleSemaphore(NUKI_SEMAPHORE_OWNER)) {
+  if (takeNukiBleSemaphore("retr cred")) {
     if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
         && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
         && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
@@ -1306,7 +1332,7 @@ bool NukiBle::retrieveCredentials() {
 }
 
 void NukiBle::deleteCredentials() {
-  if (takeNukiBleSemaphore(NUKI_SEMAPHORE_OWNER)) {
+  if (takeNukiBleSemaphore("del cred")) {
     preferences.remove(SECRET_KEY_STORE_NAME);
     preferences.remove(AUTH_ID_STORE_NAME);
     giveNukiBleSemaphore();
@@ -1896,11 +1922,20 @@ const bool NukiBle::isPairedWithLock() const {
   return isPaired;
 };
 
-bool NukiBle::takeNukiBleSemaphore(std::string owner) {
-  return nukiBleSemaphore.take(NUKI_SEMAPHORE_TIMEOUT, owner);
+bool NukiBle::takeNukiBleSemaphore(std::string taker) {
+  bool result = nukiBleSemaphore.take(NUKI_SEMAPHORE_TIMEOUT, taker);
+
+  if (!result) {
+    log_d("%s FAILED to take Nuki semaphore. Owner %s", taker.c_str(), owner.c_str());
+  } else {
+    owner = taker;
+  }
+
+  return result;
 }
 
 void NukiBle::giveNukiBleSemaphore() {
+  owner = "free";
   nukiBleSemaphore.give();
 }
 
