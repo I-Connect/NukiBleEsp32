@@ -496,7 +496,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
-    uint32_t extendedUntilTime = 0;
+    uint32_t lastStartTimeout = 0;
     uint16_t disconnectTimeout = 1000;
     bool connecting = false;
 
