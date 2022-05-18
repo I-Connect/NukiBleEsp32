@@ -496,7 +496,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
-    uint32_t disconnectTs = 0;
+    uint32_t extendedUntilTime = 0;
     uint16_t disconnectTimeout = 1000;
     bool connecting = false;
 
@@ -530,7 +530,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool pairingServiceAvailable = false;
     std::string deviceName;       //The name to be displayed for this authorization and used for storing preferences
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
-    BLEClient* pClient;
+    BLEClient* pClient = nullptr;
 
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;

@@ -1,3 +1,7 @@
+## V0.0.8 (2022-05-18)
+- Prevented millis() overflow issue
+- Corrected setDisonnectTimeout()
+
 ## V0.0.7 (2022-05-17)
 - tweaked semaphore timeouts and delays
 - added option to check if communication is done and then disconnect ble (saves battery and speeds up getting advertisements)

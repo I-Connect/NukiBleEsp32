@@ -139,13 +139,13 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
 
 void NukiBle::updateConnectionState() {
   if (connecting) {
-    disconnectTs = 0;
+    extendedUntilTime = 0;
   }
 
-  if (disconnectTs != 0 && millis() > disconnectTs) {
+  if (extendedUntilTime != 0 && (millis() - extendedUntilTime > disconnectTimeout) ) {
     if (pClient && pClient->isConnected()) {
       pClient->disconnect();
-      disconnectTs = 0;
+      extendedUntilTime = 0;
       #ifdef DEBUG_NUKI_CONNECT
       log_d("disconnecting BLE on timeout");
       #endif
@@ -154,11 +154,11 @@ void NukiBle::updateConnectionState() {
 }
 
 void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
-  disconnectTs = timeoutMs;
+  disconnectTimeout = timeoutMs;
 }
 
 void NukiBle::extendDisonnectTimeout() {
-  disconnectTs = millis() + disconnectTimeout;
+  extendedUntilTime = millis();
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
