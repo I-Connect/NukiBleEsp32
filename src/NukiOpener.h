@@ -102,7 +102,7 @@ class NukiOpener : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param nameSuffixLen len of nameSuffix if used
      * @return CmdResult
      */
-    CmdResult lockAction(const OpenerLockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0,
+    CmdResult lockAction(const LockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0,
                          const char* nameSuffix = nullptr, const uint8_t nameSuffixLen = 0);
 
     /**

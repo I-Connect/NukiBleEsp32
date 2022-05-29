@@ -30,7 +30,7 @@ namespace NukiOpener {
     const char SECRET_KEY_STORE_NAME[]        = "secretKeyK";
     const char AUTH_ID_STORE_NAME[]           = "authorizationId";
 
-    enum class OpenerLockAction: uint8_t
+    enum class LockAction: uint8_t
     {
         ActivateRTO = 0x01,
         DeactivateRTO = 0x02,
@@ -183,18 +183,6 @@ namespace NukiOpener {
         Manual          = 0x01,
         Button          = 0x02,
         Automatic       = 0x03
-    };
-
-    enum class LockAction : uint8_t {
-        Unlock          = 0x01,
-        Lock            = 0x02,
-        Unlatch         = 0x03,
-        LockNgo         = 0x04,
-        LockNgoUnlatch  = 0x05,
-        FullLock        = 0x06,
-        FobAction1      = 0x81,
-        FobAction2      = 0x82,
-        FobAction3      = 0x83
     };
 
     enum class ButtonPressAction : uint8_t {

@@ -460,30 +460,30 @@ namespace NukiOpener {
         }
     }
 
-    void logLockAction(OpenerLockAction lockAction) {
+    void logLockAction(LockAction lockAction) {
         switch (lockAction) {
-            case OpenerLockAction::ActivateRTO :
+            case LockAction::ActivateRTO :
                 log_d("action: ActivateRTO");
                 break;
-            case OpenerLockAction::DeactivateRTO :
+            case LockAction::DeactivateRTO :
                 log_d("action: DeactivateRTO");
                 break;
-            case OpenerLockAction::ElectricStrikeActuation :
+            case LockAction::ElectricStrikeActuation :
                 log_d("action: ElectricStrikeActuation");
                 break;
-            case OpenerLockAction::ActivateCM :
+            case LockAction::ActivateCM :
                 log_d("action: ActivateCM");
                 break;
-            case OpenerLockAction::DeactivateCM :
+            case LockAction::DeactivateCM :
                 log_d("action: DeactivateCM");
                 break;
-            case OpenerLockAction::FobAction1 :
+            case LockAction::FobAction1 :
                 log_d("action: autoLock");
                 break;
-            case OpenerLockAction::FobAction2 :
+            case LockAction::FobAction2 :
                 log_d("action: automatic");
                 break;
-            case OpenerLockAction::FobAction3 :
+            case LockAction::FobAction3 :
                 log_d("action: button");
                 break;
             default:

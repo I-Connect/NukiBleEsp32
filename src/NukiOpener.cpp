@@ -609,18 +609,18 @@ CmdResult NukiOpener::requestBatteryReport(BatteryReport* retrievedBatteryReport
   return result;
 }
 
-CmdResult NukiOpener::lockAction(const OpenerLockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
+CmdResult NukiOpener::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
   unsigned char payload[5 + nameSuffixLen] = {0};
-  memcpy(payload, &lockAction, sizeof(OpenerLockAction));
-  memcpy(&payload[sizeof(OpenerLockAction)], &nukiAppId, 4);
-  memcpy(&payload[sizeof(OpenerLockAction) + 4], &flags, 1);
+  memcpy(payload, &lockAction, sizeof(LockAction));
+  memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
+  memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
   uint8_t payloadLen = 0;
   if (nameSuffix) {
-    memcpy(&payload[sizeof(OpenerLockAction) + 4 + 1], nameSuffix, nameSuffixLen);
-    payloadLen = sizeof(OpenerLockAction) + 4 + 1 + nameSuffixLen;
+    memcpy(&payload[sizeof(LockAction) + 4 + 1], nameSuffix, nameSuffixLen);
+    payloadLen = sizeof(LockAction) + 4 + 1 + nameSuffixLen;
   } else {
-    payloadLen = sizeof(OpenerLockAction) + 4 + 1;
+    payloadLen = sizeof(LockAction) + 4 + 1;
   }
 
   action.cmdType = CommandType::CommandWithChallengeAndAccept;
