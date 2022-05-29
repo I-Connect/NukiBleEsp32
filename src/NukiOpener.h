@@ -10,10 +10,9 @@
  * https://developer.nuki.io/page/nuki-smart-lock-api-2/2/
  *
  */
-
 #include "RTOS.h"
 #include "NimBLEDevice.h"
-#include "NukiLockConstants.h"
+#include "NukiOpenerConstants.h"
 #include "NukiDataTypes.h"
 #include "Arduino.h"
 #include <Preferences.h>
@@ -25,26 +24,26 @@
 #define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
 
-namespace NukiLock {
+namespace NukiOpener {
 
-class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
+class NukiOpener : public BLEClientCallbacks, public BleScanner::Subscriber {
   public:
-    NukiBle(const std::string& deviceName, const uint32_t deviceId);
-    virtual ~NukiBle();
+    NukiOpener(const std::string& deviceName, const uint32_t deviceId);
+    virtual ~NukiOpener();
 
     /**
      * @brief Set the Event Handler object
      *
      * @param handler method to handle the event
      */
-    void setEventHandler(Nuki::SmartlockEventHandler* handler);
+    void setEventHandler(SmartlockEventHandler* handler);
 
     /**
      * @brief Checks if credentials are stored in preferences, if not initiate pairing
      *
      * @return
      */
-    Nuki::PairingResult pairNuki();
+    PairingResult pairNuki();
 
     /**
      * @brief Delete stored credentials
@@ -84,7 +83,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
      */
-    Nuki::CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
+    CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
 
     /**
      * @brief Gets the last keyturner state stored on the esp
@@ -101,9 +100,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param flags optional
      * @param nameSuffix optional
      * @param nameSuffixLen len of nameSuffix if used
-     * @return Nuki::CmdResult
+     * @return CmdResult
      */
-    Nuki::CmdResult lockAction(const LockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0,
+    CmdResult lockAction(const OpenerLockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0,
                          const char* nameSuffix = nullptr, const uint8_t nameSuffixLen = 0);
 
     /**
@@ -111,21 +110,21 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param retrievedConfig Nuki api based datatype to store the retrieved config
      */
-    Nuki::CmdResult requestConfig(Config* retrievedConfig);
+    CmdResult requestConfig(Config* retrievedConfig);
 
     /**
      * @brief Requests advanced config from Lock via BLE
      *
      * @param retrievedAdvancedConfig Nuki api based datatype to store the retrieved advanced config
      */
-    Nuki::CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
+    CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
 
     /**
      * @brief Requests battery status from Lock via BLE
      *
      * @param retrievedBatteryReport Nuki api based datatype to store the retrieved battery status
      */
-    Nuki::CmdResult requestBatteryReport(BatteryReport* retrievedBatteryReport);
+    CmdResult requestBatteryReport(BatteryReport* retrievedBatteryReport);
 
     /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
@@ -162,7 +161,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param sortOrder The desired sort order
      * @param totalCount true if a Log Entry Count is requested from teh lock
      */
-    Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
+    CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
                                  const bool totalCount);
 
     /**
@@ -185,7 +184,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * 0 is not allowed
      * Duplicates are not allowed
      */
-    Nuki::CmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
+    CmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
 
     /**
      * @brief Send an updated keypad entry to the lock via BLE
@@ -195,7 +194,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * 0 is not allowed
      * Duplicates are not allowed
      */
-    Nuki::CmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
+    CmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
 
     /**
      * @brief Request the lock via BLE to send the existing keypad entries
@@ -203,7 +202,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param offset The start offset to be read.
      * @param count The number of entries to be read, starting at the specified offset.
      */
-    Nuki::CmdResult retrieveKeypadEntries(const uint16_t offset, const uint16_t count);
+    CmdResult retrieveKeypadEntries(const uint16_t offset, const uint16_t count);
 
     /**
      * @brief Get the Keypad Entries stored on the esp (after executing retreieveLogKeypadEntries)
@@ -218,7 +217,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param offset The start offset to be read.
      * @param count The number of entries to be read, starting at the specified offset.
      */
-    Nuki::CmdResult retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count);
+    CmdResult retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count);
 
     /**
      * @brief Get the Authorization Entries stored on the esp (after executing retreiveAuthorizationEntries)
@@ -232,32 +231,32 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param newAuthorizationEntry Nuki api based datatype to send
      */
-    Nuki::CmdResult addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
+    CmdResult addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
 
     /**
      * @brief Sends an updated authorization entry to the lock via BLE
      *
      * @param updatedAuthorizationEntry Nuki api based datatype to send
      */
-    Nuki::CmdResult updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
+    CmdResult updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
 
     /**
      * @brief Sends an calibration (mechanical) request to the lock via BLE
      */
-    Nuki::CmdResult requestCalibration();
+    CmdResult requestCalibration();
 
     /**
      * @brief Sends an reboot request to the lock via BLE
      *
      */
-    Nuki::CmdResult requestReboot();
+    CmdResult requestReboot();
 
     /**
      * @brief Sends the time to be set to the lock via BLE
      *
      * @param time Nuki api based datatype to send
      */
-    Nuki::CmdResult updateTime(TimeValue time);
+    CmdResult updateTime(TimeValue time);
 
     /**
      * @brief Sends a new time(d) control entry via BLE to the lock.
@@ -266,7 +265,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param newTimecontrolEntry Nuki api based datatype to send
      */
-    Nuki::CmdResult addTimeControlEntry(NewTimeControlEntry newTimecontrolEntry);
+    CmdResult addTimeControlEntry(NewTimeControlEntry newTimecontrolEntry);
 
     /**
      * @brief Sends an updated time(d) control entry via BLE to the lock.
@@ -275,7 +274,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param TimeControlEntry Nuki api based datatype to send.
      * The ID can be retrieved via retrieveTimeControlEntries()
      */
-    Nuki::CmdResult updateTimeControlEntry(TimeControlEntry TimeControlEntry);
+    CmdResult updateTimeControlEntry(TimeControlEntry TimeControlEntry);
 
     /**
      * @brief Deletes a time(d) control entry via BLE to the lock.
@@ -283,13 +282,13 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param entryId The ID to be deleted, can be retrieved via retrieveTimeControlEntries()
      */
-    Nuki::CmdResult removeTimeControlEntry(uint8_t entryId);
+    CmdResult removeTimeControlEntry(uint8_t entryId);
 
     /**
      * @brief Request the lock via BLE to send the existing time control entries
      *
      */
-    Nuki::CmdResult retrieveTimeControlEntries();
+    CmdResult retrieveTimeControlEntries();
 
     /**
      * @brief Get the time control entries stored on the esp (after executing retrieveTimeControlEntries())
@@ -313,17 +312,17 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * the pincode stored in the lock)
      *
      * @param newSecurityPin
-     * @return Nuki::CmdResult
+     * @return CmdResult
      */
-    Nuki::CmdResult setSecurityPin(const uint16_t newSecurityPin);
+    CmdResult setSecurityPin(const uint16_t newSecurityPin);
 
     /**
      * @brief Send the verify pincode command via BLE to the lock.
      * This command uses the earlier by saveSecurityPincode() stored pincode
      *
-     * @return Nuki::CmdResult returns success when the pin code is correct (same as stored in the lock)
+     * @return CmdResult returns success when the pin code is correct (same as stored in the lock)
      */
-    Nuki::CmdResult verifySecurityPin();
+    CmdResult verifySecurityPin();
 
     /**
      * @brief Sets the lock ability to pair with other devices (can be used to prevent unauthorized pairing)
@@ -333,7 +332,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if allowed to pair with other devices
      */
-    Nuki::CmdResult enablePairing(const bool enable);
+    CmdResult enablePairing(const bool enable);
 
     /**
      * @brief Gets the current config from the lock, updates the whether or not the flashing
@@ -341,7 +340,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if led enabled
      */
-    Nuki::CmdResult enableLedFlash(const bool enable);
+    CmdResult enableLedFlash(const bool enable);
 
     /**
      * @brief Gets the current config from the lock, updates the LED brightness parameter and
@@ -349,7 +348,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param level The LED brightness level. Possible values are 0 to 5 0 = off, …, 5 = max
      */
-    Nuki::CmdResult setLedBrightness(const uint8_t level);
+    CmdResult setLedBrightness(const uint8_t level);
 
     /**
      * @brief Gets the current config from the lock, updates the LED brightness parameter
@@ -357,7 +356,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if only a single lock should be performed
      */
-    Nuki::CmdResult enableSingleLock(const bool enable);
+    CmdResult enableSingleLock(const bool enable);
 
     /**
      * @brief Gets the current config from the lock, updates the advertising frequency parameter
@@ -365,7 +364,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param mode 0x00 Automatic, 0x01 Normal, 0x02 Slow, 0x03 Slowest (~400ms till ~1s)
      */
-    Nuki::CmdResult setAdvertisingMode(const AdvertisingMode mode);
+    CmdResult setAdvertisingMode(const AdvertisingMode mode);
 
     /**
      * @brief Gets the current config from the lock, updates the name parameter and sends the
@@ -373,7 +372,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param name max 32 character name
      */
-    Nuki::CmdResult setName(const std::string& name);
+    CmdResult setName(const std::string& name);
 
     /**
      * @brief Gets the current config from the lock, updates the dst parameter and sends the new
@@ -381,7 +380,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable The desired daylight saving time mode. false disabled, true european
      */
-    Nuki::CmdResult enableDst(const bool enable);
+    CmdResult enableDst(const bool enable);
 
     /**
      * @brief Gets the current config from the lock, updates the timezone offset parameter and
@@ -389,7 +388,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param minutes The timezone offset (UTC) in minutes
      */
-    Nuki::CmdResult setTimeZoneOffset(const int16_t minutes);
+    CmdResult setTimeZoneOffset(const int16_t minutes);
 
     /**
      * @brief Gets the current config from the lock, updates the timezone id parameter and sends the
@@ -397,7 +396,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param timeZoneId 	The id of the current timezone or 0xFFFF if timezones are not supported
      */
-    Nuki::CmdResult setTimeZoneId(const TimeZoneId timeZoneId);
+    CmdResult setTimeZoneId(const TimeZoneId timeZoneId);
 
     /**
      * @brief Gets the current config from the lock, updates the enable button parameter and sends the
@@ -405,7 +404,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if button enabled
      */
-    Nuki::CmdResult enableButton(const bool enable);
+    CmdResult enableButton(const bool enable);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the single button press action
@@ -413,7 +412,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param action the deired action for a single button press
      */
-    Nuki::CmdResult setSingleButtonPressAction(const ButtonPressAction action);
+    CmdResult setSingleButtonPressAction(const ButtonPressAction action);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the double button press action
@@ -421,7 +420,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param action the deired action for a double button press
      */
-    Nuki::CmdResult setDoubleButtonPressAction(const ButtonPressAction action);
+    CmdResult setDoubleButtonPressAction(const ButtonPressAction action);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the battery type parameter and
@@ -429,7 +428,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param type 	The type of the batteries present in the smart lock.
      */
-    Nuki::CmdResult setBatteryType(const BatteryType type);
+    CmdResult setBatteryType(const BatteryType type);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the enable battery type
@@ -437,7 +436,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if the automatic detection of the battery type is enabled
      */
-    Nuki::CmdResult enableAutoBatteryTypeDetection(const bool enable);
+    CmdResult enableAutoBatteryTypeDetection(const bool enable);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the disable autounlock
@@ -445,7 +444,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param disable true if auto unlock should be disabled in general.
      */
-    Nuki::CmdResult disableAutoUnlock(const bool disable);
+    CmdResult disableAutoUnlock(const bool disable);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the enable autolock
@@ -453,7 +452,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if auto lock should be enabled in general.
      */
-    Nuki::CmdResult enableAutoLock(const bool enable);
+    CmdResult enableAutoLock(const bool enable);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the enable immediate
@@ -462,7 +461,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param enable true if auto lock should be performed immediately after the door has
      * been closed (requires active door sensor)
      */
-    Nuki::CmdResult enableImmediateAutoLock(const bool enable);
+    CmdResult enableImmediateAutoLock(const bool enable);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the enable auto update
@@ -471,7 +470,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @param enable true if automatic firmware updates should be enabled
      */
-    Nuki::CmdResult enableAutoUpdate(const bool enable);
+    CmdResult enableAutoUpdate(const bool enable);
 
     /**
      * @brief Initializes stored preferences based on the devicename passed in the constructor,
@@ -514,14 +513,14 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void saveCredentials();
     bool retrieveCredentials();
     void deleteCredentials();
-    Nuki::PairingState pairStateMachine(const Nuki::PairingState nukiPairingState);
+    PairingState pairStateMachine(const PairingState nukiPairingState);
 
-    Nuki::CmdResult setConfig(NewConfig newConfig);
-    Nuki::CmdResult setFromConfig(const Config config);
-    Nuki::CmdResult setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+    CmdResult setConfig(NewConfig newConfig);
+    CmdResult setFromConfig(const Config config);
+    CmdResult setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
     void createNewConfig(const Config* oldConfig, NewConfig* newConfig);
     void createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
-    Nuki::CmdResult setFromAdvancedConfig(const AdvancedConfig config);
+    CmdResult setFromAdvancedConfig(const AdvancedConfig config);
 
     unsigned char authenticator[32];
     Preferences preferences;
@@ -537,19 +536,19 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     BLERemoteService* pKeyturnerDataService = nullptr;
     BLERemoteCharacteristic* pUsdioCharacteristic = nullptr;
 
-    Nuki::CmdResult cmdStateMachine(const NukiLock::Action action);
-    Nuki::CmdResult executeAction(const NukiLock::Action action);
-    Nuki::CmdResult cmdChallStateMachine(const NukiLock::Action action, const bool sendPinCode = false);
-    Nuki::CmdResult cmdChallAccStateMachine(const NukiLock::Action action);
+    CmdResult cmdStateMachine(const Action action);
+    CmdResult executeAction(const Action action);
+    CmdResult cmdChallStateMachine(const Action action, const bool sendPinCode = false);
+    CmdResult cmdChallAccStateMachine(const Action action);
 
-    Nuki::CommandState nukiCommandState = Nuki::CommandState::Idle;
+    CommandState nukiCommandState = CommandState::Idle;
 
     uint32_t timeNow = 0;
 
     BleScanner::Publisher* bleScanner = nullptr;
     bool isPaired = false;
 
-    Nuki::SmartlockEventHandler* eventHandler;
+    SmartlockEventHandler* eventHandler;
 
     uint8_t receivedStatus;
     bool crcCheckOke;

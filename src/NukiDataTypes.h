@@ -67,18 +67,5 @@ enum class CommandState {
   TimeOut               = 6
 };
 
-enum class CommandType {
-  Command                       = 0,
-  CommandWithChallenge          = 1,
-  CommandWithChallengeAndAccept = 2,
-  CommandWithChallengeAndPin    = 3
-};
-
-struct Action {
-  CommandType cmdType;
-  Command command;
-  unsigned char payload[100] {0};
-  uint8_t payloadLen = 0;
-};
 
 } // namespace Nuki
