@@ -1029,17 +1029,16 @@ void NukiOpener::createNewConfig(const Config* oldConfig, NewConfig* newConfig) 
   memcpy(newConfig->name, oldConfig->name, sizeof(newConfig->name));
   newConfig->latitide = oldConfig->latitide;
   newConfig->longitude = oldConfig->longitude;
-  newConfig->autoUnlatch = oldConfig->autoUnlatch;
+  newConfig->capabilities = oldConfig->capabilities;
   newConfig->pairingEnabled = oldConfig->pairingEnabled;
   newConfig->buttonEnabled = oldConfig->buttonEnabled;
-  newConfig->ledEnabled = oldConfig->ledEnabled;
-  newConfig->ledBrightness = oldConfig->ledBrightness;
+  newConfig->ledFlashEnabled = oldConfig->ledFlashEnabled;
   newConfig->timeZoneOffset = oldConfig->timeZoneOffset;
   newConfig->dstMode = oldConfig->dstMode;
   newConfig->fobAction1 = oldConfig->fobAction1;
   newConfig->fobAction2 = oldConfig->fobAction2;
   newConfig->fobAction3 = oldConfig->fobAction3;
-  newConfig->singleLock = oldConfig->singleLock;
+  newConfig->operatingMode = oldConfig->operatingMode;
   newConfig->advertisingMode = oldConfig->advertisingMode;
   newConfig->timeZoneId = oldConfig->timeZoneId;
 }
@@ -1085,28 +1084,7 @@ CmdResult NukiOpener::enableLedFlash(const bool enable) {
   Config oldConfig;
   CmdResult result = requestConfig(&oldConfig);
   if (result == CmdResult::Success) {
-    oldConfig.ledEnabled = enable;
-    result = setFromConfig(oldConfig);
-  }
-  return result;
-}
-
-CmdResult NukiOpener::setLedBrightness(const uint8_t level) {
-  //level is from 0 (off) to 5(max)
-  Config oldConfig;
-  CmdResult result = requestConfig(&oldConfig);
-  if (result == CmdResult::Success) {
-    oldConfig.ledBrightness = level > 5 ? 5 : level;
-    result = setFromConfig(oldConfig);
-  }
-  return result;
-}
-
-CmdResult NukiOpener::enableSingleLock(const bool enable) {
-  Config oldConfig;
-  CmdResult result = requestConfig(&oldConfig);
-  if (result == CmdResult::Success) {
-    oldConfig.singleLock = enable;
+    oldConfig.ledFlashEnabled = enable;
     result = setFromConfig(oldConfig);
   }
   return result;
@@ -1153,28 +1131,26 @@ CmdResult NukiOpener::setTimeZoneId(const TimeZoneId timeZoneId) {
 }
 
 void NukiOpener::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig) {
-  newConfig->unlockedPositionOffsetDegrees = oldConfig->unlockedPositionOffsetDegrees;
-  newConfig->lockedPositionOffsetDegrees = oldConfig->lockedPositionOffsetDegrees;
-  newConfig->singleLockedPositionOffsetDegrees = oldConfig->singleLockedPositionOffsetDegrees;
-  newConfig->unlockedToLockedTransitionOffsetDegrees = oldConfig->unlockedToLockedTransitionOffsetDegrees;
-  newConfig->lockNgoTimeout = oldConfig->lockNgoTimeout;
-  newConfig->singleButtonPressAction = oldConfig->singleButtonPressAction;
-  newConfig->doubleButtonPressAction = oldConfig->doubleButtonPressAction;
-  newConfig->detachedCylinder = oldConfig->detachedCylinder;
-  newConfig->batteryType = oldConfig->batteryType;
-  newConfig->automaticBatteryTypeDetection = oldConfig->automaticBatteryTypeDetection;
-  newConfig->unlatchDuration = oldConfig->unlatchDuration;
-  newConfig->autoLockTimeOut = oldConfig->autoLockTimeOut;
-  newConfig->autoUnLockDisabled = oldConfig->autoUnLockDisabled;
-  newConfig->nightModeEnabled = oldConfig->nightModeEnabled;
-  memcpy(newConfig->nightModeStartTime, oldConfig->nightModeStartTime, sizeof(newConfig->nightModeStartTime));
-  memcpy(newConfig->nightModeEndTime, oldConfig->nightModeEndTime, sizeof(newConfig->nightModeEndTime));
-  newConfig->nightModeAutoLockEnabled = oldConfig->nightModeAutoLockEnabled;
-  newConfig->nightModeAutoUnlockDisabled = oldConfig->nightModeAutoUnlockDisabled;
-  newConfig->nightModeImmediateLockOnStart = oldConfig->nightModeImmediateLockOnStart;
-  newConfig->autoLockEnabled = oldConfig->autoLockEnabled;
-  newConfig->immediateAutoLockEnabled = oldConfig->immediateAutoLockEnabled;
-  newConfig->autoUpdateEnabled = oldConfig->autoUpdateEnabled;
+    newConfig->intercomID = oldConfig->intercomID;
+    newConfig->busModeSwitch = oldConfig->busModeSwitch;
+    newConfig->shortCircuitDaration = oldConfig->shortCircuitDaration;
+    newConfig->electricStrikeDelay = oldConfig->electricStrikeDelay;
+    newConfig->randomElectricStrikeDelay = oldConfig->randomElectricStrikeDelay;
+    newConfig->electricStrikeDuration = oldConfig->electricStrikeDuration;
+    newConfig->disableRtoAfterRing = oldConfig->disableRtoAfterRing;
+    newConfig->rtoTimeout = oldConfig->rtoTimeout;
+    newConfig->doorbellSuppression = oldConfig->doorbellSuppression;
+    newConfig->doorbellSuppressionDuration = oldConfig->doorbellSuppressionDuration;
+    newConfig->soundRing = oldConfig->soundRing;
+    newConfig->soundOpen = oldConfig->soundOpen;
+    newConfig->soundRto = oldConfig->soundRto;
+    newConfig->soundCm = oldConfig->soundCm;
+    newConfig->soundConfirmation = oldConfig->soundConfirmation;
+    newConfig->soundLevel = oldConfig->soundLevel;
+    newConfig->singleButtonPressAction = oldConfig->singleButtonPressAction;
+    newConfig->doubleButtonPressAction = oldConfig->doubleButtonPressAction;
+    newConfig->batteryType = oldConfig->batteryType;
+    newConfig->automaticBatteryTypeDetection = oldConfig->automaticBatteryTypeDetection;
 
 }
 
@@ -1214,46 +1190,6 @@ CmdResult NukiOpener::enableAutoBatteryTypeDetection(const bool enable) {
   CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == CmdResult::Success) {
     oldConfig.automaticBatteryTypeDetection = enable;
-    result = setFromAdvancedConfig(oldConfig);
-  }
-  return result;
-}
-
-CmdResult NukiOpener::disableAutoUnlock(const bool disable) {
-  AdvancedConfig oldConfig;
-  CmdResult result = requestAdvancedConfig(&oldConfig);
-  if (result == CmdResult::Success) {
-    oldConfig.autoUnLockDisabled = disable;
-    result = setFromAdvancedConfig(oldConfig);
-  }
-  return result;
-}
-
-CmdResult NukiOpener::enableAutoLock(const bool enable) {
-  AdvancedConfig oldConfig;
-  CmdResult result = requestAdvancedConfig(&oldConfig);
-  if (result == CmdResult::Success) {
-    oldConfig.autoLockEnabled = enable;
-    result = setFromAdvancedConfig(oldConfig);
-  }
-  return result;
-}
-
-CmdResult NukiOpener::enableImmediateAutoLock(const bool enable) {
-  AdvancedConfig oldConfig;
-  CmdResult result = requestAdvancedConfig(&oldConfig);
-  if (result == CmdResult::Success) {
-    oldConfig.immediateAutoLockEnabled = enable;
-    result = setFromAdvancedConfig(oldConfig);
-  }
-  return result;
-}
-
-CmdResult NukiOpener::enableAutoUpdate(const bool enable) {
-  AdvancedConfig oldConfig;
-  CmdResult result = requestAdvancedConfig(&oldConfig);
-  if (result == CmdResult::Success) {
-    oldConfig.autoUpdateEnabled = enable;
     result = setFromAdvancedConfig(oldConfig);
   }
   return result;

@@ -343,22 +343,6 @@ class NukiOpener : public BLEClientCallbacks, public BleScanner::Subscriber {
     CmdResult enableLedFlash(const bool enable);
 
     /**
-     * @brief Gets the current config from the lock, updates the LED brightness parameter and
-     * sends the new config to the lock via BLE
-     *
-     * @param level The LED brightness level. Possible values are 0 to 5 0 = off, …, 5 = max
-     */
-    CmdResult setLedBrightness(const uint8_t level);
-
-    /**
-     * @brief Gets the current config from the lock, updates the LED brightness parameter
-     * and sends the new config to the lock via BLE
-     *
-     * @param enable true if only a single lock should be performed
-     */
-    CmdResult enableSingleLock(const bool enable);
-
-    /**
      * @brief Gets the current config from the lock, updates the advertising frequency parameter
      * and sends the new config to the lock via BLE
      *
@@ -437,40 +421,6 @@ class NukiOpener : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param enable true if the automatic detection of the battery type is enabled
      */
     CmdResult enableAutoBatteryTypeDetection(const bool enable);
-
-    /**
-     * @brief Gets the current advanced config from the lock, updates the disable autounlock
-     * parameter and sends the new advanced config to the lock via BLE
-     *
-     * @param disable true if auto unlock should be disabled in general.
-     */
-    CmdResult disableAutoUnlock(const bool disable);
-
-    /**
-     * @brief Gets the current advanced config from the lock, updates the enable autolock
-     * parameter and sends the new advanced config to the lock via BLE
-     *
-     * @param enable true if auto lock should be enabled in general.
-     */
-    CmdResult enableAutoLock(const bool enable);
-
-    /**
-     * @brief Gets the current advanced config from the lock, updates the enable immediate
-     * autolock parameter and sends the new advanced config to the lock via BLE
-     *
-     * @param enable true if auto lock should be performed immediately after the door has
-     * been closed (requires active door sensor)
-     */
-    CmdResult enableImmediateAutoLock(const bool enable);
-
-    /**
-     * @brief Gets the current advanced config from the lock, updates the enable auto update
-     * parameter and sends the new advanced config to the lock via BLE
-     * (Updating the firmware requires the Nuki app. CAUTION: updating FW could cause breaking changes)
-     *
-     * @param enable true if automatic firmware updates should be enabled
-     */
-    CmdResult enableAutoUpdate(const bool enable);
 
     /**
      * @brief Initializes stored preferences based on the devicename passed in the constructor,

@@ -25,10 +25,10 @@ namespace NukiOpener {
     const NimBLEUUID openerGdioUUID  = NimBLEUUID("a92ae101-5501-11e4-916c-0800200c9a66");
     const NimBLEUUID openerUserDataUUID  = NimBLEUUID("a92ae202-5501-11e4-916c-0800200c9a66");
 
-    const char BLE_ADDRESS_STORE_NAME[]       = "BleAddress";
-    const char SECURITY_PINCODE_STORE_NAME[]  = "SecurityPinCode";
-    const char SECRET_KEY_STORE_NAME[]        = "SecretKeyK";
-    const char AUTH_ID_STORE_NAME[]           = "AuthorizationId";
+    const char BLE_ADDRESS_STORE_NAME[]       = "opBleAddr";
+    const char SECURITY_PINCODE_STORE_NAME[]  = "opSecPinCode";
+    const char SECRET_KEY_STORE_NAME[]        = "opSecKey";
+    const char AUTH_ID_STORE_NAME[]           = "opAuthId";
 
     enum class LockAction: uint8_t
     {
@@ -221,11 +221,10 @@ namespace NukiOpener {
         unsigned char name[32];
         float latitide;
         float longitude;
-        uint8_t autoUnlatch;
+        uint8_t capabilities;
         uint8_t pairingEnabled;
         uint8_t buttonEnabled;
-        uint8_t ledEnabled;
-        uint8_t ledBrightness;
+        uint8_t ledFlashEnabled;
         uint16_t currentTimeYear;
         uint8_t currentTimeMonth;
         uint8_t currentTimeDay;
@@ -238,12 +237,11 @@ namespace NukiOpener {
         uint8_t  fobAction1;
         uint8_t  fobAction2;
         uint8_t  fobAction3;
-        uint8_t  singleLock;
+        uint8_t  operatingMode;
         AdvertisingMode advertisingMode;
         uint8_t hasKeypad;
         unsigned char firmwareVersion[3];
         unsigned char hardwareRevision[2];
-        uint8_t homeKitStatus;
         TimeZoneId timeZoneId;
     };
 
@@ -251,70 +249,64 @@ namespace NukiOpener {
         unsigned char name[32];
         float latitide;
         float longitude;
-        uint8_t autoUnlatch;
+        uint8_t capabilities;
         uint8_t pairingEnabled;
         uint8_t buttonEnabled;
-        uint8_t ledEnabled;
-        uint8_t ledBrightness;
+        uint8_t ledFlashEnabled;
         int16_t timeZoneOffset;
         uint8_t dstMode;
         uint8_t  fobAction1;
         uint8_t  fobAction2;
         uint8_t  fobAction3;
-        uint8_t  singleLock;
+        uint8_t  operatingMode;
         AdvertisingMode advertisingMode;
         TimeZoneId timeZoneId;
     };
 
     struct __attribute__((packed)) AdvancedConfig {
-        uint16_t totalDegrees;
-        int16_t unlockedPositionOffsetDegrees;
-        int16_t lockedPositionOffsetDegrees;
-        int16_t singleLockedPositionOffsetDegrees;
-        int16_t unlockedToLockedTransitionOffsetDegrees;
-        uint8_t lockNgoTimeout;
+        uint16_t intercomID;
+        uint8_t busModeSwitch;
+        uint16_t shortCircuitDaration;
+        uint16_t electricStrikeDelay;
+        uint8_t randomElectricStrikeDelay;
+        uint16_t electricStrikeDuration;
+        uint8_t disableRtoAfterRing;
+        uint8_t rtoTimeout;
+        uint8_t doorbellSuppression;
+        uint16_t doorbellSuppressionDuration;
+        uint8_t soundRing;
+        uint8_t soundOpen;
+        uint8_t soundRto;
+        uint8_t soundCm;
+        uint8_t soundConfirmation;
+        uint8_t soundLevel;
         ButtonPressAction singleButtonPressAction;
         ButtonPressAction doubleButtonPressAction;
-        uint8_t detachedCylinder;
-        BatteryType batteryType;
+        Nuki::BatteryType batteryType;
         uint8_t automaticBatteryTypeDetection;
-        uint8_t unlatchDuration;
-        uint16_t autoLockTimeOut;
-        uint8_t autoUnLockDisabled;
-        uint8_t nightModeEnabled;
-        unsigned char nightModeStartTime[2];
-        unsigned char nightModeEndTime[2];
-        uint8_t nightModeAutoLockEnabled;
-        uint8_t nightModeAutoUnlockDisabled;
-        uint8_t  nightModeImmediateLockOnStart;
-        uint8_t autoLockEnabled;
-        uint8_t immediateAutoLockEnabled;
-        uint8_t autoUpdateEnabled;
     };
 
     struct __attribute__((packed)) NewAdvancedConfig {
-        int16_t unlockedPositionOffsetDegrees;
-        int16_t lockedPositionOffsetDegrees;
-        int16_t singleLockedPositionOffsetDegrees;
-        int16_t unlockedToLockedTransitionOffsetDegrees;
-        uint8_t lockNgoTimeout;
+        uint16_t intercomID;
+        uint8_t busModeSwitch;
+        uint16_t shortCircuitDaration;
+        uint16_t electricStrikeDelay;
+        uint8_t randomElectricStrikeDelay;
+        uint16_t electricStrikeDuration;
+        uint8_t disableRtoAfterRing;
+        uint8_t rtoTimeout;
+        uint8_t doorbellSuppression;
+        uint16_t doorbellSuppressionDuration;
+        uint8_t soundRing;
+        uint8_t soundOpen;
+        uint8_t soundRto;
+        uint8_t soundCm;
+        uint8_t soundConfirmation;
+        uint8_t soundLevel;
         ButtonPressAction singleButtonPressAction;
         ButtonPressAction doubleButtonPressAction;
-        uint8_t detachedCylinder;
         Nuki::BatteryType batteryType;
         uint8_t automaticBatteryTypeDetection;
-        uint8_t unlatchDuration;
-        uint16_t autoLockTimeOut;
-        uint8_t autoUnLockDisabled;
-        uint8_t nightModeEnabled;
-        unsigned char nightModeStartTime[2];
-        unsigned char nightModeEndTime[2];
-        uint8_t nightModeAutoLockEnabled;
-        uint8_t nightModeAutoUnlockDisabled;
-        uint8_t  nightModeImmediateLockOnStart;
-        uint8_t autoLockEnabled;
-        uint8_t immediateAutoLockEnabled;
-        uint8_t autoUpdateEnabled;
     };
 
     struct __attribute__((packed)) BatteryReport {
