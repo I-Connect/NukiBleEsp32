@@ -25,10 +25,10 @@ namespace NukiOpener {
     const NimBLEUUID openerGdioUUID  = NimBLEUUID("a92ae101-5501-11e4-916c-0800200c9a66");
     const NimBLEUUID openerUserDataUUID  = NimBLEUUID("a92ae202-5501-11e4-916c-0800200c9a66");
 
-    const char BLE_ADDRESS_STORE_NAME[]       = "bleAddress";
-    const char SECURITY_PINCODE_STORE_NAME[]  = "securityPinCode";
-    const char SECRET_KEY_STORE_NAME[]        = "secretKeyK";
-    const char AUTH_ID_STORE_NAME[]           = "authorizationId";
+    const char BLE_ADDRESS_STORE_NAME[]       = "BleAddress";
+    const char SECURITY_PINCODE_STORE_NAME[]  = "SecurityPinCode";
+    const char SECRET_KEY_STORE_NAME[]        = "SecretKeyK";
+    const char AUTH_ID_STORE_NAME[]           = "AuthorizationId";
 
     enum class LockAction: uint8_t
     {

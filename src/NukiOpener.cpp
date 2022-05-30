@@ -40,8 +40,10 @@ NukiOpener::~NukiOpener() {
 }
 
 void NukiOpener::initialize() {
+  String prefId = deviceName.c_str();
+  prefId.concat("op");
+  preferences.begin(prefId.c_str(), false);
 
-  preferences.begin(deviceName.c_str(), false);
   if (!BLEDevice::getInitialized()) {
     BLEDevice::init(deviceName);
   }
@@ -1281,6 +1283,11 @@ void NukiOpener::saveCredentials() {
   } else {
     preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &defaultPincode, 2);
   }
+
+//    Serial.print("######## ");
+//    Serial.print(" | "); Serial.print(preferences.putBytes(BLE_ADDRESS_STORE_NAME, currentBleAddress, 6));
+//    Serial.print(" | "); Serial.print(preferences.putBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32));
+//    Serial.print(" | "); Serial.print(preferences.putBytes(AUTH_ID_STORE_NAME, authorizationId, 4));
 
   if ((preferences.putBytes(BLE_ADDRESS_STORE_NAME, currentBleAddress, 6) == 6)
       && (preferences.putBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) == 32)
