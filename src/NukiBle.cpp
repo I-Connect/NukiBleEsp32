@@ -27,9 +27,19 @@ namespace NukiLock {
 
 const char* NUKI_SEMAPHORE_OWNER = "Nuki";
 
-NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
+NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId, Nuki::NukiTimeout* nukiTimeout)
   : deviceName(deviceName),
-    deviceId(deviceId) {
+    deviceId(deviceId)
+{
+    if(nukiTimeout == nullptr)
+    {
+        this->nukiTimeout = new NukiTimeout();
+        nukiTimeoutOwned = true;
+    } else
+    {
+        this->nukiTimeout = nukiTimeout;
+        nukiTimeoutOwned = false;
+    }
 }
 
 NukiBle::~NukiBle() {
@@ -139,27 +149,30 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
 }
 
 void NukiBle::updateConnectionState() {
-  if (connecting) {
-    lastStartTimeout = 0;
-  }
-
-  if (lastStartTimeout != 0 && (millis() - lastStartTimeout > disconnectTimeout) ) {
-    if (pClient && pClient->isConnected()) {
-      pClient->disconnect();
-      lastStartTimeout = 0;
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("disconnecting BLE on timeout");
-      #endif
+    if (connecting) {
+        nukiTimeout->reset();
     }
-  }
+
+//    nukiTimeout->update();
 }
 
+    void NukiBle::onTimeout()
+    {
+        if (pClient && pClient->isConnected()) {
+            pClient->disconnect();
+#ifdef DEBUG_NUKI_CONNECT
+            log_d("disconnecting BLE on timeout");
+#endif
+        }
+    }
+
+
 void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
-  disconnectTimeout = timeoutMs;
+    nukiTimeout->setDuration(timeoutMs);
 }
 
 void NukiBle::extendDisonnectTimeout() {
-  lastStartTimeout = millis();
+  nukiTimeout->extend();
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {

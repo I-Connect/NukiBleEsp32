@@ -27,15 +27,31 @@ namespace NukiOpener {
 
 const char* NUKI_SEMAPHORE_OWNER = "Nuki";
 
-NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
+NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId, Nuki::NukiTimeout* nukiTimeout)
   : deviceName(deviceName),
-    deviceId(deviceId) {
+    deviceId(deviceId)
+{
+    if(nukiTimeout == nullptr)
+    {
+        this->nukiTimeout = new NukiTimeout();
+        nukiTimeoutOwned = true;
+    } else
+    {
+        this->nukiTimeout = nukiTimeout;
+        nukiTimeoutOwned = false;
+    }
 }
 
 NukiOpener::~NukiOpener() {
   if (bleScanner != nullptr) {
     bleScanner->unsubscribe(this);
     bleScanner = nullptr;
+  }
+
+  if(nukiTimeoutOwned && nukiTimeout != nullptr)
+  {
+      delete nukiTimeout;
+      nukiTimeout = nullptr;
   }
 }
 
@@ -142,26 +158,29 @@ bool NukiOpener::connectBle(const BLEAddress bleAddress) {
 
 void NukiOpener::updateConnectionState() {
   if (connecting) {
-    lastStartTimeout = 0;
+    nukiTimeout->reset();
   }
 
-  if (lastStartTimeout != 0 && (millis() - lastStartTimeout > disconnectTimeout) ) {
-    if (pClient && pClient->isConnected()) {
-      pClient->disconnect();
-      lastStartTimeout = 0;
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("disconnecting BLE on timeout");
-      #endif
-    }
-  }
+//  nukiTimeout->update();
 }
 
+
+    void NukiOpener::onTimeout()
+    {
+        if (pClient && pClient->isConnected()) {
+            pClient->disconnect();
+#ifdef DEBUG_NUKI_CONNECT
+            log_d("disconnecting BLE on timeout");
+#endif
+        }
+    }
+
 void NukiOpener::setDisonnectTimeout(uint32_t timeoutMs) {
-  disconnectTimeout = timeoutMs;
+    nukiTimeout->setDuration(timeoutMs);
 }
 
 void NukiOpener::extendDisonnectTimeout() {
-  lastStartTimeout = millis();
+  nukiTimeout->extend();
 }
 
 void NukiOpener::onResult(BLEAdvertisedDevice* advertisedDevice) {
@@ -1882,5 +1901,6 @@ void NukiOpener::giveNukiBleSemaphore() {
   owner = "free";
   nukiBleSemaphore.give();
 }
+
 
 } // namespace Nuki
