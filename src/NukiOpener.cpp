@@ -27,31 +27,16 @@ namespace NukiOpener {
 
 const char* NUKI_SEMAPHORE_OWNER = "Nuki";
 
-NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId, Nuki::NukiTimeout* nukiTimeout)
+NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
     deviceId(deviceId)
 {
-    if(nukiTimeout == nullptr)
-    {
-        this->nukiTimeout = new NukiTimeout();
-        nukiTimeoutOwned = true;
-    } else
-    {
-        this->nukiTimeout = nukiTimeout;
-        nukiTimeoutOwned = false;
-    }
 }
 
 NukiOpener::~NukiOpener() {
   if (bleScanner != nullptr) {
     bleScanner->unsubscribe(this);
     bleScanner = nullptr;
-  }
-
-  if(nukiTimeoutOwned && nukiTimeout != nullptr)
-  {
-      delete nukiTimeout;
-      nukiTimeout = nullptr;
   }
 }
 
@@ -158,10 +143,10 @@ bool NukiOpener::connectBle(const BLEAddress bleAddress) {
 
 void NukiOpener::updateConnectionState() {
   if (connecting) {
-    nukiTimeout->reset();
+    nukiTimeout.reset();
   }
 
-//  nukiTimeout->update();
+  nukiTimeout.update();
 }
 
 
@@ -176,11 +161,11 @@ void NukiOpener::updateConnectionState() {
     }
 
 void NukiOpener::setDisonnectTimeout(uint32_t timeoutMs) {
-    nukiTimeout->setDuration(timeoutMs);
+    nukiTimeout.setDuration(timeoutMs);
 }
 
 void NukiOpener::extendDisonnectTimeout() {
-  nukiTimeout->extend();
+  nukiTimeout.extend();
 }
 
 void NukiOpener::onResult(BLEAdvertisedDevice* advertisedDevice) {

@@ -30,7 +30,7 @@ namespace NukiLock {
 
 class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber, Nuki::TimeoutSubscriber {
   public:
-    NukiBle(const std::string& deviceName, const uint32_t deviceId, Nuki::NukiTimeout* nukiTimeout = nullptr);
+    NukiBle(const std::string& deviceName, const uint32_t deviceId);
     virtual ~NukiBle();
 
     /**
@@ -501,8 +501,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber, Nuki::
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
     bool connecting = false;
-    Nuki::NukiTimeout* nukiTimeout = nullptr;
-    bool nukiTimeoutOwned = true;
+    Nuki::NukiTimeout nukiTimeout;
 
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;

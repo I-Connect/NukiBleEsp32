@@ -27,19 +27,10 @@ namespace NukiLock {
 
 const char* NUKI_SEMAPHORE_OWNER = "Nuki";
 
-NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId, Nuki::NukiTimeout* nukiTimeout)
+NukiBle::NukiBle(const std::string& deviceName, const uint32_t deviceId)
   : deviceName(deviceName),
     deviceId(deviceId)
 {
-    if(nukiTimeout == nullptr)
-    {
-        this->nukiTimeout = new NukiTimeout();
-        nukiTimeoutOwned = true;
-    } else
-    {
-        this->nukiTimeout = nukiTimeout;
-        nukiTimeoutOwned = false;
-    }
 }
 
 NukiBle::~NukiBle() {
@@ -150,10 +141,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
 
 void NukiBle::updateConnectionState() {
     if (connecting) {
-        nukiTimeout->reset();
+        nukiTimeout.reset();
     }
 
-//    nukiTimeout->update();
+    nukiTimeout.update();
 }
 
     void NukiBle::onTimeout()
@@ -168,11 +159,11 @@ void NukiBle::updateConnectionState() {
 
 
 void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
-    nukiTimeout->setDuration(timeoutMs);
+    nukiTimeout.setDuration(timeoutMs);
 }
 
 void NukiBle::extendDisonnectTimeout() {
-  nukiTimeout->extend();
+  nukiTimeout.extend();
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
