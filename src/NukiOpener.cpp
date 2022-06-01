@@ -52,6 +52,8 @@ void NukiOpener::initialize() {
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
 
+  NukiOpener* ptr = this;
+
   isPaired = retrieveCredentials();
 }
 
@@ -143,29 +145,27 @@ bool NukiOpener::connectBle(const BLEAddress bleAddress) {
 
 void NukiOpener::updateConnectionState() {
   if (connecting) {
-    nukiTimeout.reset();
+    lastStartTimeout = 0;
   }
 
-  nukiTimeout.update();
+  if(lastStartTimeout != 0 && (millis() - lastStartTimeout > timeoutDuration))
+  {
+      if (pClient && pClient->isConnected())
+      {
+          pClient->disconnect();
+#ifdef DEBUG_NUKI_CONNECT
+          log_d("disconnecting BLE on timeout");
+#endif
+      }
+  }
 }
 
-
-    void NukiOpener::onTimeout()
-    {
-        if (pClient && pClient->isConnected()) {
-            pClient->disconnect();
-#ifdef DEBUG_NUKI_CONNECT
-            log_d("disconnecting BLE on timeout");
-#endif
-        }
-    }
-
 void NukiOpener::setDisonnectTimeout(uint32_t timeoutMs) {
-    nukiTimeout.setDuration(timeoutMs);
+    timeoutDuration = timeoutMs;
 }
 
 void NukiOpener::extendDisonnectTimeout() {
-  nukiTimeout.extend();
+    lastStartTimeout = millis();
 }
 
 void NukiOpener::onResult(BLEAdvertisedDevice* advertisedDevice) {

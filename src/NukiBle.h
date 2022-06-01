@@ -20,7 +20,6 @@
 #include <esp_task_wdt.h>
 #include <BleInterfaces.h>
 #include "sodium/crypto_secretbox.h"
-#include "NukiTimeout.h"
 
 #define GENERAL_TIMEOUT 10000
 #define CMD_TIMEOUT 10000
@@ -28,7 +27,7 @@
 
 namespace NukiLock {
 
-class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber, Nuki::TimeoutSubscriber {
+class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
   public:
     NukiBle(const std::string& deviceName, const uint32_t deviceId);
     virtual ~NukiBle();
@@ -61,9 +60,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber, Nuki::
      *
      */
     void updateConnectionState();
-
-    void onTimeout() override;
-
 
     /**
      * @brief Set the BLE Disonnect Timeout, if longer than ~20 sec the lock will disconnect by itself
@@ -501,8 +497,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber, Nuki::
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
     bool connecting = false;
-    Nuki::NukiTimeout nukiTimeout;
-
+    uint32_t lastStartTimeout = 0;
+    uint16_t timeoutDuration = 1000;
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
