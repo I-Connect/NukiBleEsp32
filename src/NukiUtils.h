@@ -15,7 +15,7 @@
 
 #include "Arduino.h"
 #include "NukiDataTypes.h"
-#include "NukiLockConstants.h"
+#include "NukiConstants.h"
 #include <bitset>
 
 namespace Nuki {

@@ -19,11 +19,12 @@
 #include <bitset>
 
 namespace NukiLock {
-    void cmdResultToString(const CmdResult state, char* str);
+
+void cmdResultToString(const CmdResult state, char* str);
 
 
 void logErrorCode(uint8_t errorCode);
-void logConfig(NukiLock::Config config);
+void logConfig(Config config);
 void logNewConfig(NewConfig newConfig);
 void logNewKeypadEntry(NewKeypadEntry newKeypadEntry);
 void logKeypadEntry(KeypadEntry keypadEntry);

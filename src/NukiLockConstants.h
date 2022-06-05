@@ -19,79 +19,14 @@ namespace NukiLock {
 
 using namespace Nuki;
 
-//Keyturner initialization service
-    const NimBLEUUID keyturnerInitServiceUUID = NimBLEUUID("a92ee000-5501-11e4-916c-0800200c9a66");
 //Keyturner Pairing Service
     const NimBLEUUID keyturnerPairingServiceUUID  = NimBLEUUID("a92ee100-5501-11e4-916c-0800200c9a66");
 //Keyturner Service
     const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
 //Keyturner pairing Data Input Output characteristic
     const NimBLEUUID keyturnerGdioUUID  = NimBLEUUID("a92ee101-5501-11e4-916c-0800200c9a66");
-//Keyturner Data Input Output characteristic
-    const NimBLEUUID keyturnerDataUUID  = NimBLEUUID("a92ee201-5501-11e4-916c-0800200c9a66");
 //User-Specific Data Input Output characteristic
-    const NimBLEUUID userDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
-
-    const char BLE_ADDRESS_STORE_NAME[]       = "bleAddress";
-    const char SECURITY_PINCODE_STORE_NAME[]  = "securityPinCode";
-    const char SECRET_KEY_STORE_NAME[]        = "secretKeyK";
-    const char AUTH_ID_STORE_NAME[]           = "authorizationId";
-
-    enum class Command : uint16_t {
-        Empty                         = 0x0000,
-        RequestData	                  = 0x0001,
-        PublicKey	                    = 0x0003,
-        Challenge	                    = 0x0004,
-        AuthorizationAuthenticator	  = 0x0005,
-        AuthorizationData	            = 0x0006,
-        AuthorizationId	              = 0x0007,
-        RemoveUserAuthorization	      = 0x0008,
-        RequestAuthorizationEntries	  = 0x0009,
-        AuthorizationEntry	          = 0x000A,
-        AuthorizationDatInvite	      = 0x000B,
-        KeyturnerStates	              = 0x000C,
-        LockAction	                  = 0x000D,
-        Status	                      = 0x000E,
-        MostRecentCommand	            = 0x000F,
-        OpeningsClosingsSummary	      = 0x0010,
-        BatteryReport	                = 0x0011,
-        ErrorReport	                  = 0x0012,
-        SetConfig	                    = 0x0013,
-        RequestConfig	                = 0x0014,
-        Config	                      = 0x0015,
-        SetSecurityPin	              = 0x0019,
-        RequestCalibration	          = 0x001A,
-        RequestReboot	                = 0x001D,
-        AuthorizationIdConfirmation	  = 0x001E,
-        AuthorizationIdInvite	        = 0x001F,
-        VerifySecurityPin	            = 0x0020,
-        UpdateTime	                  = 0x0021,
-        UpdateAuthorization	          = 0x0025,
-        AuthorizationEntryCount	      = 0x0027,
-        RequestLogEntries	            = 0x0031,
-        LogEntry	                    = 0x0032,
-        LogEntryCount	                = 0x0033,
-        EnableLogging	                = 0x0034,
-        SetAdvancedConfig	            = 0x0035,
-        RequestAdvancedConfig	        = 0x0036,
-        AdvancedConfig	              = 0x0037,
-        AddTimeControlEntry	          = 0x0039,
-        TimeControlEntryId	          = 0x003A,
-        RemoveTimeControlEntry	      = 0x003B,
-        RequestTimeControlEntries	    = 0x003C,
-        TimeControlEntryCount	        = 0x003D,
-        TimeControlEntry	            = 0x003E,
-        UpdateTimeControlEntry	      = 0x003F,
-        AddKeypadCode	                = 0x0041,
-        KeypadCodeId	                = 0x0042,
-        RequestKeypadCodes	          = 0x0043,
-        KeypadCodeCount	              = 0x0044,
-        KeypadCode	                  = 0x0045,
-        UpdateKeypadCode	            = 0x0046,
-        RemoveKeypadCode	            = 0x0047,
-        KeypadAction	                = 0x0048,
-        SimpleLockAction	            = 0x0100
-    };
+    const NimBLEUUID keyturnerUserDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
 
     struct Action {
         CommandType cmdType;
@@ -137,11 +72,6 @@ using namespace Nuki;
         K_ERROR_CLUTCH_POWER_FAILURE	    = 0x4B,
         K_ERROR_VOLTAGE_TOO_LOW	          = 0x4C,
         K_ERROR_FIRMWARE_UPDATE_NEEDED	  = 0x4D
-    };
-
-    enum class CommandStatus : uint8_t {
-        Complete        = 0x00,
-        Accepted        = 0x01
     };
 
     enum class State : uint8_t {

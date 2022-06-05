@@ -16,19 +16,12 @@
 #include "NukiConstants.h"
 
 namespace NukiOpener {
-
     using namespace Nuki;
-
 
     const NimBLEUUID openerPairingServiceUUID  = NimBLEUUID("a92ae100-5501-11e4-916c-0800200c9a66");
     const NimBLEUUID openerServiceUUID  = NimBLEUUID("a92ae200-5501-11e4-916c-0800200c9a66");
     const NimBLEUUID openerGdioUUID  = NimBLEUUID("a92ae101-5501-11e4-916c-0800200c9a66");
     const NimBLEUUID openerUserDataUUID  = NimBLEUUID("a92ae202-5501-11e4-916c-0800200c9a66");
-
-    const char BLE_ADDRESS_STORE_NAME[]       = "opBleAddr";
-    const char SECURITY_PINCODE_STORE_NAME[]  = "opSecPinCode";
-    const char SECRET_KEY_STORE_NAME[]        = "opSecKey";
-    const char AUTH_ID_STORE_NAME[]           = "opAuthId";
 
     enum class LockAction: uint8_t
     {
@@ -44,61 +37,6 @@ namespace NukiOpener {
         FobAction3 = 0x83
     };
 
-    enum class Command : uint16_t {
-        Empty                         = 0x0000,
-        RequestData	                  = 0x0001,
-        PublicKey	                    = 0x0003,
-        Challenge	                    = 0x0004,
-        AuthorizationAuthenticator	  = 0x0005,
-        AuthorizationData	            = 0x0006,
-        AuthorizationId	              = 0x0007,
-        RemoveUserAuthorization	      = 0x0008,
-        RequestAuthorizationEntries	  = 0x0009,
-        AuthorizationEntry	          = 0x000A,
-        AuthorizationDatInvite	      = 0x000B,
-        KeyturnerStates	              = 0x000C,
-        LockAction	                  = 0x000D,
-        Status	                      = 0x000E,
-        MostRecentCommand	            = 0x000F,
-        OpeningsClosingsSummary	      = 0x0010,
-        BatteryReport	                = 0x0011,
-        ErrorReport	                  = 0x0012,
-        SetConfig	                    = 0x0013,
-        RequestConfig	                = 0x0014,
-        Config	                      = 0x0015,
-        SetSecurityPin	              = 0x0019,
-        RequestCalibration	          = 0x001A,
-        RequestReboot	                = 0x001D,
-        AuthorizationIdConfirmation	  = 0x001E,
-        AuthorizationIdInvite	        = 0x001F,
-        VerifySecurityPin	            = 0x0020,
-        UpdateTime	                  = 0x0021,
-        UpdateAuthorization	          = 0x0025,
-        AuthorizationEntryCount	      = 0x0027,
-        RequestLogEntries	            = 0x0031,
-        LogEntry	                    = 0x0032,
-        LogEntryCount	                = 0x0033,
-        EnableLogging	                = 0x0034,
-        SetAdvancedConfig	            = 0x0035,
-        RequestAdvancedConfig	        = 0x0036,
-        AdvancedConfig	              = 0x0037,
-        AddTimeControlEntry	          = 0x0039,
-        TimeControlEntryId	          = 0x003A,
-        RemoveTimeControlEntry	      = 0x003B,
-        RequestTimeControlEntries	    = 0x003C,
-        TimeControlEntryCount	        = 0x003D,
-        TimeControlEntry	            = 0x003E,
-        UpdateTimeControlEntry	      = 0x003F,
-        AddKeypadCode	                = 0x0041,
-        KeypadCodeId	                = 0x0042,
-        RequestKeypadCodes	          = 0x0043,
-        KeypadCodeCount	              = 0x0044,
-        KeypadCode	                  = 0x0045,
-        UpdateKeypadCode	            = 0x0046,
-        RemoveKeypadCode	            = 0x0047,
-        KeypadAction	                = 0x0048,
-        SimpleLockAction	            = 0x0100
-    };
 
     struct Action {
         CommandType cmdType;
@@ -144,11 +82,6 @@ namespace NukiOpener {
         K_ERROR_CLUTCH_POWER_FAILURE	    = 0x4B,
         K_ERROR_VOLTAGE_TOO_LOW	          = 0x4C,
         K_ERROR_FIRMWARE_UPDATE_NEEDED	  = 0x4D
-    };
-
-    enum class CommandStatus : uint8_t {
-        Complete        = 0x00,
-        Accepted        = 0x01
     };
 
     enum class CompletionStatus : uint8_t {
@@ -321,21 +254,6 @@ namespace NukiOpener {
         uint16_t maxTurnCurrent;
         uint16_t batteryResistance;
     };
-
-    struct __attribute__((packed)) LogEntry {
-        uint32_t index;
-        uint16_t timeStampYear;
-        uint8_t timeStampMonth;
-        uint8_t timeStampDay;
-        uint8_t timeStampHour;
-        uint8_t timeStampMinute;
-        uint8_t timeStampSecond;
-        uint32_t authId;
-        uint8_t name[32];
-        LoggingType loggingType;
-        uint8_t data[5];
-    };
-
 
     struct __attribute__((packed)) TimeControlEntry {
         uint8_t entryId;
