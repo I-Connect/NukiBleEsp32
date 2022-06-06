@@ -30,14 +30,14 @@ namespace NukiOpener
          *
          * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
          */
-        Nuki::CmdResult requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState);
+        Nuki::CmdResult requestOpenerState(KeyTurnerState* retrievedKeyTurnerState);
 
         /**
          * @brief Gets the last keyturner state stored on the esp
          *
          * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
          */
-        void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
+        void retrieveOpenerState(KeyTurnerState* retrievedKeyTurnerState);
 
 
         /**
@@ -205,7 +205,7 @@ namespace NukiOpener
         /**
          * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
          *
-         * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
+         * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
          *
          * @return true if critical
          */

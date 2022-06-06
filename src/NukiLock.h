@@ -257,7 +257,7 @@ class NukiLock : public Nuki::NukiBle
     /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
      *
-     * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
+     * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
      *
      * @return true if critical
      */
@@ -266,7 +266,7 @@ class NukiLock : public Nuki::NukiBle
     /**
      * @brief Returns battery charging state parsed from the battery state byte (battery critical byte)
      *
-     * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
+     * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
      *
      * @return true if charging
      */
@@ -275,7 +275,7 @@ class NukiLock : public Nuki::NukiBle
     /**
      * @brief Returns battery charge percentage state parsed from the battery state byte (battery critical byte)
      *
-     * Note that `retrieveKeyTunerState()` needs to be called first to retrieve the needed data
+     * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
      *
      * @return percentage
      */

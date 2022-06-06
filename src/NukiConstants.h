@@ -82,14 +82,14 @@ namespace Nuki {
         LockAction	                  = 0x000D,
         Status	                      = 0x000E,
         MostRecentCommand	            = 0x000F,
-        OpeningsClosingsSummary	      = 0x0010,
+        OpeningsClosingsSummary	      = 0x0010,  // Lock only (+ NUKI v1 only)
         BatteryReport	                = 0x0011,
         ErrorReport	                  = 0x0012,
         SetConfig	                    = 0x0013,
         RequestConfig	                = 0x0014,
         Config	                      = 0x0015,
         SetSecurityPin	              = 0x0019,
-        RequestCalibration	          = 0x001A,
+        RequestCalibration	          = 0x001A, // SetCalibrated for Opener
         RequestReboot	                = 0x001D,
         AuthorizationIdConfirmation	  = 0x001E,
         AuthorizationIdInvite	        = 0x001F,
@@ -97,6 +97,7 @@ namespace Nuki {
         UpdateTime	                  = 0x0021,
         UpdateAuthorization	          = 0x0025,
         AuthorizationEntryCount	      = 0x0027,
+        StartBusSignalRecording       = 0x002F, // Opener only
         RequestLogEntries	            = 0x0031,
         LogEntry	                    = 0x0032,
         LogEntryCount	                = 0x0033,
@@ -119,6 +120,7 @@ namespace Nuki {
         UpdateKeypadCode	            = 0x0046,
         RemoveKeypadCode	            = 0x0047,
         KeypadAction	                = 0x0048,
+        ContinuousModeAction     	     = 0x0057, // Opener only
         SimpleLockAction	            = 0x0100
     };
 
