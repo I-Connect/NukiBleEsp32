@@ -493,7 +493,7 @@ namespace NukiOpener {
     }
 
 
-    void logKeyturnerState(KeyTurnerState keyTurnerState) {
+    void logKeyturnerState(OpenerState keyTurnerState) {
 #ifdef DEBUG_NUKI_READABLE_DATA
         log_d("nukiState: %02x", keyTurnerState.nukiState);
   log_d("lockState: %d", keyTurnerState.lockState);

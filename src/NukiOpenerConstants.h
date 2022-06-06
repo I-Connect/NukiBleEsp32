@@ -129,7 +129,7 @@ namespace NukiOpener {
         Open = 0x07
     };
 
-    struct __attribute__((packed)) KeyTurnerState {
+    struct __attribute__((packed)) OpenerState {
         State nukiState = State::Uninitialized;
         LockState lockState = LockState::Undefined;
         Trigger trigger;

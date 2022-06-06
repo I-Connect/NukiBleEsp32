@@ -37,7 +37,7 @@ namespace NukiOpener
     }
 
 
-    Nuki::CmdResult NukiOpener::requestOpenerState(KeyTurnerState* retrievedKeyTurnerState) {
+    Nuki::CmdResult NukiOpener::requestOpenerState(OpenerState* openerState) {
         Action action;
         uint16_t payload = (uint16_t)Command::KeyturnerStates;
 
@@ -49,13 +49,13 @@ namespace NukiOpener
         Nuki::CmdResult result = executeAction(action);
         if (result == Nuki::CmdResult::Success) {
             // printBuffer((byte*)&retrievedKeyTurnerState, sizeof(retrievedKeyTurnerState), false, "retreived Keyturner state");
-            memcpy(retrievedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
+            memcpy(openerState, &openerState, sizeof(OpenerState));
         }
         return result;
     }
 
-    void NukiOpener::retrieveOpenerState(KeyTurnerState* retrievedKeyTurnerState) {
-        memcpy(retrievedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
+    void NukiOpener::retrieveOpenerState(OpenerState* openerState) {
+        memcpy(openerState, &openerState, sizeof(OpenerState));
     }
 
 
@@ -316,7 +316,7 @@ namespace NukiOpener
     }
 
     bool NukiOpener::isBatteryCritical() {
-        return keyTurnerState.criticalBatteryState & 1;
+        return openerState.criticalBatteryState & 1;
     }
 
     const ErrorCode NukiOpener::getLastError() const {
@@ -411,7 +411,7 @@ namespace NukiOpener
         {
             case Command::KeyturnerStates : {
                 printBuffer((byte*)data, dataLen, false, "keyturnerStates");
-                memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
+                memcpy(&openerState, data, sizeof(openerState));
 #ifdef DEBUG_NUKI_READABLE_DATA
                 logKeyturnerState(keyTurnerState);
 #endif

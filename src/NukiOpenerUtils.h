@@ -46,7 +46,7 @@ namespace NukiOpener {
     void logCompletionStatus(CompletionStatus completionStatus);
     void logNukiTrigger(Trigger nukiTrigger);
     void logLockAction(LockAction lockAction);
-    void logKeyturnerState(KeyTurnerState keyTurnerState);
+    void logKeyturnerState(OpenerState keyTurnerState);
     void logBatteryReport(BatteryReport batteryReport);
     void logLogEntry(LogEntry logEntry);
     void logAdvancedConfig(AdvancedConfig advancedConfig);

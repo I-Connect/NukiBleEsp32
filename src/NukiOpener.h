@@ -28,16 +28,16 @@ namespace NukiOpener
         /**
          * @brief Requests keyturner state from Lock via BLE
          *
-         * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
+         * @param openerState Nuki api based datatype to store the retrieved keyturnerstate
          */
-        Nuki::CmdResult requestOpenerState(KeyTurnerState* retrievedKeyTurnerState);
+        Nuki::CmdResult requestOpenerState(OpenerState* openerState);
 
         /**
          * @brief Gets the last keyturner state stored on the esp
          *
-         * @param retrievedKeyTurnerState Nuki api based datatype to store the retrieved keyturnerstate
+         * @param openerState Nuki api based datatype to store the retrieved keyturnerstate
          */
-        void retrieveOpenerState(KeyTurnerState* retrievedKeyTurnerState);
+        void retrieveOpenerState(OpenerState* openerState);
 
 
         /**
@@ -228,7 +228,7 @@ namespace NukiOpener
         void createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
         Nuki::CmdResult setFromAdvancedConfig(const AdvancedConfig config);
 
-        KeyTurnerState keyTurnerState;
+        OpenerState openerState;
         BatteryReport batteryReport;
         std::list<TimeControlEntry> listOfTimeControlEntries;
 
