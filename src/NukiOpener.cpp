@@ -54,8 +54,8 @@ namespace NukiOpener
         return result;
     }
 
-    void NukiOpener::retrieveOpenerState(OpenerState* openerState) {
-        memcpy(openerState, &openerState, sizeof(OpenerState));
+    void NukiOpener::retrieveOpenerState(OpenerState* state) {
+        memcpy(state, &openerState, sizeof(OpenerState));
     }
 
 
