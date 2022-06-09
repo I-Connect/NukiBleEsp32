@@ -28,9 +28,9 @@ namespace NukiOpener
         /**
          * @brief Requests keyturner state from Lock via BLE
          *
-         * @param openerState Nuki api based datatype to store the retrieved keyturnerstate
+         * @param state Nuki api based datatype to store the retrieved keyturnerstate
          */
-        Nuki::CmdResult requestOpenerState(OpenerState* openerState);
+        Nuki::CmdResult requestOpenerState(OpenerState* state);
 
         /**
          * @brief Gets the last keyturner state stored on the esp

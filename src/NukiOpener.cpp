@@ -37,7 +37,7 @@ namespace NukiOpener
     }
 
 
-    Nuki::CmdResult NukiOpener::requestOpenerState(OpenerState* openerState) {
+    Nuki::CmdResult NukiOpener::requestOpenerState(OpenerState* state) {
         Action action;
         uint16_t payload = (uint16_t)Command::KeyturnerStates;
 
@@ -49,7 +49,7 @@ namespace NukiOpener
         Nuki::CmdResult result = executeAction(action);
         if (result == Nuki::CmdResult::Success) {
             // printBuffer((byte*)&retrievedKeyTurnerState, sizeof(retrievedKeyTurnerState), false, "retreived Keyturner state");
-            memcpy(openerState, &openerState, sizeof(OpenerState));
+            memcpy(state, &openerState, sizeof(OpenerState));
         }
         return result;
     }
