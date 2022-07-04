@@ -246,8 +246,36 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
   action.payloadLen = sizeof(payload);
 
   listOfKeyPadEntries.clear();
+    nrOfReceivedKeypadCodes = 0;
+    keypadCodeCountReceived = false;
 
-  return executeAction(action);
+    uint32_t timeNow = millis();
+    Nuki::CmdResult result = executeAction(action);
+    //wait for return of Keypad Code Count (0x0044)
+    while (!keypadCodeCountReceived) {
+        if (millis() - timeNow > GENERAL_TIMEOUT) {
+            log_w("Receive keypad count timeout");
+            return CmdResult::TimeOut;
+        }
+        delay(10);
+    }
+#ifdef DEBUG_NUKI_COMMAND
+    log_d("Keypad code count %d", getKeypadEntryCount());
+#endif
+
+    //wait for return of Keypad Codes (0x0045)
+    timeNow = millis();
+    while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
+        if (millis() - timeNow > GENERAL_TIMEOUT) {
+            log_w("Receive keypadcodes timeout");
+            return CmdResult::TimeOut;
+        }
+        delay(10);
+    }
+#ifdef DEBUG_NUKI_COMMAND
+    log_d("%d codes received", nrOfReceivedKeypadCodes);
+#endif
+    return result;
 }
 
 Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
@@ -297,6 +325,10 @@ void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
     requestedKeypadCodes->push_back(*it);
     it++;
   }
+}
+
+uint16_t NukiBle::getKeypadEntryCount() {
+  return nrOfKeypadCodes;
 }
 
 CmdResult NukiBle::deleteKeypadEntry(uint16_t id) {
@@ -960,7 +992,6 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 }
 
 void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
-
   switch (returnCode) {
     case Command::RequestData : {
       log_d("requestData");
@@ -1072,21 +1103,25 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::KeypadCodeCount : {
+        memcpy(&nrOfKeypadCodes, data, 2);
+        keypadCodeCountReceived = true;
       printBuffer((byte*)data, dataLen, false, "keypadCodeCount");
       #ifdef DEBUG_NUKI_READABLE_DATA
       uint16_t count = 0;
       memcpy(&count, data, 2);
       log_d("keyPadCodeCount: %d", count);
       #endif
-      memcpy(&nrOfKeypadCodes, data, 2);
+
       break;
     }
     case Command::KeypadCode : {
-      printBuffer((byte*)data, dataLen, false, "keypadCode");
-      #ifdef DEBUG_NUKI_READABLE_DATA
       KeypadEntry keypadEntry;
       memcpy(&keypadEntry, data, sizeof(KeypadEntry));
       listOfKeyPadEntries.push_back(keypadEntry);
+        nrOfReceivedKeypadCodes++;
+
+        printBuffer((byte*)data, dataLen, false, "keypadCode");
+#ifdef DEBUG_NUKI_READABLE_DATA
       logKeypadEntry(keypadEntry);
       #endif
       break;

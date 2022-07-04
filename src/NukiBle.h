@@ -21,7 +21,7 @@
 #include <BleInterfaces.h>
 #include "sodium/crypto_secretbox.h"
 
-#define GENERAL_TIMEOUT 10000
+#define GENERAL_TIMEOUT 3000
 #define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
 
@@ -85,20 +85,20 @@ namespace Nuki {
      * @param startIndex Startindex of first log msg to be send
      * @param count The number of log entries to be read, starting at the specified start index.
      * @param sortOrder The desired sort order
-     * @param totalCount true if a Log Entry Count is requested from teh lock
+     * @param totalCount true if a Log Entry Count is requested from the lock
      */
     Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
                                  const bool totalCount);
 
     /**
-     * @brief Get the Log Entries stored on the esp. Only available after executing retreieveLogEntries.
+     * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
      *
      * @param requestedLogEntries list to store the returned log entries
      */
     void getLogEntries(std::list<LogEntry>* requestedLogEntries);
 
     /**
-     * @brief Returns the log entry count. Only available after executing retreieveLogEntries.
+     * @brief Returns the log entry count. Only available after executing retreiveLogEntries.
      */
     uint16_t getLogEntryCount();
 
@@ -121,6 +121,12 @@ namespace Nuki {
      * Duplicates are not allowed
      */
     Nuki::CmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
+
+        /**
+     * @brief Returns the keypad entry count.
+     * Only available after executing retreiveKeypadEntries.
+     */
+    uint16_t getKeypadEntryCount();
 
     /**
      * @brief Request the lock via BLE to send the existing keypad entries
@@ -328,8 +334,10 @@ private:
 
     unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
 
-    uint16_t nrOfKeypadCodes = 0; // TODO : Unused?
-    uint16_t logEntryCount = 0; // TODO: Unused?
+    uint16_t nrOfKeypadCodes = 0;
+    uint8_t nrOfReceivedKeypadCodes = 0;
+    bool keypadCodeCountReceived = false;
+    uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
     std::list<LogEntry> listOfLogEntries;
     std::list<KeypadEntry> listOfKeyPadEntries;
