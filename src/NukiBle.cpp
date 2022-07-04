@@ -40,8 +40,7 @@ NukiBle::NukiBle(const std::string& deviceName,
     deviceServiceUUID(deviceServiceUUID),
     gdioUUID(gdioUUID),
     userDataUUID(userDataUUID),
-    preferencesId(preferencedId)
-{
+    preferencesId(preferencedId) {
 }
 
 NukiBle::~NukiBle() {
@@ -150,28 +149,26 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
 }
 
 void NukiBle::updateConnectionState() {
-    if (connecting) {
-        lastStartTimeout = 0;
-    }
+  if (connecting) {
+    lastStartTimeout = 0;
+  }
 
-    if(lastStartTimeout != 0 && (millis() - lastStartTimeout > timeoutDuration))
-    {
-        if (pClient && pClient->isConnected())
-        {
-            pClient->disconnect();
-#ifdef DEBUG_NUKI_CONNECT
-            log_d("disconnecting BLE on timeout");
-#endif
-        }
+  if (lastStartTimeout != 0 && (millis() - lastStartTimeout > timeoutDuration)) {
+    if (pClient && pClient->isConnected()) {
+      pClient->disconnect();
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("disconnecting BLE on timeout");
+      #endif
     }
+  }
 }
 
 void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
-    timeoutDuration = timeoutMs;
+  timeoutDuration = timeoutMs;
 }
 
 void NukiBle::extendDisonnectTimeout() {
-    lastStartTimeout = millis();
+  lastStartTimeout = millis();
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
@@ -235,7 +232,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
 }
 
 Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint16_t count) {
-    NukiLock::Action action;
+  NukiLock::Action action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
   memcpy(&payload[2], &count, 2);
@@ -246,41 +243,41 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
   action.payloadLen = sizeof(payload);
 
   listOfKeyPadEntries.clear();
-    nrOfReceivedKeypadCodes = 0;
-    keypadCodeCountReceived = false;
+  nrOfReceivedKeypadCodes = 0;
+  keypadCodeCountReceived = false;
 
-    uint32_t timeNow = millis();
-    Nuki::CmdResult result = executeAction(action);
-    //wait for return of Keypad Code Count (0x0044)
-    while (!keypadCodeCountReceived) {
-        if (millis() - timeNow > GENERAL_TIMEOUT) {
-            log_w("Receive keypad count timeout");
-            return CmdResult::TimeOut;
-        }
-        delay(10);
+  uint32_t timeNow = millis();
+  Nuki::CmdResult result = executeAction(action);
+  //wait for return of Keypad Code Count (0x0044)
+  while (!keypadCodeCountReceived) {
+    if (millis() - timeNow > GENERAL_TIMEOUT) {
+      log_w("Receive keypad count timeout");
+      return CmdResult::TimeOut;
     }
-#ifdef DEBUG_NUKI_COMMAND
-    log_d("Keypad code count %d", getKeypadEntryCount());
-#endif
+    delay(10);
+  }
+  #ifdef DEBUG_NUKI_COMMAND
+  log_d("Keypad code count %d", getKeypadEntryCount());
+  #endif
 
-    //wait for return of Keypad Codes (0x0045)
-    timeNow = millis();
-    while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
-        if (millis() - timeNow > GENERAL_TIMEOUT) {
-            log_w("Receive keypadcodes timeout");
-            return CmdResult::TimeOut;
-        }
-        delay(10);
+  //wait for return of Keypad Codes (0x0045)
+  timeNow = millis();
+  while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
+    if (millis() - timeNow > GENERAL_TIMEOUT) {
+      log_w("Receive keypadcodes timeout");
+      return CmdResult::TimeOut;
     }
-#ifdef DEBUG_NUKI_COMMAND
-    log_d("%d codes received", nrOfReceivedKeypadCodes);
-#endif
-    return result;
+    delay(10);
+  }
+  #ifdef DEBUG_NUKI_COMMAND
+  log_d("%d codes received", nrOfReceivedKeypadCodes);
+  #endif
+  return result;
 }
 
 Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
   //TODO verify data validity, ie check for invalid chars in name
-    NukiLock::Action action;
+  NukiLock::Action action;
 
   action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
   action.command = Command::AddKeypadCode;
@@ -300,7 +297,7 @@ Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
 
 Nuki::CmdResult NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry) {
   //TODO verify data validity
-    NukiLock::Action action;
+  NukiLock::Action action;
 
   action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
   action.command = Command::UpdateKeypadCode;
@@ -1103,8 +1100,8 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::KeypadCodeCount : {
-        memcpy(&nrOfKeypadCodes, data, 2);
-        keypadCodeCountReceived = true;
+      memcpy(&nrOfKeypadCodes, data, 2);
+      keypadCodeCountReceived = true;
       printBuffer((byte*)data, dataLen, false, "keypadCodeCount");
       #ifdef DEBUG_NUKI_READABLE_DATA
       uint16_t count = 0;
@@ -1118,10 +1115,10 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       KeypadEntry keypadEntry;
       memcpy(&keypadEntry, data, sizeof(KeypadEntry));
       listOfKeyPadEntries.push_back(keypadEntry);
-        nrOfReceivedKeypadCodes++;
+      nrOfReceivedKeypadCodes++;
 
-        printBuffer((byte*)data, dataLen, false, "keypadCode");
-#ifdef DEBUG_NUKI_READABLE_DATA
+      printBuffer((byte*)data, dataLen, false, "keypadCode");
+      #ifdef DEBUG_NUKI_READABLE_DATA
       logKeypadEntry(keypadEntry);
       #endif
       break;

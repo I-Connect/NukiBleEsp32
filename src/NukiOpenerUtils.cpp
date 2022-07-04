@@ -14,151 +14,151 @@
 #include "NukiOpenerUtils.h"
 
 namespace NukiOpener {
-    void cmdResultToString(const CmdResult state, char* str) {
-        switch (state) {
-            case CmdResult::Success:
-                strcpy(str, "success");
-                break;
-            case CmdResult::Failed:
-                strcpy(str, "failed");
-                break;
-            case CmdResult::TimeOut:
-                strcpy(str, "timeOut");
-                break;
-            case CmdResult::Working:
-                strcpy(str, "working");
-                break;
-            case CmdResult::NotPaired:
-                strcpy(str, "notPaired");
-                break;
-            case CmdResult::Error:
-                strcpy(str, "error");
-                break;
-            default:
-                strcpy(str, "undefined");
-                break;
-        }
-    }
+void cmdResultToString(const CmdResult state, char* str) {
+  switch (state) {
+    case CmdResult::Success:
+      strcpy(str, "success");
+      break;
+    case CmdResult::Failed:
+      strcpy(str, "failed");
+      break;
+    case CmdResult::TimeOut:
+      strcpy(str, "timeOut");
+      break;
+    case CmdResult::Working:
+      strcpy(str, "working");
+      break;
+    case CmdResult::NotPaired:
+      strcpy(str, "notPaired");
+      break;
+    case CmdResult::Error:
+      strcpy(str, "error");
+      break;
+    default:
+      strcpy(str, "undefined");
+      break;
+  }
+}
 
-    void logErrorCode(uint8_t errorCode) {
+void logErrorCode(uint8_t errorCode) {
 
-        switch (errorCode) {
-            case (uint8_t)ErrorCode::ERROR_BAD_CRC :
-                log_e("ERROR_BAD_CRC");
-                break;
-            case (uint8_t)ErrorCode::ERROR_BAD_LENGTH :
-                log_e("ERROR_BAD_LENGTH");
-                break;
-            case (uint8_t)ErrorCode::ERROR_UNKNOWN :
-                log_e("ERROR_UNKNOWN");
-                break;
-            case (uint8_t)ErrorCode::P_ERROR_NOT_PAIRING :
-                log_e("P_ERROR_NOT_PAIRING");
-                break;
-            case (uint8_t)ErrorCode::P_ERROR_BAD_AUTHENTICATOR :
-                log_e("P_ERROR_BAD_AUTHENTICATOR");
-                break;
-            case (uint8_t)ErrorCode::P_ERROR_BAD_PARAMETER :
-                log_e("P_ERROR_BAD_PARAMETER");
-                break;
-            case (uint8_t)ErrorCode::P_ERROR_MAX_USER :
-                log_e("P_ERROR_MAX_USER");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
-                log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_BAD_NONCE :
-                log_e("K_ERROR_BAD_NONCE");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_BAD_PARAMETER :
-                log_e("K_ERROR_BAD_PARAMETER");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_BAD_PIN :
-                log_e("K_ERROR_BAD_PIN");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_BUSY :
-                log_e("K_ERROR_BUSY");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CANCELED :
-                log_e("K_ERROR_CANCELED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CLUTCH_FAILURE :
-                log_e("K_ERROR_CLUTCH_FAILURE");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
-                log_e("K_ERROR_CLUTCH_POWER_FAILURE");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
-                log_e("K_ERROR_CODE_ALREADY_EXISTS");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID :
-                log_e("K_ERROR_CODE_INVALID");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
-                log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
-                log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
-                log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_DISABLED :
-                log_e("K_ERROR_DISABLED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
-                log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_INVALID_AUTH_ID :
-                log_e("K_ERROR_INVALID_AUTH_ID");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_MOTOR_BLOCKED :
-                log_e("K_ERROR_MOTOR_BLOCKED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
-                log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
-                log_e("K_ERROR_MOTOR_POSITION_LIMIT");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
-                log_e("K_ERROR_MOTOR_POWER_FAILURE");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_MOTOR_TIMEOUT :
-                log_e("K_ERROR_MOTOR_TIMEOUT");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_NOT_AUTHORIZED :
-                log_e("K_ERROR_NOT_AUTHORIZED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_NOT_CALIBRATED :
-                log_e("K_ERROR_NOT_CALIBRATED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_POSITION_UNKNOWN :
-                log_e("K_ERROR_POSITION_UNKNOWN");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
-                log_e("K_ERROR_REMOTE_NOT_ALLOWED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_TIME_NOT_ALLOWED :
-                log_e("K_ERROR_TIME_NOT_ALLOWED");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_ENTRIES :
-                log_e("K_ERROR_TOO_MANY_ENTRIES");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
-                log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
-                break;
-            case (uint8_t)ErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
-                log_e("K_ERROR_VOLTAGE_TOO_LOW");
-                break;
-            default:
-                log_e("UNDEFINED ERROR");
-        }
-    }
+  switch (errorCode) {
+    case (uint8_t)ErrorCode::ERROR_BAD_CRC :
+      log_e("ERROR_BAD_CRC");
+      break;
+    case (uint8_t)ErrorCode::ERROR_BAD_LENGTH :
+      log_e("ERROR_BAD_LENGTH");
+      break;
+    case (uint8_t)ErrorCode::ERROR_UNKNOWN :
+      log_e("ERROR_UNKNOWN");
+      break;
+    case (uint8_t)ErrorCode::P_ERROR_NOT_PAIRING :
+      log_e("P_ERROR_NOT_PAIRING");
+      break;
+    case (uint8_t)ErrorCode::P_ERROR_BAD_AUTHENTICATOR :
+      log_e("P_ERROR_BAD_AUTHENTICATOR");
+      break;
+    case (uint8_t)ErrorCode::P_ERROR_BAD_PARAMETER :
+      log_e("P_ERROR_BAD_PARAMETER");
+      break;
+    case (uint8_t)ErrorCode::P_ERROR_MAX_USER :
+      log_e("P_ERROR_MAX_USER");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
+      log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_BAD_NONCE :
+      log_e("K_ERROR_BAD_NONCE");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_BAD_PARAMETER :
+      log_e("K_ERROR_BAD_PARAMETER");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_BAD_PIN :
+      log_e("K_ERROR_BAD_PIN");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_BUSY :
+      log_e("K_ERROR_BUSY");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CANCELED :
+      log_e("K_ERROR_CANCELED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CLUTCH_FAILURE :
+      log_e("K_ERROR_CLUTCH_FAILURE");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
+      log_e("K_ERROR_CLUTCH_POWER_FAILURE");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
+      log_e("K_ERROR_CODE_ALREADY_EXISTS");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID :
+      log_e("K_ERROR_CODE_INVALID");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
+      log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
+      log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
+      log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_DISABLED :
+      log_e("K_ERROR_DISABLED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
+      log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_INVALID_AUTH_ID :
+      log_e("K_ERROR_INVALID_AUTH_ID");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_BLOCKED :
+      log_e("K_ERROR_MOTOR_BLOCKED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
+      log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
+      log_e("K_ERROR_MOTOR_POSITION_LIMIT");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
+      log_e("K_ERROR_MOTOR_POWER_FAILURE");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_MOTOR_TIMEOUT :
+      log_e("K_ERROR_MOTOR_TIMEOUT");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_NOT_AUTHORIZED :
+      log_e("K_ERROR_NOT_AUTHORIZED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_NOT_CALIBRATED :
+      log_e("K_ERROR_NOT_CALIBRATED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_POSITION_UNKNOWN :
+      log_e("K_ERROR_POSITION_UNKNOWN");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
+      log_e("K_ERROR_REMOTE_NOT_ALLOWED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_TIME_NOT_ALLOWED :
+      log_e("K_ERROR_TIME_NOT_ALLOWED");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_ENTRIES :
+      log_e("K_ERROR_TOO_MANY_ENTRIES");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
+      log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
+      break;
+    case (uint8_t)ErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
+      log_e("K_ERROR_VOLTAGE_TOO_LOW");
+      break;
+    default:
+      log_e("UNDEFINED ERROR");
+  }
+}
 
-    void logConfig(Config config) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("nukiId :%d", config.nukiId);
+void logConfig(Config config) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("nukiId :%d", config.nukiId);
   log_d("name :%s", config.name);
   log_d("latitide :%f", config.latitide);
   log_d("longitude :%f", config.longitude);
@@ -186,12 +186,12 @@ namespace NukiOpener {
   log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
   log_d("homeKitStatus :%d", config.homeKitStatus);
   log_d("timeZoneId :%d", config.timeZoneId);
-#endif
-    }
+  #endif
+}
 
-    void logNewConfig(NewConfig newConfig) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("name :%s", newConfig.name);
+void logNewConfig(NewConfig newConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("name :%s", newConfig.name);
   log_d("latitide :%f", newConfig.latitide);
   log_d("longitude :%f", newConfig.longitude);
   log_d("autoUnlatch :%d", newConfig.autoUnlatch);
@@ -207,12 +207,12 @@ namespace NukiOpener {
   log_d("singleLock :%d", newConfig.singleLock);
   log_d("advertisingMode :%d", newConfig.advertisingMode);
   log_d("timeZoneId :%d", newConfig.timeZoneId);
-#endif
-    }
+  #endif
+}
 
-    void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("code:%d", newKeypadEntry.code);
+void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("code:%d", newKeypadEntry.code);
   log_d("name:%s", newKeypadEntry.name);
   log_d("timeLimited:%d", newKeypadEntry.timeLimited);
   log_d("allowedFromYear:%d", newKeypadEntry.allowedFromYear);
@@ -232,12 +232,12 @@ namespace NukiOpener {
   log_d("allowedFromTimeMin:%d", newKeypadEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", newKeypadEntry.allowedUntilTimeHour);
   log_d("allowedUntilTimeMin:%d", newKeypadEntry.allowedUntilTimeMin);
-#endif
-    }
+  #endif
+}
 
-    void logKeypadEntry(KeypadEntry keypadEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("codeId:%d", keypadEntry.codeId);
+void logKeypadEntry(KeypadEntry keypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("codeId:%d", keypadEntry.codeId);
   log_d("code:%d", keypadEntry.code);
   log_d("name:%s", keypadEntry.name);
   log_d("enabled:%d", keypadEntry.enabled);
@@ -272,12 +272,12 @@ namespace NukiOpener {
   log_d("allowedFromTimeMin:%d", keypadEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", keypadEntry.allowedUntilTimeHour);
   log_d("allowedUntilTimeMin:%d", keypadEntry.allowedUntilTimeMin);
-#endif
-    }
+  #endif
+}
 
-    void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("codeId:%d", updatedKeypadEntry.codeId);
+void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("codeId:%d", updatedKeypadEntry.codeId);
   log_d("code:%d", updatedKeypadEntry.code);
   log_d("name:%s", updatedKeypadEntry.name);
   log_d("enabled:%d", updatedKeypadEntry.enabled);
@@ -299,12 +299,12 @@ namespace NukiOpener {
   log_d("allowedFromTimeMin:%d", updatedKeypadEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", updatedKeypadEntry.allowedUntilTimeHour);
   log_d("allowedUntilTimeMin:%d", updatedKeypadEntry.allowedUntilTimeMin);
-#endif
-    }
+  #endif
+}
 
-    void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("id:%d", authorizationEntry.authId);
+void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("id:%d", authorizationEntry.authId);
   log_d("idType:%d", authorizationEntry.idType);
   log_d("name:%s", authorizationEntry.name);
   log_d("enabled:%d", authorizationEntry.enabled);
@@ -340,12 +340,12 @@ namespace NukiOpener {
   log_d("allowedFromTimeMin:%d", authorizationEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", authorizationEntry.allowedUntilTimeHour);
   log_d("allowedUntilTimeMin:%d", authorizationEntry.allowedUntilTimeMin);
-#endif
-    }
+  #endif
+}
 
-    void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("name:%s", newAuthorizationEntry.name);
+void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("name:%s", newAuthorizationEntry.name);
   log_d("idType:%d", newAuthorizationEntry.idType);
   log_d("remoteAllowed:%d", newAuthorizationEntry.remoteAllowed);
   log_d("timeLimited:%d", newAuthorizationEntry.timeLimited);
@@ -366,12 +366,12 @@ namespace NukiOpener {
   log_d("allowedFromTimeMin:%d", newAuthorizationEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntilTimeHour);
   log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntilTimeMin);
-#endif
-    }
+  #endif
+}
 
-    void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("id:%d", updatedAuthorizationEntry.authId);
+void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("id:%d", updatedAuthorizationEntry.authId);
   log_d("name:%s", updatedAuthorizationEntry.name);
   log_d("enabled:%d", updatedAuthorizationEntry.enabled);
   log_d("remoteAllowed:%d", updatedAuthorizationEntry.remoteAllowed);
@@ -393,109 +393,109 @@ namespace NukiOpener {
   log_d("allowedFromTimeMin:%d", updatedAuthorizationEntry.allowedFromTimeMin);
   log_d("allowedUntilTimeHour:%d", updatedAuthorizationEntry.allowedUntilTimeHour);
   log_d("allowedUntilTimeMin:%d", updatedAuthorizationEntry.allowedUntilTimeMin);
-#endif
-    }
+  #endif
+}
 
-    void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("weekdays:%d", newTimeControlEntry.weekdays);
+void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("weekdays:%d", newTimeControlEntry.weekdays);
   log_d("time:%d:%d", newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
   log_d("lockAction:%d", newTimeControlEntry.lockAction);
-#endif
-    }
+  #endif
+}
 
-    void logTimeControlEntry(TimeControlEntry timeControlEntry) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("entryId:%d", timeControlEntry.entryId);
+void logTimeControlEntry(TimeControlEntry timeControlEntry) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("entryId:%d", timeControlEntry.entryId);
   log_d("enabled:%d", timeControlEntry.enabled);
   log_d("weekdays:%d", timeControlEntry.weekdays);
   log_d("time:%d:%d", timeControlEntry.timeHour, timeControlEntry.timeMin);
   log_d("lockAction:%d", timeControlEntry.lockAction);
-#endif
-    }
+  #endif
+}
 
-    void logCompletionStatus(CompletionStatus completionStatus) {
-        switch (completionStatus) {
-            case CompletionStatus::Busy :
-                log_d("Completion status: busy");
-                break;
-            case CompletionStatus::Incomplete :
-                log_d("Completion status: incomplete");
-                break;
-            case CompletionStatus::Canceled :
-                log_d("Completion status: canceled");
-                break;
-            case CompletionStatus::OtherError :
-                log_d("Completion status: otherError");
-                break;
-            case CompletionStatus::Success :
-                log_d("Completion status: success");
-                break;
-            case CompletionStatus::TooRecent :
-                log_d("Completion status: tooRecent");
-                break;
-            default:
-                log_w("Completion status: unknown");
-                break;
-        }
-    }
+void logCompletionStatus(CompletionStatus completionStatus) {
+  switch (completionStatus) {
+    case CompletionStatus::Busy :
+      log_d("Completion status: busy");
+      break;
+    case CompletionStatus::Incomplete :
+      log_d("Completion status: incomplete");
+      break;
+    case CompletionStatus::Canceled :
+      log_d("Completion status: canceled");
+      break;
+    case CompletionStatus::OtherError :
+      log_d("Completion status: otherError");
+      break;
+    case CompletionStatus::Success :
+      log_d("Completion status: success");
+      break;
+    case CompletionStatus::TooRecent :
+      log_d("Completion status: tooRecent");
+      break;
+    default:
+      log_w("Completion status: unknown");
+      break;
+  }
+}
 
-    void logNukiTrigger(Trigger nukiTrigger) {
-        switch (nukiTrigger) {
-            case Trigger::Automatic :
-                log_d("Trigger: automatic");
-                break;
-            case Trigger::Button :
-                log_d("Trigger: button");
-                break;
-            case Trigger::Manual :
-                log_d("Trigger: manual");
-                break;
-            case Trigger::System :
-                log_d("Trigger: system");
-                break;
-            default:
-                log_w("Trigger: unknown");
-                break;
-        }
-    }
+void logNukiTrigger(Trigger nukiTrigger) {
+  switch (nukiTrigger) {
+    case Trigger::Automatic :
+      log_d("Trigger: automatic");
+      break;
+    case Trigger::Button :
+      log_d("Trigger: button");
+      break;
+    case Trigger::Manual :
+      log_d("Trigger: manual");
+      break;
+    case Trigger::System :
+      log_d("Trigger: system");
+      break;
+    default:
+      log_w("Trigger: unknown");
+      break;
+  }
+}
 
-    void logLockAction(LockAction lockAction) {
-        switch (lockAction) {
-            case LockAction::ActivateRTO :
-                log_d("action: ActivateRTO");
-                break;
-            case LockAction::DeactivateRTO :
-                log_d("action: DeactivateRTO");
-                break;
-            case LockAction::ElectricStrikeActuation :
-                log_d("action: ElectricStrikeActuation");
-                break;
-            case LockAction::ActivateCM :
-                log_d("action: ActivateCM");
-                break;
-            case LockAction::DeactivateCM :
-                log_d("action: DeactivateCM");
-                break;
-            case LockAction::FobAction1 :
-                log_d("action: autoLock");
-                break;
-            case LockAction::FobAction2 :
-                log_d("action: automatic");
-                break;
-            case LockAction::FobAction3 :
-                log_d("action: button");
-                break;
-            default:
-                log_w("action: unknown");
-                break;
-        }
-    }
+void logLockAction(LockAction lockAction) {
+  switch (lockAction) {
+    case LockAction::ActivateRTO :
+      log_d("action: ActivateRTO");
+      break;
+    case LockAction::DeactivateRTO :
+      log_d("action: DeactivateRTO");
+      break;
+    case LockAction::ElectricStrikeActuation :
+      log_d("action: ElectricStrikeActuation");
+      break;
+    case LockAction::ActivateCM :
+      log_d("action: ActivateCM");
+      break;
+    case LockAction::DeactivateCM :
+      log_d("action: DeactivateCM");
+      break;
+    case LockAction::FobAction1 :
+      log_d("action: autoLock");
+      break;
+    case LockAction::FobAction2 :
+      log_d("action: automatic");
+      break;
+    case LockAction::FobAction3 :
+      log_d("action: button");
+      break;
+    default:
+      log_w("action: unknown");
+      break;
+  }
+}
 
 
-    void logKeyturnerState(OpenerState keyTurnerState) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("nukiState: %02x", keyTurnerState.nukiState);
+void logKeyturnerState(OpenerState keyTurnerState) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("nukiState: %02x", keyTurnerState.nukiState);
   log_d("lockState: %d", keyTurnerState.lockState);
   logNukiTrigger(keyTurnerState.trigger);
   log_d("currentTimeYear: %d", keyTurnerState.currentTimeYear);
@@ -512,12 +512,12 @@ namespace NukiOpener {
   log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
   logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus);
   log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
-#endif
-    }
+  #endif
+}
 
-    void logBatteryReport(BatteryReport batteryReport) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("batteryDrain:%d", batteryReport.batteryDrain);
+void logBatteryReport(BatteryReport batteryReport) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("batteryDrain:%d", batteryReport.batteryDrain);
   log_d("batteryVoltage:%d", batteryReport.batteryVoltage);
   log_d("criticalBatteryState:%d", batteryReport.criticalBatteryState);
   log_d("lockAction:%d", batteryReport.lockAction);
@@ -527,60 +527,60 @@ namespace NukiOpener {
   log_d("startTemperature:%d", batteryReport.startTemperature);
   log_d("maxTurnCurrent:%d", batteryReport.maxTurnCurrent);
   log_d("batteryResistance:%d", batteryReport.batteryResistance);
-#endif
+  #endif
+}
+
+void logLogEntry(LogEntry logEntry) {
+  log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
+
+  switch (logEntry.loggingType) {
+    case LoggingType::LoggingEnabled: {
+      log_d("Logging enabled: %d", logEntry.data[0]);
+      break;
     }
-
-    void logLogEntry(LogEntry logEntry) {
-        log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
-
-        switch (logEntry.loggingType) {
-            case LoggingType::LoggingEnabled: {
-                log_d("Logging enabled: %d", logEntry.data[0]);
-                break;
-            }
-            case LoggingType::LockAction:
-            case LoggingType::Calibration:
-            case LoggingType::InitializationRun: {
-                logLockAction((LockAction)logEntry.data[0]);
-                logNukiTrigger((Trigger)logEntry.data[1]);
-                log_d("Flags: %d", logEntry.data[2]);
-                logCompletionStatus((CompletionStatus)logEntry.data[3]);
-                break;
-            }
-            case LoggingType::KeypadAction: {
-                logLockAction((LockAction)logEntry.data[0]);
-                log_d("Source: %d", logEntry.data[1]);
-                logCompletionStatus((CompletionStatus)logEntry.data[2]);
-                uint16_t codeId = 0;
-                memcpy(&codeId, &logEntry.data[3], 2);
-                log_d("Code id: %d", codeId);
-                break;
-            }
-            case LoggingType::DoorSensor: {
-                if (logEntry.data[0] == 0x00) {
-                    log_d("Door opened") ;
-                }
-                if (logEntry.data[0] == 0x01) {
-                    log_d("Door closed") ;
-                }
-                if (logEntry.data[0] == 0x02) {
-                    log_d("Door sensor jammed") ;
-                }
-                break;
-            }
-            case LoggingType::DoorSensorLoggingEnabled: {
-                log_d("Logging enabled: %d", logEntry.data[0]);
-                break;
-            }
-            default:
-                log_w("Unknown logging type");
-                break;
-        }
+    case LoggingType::LockAction:
+    case LoggingType::Calibration:
+    case LoggingType::InitializationRun: {
+      logLockAction((LockAction)logEntry.data[0]);
+      logNukiTrigger((Trigger)logEntry.data[1]);
+      log_d("Flags: %d", logEntry.data[2]);
+      logCompletionStatus((CompletionStatus)logEntry.data[3]);
+      break;
     }
+    case LoggingType::KeypadAction: {
+      logLockAction((LockAction)logEntry.data[0]);
+      log_d("Source: %d", logEntry.data[1]);
+      logCompletionStatus((CompletionStatus)logEntry.data[2]);
+      uint16_t codeId = 0;
+      memcpy(&codeId, &logEntry.data[3], 2);
+      log_d("Code id: %d", codeId);
+      break;
+    }
+    case LoggingType::DoorSensor: {
+      if (logEntry.data[0] == 0x00) {
+        log_d("Door opened") ;
+      }
+      if (logEntry.data[0] == 0x01) {
+        log_d("Door closed") ;
+      }
+      if (logEntry.data[0] == 0x02) {
+        log_d("Door sensor jammed") ;
+      }
+      break;
+    }
+    case LoggingType::DoorSensorLoggingEnabled: {
+      log_d("Logging enabled: %d", logEntry.data[0]);
+      break;
+    }
+    default:
+      log_w("Unknown logging type");
+      break;
+  }
+}
 
-    void logAdvancedConfig(AdvancedConfig advancedConfig) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("totalDegrees :%d", advancedConfig.totalDegrees);
+void logAdvancedConfig(AdvancedConfig advancedConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("totalDegrees :%d", advancedConfig.totalDegrees);
   log_d("unlockedPositionOffsetDegrees :%d", advancedConfig.unlockedPositionOffsetDegrees);
   log_d("lockedPositionOffsetDegrees :%f", advancedConfig.lockedPositionOffsetDegrees);
   log_d("singleLockedPositionOffsetDegrees :%f", advancedConfig.singleLockedPositionOffsetDegrees);
@@ -605,12 +605,12 @@ namespace NukiOpener {
   log_d("autoLockEnabled :%d", advancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", advancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", advancedConfig.autoUpdateEnabled);
-#endif
-    }
+  #endif
+}
 
-    void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
-#ifdef DEBUG_NUKI_READABLE_DATA
-        log_d("unlockedPositionOffsetDegrees :%d", newAdvancedConfig.unlockedPositionOffsetDegrees);
+void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  log_d("unlockedPositionOffsetDegrees :%d", newAdvancedConfig.unlockedPositionOffsetDegrees);
   log_d("lockedPositionOffsetDegrees :%f", newAdvancedConfig.lockedPositionOffsetDegrees);
   log_d("singleLockedPositionOffsetDegrees :%f", newAdvancedConfig.singleLockedPositionOffsetDegrees);
   log_d("unlockedToLockedTransitionOffsetDegrees :%d", newAdvancedConfig.unlockedToLockedTransitionOffsetDegrees);
@@ -634,7 +634,7 @@ namespace NukiOpener {
   log_d("autoLockEnabled :%d", newAdvancedConfig.autoLockEnabled);
   log_d("immediateAutoLockEnabled :%d", newAdvancedConfig.immediateAutoLockEnabled);
   log_d("autoUpdateEnabled :%d", newAdvancedConfig.autoUpdateEnabled);
-#endif
-    }
+  #endif
+}
 
 } // namespace Nuki

@@ -3,12 +3,10 @@
 #include "NukiBle.h"
 #include "NukiLockConstants.h"
 
-namespace NukiLock
-{
+namespace NukiLock {
 
-class NukiLock : public Nuki::NukiBle
-    {
-    public:
+class NukiLock : public Nuki::NukiBle {
+  public:
     NukiLock(const std::string& deviceName, const uint32_t deviceId);
 
 
@@ -286,11 +284,11 @@ class NukiLock : public Nuki::NukiBle
      */
     const ErrorCode getLastError() const;
 
-protected:
+  protected:
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) override;
     virtual void logErrorCode(uint8_t errorCode) override;
 
-private:
+  private:
     Nuki::CmdResult setConfig(NewConfig newConfig);
     Nuki::CmdResult setFromConfig(const Config config);
     Nuki::CmdResult setAdvancedConfig(NewAdvancedConfig newAdvancedConfig);

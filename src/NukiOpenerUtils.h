@@ -20,7 +20,7 @@
 
 namespace NukiOpener {
 
-    void cmdResultToString(const CmdResult state, char* str);
+void cmdResultToString(const CmdResult state, char* str);
 
 /**
  * @brief Translate a bitset<N> into Nuki weekdays int
@@ -29,27 +29,27 @@ namespace NukiOpener {
  * @param bitset with bitset[0] = Monday ... bitset[7] = Sunday
  * @return uint8_t with bit6 = Monday ... bit0 = Sunday
  */
-    template<std::size_t N>
-    uint8_t getWeekdaysIntFromBitset(const std::bitset<N> bits);
+template<std::size_t N>
+uint8_t getWeekdaysIntFromBitset(const std::bitset<N> bits);
 
-    void logErrorCode(uint8_t errorCode);
-    void logConfig(Config config);
-    void logNewConfig(NewConfig newConfig);
-    void logNewKeypadEntry(NewKeypadEntry newKeypadEntry);
-    void logKeypadEntry(KeypadEntry keypadEntry);
-    void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry);
-    void logAuthorizationEntry(AuthorizationEntry authorizationEntry);
-    void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
-    void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
-    void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry);
-    void logTimeControlEntry(TimeControlEntry timeControlEntry);
-    void logCompletionStatus(CompletionStatus completionStatus);
-    void logNukiTrigger(Trigger nukiTrigger);
-    void logLockAction(LockAction lockAction);
-    void logKeyturnerState(OpenerState keyTurnerState);
-    void logBatteryReport(BatteryReport batteryReport);
-    void logLogEntry(LogEntry logEntry);
-    void logAdvancedConfig(AdvancedConfig advancedConfig);
-    void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+void logErrorCode(uint8_t errorCode);
+void logConfig(Config config);
+void logNewConfig(NewConfig newConfig);
+void logNewKeypadEntry(NewKeypadEntry newKeypadEntry);
+void logKeypadEntry(KeypadEntry keypadEntry);
+void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry);
+void logAuthorizationEntry(AuthorizationEntry authorizationEntry);
+void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
+void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
+void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry);
+void logTimeControlEntry(TimeControlEntry timeControlEntry);
+void logCompletionStatus(CompletionStatus completionStatus);
+void logNukiTrigger(Trigger nukiTrigger);
+void logLockAction(LockAction lockAction);
+void logKeyturnerState(OpenerState keyTurnerState);
+void logBatteryReport(BatteryReport batteryReport);
+void logLogEntry(LogEntry logEntry);
+void logAdvancedConfig(AdvancedConfig advancedConfig);
+void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
 
 } // namespace Nuki

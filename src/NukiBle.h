@@ -26,7 +26,7 @@
 #define PAIRING_TIMEOUT 30000
 
 namespace Nuki {
-    class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
+class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
   public:
     NukiBle(const std::string& deviceName,
             const uint32_t deviceId,
@@ -88,7 +88,7 @@ namespace Nuki {
      * @param totalCount true if a Log Entry Count is requested from the lock
      */
     Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
-                                 const bool totalCount);
+                                       const bool totalCount);
 
     /**
      * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
@@ -122,10 +122,10 @@ namespace Nuki {
      */
     Nuki::CmdResult updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry);
 
-        /**
-     * @brief Returns the keypad entry count.
-     * Only available after executing retreiveKeypadEntries.
-     */
+    /**
+    * @brief Returns the keypad entry count.
+    * Only available after executing retreiveKeypadEntries.
+    */
     uint16_t getKeypadEntryCount();
 
     /**
@@ -143,11 +143,11 @@ namespace Nuki {
      */
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
 
-        /**
-     * @brief Delete a Keypad Entry
-     *
-     * @param id Id to be deleted
-     */
+    /**
+    * @brief Delete a Keypad Entry
+    *
+    * @param id Id to be deleted
+    */
     CmdResult deleteKeypadEntry(uint16_t id);
 
     /**
@@ -241,7 +241,7 @@ namespace Nuki {
      */
     void registerBleScanner(BleScanner::Publisher* bleScanner);
 
-protected:
+  protected:
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
 
@@ -257,13 +257,13 @@ protected:
     template <typename TDeviceAction>
     Nuki::CmdResult cmdChallAccStateMachine(const TDeviceAction action);
 
-protected:
+  protected:
     virtual void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
     virtual void logErrorCode(uint8_t errorCode) = 0;
     uint8_t errorCode;
     Command lastMsgCodeReceived = Command::Empty;
 
-private:
+  private:
 //Keyturner Pairing Service
     const NimBLEUUID pairingServiceUUID;
 //Keyturner Service
