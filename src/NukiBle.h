@@ -137,6 +137,13 @@ namespace Nuki {
      */
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
 
+        /**
+     * @brief Delete a Keypad Entry
+     *
+     * @param id Id to be deleted
+     */
+    CmdResult deleteKeypadEntry(uint16_t id);
+
     /**
      * @brief Request the lock via BLE to send the existing authorizationentries
      *

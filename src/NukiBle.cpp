@@ -299,8 +299,21 @@ void NukiBle::getKeypadEntries(std::list<KeypadEntry>* requestedKeypadCodes) {
   }
 }
 
+CmdResult NukiBle::deleteKeypadEntry(uint16_t id) {
+  NukiLock::Action action;
+  unsigned char payload[2] = {0};
+  memcpy(payload, &id, 2);
+
+  action.cmdType = CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RemoveKeypadCode;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  return executeAction(action);
+}
+
 Nuki::CmdResult NukiBle::retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count) {
-    NukiLock::Action action;
+  NukiLock::Action action;
   unsigned char payload[4] = {0};
   memcpy(payload, &offset, 2);
   memcpy(&payload[2], &count, 2);
