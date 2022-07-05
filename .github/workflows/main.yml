@@ -47,5 +47,5 @@ jobs:
     - name: Run PlatformIO
       run: |
         # install libs before build
-        pio lib -e ${{ matrix.env }} install
+        pio pkg install -e ${{ matrix.env }}
         pio run -e ${{ matrix.env }}

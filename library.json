@@ -1,6 +1,6 @@
 {
   "name": "NukiBleEsp",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "Control Nuki smartlock via BLE from esp32",
   "keywords": "nuki ble esp32",
   "authors": [
