@@ -4,21 +4,21 @@
  */
 
 #include "Arduino.h"
-#include "NukiBle.h"
+#include "NukiLock.h"
 #include "NukiConstants.h"
 #include "BleScanner.h"
 
 uint32_t deviceId = 2020001;
 std::string deviceName = "frontDoor";
-Nuki::NukiBle nukiBle(deviceName, deviceId);
+NukiLock::NukiLock nukiLock(deviceName, deviceId);
 BleScanner::Scanner scanner;
 
-Nuki::KeyTurnerState retrievedKeyTurnerState;
-Nuki::BatteryReport _batteryReport;
+NukiLock::KeyTurnerState retrievedKeyTurnerState;
+NukiLock::BatteryReport _batteryReport;
 std::list<Nuki::LogEntry> requestedLogEntries;
 std::list<Nuki::KeypadEntry> requestedKeypadEntries;
 std::list<Nuki::AuthorizationEntry> requestedAuthorizationEntries;
-std::list<Nuki::TimeControlEntry> requestedTimeControlEntries;
+std::list<NukiLock::TimeControlEntry> requestedTimeControlEntries;
 
 void addKeypadEntry() {
   Nuki::NewKeypadEntry newKeypadEntry;
@@ -44,11 +44,11 @@ void addKeypadEntry() {
   newKeypadEntry.allowedUntilTimeHour = 23;
   newKeypadEntry.allowedUntilTimeMin = 59;
 
-  nukiBle.addKeypadEntry(newKeypadEntry);
+  nukiLock.addKeypadEntry(newKeypadEntry);
 }
 
 void batteryReport() {
-  uint8_t result = nukiBle.requestBatteryReport(&_batteryReport);
+  uint8_t result = nukiLock.requestBatteryReport(&_batteryReport);
   if (result == 1) {
     log_d("Bat report voltage: %d Crit state: %d, start temp: %d", _batteryReport.batteryVoltage, _batteryReport.criticalBatteryState, _batteryReport.startTemperature);
   } else {
@@ -57,10 +57,10 @@ void batteryReport() {
 }
 
 bool keyTurnerState() {
-  uint8_t result = nukiBle.requestKeyTurnerState(&retrievedKeyTurnerState);
+  uint8_t result = nukiLock.requestKeyTurnerState(&retrievedKeyTurnerState);
   if (result == 1) {
     log_d("Bat crit: %d, Bat perc:%d lock state: %d %d:%d:%d",
-          nukiBle.isBatteryCritical(), nukiBle.getBatteryPerc(), retrievedKeyTurnerState.lockState, retrievedKeyTurnerState.currentTimeHour,
+          nukiLock.isBatteryCritical(), nukiLock.getBatteryPerc(), retrievedKeyTurnerState.lockState, retrievedKeyTurnerState.currentTimeHour,
           retrievedKeyTurnerState.currentTimeMinute, retrievedKeyTurnerState.currentTimeSecond);
   } else {
     log_d("cmd failed: %d", result);
@@ -69,10 +69,10 @@ bool keyTurnerState() {
 }
 
 void requestLogEntries() {
-  uint8_t result = nukiBle.retrieveLogEntries(0, 10, 0, true);
+  uint8_t result = nukiLock.retrieveLogEntries(0, 10, 0, true);
   if (result == 1) {
     delay(5000);
-    nukiBle.getLogEntries(&requestedLogEntries);
+    nukiLock.getLogEntries(&requestedLogEntries);
     std::list<Nuki::LogEntry>::iterator it = requestedLogEntries.begin();
     while (it != requestedLogEntries.end()) {
       log_d("Log[%d] %d-%d-%d %d:%d:%d", it->index, it->timeStampYear, it->timeStampMonth, it->timeStampDay, it->timeStampHour, it->timeStampMinute, it->timeStampSecond);
@@ -84,10 +84,10 @@ void requestLogEntries() {
 }
 
 void requestKeyPadEntries() {
-  uint8_t result = nukiBle.retrieveKeypadEntries(0, 10);
+  uint8_t result = nukiLock.retrieveKeypadEntries(0, 10);
   if (result == 1) {
     delay(5000);
-    nukiBle.getKeypadEntries(&requestedKeypadEntries);
+    nukiLock.getKeypadEntries(&requestedKeypadEntries);
     std::list<Nuki::KeypadEntry>::iterator it = requestedKeypadEntries.begin();
     while (it != requestedKeypadEntries.end()) {
       log_d("Keypad entry[%d] %d", it->codeId, it->code);
@@ -99,10 +99,10 @@ void requestKeyPadEntries() {
 }
 
 void requestAuthorizationEntries() {
-  uint8_t result = nukiBle.retrieveAuthorizationEntries(0, 10);
+  uint8_t result = nukiLock.retrieveAuthorizationEntries(0, 10);
   if (result == 1) {
     delay(5000);
-    nukiBle.getAuthorizationEntries(&requestedAuthorizationEntries);
+    nukiLock.getAuthorizationEntries(&requestedAuthorizationEntries);
     std::list<Nuki::AuthorizationEntry>::iterator it = requestedAuthorizationEntries.begin();
     while (it != requestedAuthorizationEntries.end()) {
       log_d("Authorization entry[%d] type: %d name: %s", it->authId, it->idType, it->name);
@@ -114,7 +114,7 @@ void requestAuthorizationEntries() {
 }
 
 void setPincode(uint16_t pincode) {
-  uint8_t result = nukiBle.setSecurityPin(pincode);
+  uint8_t result = nukiLock.setSecurityPin(pincode);
   if (result == 1) {
     log_d("Set pincode done");
 
@@ -123,34 +123,34 @@ void setPincode(uint16_t pincode) {
   }
 }
 
-void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, Nuki::LockAction lockAction) {
-  Nuki::NewTimeControlEntry newEntry;
+void addTimeControl(uint8_t weekdays, uint8_t hour, uint8_t minute, NukiLock::LockAction lockAction) {
+  NukiLock::NewTimeControlEntry newEntry;
   newEntry.weekdays = weekdays;
   newEntry.timeHour = hour;
   newEntry.timeMin = minute;
   newEntry.lockAction = lockAction;
 
-  nukiBle.addTimeControlEntry(newEntry);
+  nukiLock.addTimeControlEntry(newEntry);
 }
 
 void requestTimeControlEntries() {
-  Nuki::CmdResult result = nukiBle.retrieveTimeControlEntries();
+  Nuki::CmdResult result = nukiLock.retrieveTimeControlEntries();
   if (result == Nuki::CmdResult::Success) {
     delay(5000);
-    nukiBle.getTimeControlEntries(&requestedTimeControlEntries);
-    std::list<Nuki::TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
+    nukiLock.getTimeControlEntries(&requestedTimeControlEntries);
+    std::list<NukiLock::TimeControlEntry>::iterator it = requestedTimeControlEntries.begin();
     while (it != requestedTimeControlEntries.end()) {
       log_d("TimeEntry[%d] weekdays:%d %d:%d enabled: %d lock action: %d", it->entryId, it->weekdays, it->timeHour, it->timeMin, it->enabled, it->lockAction);
       it++;
     }
   } else {
-    log_d("get log failed: %d, error %d", result, nukiBle.getLastError());
+    log_d("get log failed: %d, error %d", result, nukiLock.getLastError());
   }
 }
 
 void getConfig() {
-  Nuki::Config config;
-  if (nukiBle.requestConfig(&config) == 1) {
+  NukiLock::Config config;
+  if (nukiLock.requestConfig(&config) == 1) {
     log_d("Name: %s", config.name);
   } else {
     log_w("getConfig failed");
@@ -173,26 +173,26 @@ void setup() {
   Serial.begin(115200);
   log_d("Starting NUKI BLE...");
   scanner.initialize();
-  nukiBle.registerBleScanner(&scanner);
-  nukiBle.initialize();
+  nukiLock.registerBleScanner(&scanner);
+  nukiLock.initialize();
 
-  if (nukiBle.isPairedWithLock()) {
+  if (nukiLock.isPairedWithLock()) {
     log_d("paired");
-    nukiBle.setEventHandler(&handler);
+    nukiLock.setEventHandler(&handler);
     getConfig();
-    nukiBle.enableLedFlash(false);
+    nukiLock.enableLedFlash(false);
   }
 
-  // nukiBle.savePincode(9999);
-  // nukiBle.unPairNuki();
+  // nukiLock.savePincode(9999);
+  // nukiLock.unPairNuki();
 }
 
 void loop() {
   scanner.update();
-  if (!nukiBle.isPairedWithLock()) {
-    if (nukiBle.pairNuki() == Nuki::PairingResult::Success) {
+  if (!nukiLock.isPairedWithLock()) {
+    if (nukiLock.pairNuki() == Nuki::PairingResult::Success) {
       log_d("paired");
-      nukiBle.setEventHandler(&handler);
+      nukiLock.setEventHandler(&handler);
       getConfig();
     }
   }
