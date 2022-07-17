@@ -223,6 +223,17 @@ CmdResult NukiOpener::enableLedFlash(const bool enable) {
   return result;
 }
 
+CmdResult NukiOpener::setSoundLevel(const uint8_t value)
+{
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.soundLevel = value;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
 Nuki::CmdResult NukiOpener::setAdvertisingMode(const AdvertisingMode mode) {
   Config oldConfig;
   Nuki::CmdResult result = requestConfig(&oldConfig);
@@ -453,4 +464,6 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
 void NukiOpener::logErrorCode(uint8_t errorCode) {
   NukiOpener::logErrorCode(errorCode);
 }
+
+
 }

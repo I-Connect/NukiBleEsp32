@@ -138,6 +138,13 @@ class NukiOpener : public Nuki::NukiBle {
     CmdResult enableLedFlash(const bool enable);
 
     /**
+     * @brief Gets the current config from the lock, and updates the sound level.
+     *
+     * @param enable true if led enabled
+     */
+    CmdResult setSoundLevel(const uint8_t value);
+
+    /**
      * @brief Gets the current config from the lock, updates the advertising frequency parameter
      * and sends the new config to the lock via BLE
      *
