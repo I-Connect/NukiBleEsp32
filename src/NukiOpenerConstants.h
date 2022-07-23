@@ -204,6 +204,7 @@ struct __attribute__((packed)) AdvancedConfig {
   uint16_t electricStrikeDuration;
   uint8_t disableRtoAfterRing;
   uint8_t rtoTimeout;
+  uint8_t unknown;
   uint8_t doorbellSuppression;
   uint16_t doorbellSuppressionDuration;
   uint8_t soundRing;
@@ -227,6 +228,7 @@ struct __attribute__((packed)) NewAdvancedConfig {
   uint16_t electricStrikeDuration;
   uint8_t disableRtoAfterRing;
   uint8_t rtoTimeout;
+  uint8_t unknown;
   uint8_t doorbellSuppression;
   uint16_t doorbellSuppressionDuration;
   uint8_t soundRing;
