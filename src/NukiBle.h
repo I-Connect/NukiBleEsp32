@@ -11,7 +11,6 @@
  *
  */
 
-#include "RTOS.h"
 #include "NimBLEDevice.h"
 #include "NukiConstants.h"
 #include "NukiDataTypes.h"
@@ -275,7 +274,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     const std::string preferencesId;
 
-    FreeRTOS::Semaphore nukiBleSemaphore;
+    SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateMutex();
     bool takeNukiBleSemaphore(std::string taker);
     std::string owner = "free";
     void giveNukiBleSemaphore();

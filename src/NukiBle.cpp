@@ -1153,7 +1153,7 @@ const bool NukiBle::isPairedWithLock() const {
 };
 
 bool NukiBle::takeNukiBleSemaphore(std::string taker) {
-  bool result = nukiBleSemaphore.take(NUKI_SEMAPHORE_TIMEOUT, taker);
+  bool result = xSemaphoreTake(nukiBleSemaphore, NUKI_SEMAPHORE_TIMEOUT / portTICK_PERIOD_MS) == pdTRUE;
 
   if (!result) {
     log_d("%s FAILED to take Nuki semaphore. Owner %s", taker.c_str(), owner.c_str());
@@ -1166,7 +1166,7 @@ bool NukiBle::takeNukiBleSemaphore(std::string taker) {
 
 void NukiBle::giveNukiBleSemaphore() {
   owner = "free";
-  nukiBleSemaphore.give();
+  xSemaphoreGive(nukiBleSemaphore);
 }
 
 } // namespace Nuki
