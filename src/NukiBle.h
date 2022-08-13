@@ -79,24 +79,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     const bool isPairedWithLock() const;
 
     /**
-     * @brief Request the lock via BLE to send the log entries
-     *
-     * @param startIndex Startindex of first log msg to be send
-     * @param count The number of log entries to be read, starting at the specified start index.
-     * @param sortOrder The desired sort order
-     * @param totalCount true if a Log Entry Count is requested from the lock
-     */
-    Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
-                                       const bool totalCount);
-
-    /**
-     * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
-     *
-     * @param requestedLogEntries list to store the returned log entries
-     */
-    void getLogEntries(std::list<LogEntry>* requestedLogEntries);
-
-    /**
      * @brief Returns the log entry count. Only available after executing retreiveLogEntries.
      */
     uint16_t getLogEntryCount();
@@ -338,7 +320,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool keypadCodeCountReceived = false;
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
-    std::list<LogEntry> listOfLogEntries;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
 

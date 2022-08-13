@@ -272,6 +272,28 @@ struct __attribute__((packed)) NewTimeControlEntry {
   LockAction lockAction;
 };
 
+enum class LoggingType : uint8_t {
+  LoggingEnabled            = 0x01,
+  LockAction                = 0x02,
+  Calibration               = 0x03,
+  KeypadAction              = 0x05,
+  DoorbellRecognition       = 0x06
+};
+
+struct __attribute__((packed)) LogEntry {
+  uint32_t index;
+  uint16_t timeStampYear;
+  uint8_t timeStampMonth;
+  uint8_t timeStampDay;
+  uint8_t timeStampHour;
+  uint8_t timeStampMinute;
+  uint8_t timeStampSecond;
+  uint32_t authId;
+  uint8_t name[32];
+  LoggingType loggingType;
+  uint8_t data[5];
+};
+
 inline void lockstateToString(const LockState state, char* str) {
   switch (state) {
     case LockState::Uncalibrated:
@@ -368,6 +390,29 @@ inline void doorSensorStateToString(const DoorSensorState state, char* str) {
       break;
     default:
       strcpy(str, "undefined");
+      break;
+  }
+}
+
+inline void loggingTypeToString(const LoggingType state, char* str) {
+  switch (state) {
+    case LoggingType::LoggingEnabled:
+      strcpy(str, "LoggingEnabled");
+      break;
+    case LoggingType::LockAction:
+      strcpy(str, "LockAction");
+      break;
+    case LoggingType::Calibration:
+      strcpy(str, "Calibration");
+      break;
+    case LoggingType::KeypadAction:
+      strcpy(str, "KeypadAction");
+      break;
+    case LoggingType::DoorbellRecognition:
+      strcpy(str, "DoorbellRecognition");
+      break;
+    default:
+      strcpy(str, "Unknown");
       break;
   }
 }

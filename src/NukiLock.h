@@ -253,6 +253,24 @@ class NukiLock : public Nuki::NukiBle {
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
     /**
+     * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
+     *
+     * @param requestedLogEntries list to store the returned log entries
+     */
+    void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+
+    /**
+     * @brief Request the lock via BLE to send the log entries
+     *
+     * @param startIndex Startindex of first log msg to be send
+     * @param count The number of log entries to be read, starting at the specified start index.
+     * @param sortOrder The desired sort order
+     * @param totalCount true if a Log Entry Count is requested from the lock
+     */
+    Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
+                                       const bool totalCount);
+
+    /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
@@ -299,6 +317,7 @@ class NukiLock : public Nuki::NukiBle {
     KeyTurnerState keyTurnerState;
     BatteryReport batteryReport;
     std::list<TimeControlEntry> listOfTimeControlEntries;
+    std::list<LogEntry> listOfLogEntries;
 
     Config config;
     AdvancedConfig advancedConfig;

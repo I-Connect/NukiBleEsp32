@@ -36,16 +36,6 @@ enum class BatteryType : uint8_t {
   Lithium           = 0x02
 };
 
-enum class LoggingType : uint8_t {
-  LoggingEnabled            = 0x01,
-  LockAction                = 0x02,
-  Calibration               = 0x03,
-  InitializationRun         = 0x04,
-  KeypadAction              = 0x05,
-  DoorSensor                = 0x06,
-  DoorSensorLoggingEnabled  = 0x07
-};
-
 enum class AdvertisingMode : uint8_t {
   Automatic                 = 0x00,
   Normal                    = 0x01,
@@ -268,21 +258,6 @@ struct __attribute__((packed)) UpdatedKeypadEntry {
   uint8_t allowedUntilTimeMin;
 };
 
-
-struct __attribute__((packed)) LogEntry {
-  uint32_t index;
-  uint16_t timeStampYear;
-  uint8_t timeStampMonth;
-  uint8_t timeStampDay;
-  uint8_t timeStampHour;
-  uint8_t timeStampMinute;
-  uint8_t timeStampSecond;
-  uint32_t authId;
-  uint8_t name[32];
-  Nuki::LoggingType loggingType;
-  uint8_t data[5];
-};
-
 struct __attribute__((packed)) AuthorizationEntry {
   uint32_t authId;
   uint8_t idType;
@@ -381,32 +356,3 @@ struct __attribute__((packed)) TimeValue {
   uint16_t second;
 };
 } // namespace Nuki
-
-inline void loggingTypeToString(const Nuki::LoggingType state, char* str) {
-  switch (state) {
-    case Nuki::LoggingType::LoggingEnabled:
-      strcpy(str, "LoggingEnabled");
-      break;
-    case Nuki::LoggingType::LockAction:
-      strcpy(str, "LockAction");
-      break;
-    case Nuki::LoggingType::Calibration:
-      strcpy(str, "Calibration");
-      break;
-    case Nuki::LoggingType::InitializationRun:
-      strcpy(str, "InitializationRun");
-      break;
-    case Nuki::LoggingType::KeypadAction:
-      strcpy(str, "KeypadAction");
-      break;
-    case Nuki::LoggingType::DoorSensor:
-      strcpy(str, "DoorSensor");
-      break;
-    case Nuki::LoggingType::DoorSensorLoggingEnabled:
-      strcpy(str, "DoorSensorLoggingEnabled");
-      break;
-    default:
-      strcpy(str, "Unknown");
-      break;
-  }
-}

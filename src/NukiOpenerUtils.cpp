@@ -540,13 +540,6 @@ void logLogEntry(LogEntry logEntry) {
     }
     case LoggingType::LockAction:
     case LoggingType::Calibration:
-    case LoggingType::InitializationRun: {
-      logLockAction((LockAction)logEntry.data[0]);
-      logNukiTrigger((Trigger)logEntry.data[1]);
-      log_d("Flags: %d", logEntry.data[2]);
-      logCompletionStatus((CompletionStatus)logEntry.data[3]);
-      break;
-    }
     case LoggingType::KeypadAction: {
       logLockAction((LockAction)logEntry.data[0]);
       log_d("Source: %d", logEntry.data[1]);
@@ -556,20 +549,8 @@ void logLogEntry(LogEntry logEntry) {
       log_d("Code id: %d", codeId);
       break;
     }
-    case LoggingType::DoorSensor: {
-      if (logEntry.data[0] == 0x00) {
-        log_d("Door opened") ;
-      }
-      if (logEntry.data[0] == 0x01) {
-        log_d("Door closed") ;
-      }
-      if (logEntry.data[0] == 0x02) {
-        log_d("Door sensor jammed") ;
-      }
-      break;
-    }
-    case LoggingType::DoorSensorLoggingEnabled: {
-      log_d("Logging enabled: %d", logEntry.data[0]);
+    case LoggingType::DoorbellRecognition: {
+      // TODO
       break;
     }
     default:
