@@ -381,3 +381,32 @@ struct __attribute__((packed)) TimeValue {
   uint16_t second;
 };
 } // namespace Nuki
+
+inline void loggingTypeToString(const Nuki::LoggingType state, char* str) {
+  switch (state) {
+    case Nuki::LoggingType::LoggingEnabled:
+      strcpy(str, "LoggingEnabled");
+      break;
+    case Nuki::LoggingType::LockAction:
+      strcpy(str, "LockAction");
+      break;
+    case Nuki::LoggingType::Calibration:
+      strcpy(str, "Calibration");
+      break;
+    case Nuki::LoggingType::InitializationRun:
+      strcpy(str, "InitializationRun");
+      break;
+    case Nuki::LoggingType::KeypadAction:
+      strcpy(str, "KeypadAction");
+      break;
+    case Nuki::LoggingType::DoorSensor:
+      strcpy(str, "DoorSensor");
+      break;
+    case Nuki::LoggingType::DoorSensorLoggingEnabled:
+      strcpy(str, "DoorSensorLoggingEnabled");
+      break;
+    default:
+      strcpy(str, "Unknown");
+      break;
+  }
+}

@@ -293,6 +293,40 @@ struct __attribute__((packed)) NewTimeControlEntry {
   LockAction lockAction;
 };
 
+inline void lockactionToString(const LockAction action, char* str) {
+  switch (action) {
+    case LockAction::Unlock:
+      strcpy(str, "Unlock");
+      break;
+    case LockAction::Lock:
+      strcpy(str, "Lock");
+      break;
+    case LockAction::Unlatch:
+      strcpy(str, "Unlatch");
+      break;
+    case LockAction::LockNgo:
+      strcpy(str, "LockNgo");
+      break;
+    case LockAction::LockNgoUnlatch:
+      strcpy(str, "LockNgoUnlatch");
+      break;
+    case LockAction::FullLock:
+      strcpy(str, "FullLock");
+      break;
+    case LockAction::FobAction1:
+      strcpy(str, "FobAction1");
+      break;
+    case LockAction::FobAction2:
+      strcpy(str, "FobAction2");
+      break;
+    case LockAction::FobAction3:
+      strcpy(str, "FobAction3");
+      break;
+    default:
+      strcpy(str, "Unknown");
+      break;
+  }
+}
 
 inline void lockstateToString(const LockState state, char* str) {
   switch (state) {
@@ -334,7 +368,6 @@ inline void lockstateToString(const LockState state, char* str) {
       break;
   }
 }
-
 
 inline void triggerToString(const Trigger trigger, char* str) {
   switch (trigger) {
