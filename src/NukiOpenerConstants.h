@@ -291,7 +291,7 @@ struct __attribute__((packed)) LogEntry {
   uint32_t authId;
   uint8_t name[32];
   LoggingType loggingType;
-  uint8_t data[5];
+  uint8_t data[8];
 };
 
 inline void lockstateToString(const LockState state, char* str) {
