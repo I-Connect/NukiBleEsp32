@@ -78,7 +78,14 @@ PairingResult NukiBle::pairNuki() {
   PairingResult result = PairingResult::Pairing;
 
   if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
+    uint32_t beforeConnectBle = millis();
+    uint32_t afterConnectBle = 0;
     if (connectBle(bleAddress)) {
+      afterConnectBle = millis();
+      Serial.print("pairNuki: connectBle success after ");
+      Serial.print(afterConnectBle - beforeConnectBle);
+      Serial.println(" ms");
+
       crypto_box_keypair(myPublicKey, myPrivateKey);
 
       PairingState nukiPairingState = PairingState::InitPairing;
@@ -94,6 +101,12 @@ PairingResult NukiBle::pairNuki() {
         result = PairingResult::Timeout;
       }
       extendDisonnectTimeout();
+    }
+    else {
+    afterConnectBle = millis();
+    Serial.print("pairNuki: connectBle failed after ");
+    Serial.print(afterConnectBle - beforeConnectBle);
+    Serial.println(" ms");
     }
   } else {
     #ifdef DEBUG_NUKI_CONNECT
@@ -122,7 +135,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
-    while (connectRetry < 10) {
+    pClient->setConnectTimeout(connectTimeoutSec);
+    while (connectRetry < connectRetries) {
+      Serial.print("connectBle retry ");
+      Serial.println(connectRetry);
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
           bleScanner->enableScanning(true);
@@ -133,7 +149,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         }
       } else {
         pClient->disconnect();
-        log_w("BLE Connect failed, retrying");
+        log_w("BLE Connect failed, #d retries left", connectRetries - connectRetry - 1);
       }
       connectRetry++;
       delay(10);
@@ -165,6 +181,14 @@ void NukiBle::updateConnectionState() {
 
 void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
   timeoutDuration = timeoutMs;
+}
+
+void NukiBle::setConnectTimeout(uint8_t timeout) {
+  connectTimeoutSec = timeout;
+}
+
+void NukiBle::setConnectRetries(uint8_t retries) {
+  connectRetries = retries;
 }
 
 void NukiBle::extendDisonnectTimeout() {
@@ -828,10 +852,20 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     memcpy(&dataToSend[0], additionalData, sizeof(additionalData));
     memcpy(&dataToSend[30], plainDataEncr, sizeof(plainDataEncr));
 
+    uint32_t beforeConnectBle = millis();
+    uint32_t afterConnectBle = 0;
     if (connectBle(bleAddress)) {
       printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
+      afterConnectBle = millis();
+      Serial.print("sendEncryptedMessage: connectBle success after ");
+      Serial.print(afterConnectBle - beforeConnectBle);
+      Serial.println(" ms");
       return pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
     } else {
+      afterConnectBle = millis();
+      Serial.print("sendEncryptedMessage: connectBle failed after ");
+      Serial.print(afterConnectBle - beforeConnectBle);
+      Serial.println(" ms");
       log_w("Send encr msg failed due to unable to connect");
     }
   } else {
@@ -859,9 +893,19 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
   #endif
 
+  uint32_t beforeConnectBle = millis();
+  uint32_t afterConnectBle = 0;
   if (connectBle(bleAddress)) {
+    afterConnectBle = millis();
+    Serial.print("sendPlainMessage: connectBle success after ");
+    Serial.print(afterConnectBle - beforeConnectBle);
+    Serial.println(" ms");
     return pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   } else {
+    afterConnectBle = millis();
+    Serial.print("sendPlainMessage: connectBle failed after ");
+    Serial.print(afterConnectBle - beforeConnectBle);
+    Serial.println(" ms");
     log_w("Send plain msg failed due to unable to connect");
   }
   return false;
