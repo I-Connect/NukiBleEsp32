@@ -50,9 +50,9 @@ jobs:
         pio pkg install -e ${{ matrix.env }}
         pio run -e ${{ matrix.env }}
 
-    documentation:
+  documentation:
     needs: build
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     - name: doxygen
