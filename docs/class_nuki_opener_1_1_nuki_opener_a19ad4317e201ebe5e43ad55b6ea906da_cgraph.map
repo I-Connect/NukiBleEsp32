@@ -1,13 +1,13 @@
 <map id="NukiOpener::NukiOpener::handleReturnMessage" name="NukiOpener::NukiOpener::handleReturnMessage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,171,209,216"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#ac2e28f07ed0a738f73c5f77b46cdb1bb" title=" " alt="" coords="273,5,496,51"/>
-<area shape="rect" id="node3" href="$namespace_nuki_opener.html#a5df6b087b417e58c5c7a085a7f97fa63" title=" " alt="" coords="257,75,512,103"/>
-<area shape="rect" id="node4" href="$namespace_nuki_opener.html#a92b38c2119f39bf1c525b70cb49d3232" title=" " alt="" coords="267,127,502,155"/>
-<area shape="rect" id="node5" href="$namespace_nuki_opener.html#a01fb60e0e360c42ad366aef691d5a390" title=" " alt="" coords="293,179,476,207"/>
-<area shape="rect" id="node6" href="$namespace_nuki_opener.html#ad694b05ff6125ebf77e067be3002d075" title=" " alt="" coords="281,284,488,329"/>
-<area shape="rect" id="node10" href="$namespace_nuki_opener.html#a1c24f78474980cc2d90ee83e371621c4" title=" " alt="" coords="284,231,485,259"/>
-<area shape="rect" id="node11" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="317,354,453,382"/>
-<area shape="rect" id="node7" href="$namespace_nuki_opener.html#a84631e75b3f180ead51e1a292fcee637" title=" " alt="" coords="562,284,781,329"/>
-<area shape="rect" id="node8" href="$namespace_nuki_opener.html#ab25308954cb451d83358353032200422" title=" " alt="" coords="563,231,780,259"/>
-<area shape="rect" id="node9" href="$namespace_nuki_opener.html#a9915ff097023a69e5792e791336bfcd6" title=" " alt="" coords="560,354,783,382"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,161,172,201"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#ac2e28f07ed0a738f73c5f77b46cdb1bb" title=" " alt="" coords="233,5,415,45"/>
+<area shape="rect" id="node3" href="$namespace_nuki_opener.html#a5df6b087b417e58c5c7a085a7f97fa63" title=" " alt="" coords="220,70,428,95"/>
+<area shape="rect" id="node4" href="$namespace_nuki_opener.html#a92b38c2119f39bf1c525b70cb49d3232" title=" " alt="" coords="227,119,421,145"/>
+<area shape="rect" id="node5" href="$namespace_nuki_opener.html#a01fb60e0e360c42ad366aef691d5a390" title=" " alt="" coords="249,169,399,194"/>
+<area shape="rect" id="node6" href="$namespace_nuki_opener.html#ad694b05ff6125ebf77e067be3002d075" title=" " alt="" coords="239,268,409,308"/>
+<area shape="rect" id="node10" href="$namespace_nuki_opener.html#a1c24f78474980cc2d90ee83e371621c4" title=" " alt="" coords="241,218,407,243"/>
+<area shape="rect" id="node11" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="267,333,381,358"/>
+<area shape="rect" id="node7" href="$namespace_nuki_opener.html#a84631e75b3f180ead51e1a292fcee637" title=" " alt="" coords="477,268,656,308"/>
+<area shape="rect" id="node8" href="$namespace_nuki_opener.html#ab25308954cb451d83358353032200422" title=" " alt="" coords="477,218,657,243"/>
+<area shape="rect" id="node9" href="$namespace_nuki_opener.html#a9915ff097023a69e5792e791336bfcd6" title=" " alt="" coords="476,333,657,358"/>
 </map>

@@ -1,16 +1,16 @@
 <map id="Nuki::NukiBle::cmdStateMachine" name="Nuki::NukiBle::cmdStateMachine">
-<area shape="rect" id="node1" title=" " alt="" coords="604,362,860,390"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="328,362,556,390"/>
-<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="19,5,267,51"/>
-<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="38,75,247,120"/>
-<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b" title="Delete a Keypad Entry." alt="" coords="30,144,255,189"/>
-<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b" title="Sends an calibration (mechanical) request to the lock via BLE." alt="" coords="15,214,271,242"/>
-<area shape="rect" id="node7" href="$class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a" title="Sends an reboot request to the lock via BLE." alt="" coords="27,266,258,294"/>
-<area shape="rect" id="node8" href="$class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0" title="Request the lock via BLE to send the existing authorizationentries." alt="" coords="5,319,280,364"/>
-<area shape="rect" id="node9" href="$class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="25,388,260,433"/>
-<area shape="rect" id="node10" href="$class_nuki_1_1_nuki_ble.html#a6603fe4282fcab83f3038400e2c70207" title="Send the new pincode command to the lock via BLE (this command uses the earlier by saveSecurityPincod..." alt="" coords="28,458,257,486"/>
-<area shape="rect" id="node11" href="$class_nuki_1_1_nuki_ble.html#af47efb4e020a327687327ad82963b347" title="Sends an updated authorization entry to the lock via BLE." alt="" coords="7,511,278,556"/>
-<area shape="rect" id="node12" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="27,580,258,625"/>
-<area shape="rect" id="node13" href="$class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1" title="Sends the time to be set to the lock via BLE." alt="" coords="37,650,249,678"/>
-<area shape="rect" id="node14" href="$class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233" title="Send the verify pincode command via BLE to the lock. This command uses the earlier by saveSecurityPin..." alt="" coords="19,702,266,730"/>
+<area shape="rect" id="node1" title=" " alt="" coords="516,337,728,362"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="279,337,468,362"/>
+<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="17,5,219,45"/>
+<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="33,69,203,109"/>
+<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b" title="Delete a Keypad Entry." alt="" coords="25,133,211,173"/>
+<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b" title="Sends an calibration (mechanical) request to the lock via BLE." alt="" coords="13,198,223,223"/>
+<area shape="rect" id="node7" href="$class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a" title="Sends an reboot request to the lock via BLE." alt="" coords="23,247,213,273"/>
+<area shape="rect" id="node8" href="$class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0" title="Request the lock via BLE to send the existing authorizationentries." alt="" coords="5,297,231,337"/>
+<area shape="rect" id="node9" href="$class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="21,361,215,401"/>
+<area shape="rect" id="node10" href="$class_nuki_1_1_nuki_ble.html#a6603fe4282fcab83f3038400e2c70207" title="Send the new pincode command to the lock via BLE (this command uses the earlier by saveSecurityPincod..." alt="" coords="23,426,213,451"/>
+<area shape="rect" id="node11" href="$class_nuki_1_1_nuki_ble.html#af47efb4e020a327687327ad82963b347" title="Sends an updated authorization entry to the lock via BLE." alt="" coords="7,476,229,516"/>
+<area shape="rect" id="node12" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="23,540,213,580"/>
+<area shape="rect" id="node13" href="$class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1" title="Sends the time to be set to the lock via BLE." alt="" coords="31,605,205,630"/>
+<area shape="rect" id="node14" href="$class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233" title="Send the verify pincode command via BLE to the lock. This command uses the earlier by saveSecurityPin..." alt="" coords="16,654,220,679"/>
 </map>

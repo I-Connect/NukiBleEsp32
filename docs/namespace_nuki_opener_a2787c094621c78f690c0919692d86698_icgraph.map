@@ -1,4 +1,4 @@
 <map id="NukiOpener::logNewTimeControlEntry" name="NukiOpener::logNewTimeControlEntry">
-<area shape="rect" id="node1" title=" " alt="" coords="257,5,515,51"/>
-<area shape="rect" id="node2" href="$class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,5,209,51"/>
+<area shape="rect" id="node1" title=" " alt="" coords="220,5,431,45"/>
+<area shape="rect" id="node2" href="$class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,5,172,45"/>
 </map>

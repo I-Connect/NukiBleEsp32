@@ -1,4 +1,4 @@
 <map id="Nuki::NukiBle::connectBle" name="Nuki::NukiBle::connectBle">
-<area shape="rect" id="node1" title=" " alt="" coords="240,5,447,33"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="5,5,192,33"/>
+<area shape="rect" id="node1" title=" " alt="" coords="208,5,380,31"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="5,5,160,31"/>
 </map>

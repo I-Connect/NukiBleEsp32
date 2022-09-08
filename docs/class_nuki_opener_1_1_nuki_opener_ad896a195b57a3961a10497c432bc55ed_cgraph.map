@@ -1,5 +1,5 @@
 <map id="NukiOpener::NukiOpener::updateTimeControlEntry" name="NukiOpener::NukiOpener::updateTimeControlEntry">
-<area shape="rect" id="node1" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,36,209,81"/>
-<area shape="rect" id="node2" href="$namespace_nuki_opener.html#aa944d8da41129e4c94392db3b7cd2ae6" title=" " alt="" coords="257,5,481,51"/>
-<area shape="rect" id="node3" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="301,75,437,103"/>
+<area shape="rect" id="node1" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,35,172,75"/>
+<area shape="rect" id="node2" href="$namespace_nuki_opener.html#aa944d8da41129e4c94392db3b7cd2ae6" title=" " alt="" coords="220,5,404,45"/>
+<area shape="rect" id="node3" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="255,70,369,95"/>
 </map>

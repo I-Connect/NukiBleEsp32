@@ -1,5 +1,5 @@
 <map id="NukiLock::NukiLock::addTimeControlEntry" name="NukiLock::NukiLock::addTimeControlEntry">
-<area shape="rect" id="node1" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,36,184,81"/>
-<area shape="rect" id="node2" href="$namespace_nuki_lock.html#aacbba5cd838f4046ccecea8412b1c0aa" title=" " alt="" coords="232,5,469,51"/>
-<area shape="rect" id="node3" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="283,75,419,103"/>
+<area shape="rect" id="node1" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,35,153,75"/>
+<area shape="rect" id="node2" href="$namespace_nuki_lock.html#aacbba5cd838f4046ccecea8412b1c0aa" title=" " alt="" coords="201,5,400,45"/>
+<area shape="rect" id="node3" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="243,70,358,95"/>
 </map>
