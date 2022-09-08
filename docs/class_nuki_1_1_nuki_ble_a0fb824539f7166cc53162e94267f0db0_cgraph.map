@@ -1,0 +1,8 @@
+<map id="Nuki::NukiBle::retrieveAuthorizationEntries" name="Nuki::NukiBle::retrieveAuthorizationEntries">
+<area shape="rect" id="node1" title="Request the lock via BLE to send the existing authorizationentries." alt="" coords="5,105,280,151"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="328,114,556,142"/>
+<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="623,5,841,51"/>
+<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="617,75,847,120"/>
+<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="604,145,860,173"/>
+<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " alt="" coords="609,197,855,243"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="NukiOpener::logTimeControlEntry" name="NukiOpener::logTimeControlEntry">
+<area shape="rect" id="node1" title=" " alt="" coords="257,5,481,51"/>
+<area shape="rect" id="node2" href="$class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,5,209,51"/>
+</map>

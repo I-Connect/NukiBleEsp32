@@ -1,0 +1,9 @@
+<map id="Nuki::NukiBle::updateAuthorizationEntry" name="Nuki::NukiBle::updateAuthorizationEntry">
+<area shape="rect" id="node1" title="Sends an updated authorization entry to the lock via BLE." alt="" coords="5,132,276,177"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="324,114,552,142"/>
+<area shape="rect" id="node7" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="370,166,506,194"/>
+<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="619,5,837,51"/>
+<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="613,75,843,120"/>
+<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="600,145,856,173"/>
+<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " alt="" coords="605,197,851,243"/>
+</map>
