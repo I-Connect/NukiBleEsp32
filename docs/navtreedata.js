@@ -25,6 +25,15 @@
 var NAVTREE =
 [
   [ "Nuki BLE ESP32", "index.html", [
+    [ "Nuki BLE for Esp32", "index.html#autotoc_md0", [
+      [ "How to use", "index.html#autotoc_md1", null ],
+      [ "Setup", "index.html#autotoc_md2", null ],
+      [ "Nuki opener", "index.html#autotoc_md3", null ],
+      [ "BT processes", "index.html#autotoc_md4", null ],
+      [ "Tested Hardware", "index.html#autotoc_md5", null ],
+      [ "Wip", "index.html#autotoc_md6", null ],
+      [ "Todo", "index.html#autotoc_md7", null ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -60,8 +69,8 @@ var NAVTREEINDEX =
 "_nuki_ble_8cpp.html",
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa78d7ca911f105e3229b0ed465ebdf908",
 "class_nuki_1_1_nuki_ble.html#a018d9c075633e04c2c415597614db5b5",
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a657c6f11a20308fde78eab8c5acb69f1",
-"namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3ee"
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a2737280956113ab6c577c221f60cd8a6",
+"namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aad8a942ef2b04672adfafef0ad817a407"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

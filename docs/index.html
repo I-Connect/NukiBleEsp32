@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.5"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Nuki BLE ESP32: Main Page</title>
+<title>Nuki BLE ESP32: Nuki BLE ESP32</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,16 +88,105 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Nuki BLE ESP32 Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title"><a class="el" href="namespace_nuki.html">Nuki</a> BLE ESP32 </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p ><a class="anchor" id="md_README"></a> Note that generated documentation can be found here: <a href="https://i-connect.github.io/NukiBleEsp32/">https://i-connect.github.io/NukiBleEsp32/</a></p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Nuki BLE for Esp32</h1>
+<p >This lib is made for communicating directly to a <a class="el" href="namespace_nuki.html">Nuki</a> smart lock or a <a class="el" href="namespace_nuki.html">Nuki</a> opener via BLE without the need of a <a class="el" href="namespace_nuki.html">Nuki</a> Bridge. Implementation is according to <a href="https://developer.nuki.io/page/nuki-smart-lock-api-2/2/">Nuki Smart Lock BLE API</a> (kudo's to the <a class="el" href="namespace_nuki.html">Nuki</a> developers for providing such an accurate and well made documentation!)</p>
+<p >From v0.0.5 onwards Implementation is based on Espressif platform version 4.x.x</p>
+<h2><a class="anchor" id="autotoc_md1"></a>
+How to use</h2>
+<p >This library makes use of BLE scanner to receive the Ble advertisements sent by <a class="el" href="namespace_nuki.html">Nuki</a> devices and other Ble devices (<a href="https://github.com/I-Connect/BleScanner.git">https://github.com/I-Connect/BleScanner.git</a>).</p>
+<p >When running <code><a class="el" href="main_8cpp.html">main.cpp</a></code> which includes the example NukiSmartLockTest.h (with #define DEBUG_NUKI_CONNECT) there will initially be some logging "No nuki in pairing mode found", if you then press and hold the button on the <a class="el" href="namespace_nuki.html">Nuki</a> lock for 10 secs (until the led ring lights up) the ESP should automatically find the lock in pairing mode and pair with it. Credentials will be saved in a persistent <code>Preference</code> store with store name equal to the devicename specified on construction of the NukiBle object. No pairing needs to be done the next time the ESP starts.</p>
+<p >There are some example methods in <code>NukiSmartLockTest.h</code> to get/write data and execute actions on the lock.</p>
+<p >Be aware that if you have set a pincode on the lock you will have to store this in the esp using <code>nukiLock.savePincode()</code> otherwise the methods that need a pincode (most methods that write settings) will fail. This only needs to be done once as the pincode will be stored in the preferences.</p>
+<p >Logging can be enabled by setting the following defines (these are also available in platformio.ini):</p><ul>
+<li>DEBUG_NUKI_CONNECT</li>
+<li>DEBUG_NUKI_COMMUNICATION</li>
+<li>DEBUG_NUKI_HEX_DATA</li>
+<li>DEBUG_NUKI_READABLE_DATA</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Setup</h2>
+<ol type="1">
+<li>Define a <code>Handler</code> class derived from <code><a class="el" href="class_nuki_1_1_smartlock_event_handler.html">Nuki::SmartlockEventHandler</a></code> which will implement the <code>notify(Nuki::EventType eventType)</code> method. This method will be called by the <code>BleScanner</code> when an advertisement has been received</li>
+</ol>
+<ol type="1">
+<li>Create instances of <code>BleScanner::Scanner</code> and the <code>Handler</code></li>
+</ol>
+<ol type="1">
+<li>Create an instance of <code><a class="el" href="class_nuki_1_1_nuki_ble.html">Nuki::NukiBle</a></code> with a devicename and the id of the <a class="el" href="namespace_nuki.html">Nuki</a> App, <a class="el" href="namespace_nuki.html">Nuki</a> Bridge or <a class="el" href="namespace_nuki.html">Nuki</a> Fob to be authorized.</li>
+</ol>
+<ol type="1">
+<li>Register the NukiBle with the BleScanner</li>
+</ol>
+<ol type="1">
+<li>Initialize both the scanner and the nukiLock</li>
+</ol>
+<ol type="1">
+<li>Register an instance of the <code>Handler</code> with the <code>nukiLock</code></li>
+</ol>
+<ol type="1">
+<li>DO NOT execute any BLE actions within the <code>notify(Nuki::EventType eventType)</code> method as this runs in the BleScanner context and BLE is not able to handle this simultaniously <pre class="fragment"> Nuki::NukiLock nukiLock{deviceName, deviceId};
+ BleScanner::Scanner scanner;
+ Handler handler;
+
+ void setup() {
+   scanner.initialize();
+   nukiLock.registerBleScanner(&amp;scanner);
+   nukiLock.initialize();
+   nukiLock.setEventHandler(&amp;handler);
+ }
+
+ void loop() {
+   scanner.update();
+   delay(10);
+ }
+</pre> </li>
+</ol>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Nuki opener</h2>
+<p >The setup for the opener is very much the same as for the lock, except you create a <a class="el" href="namespace_nuki_opener.html">NukiOpener</a> object instead of a <a class="el" href="namespace_nuki_lock.html">NukiLock</a> object. Most functionality is shared between lock and opener, except for device-specific functionality.</p>
+<p >For example:</p><ul>
+<li>The lock action for the opener is different (e. g. ElectricStrikeActuation or activateRTO instead of unlock)</li>
+<li>The reported state is different (e. g. unlocked vs RTOactive)</li>
+<li>Config entries are different (e.g. The opener supports sounds, the lock doesn't)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+BT processes</h2>
+<ul>
+<li>The ESP establishes a new BT connection every time a command is sent, when no data is sent anymore the lock times out the connection.</li>
+<li>Scanning goes on continuously on the ESP with intervals chosen (in the BLE scanner) in such a way that it will never miss an advertisement sent from the lock.</li>
+<li>The lock always continuously sends advertisements (the interval is a setting in the config ( <code>CmdResult setAdvertisingMode(AdvertisingMode mode);</code> ), this interval determines the battery drain on the lock). When the lock state is changed a parameter is changed in the advertisement. This causes <code>SmartLockEventHandler::notify(...)</code> to be called and then you could initiate a follow up like requesting the keyturner state.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Tested Hardware</h2>
+<ul>
+<li>ESP32 wroom</li>
+<li><a class="el" href="namespace_nuki.html">Nuki</a> smart lock v2</li>
+<li><a class="el" href="namespace_nuki.html">Nuki</a> smart lock v3</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md6"></a>
+Wip</h2>
+<ul>
+<li>..</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Todo</h2>
+<ul>
+<li>Some data integrity could be checked</li>
+<li>Add <code>const</code> qualifiers where needed </li>
+</ul>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Sep 8 2022 21:00:14 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+    <li class="footer">Generated on Thu Sep 8 2022 21:07:01 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>
 </body>
