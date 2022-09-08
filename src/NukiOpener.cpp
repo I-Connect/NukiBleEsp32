@@ -223,8 +223,7 @@ CmdResult NukiOpener::enableLedFlash(const bool enable) {
   return result;
 }
 
-CmdResult NukiOpener::setSoundLevel(const uint8_t value)
-{
+CmdResult NukiOpener::setSoundLevel(const uint8_t value) {
   AdvancedConfig oldConfig;
   Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
   if (result == Nuki::CmdResult::Success) {
@@ -322,6 +321,32 @@ void NukiOpener::getTimeControlEntries(std::list<TimeControlEntry>* requestedTim
     requestedTimeControlEntries->push_back(*it);
     it++;
   }
+}
+
+void NukiOpener::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
+  requestedLogEntries->clear();
+
+  for (const auto& it : listOfLogEntries) {
+    requestedLogEntries->push_back(it);
+  }
+}
+
+Nuki::CmdResult NukiOpener::retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount) {
+  Action action;
+  unsigned char payload[8] = {0};
+  memcpy(payload, &startIndex, 4);
+  memcpy(&payload[4], &count, 2);
+  memcpy(&payload[6], &sortOrder, 1);
+  memcpy(&payload[7], &totalCount, 1);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RequestLogEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfLogEntries.clear();
+
+  return executeAction(action);
 }
 
 bool NukiOpener::isBatteryCritical() {
@@ -453,6 +478,16 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
       TimeControlEntry timeControlEntry;
       memcpy(&timeControlEntry, data, sizeof(timeControlEntry));
       listOfTimeControlEntries.push_back(timeControlEntry);
+      break;
+    }
+    case Command::LogEntry : {
+      printBuffer((byte*)data, dataLen, false, "logEntry");
+      LogEntry logEntry;
+      memcpy(&logEntry, data, sizeof(logEntry));
+      listOfLogEntries.push_back(logEntry);
+      #ifdef DEBUG_NUKI_READABLE_DATA
+      logLogEntry(logEntry);
+      #endif
       break;
     }
     default:
