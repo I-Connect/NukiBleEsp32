@@ -15,6 +15,7 @@ var class_nuki_1_1_nuki_ble =
     [ "getKeypadEntries", "class_nuki_1_1_nuki_ble.html#a018d9c075633e04c2c415597614db5b5", null ],
     [ "getKeypadEntryCount", "class_nuki_1_1_nuki_ble.html#ad94d354153b8b4f779f7a7a32258ff48", null ],
     [ "getLogEntryCount", "class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96", null ],
+    [ "getRssi", "class_nuki_1_1_nuki_ble.html#ac7e3243ff1881ec7c075f72831bd6691", null ],
     [ "handleReturnMessage", "class_nuki_1_1_nuki_ble.html#ac2e28f07ed0a738f73c5f77b46cdb1bb", null ],
     [ "initialize", "class_nuki_1_1_nuki_ble.html#a3e40d30549a6cbeac1072292670d07d4", null ],
     [ "isPairedWithLock", "class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca", null ],
