@@ -174,6 +174,8 @@ void NukiBle::extendDisonnectTimeout() {
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
+      rssi = advertisedDevice->getRSSI();
+
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
       char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
@@ -1131,6 +1133,10 @@ bool NukiBle::takeNukiBleSemaphore(std::string taker) {
 void NukiBle::giveNukiBleSemaphore() {
   owner = "free";
   xSemaphoreGive(nukiBleSemaphore);
+}
+
+int NukiBle::getRssi() {
+  return rssi;
 }
 
 } // namespace Nuki

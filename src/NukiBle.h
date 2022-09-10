@@ -222,6 +222,13 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      */
     void registerBleScanner(BleScanner::Publisher* bleScanner);
 
+    /**
+    * @brief Returns the RSSI of the last received ble beacon broadcast
+    *
+     * @return RSSI value
+    */
+    int getRssi();
+
   protected:
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
@@ -320,6 +327,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool keypadCodeCountReceived = false;
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
+    int rssi = 0;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
 
