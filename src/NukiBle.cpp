@@ -1133,4 +1133,8 @@ void NukiBle::giveNukiBleSemaphore() {
   xSemaphoreGive(nukiBleSemaphore);
 }
 
+int NukiBle::getRssi() {
+  return rssi;
+}
+
 } // namespace Nuki
