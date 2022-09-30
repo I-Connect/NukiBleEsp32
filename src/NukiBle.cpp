@@ -250,30 +250,35 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
 
   uint32_t timeNow = millis();
   Nuki::CmdResult result = executeAction(action);
-  //wait for return of Keypad Code Count (0x0044)
-  while (!keypadCodeCountReceived) {
-    if (millis() - timeNow > GENERAL_TIMEOUT) {
-      log_w("Receive keypad count timeout");
-      return CmdResult::TimeOut;
-    }
-    delay(10);
-  }
-  #ifdef DEBUG_NUKI_COMMAND
-  log_d("Keypad code count %d", getKeypadEntryCount());
-  #endif
 
-  //wait for return of Keypad Codes (0x0045)
-  timeNow = millis();
-  while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
-    if (millis() - timeNow > GENERAL_TIMEOUT) {
-      log_w("Receive keypadcodes timeout");
-      return CmdResult::TimeOut;
+  if (result == Nuki::CmdResult::Success) {
+    //wait for return of Keypad Code Count (0x0044)
+    while (!keypadCodeCountReceived) {
+      if (millis() - timeNow > GENERAL_TIMEOUT) {
+        log_w("Receive keypad count timeout");
+        return CmdResult::TimeOut;
+      }
+      delay(10);
     }
-    delay(10);
+    #ifdef DEBUG_NUKI_COMMAND
+    log_d("Keypad code count %d", getKeypadEntryCount());
+    #endif
+
+    //wait for return of Keypad Codes (0x0045)
+    timeNow = millis();
+    while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
+      if (millis() - timeNow > GENERAL_TIMEOUT) {
+        log_w("Receive keypadcodes timeout");
+        return CmdResult::TimeOut;
+      }
+      delay(10);
+    }
+    #ifdef DEBUG_NUKI_COMMAND
+    log_d("%d codes received", nrOfReceivedKeypadCodes);
+    #endif
+  } else{
+    log_w("Retreive keypad codes from lock failed");
   }
-  #ifdef DEBUG_NUKI_COMMAND
-  log_d("%d codes received", nrOfReceivedKeypadCodes);
-  #endif
   return result;
 }
 
@@ -291,7 +296,7 @@ Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addKeyPadEntry, payloadlen: %d", sizeof(NewKeypadEntry));
     printBuffer(action.payload, sizeof(NewKeypadEntry), false, "addKeyPadCode content: ");
-    logNewKeypadEntry(newKeypadEntry);
+    NukiLock::logNewKeypadEntry(newKeypadEntry);
     #endif
   }
   return result;
@@ -311,7 +316,7 @@ Nuki::CmdResult NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addKeyPadEntry, payloadlen: %d", sizeof(UpdatedKeypadEntry));
     printBuffer(action.payload, sizeof(UpdatedKeypadEntry), false, "updatedKeypad content: ");
-    logUpdatedKeypadEntry(updatedKeyPadEntry);
+    NukiLock::logUpdatedKeypadEntry(updatedKeyPadEntry);
     #endif
   }
   return result;
@@ -384,7 +389,7 @@ Nuki::CmdResult NukiBle::addAuthorizationEntry(NewAuthorizationEntry newAuthoriz
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addAuthorizationEntry, payloadlen: %d", sizeof(NewAuthorizationEntry));
     printBuffer(action.payload, sizeof(NewAuthorizationEntry), false, "addAuthorizationEntry content: ");
-    logNewAuthorizationEntry(newAuthorizationEntry);
+    NukiLock::logNewAuthorizationEntry(newAuthorizationEntry);
     #endif
   }
   return result;
@@ -406,7 +411,7 @@ Nuki::CmdResult NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry upda
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addAuthorizationEntry, payloadlen: %d", sizeof(UpdatedAuthorizationEntry));
     printBuffer(action.payload, sizeof(UpdatedAuthorizationEntry), false, "updatedKeypad content: ");
-    logUpdatedAuthorizationEntry(updatedAuthorizationEntry);
+    NukiLock::logUpdatedAuthorizationEntry(updatedAuthorizationEntry);
     #endif
   }
   return result;
@@ -1004,7 +1009,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       memcpy(&authEntry, data, sizeof(authEntry));
       listOfAuthorizationEntries.push_back(authEntry);
       #ifdef DEBUG_NUKI_READABLE_DATA
-      logAuthorizationEntry(authEntry);
+      NukiLock::logAuthorizationEntry(authEntry);
       #endif
       break;
     }
@@ -1085,7 +1090,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
 
       printBuffer((byte*)data, dataLen, false, "keypadCode");
       #ifdef DEBUG_NUKI_READABLE_DATA
-      logKeypadEntry(keypadEntry);
+      NukiLock::logKeypadEntry(keypadEntry);
       #endif
       break;
     }
