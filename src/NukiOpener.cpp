@@ -1,5 +1,6 @@
 #include "NukiOpener.h"
 #include "NukiUtils.h"
+#include "NukiOpenerUtils.h"
 
 namespace NukiOpener {
 NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
@@ -445,7 +446,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
       printBuffer((byte*)data, dataLen, false, "keyturnerStates");
       memcpy(&openerState, data, sizeof(openerState));
       #ifdef DEBUG_NUKI_READABLE_DATA
-      logKeyturnerState(keyTurnerState);
+      logKeyturnerState(openerState);
       #endif
       break;
     }
