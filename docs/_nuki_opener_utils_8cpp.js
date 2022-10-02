@@ -1,5 +1,6 @@
 var _nuki_opener_utils_8cpp =
 [
+    [ "DEBUG_NUKI_READABLE_DATA", "_nuki_opener_utils_8cpp.html#a7e3e8ef9be981928bb72b8814f664ae1", null ],
     [ "cmdResultToString", "_nuki_opener_utils_8cpp.html#a638bfcc18f6f52df16f58eec971242a9", null ],
     [ "logAdvancedConfig", "_nuki_opener_utils_8cpp.html#a5df6b087b417e58c5c7a085a7f97fa63", null ],
     [ "logAuthorizationEntry", "_nuki_opener_utils_8cpp.html#a924e3f1ef23a3d30d89d60956a64a0ff", null ],
