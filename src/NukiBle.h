@@ -48,7 +48,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @return
      */
-    Nuki::PairingResult pairNuki();
+    Nuki::PairingResult pairNuki(AuthorizationIdType idType = AuthorizationIdType::Bridge);
 
     /**
      * @brief Delete stored credentials
@@ -330,6 +330,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     int rssi = 0;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
+    AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;
 
 };
 

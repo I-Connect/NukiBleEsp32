@@ -67,7 +67,9 @@ void NukiBle::registerBleScanner(BleScanner::Publisher* bleScanner) {
   bleScanner->subscribe(this);
 }
 
-PairingResult NukiBle::pairNuki() {
+PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
+  authorizationIdType = idType;
+
   if (retrieveCredentials()) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
@@ -276,7 +278,7 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
     #ifdef DEBUG_NUKI_COMMAND
     log_d("%d codes received", nrOfReceivedKeypadCodes);
     #endif
-  } else{
+  } else {
     log_w("Retreive keypad codes from lock failed");
   }
   return result;
@@ -677,7 +679,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         log_d("##################### SEND AUTHORIZATION DATA #########################");
         #endif
         unsigned char authorizationData[101] = {};
-        unsigned char authorizationDataIdType[1] = {0x01}; //0 = App, 1 = Bridge, 2 = Fob, 3 = Keypad
+        unsigned char authorizationDataIdType[1] = {(unsigned char)authorizationIdType };
         unsigned char authorizationDataId[4] = {};
         unsigned char authorizationDataName[32] = {};
         unsigned char authorizationDataNonce[32] = {};

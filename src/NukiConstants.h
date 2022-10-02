@@ -114,6 +114,13 @@ enum class Command : uint16_t {
   SimpleLockAction	            = 0x0100
 };
 
+enum class AuthorizationIdType : uint8_t {
+  App = 0,
+  Bridge = 1,
+  Fob = 2,
+  Keypad = 3
+};
+
 enum class TimeZoneId : uint16_t {
   Africa_Cairo = 0,  // UTC+2 EET dst: no
   Africa_Lagos = 1,  // UTC+1 WAT dst: no
