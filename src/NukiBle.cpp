@@ -278,7 +278,7 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
     #ifdef DEBUG_NUKI_COMMAND
     log_d("%d codes received", nrOfReceivedKeypadCodes);
     #endif
-  } else{
+  } else {
     log_w("Retreive keypad codes from lock failed");
   }
   return result;
