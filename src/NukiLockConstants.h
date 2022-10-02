@@ -160,6 +160,8 @@ struct __attribute__((packed)) KeyTurnerState {
   Trigger lastLockActionTrigger;
   CompletionStatus lastLockActionCompletionStatus;
   DoorSensorState doorSensorState = DoorSensorState::Unavailable;
+  uint16_t nightModeActive;
+  uint8_t AccessoryBatteryState;
 };
 
 struct __attribute__((packed)) Config {

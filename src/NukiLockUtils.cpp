@@ -534,6 +534,9 @@ void logKeyturnerState(KeyTurnerState keyTurnerState) {
   log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
   logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus);
   log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
+  log_d("nightModeActive: %d", keyTurnerState.nightModeActive);
+  log_d("Keypad bat critical feature supported: %d", keyTurnerState.AccessoryBatteryState & 1);
+  log_d("Keypad Battery Critical: %d", keyTurnerState.AccessoryBatteryState & 2);
   #endif
 }
 
