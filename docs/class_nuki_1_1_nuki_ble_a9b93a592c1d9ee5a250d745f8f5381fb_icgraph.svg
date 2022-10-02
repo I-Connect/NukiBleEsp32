@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14" target="_top" xlink:title="Checks if credentials are stored in preferences, if not initiate pairing.">
+<g id="a_node2"><a xlink:href="class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" target="_top" xlink:title="Checks if credentials are stored in preferences, if not initiate pairing.">
 <polygon fill="white" stroke="#666666" points="116,-19 0,-19 0,0 116,0 116,-19"/>
 <text text-anchor="middle" x="58" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::pairNuki</text>
 </a>

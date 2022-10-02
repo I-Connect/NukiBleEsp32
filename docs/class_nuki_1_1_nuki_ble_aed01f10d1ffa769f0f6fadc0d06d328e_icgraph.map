@@ -1,7 +1,7 @@
 <map id="Nuki::NukiBle::extendDisonnectTimeout" name="Nuki::NukiBle::extendDisonnectTimeout">
 <area shape="rect" id="node1" title=" " alt="" coords="516,355,719,395"/>
 <area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="279,337,468,362"/>
-<area shape="rect" id="node15" href="$class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="296,386,451,411"/>
+<area shape="rect" id="node15" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="296,386,451,411"/>
 <area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="17,5,219,45"/>
 <area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="33,69,203,109"/>
 <area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b" title="Delete a Keypad Entry." alt="" coords="25,133,211,173"/>

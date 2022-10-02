@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 640;
+var viewWidth = 702;
 var viewHeight = 302;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,8 +58,8 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="355.16,-294 250.16,-294 250.16,-275 355.16,-275 355.16,-294"/>
-<text text-anchor="middle" x="302.66" y="-282" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiConstants.h</text>
+<polygon fill="#999999" stroke="#666666" points="417,-294 312,-294 312,-275 417,-275 417,-294"/>
+<text text-anchor="middle" x="364.5" y="-282" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiConstants.h</text>
 </a>
 </g>
 </g>
@@ -67,319 +67,325 @@ var sectionId = 'dynsection-1';
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="_nuki_ble_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="326.16,-129 251.16,-129 251.16,-110 326.16,-110 326.16,-129"/>
-<text text-anchor="middle" x="288.66" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiBle.h</text>
+<polygon fill="white" stroke="#666666" points="356,-129 281,-129 281,-110 356,-110 356,-129"/>
+<text text-anchor="middle" x="318.5" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiBle.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="#63b8ff" d="M280.42,-269.01C256.52,-251.96 219.91,-221.2 204.66,-184 193.54,-156.85 229.38,-138.78 257.67,-129.08"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="278.67,-272.05 288.89,-274.86 282.65,-266.29 278.67,-272.05"/>
+<path fill="none" stroke="#63b8ff" d="M342.26,-269.01C318.36,-251.96 281.74,-221.2 266.5,-184 257.15,-161.19 284.19,-140.21 302.7,-129"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="340.51,-272.05 350.73,-274.86 344.49,-266.29 340.51,-272.05"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="_nuki_ble_8hpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="299.66,-184 213.66,-184 213.66,-165 299.66,-165 299.66,-184"/>
-<text text-anchor="middle" x="256.66" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiBle.hpp</text>
+<polygon fill="white" stroke="#666666" points="361.5,-184 275.5,-184 275.5,-165 361.5,-165 361.5,-184"/>
+<text text-anchor="middle" x="318.5" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiBle.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="#63b8ff" d="M294.97,-265.44C284.95,-241.92 267.84,-201.73 260.35,-184.16"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="291.76,-266.83 298.9,-274.66 298.2,-264.09 291.76,-266.83"/>
+<path fill="none" stroke="#63b8ff" d="M356.81,-265.44C346.79,-241.92 329.67,-201.73 322.19,-184.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="353.6,-266.83 360.74,-274.66 360.04,-264.09 353.6,-266.83"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="_nuki_data_types_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="407.16,-239 300.16,-239 300.16,-220 407.16,-220 407.16,-239"/>
-<text text-anchor="middle" x="353.66" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiDataTypes.h</text>
+<polygon fill="white" stroke="#666666" points="469,-239 362,-239 362,-220 469,-220 469,-239"/>
+<text text-anchor="middle" x="415.5" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiDataTypes.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node9 -->
 <g id="edge9" class="edge">
 <title>Node1&#45;&gt;Node9</title>
-<path fill="none" stroke="#63b8ff" d="M318.04,-267.52C327.03,-258.18 338.02,-246.75 345.4,-239.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="315.5,-265.12 311.08,-274.75 320.54,-269.97 315.5,-265.12"/>
+<path fill="none" stroke="#63b8ff" d="M379.88,-267.52C388.87,-258.18 399.86,-246.75 407.24,-239.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="377.33,-265.12 372.92,-274.75 382.38,-269.97 377.33,-265.12"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
 <g id="a_node14"><a xlink:href="_nuki_utils_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="444.16,-129 363.16,-129 363.16,-110 444.16,-110 444.16,-129"/>
-<text text-anchor="middle" x="403.66" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiUtils.h</text>
+<polygon fill="white" stroke="#666666" points="508,-129 427,-129 427,-110 508,-110 508,-129"/>
+<text text-anchor="middle" x="467.5" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiUtils.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node14 -->
-<g id="edge29" class="edge">
+<g id="edge30" class="edge">
 <title>Node1&#45;&gt;Node14</title>
-<path fill="none" stroke="#63b8ff" d="M365.15,-273.16C384.6,-266.68 403.99,-256.15 415.66,-239 439.29,-204.3 417.9,-150.12 408.03,-129.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="363.89,-269.89 355.32,-276.11 365.9,-276.59 363.89,-269.89"/>
+<path fill="none" stroke="#63b8ff" d="M426.98,-273.16C446.44,-266.68 465.83,-256.15 477.5,-239 501.09,-204.36 480.98,-150.14 471.64,-129.18"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="425.73,-269.89 417.16,-276.11 427.74,-276.59 425.73,-269.89"/>
 </g>
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
 <g id="a_node16"><a xlink:href="_nuki_lock_constants_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="157.16,-184 30.16,-184 30.16,-165 157.16,-165 157.16,-184"/>
-<text text-anchor="middle" x="93.66" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLockConstants.h</text>
+<polygon fill="white" stroke="#666666" points="219,-184 92,-184 92,-165 219,-165 219,-184"/>
+<text text-anchor="middle" x="155.5" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLockConstants.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node16 -->
-<g id="edge23" class="edge">
+<g id="edge24" class="edge">
 <title>Node1&#45;&gt;Node16</title>
-<path fill="none" stroke="#63b8ff" d="M256.53,-272.18C230.64,-264.78 198.29,-253.73 171.66,-239 143.55,-223.44 115.55,-197.45 102.03,-184.05"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="255.9,-275.64 266.48,-274.94 257.77,-268.9 255.9,-275.64"/>
+<path fill="none" stroke="#63b8ff" d="M318.37,-272.18C292.48,-264.78 260.12,-253.73 233.5,-239 205.39,-223.44 177.39,-197.45 163.87,-184.05"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="317.74,-275.64 328.31,-274.94 319.61,-268.9 317.74,-275.64"/>
 </g>
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
 <g id="a_node17"><a xlink:href="_nuki_opener_constants_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="607.16,-239 470.16,-239 470.16,-220 607.16,-220 607.16,-239"/>
-<text text-anchor="middle" x="538.66" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpenerConstants.h</text>
+<polygon fill="white" stroke="#666666" points="669,-239 532,-239 532,-220 669,-220 669,-239"/>
+<text text-anchor="middle" x="600.5" y="-227" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpenerConstants.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node17 -->
-<g id="edge26" class="edge">
+<g id="edge27" class="edge">
 <title>Node1&#45;&gt;Node17</title>
-<path fill="none" stroke="#63b8ff" d="M350.52,-272.75C394.74,-262.82 459.59,-248.26 500.45,-239.08"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="349.57,-269.38 340.58,-274.98 351.1,-276.21 349.57,-269.38"/>
+<path fill="none" stroke="#63b8ff" d="M412.35,-272.75C456.58,-262.82 521.43,-248.26 562.29,-239.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="411.41,-269.38 402.42,-274.98 412.94,-276.21 411.41,-269.38"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
 <g id="a_node3"><a xlink:href="_nuki_ble_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="335.66,-74 249.66,-74 249.66,-55 335.66,-55 335.66,-74"/>
-<text text-anchor="middle" x="292.66" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiBle.cpp</text>
+<polygon fill="white" stroke="#666666" points="356.5,-74 270.5,-74 270.5,-55 356.5,-55 356.5,-74"/>
+<text text-anchor="middle" x="313.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiBle.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="#63b8ff" d="M290.08,-99.66C290.74,-90.93 291.49,-80.99 292.01,-74.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="286.59,-99.51 289.32,-109.75 293.57,-100.04 286.59,-99.51"/>
+<path fill="none" stroke="#63b8ff" d="M316.72,-99.66C315.9,-90.93 314.96,-80.99 314.31,-74.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="313.25,-100.12 317.67,-109.75 320.22,-99.46 313.25,-100.12"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="_nuki_lock_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="231.16,-74 148.16,-74 148.16,-55 231.16,-55 231.16,-74"/>
-<text text-anchor="middle" x="189.66" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLock.h</text>
+<polygon fill="white" stroke="#666666" points="83,-74 0,-74 0,-55 83,-55 83,-74"/>
+<text text-anchor="middle" x="41.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLock.h</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node2&#45;&gt;Node4</title>
-<path fill="none" stroke="#63b8ff" d="M263.88,-105.23C245.73,-95.51 221.6,-82.6 205.86,-74.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="262.29,-108.35 272.76,-109.98 265.59,-102.18 262.29,-108.35"/>
+<path fill="none" stroke="#63b8ff" d="M270.72,-109.36C217.82,-99.24 133.42,-83.09 83.13,-73.47"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="270.37,-112.86 280.85,-111.3 271.69,-105.98 270.37,-112.86"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="_nuki_opener_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="631.66,-74 539.66,-74 539.66,-55 631.66,-55 631.66,-74"/>
-<text text-anchor="middle" x="585.66" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpener.h</text>
+<polygon fill="white" stroke="#666666" points="504.5,-74 412.5,-74 412.5,-55 504.5,-55 504.5,-74"/>
+<text text-anchor="middle" x="458.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpener.h</text>
 </a>
 </g>
 </g>
 <!-- Node2&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node2&#45;&gt;Node6</title>
-<path fill="none" stroke="#63b8ff" d="M336.28,-110C392.21,-100.02 484.34,-83.58 539.59,-73.72"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="335.51,-106.59 326.28,-111.79 336.74,-113.48 335.51,-106.59"/>
+<path fill="none" stroke="#63b8ff" d="M350.41,-106.42C376.38,-96.59 412.42,-82.95 435.6,-74.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="349.11,-103.17 340.99,-109.98 351.58,-109.72 349.11,-103.17"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="_nuki_lock_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="236.16,-19 143.16,-19 143.16,0 236.16,0 236.16,-19"/>
-<text text-anchor="middle" x="189.66" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLock.cpp</text>
+<polygon fill="white" stroke="#666666" points="289,-19 196,-19 196,0 289,0 289,-19"/>
+<text text-anchor="middle" x="242.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLock.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="#63b8ff" d="M189.66,-44.66C189.66,-35.93 189.66,-25.99 189.66,-19.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="186.16,-44.75 189.66,-54.75 193.16,-44.75 186.16,-44.75"/>
+<path fill="none" stroke="#63b8ff" d="M83.93,-52.31C121.54,-42.39 175.67,-28.12 209.95,-19.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="82.57,-49.05 73.79,-54.98 84.36,-55.82 82.57,-49.05"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="_nuki_opener_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="600.16,-19 497.16,-19 497.16,0 600.16,0 600.16,-19"/>
-<text text-anchor="middle" x="548.66" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpener.cpp</text>
+<polygon fill="white" stroke="#666666" points="694,-19 591,-19 591,0 694,0 694,-19"/>
+<text text-anchor="middle" x="642.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpener.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="#63b8ff" d="M573.72,-46.39C567.35,-37.27 559.8,-26.45 554.66,-19.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="570.96,-48.55 579.55,-54.75 576.7,-44.55 570.96,-48.55"/>
+<path fill="none" stroke="#63b8ff" d="M497.79,-52.18C532.2,-42.27 581.46,-28.08 612.71,-19.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="496.7,-48.85 488.06,-54.98 498.64,-55.58 496.7,-48.85"/>
 </g>
 <!-- Node8&#45;&gt;Node2 -->
 <g id="edge8" class="edge">
 <title>Node8&#45;&gt;Node2</title>
-<path fill="none" stroke="#63b8ff" d="M267.17,-156.1C272.64,-147.04 279.08,-136.37 283.48,-129.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="264.12,-154.38 261.95,-164.75 270.11,-158 264.12,-154.38"/>
+<path fill="none" stroke="#63b8ff" d="M318.5,-154.66C318.5,-145.93 318.5,-135.99 318.5,-129.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="315,-154.75 318.5,-164.75 322,-154.75 315,-154.75"/>
 </g>
 <!-- Node9&#45;&gt;Node2 -->
 <g id="edge10" class="edge">
 <title>Node9&#45;&gt;Node2</title>
-<path fill="none" stroke="#63b8ff" d="M353.38,-209.33C352.41,-196.08 349.55,-178.48 341.66,-165 332.56,-149.45 315.93,-136.84 303.72,-129.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="349.89,-209.8 353.82,-219.64 356.89,-209.5 349.89,-209.8"/>
+<path fill="none" stroke="#63b8ff" d="M416.12,-209.61C415.65,-195.99 413,-177.82 403.5,-165 390.31,-147.2 367.88,-135.88 349.38,-129.12"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="412.62,-209.76 416.12,-219.76 419.62,-209.76 412.62,-209.76"/>
 </g>
 <!-- Node9&#45;&gt;Node8 -->
 <g id="edge11" class="edge">
 <title>Node9&#45;&gt;Node8</title>
-<path fill="none" stroke="#63b8ff" d="M328.89,-214.97C311.16,-205.28 287.81,-192.52 272.53,-184.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="327.62,-218.26 338.08,-219.98 330.98,-212.12 327.62,-218.26"/>
+<path fill="none" stroke="#63b8ff" d="M390.73,-214.97C373,-205.28 349.65,-192.52 334.37,-184.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="389.46,-218.26 399.92,-219.98 392.82,-212.12 389.46,-218.26"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
 <g id="a_node10"><a xlink:href="_nuki_lock_utils_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="225.16,-129 122.16,-129 122.16,-110 225.16,-110 225.16,-129"/>
-<text text-anchor="middle" x="173.66" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLockUtils.h</text>
+<polygon fill="white" stroke="#666666" points="263,-129 160,-129 160,-110 263,-110 263,-129"/>
+<text text-anchor="middle" x="211.5" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLockUtils.h</text>
 </a>
 </g>
 </g>
 <!-- Node9&#45;&gt;Node10 -->
 <g id="edge12" class="edge">
 <title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="#63b8ff" d="M344.99,-210.49C337.28,-196.27 324.75,-176.89 308.66,-165 283.75,-146.6 250.82,-135.54 223.72,-129.05"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="342.06,-212.45 349.73,-219.76 348.29,-209.27 342.06,-212.45"/>
+<path fill="none" stroke="#63b8ff" d="M406.97,-210.3C399.35,-195.96 386.86,-176.52 370.5,-165 351.75,-151.8 294.33,-137.71 253.9,-129.01"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="404.05,-212.27 411.65,-219.65 410.31,-209.14 404.05,-212.27"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
 <g id="a_node12"><a xlink:href="_nuki_opener_utils_8h.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="583.16,-184 470.16,-184 470.16,-165 583.16,-165 583.16,-184"/>
-<text text-anchor="middle" x="526.66" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpenerUtils.h</text>
+<polygon fill="white" stroke="#666666" points="652,-184 539,-184 539,-165 652,-165 652,-184"/>
+<text text-anchor="middle" x="595.5" y="-172" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpenerUtils.h</text>
 </a>
 </g>
 </g>
 <!-- Node9&#45;&gt;Node12 -->
 <g id="edge16" class="edge">
 <title>Node9&#45;&gt;Node12</title>
-<path fill="none" stroke="#63b8ff" d="M391.44,-216.93C423.75,-207.03 469.52,-193.01 498.65,-184.08"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="389.99,-213.71 381.46,-219.98 392.05,-220.4 389.99,-213.71"/>
+<path fill="none" stroke="#63b8ff" d="M454.37,-217.06C488.01,-207.15 535.92,-193.04 566.35,-184.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="453.02,-213.8 444.42,-219.98 455,-220.52 453.02,-213.8"/>
 </g>
 <!-- Node9&#45;&gt;Node14 -->
-<g id="edge18" class="edge">
+<g id="edge19" class="edge">
 <title>Node9&#45;&gt;Node14</title>
-<path fill="none" stroke="#63b8ff" d="M364.61,-211.32C369.54,-203.21 375.23,-193.29 379.66,-184 388.69,-165.07 396.77,-141.76 400.85,-129.32"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="361.6,-209.53 359.29,-219.87 367.54,-213.23 361.6,-209.53"/>
+<path fill="none" stroke="#63b8ff" d="M426.33,-211.27C431.23,-203.14 436.94,-193.23 441.5,-184 450.89,-164.99 459.79,-141.71 464.34,-129.3"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="423.32,-209.48 421.05,-219.84 429.28,-213.16 423.32,-209.48"/>
 </g>
 <!-- Node10&#45;&gt;Node3 -->
 <g id="edge13" class="edge">
 <title>Node10&#45;&gt;Node3</title>
-<path fill="none" stroke="#63b8ff" d="M201.96,-105.9C223.94,-96.11 253.84,-82.79 273.2,-74.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="200.49,-102.72 192.78,-109.98 203.34,-109.11 200.49,-102.72"/>
+<path fill="none" stroke="#63b8ff" d="M236.77,-105.37C255.51,-95.63 280.52,-82.64 296.81,-74.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="235.15,-102.27 227.89,-109.98 238.38,-108.48 235.15,-102.27"/>
 </g>
 <!-- Node10&#45;&gt;Node5 -->
 <g id="edge14" class="edge">
 <title>Node10&#45;&gt;Node5</title>
-<path fill="none" stroke="#63b8ff" d="M111.89,-115.14C52.68,-109.54 -23.45,-94.64 7.66,-55 24.18,-33.95 94.62,-21.58 142.86,-15.43"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="111.71,-118.64 121.97,-116.02 112.32,-111.67 111.71,-118.64"/>
+<path fill="none" stroke="#63b8ff" d="M216.87,-99.8C223.64,-76.2 235.01,-36.58 240.01,-19.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="213.43,-99.08 214.04,-109.66 220.16,-101.02 213.43,-99.08"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
 <g id="a_node11"><a xlink:href="_nuki_lock_utils_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="130.16,-74 17.16,-74 17.16,-55 130.16,-55 130.16,-74"/>
-<text text-anchor="middle" x="73.66" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLockUtils.cpp</text>
+<polygon fill="white" stroke="#666666" points="214,-74 101,-74 101,-55 214,-55 214,-74"/>
+<text text-anchor="middle" x="157.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiLockUtils.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
 <g id="edge15" class="edge">
 <title>Node10&#45;&gt;Node11</title>
-<path fill="none" stroke="#63b8ff" d="M148.63,-105.23C130.29,-95.51 105.92,-82.6 90.02,-74.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="147.12,-108.39 157.6,-109.98 150.4,-102.21 147.12,-108.39"/>
+<path fill="none" stroke="#63b8ff" d="M195.22,-102.52C185.7,-93.18 174.06,-81.75 166.25,-74.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="192.99,-105.24 202.58,-109.75 197.9,-100.25 192.99,-105.24"/>
+</g>
+<!-- Node12&#45;&gt;Node7 -->
+<g id="edge17" class="edge">
+<title>Node12&#45;&gt;Node7</title>
+<path fill="none" stroke="#63b8ff" d="M627.53,-160.2C640.53,-153.01 654.19,-142.75 661.5,-129 681.26,-91.84 658.01,-39.54 647.32,-19.13"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="625.61,-157.25 618.28,-164.89 628.78,-163.49 625.61,-157.25"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
 <g id="a_node13"><a xlink:href="_nuki_opener_utils_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="585.16,-129 462.16,-129 462.16,-110 585.16,-110 585.16,-129"/>
-<text text-anchor="middle" x="523.66" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpenerUtils.cpp</text>
+<polygon fill="white" stroke="#666666" points="652,-129 529,-129 529,-110 652,-110 652,-129"/>
+<text text-anchor="middle" x="590.5" y="-117" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiOpenerUtils.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node12&#45;&gt;Node13 -->
-<g id="edge17" class="edge">
+<g id="edge18" class="edge">
 <title>Node12&#45;&gt;Node13</title>
-<path fill="none" stroke="#63b8ff" d="M525.6,-154.66C525.1,-145.93 524.54,-135.99 524.15,-129.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="522.11,-154.96 526.17,-164.75 529.1,-154.57 522.11,-154.96"/>
+<path fill="none" stroke="#63b8ff" d="M593.72,-154.66C592.9,-145.93 591.96,-135.99 591.31,-129.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="590.25,-155.12 594.67,-164.75 597.22,-154.46 590.25,-155.12"/>
 </g>
 <!-- Node14&#45;&gt;Node3 -->
-<g id="edge19" class="edge">
+<g id="edge20" class="edge">
 <title>Node14&#45;&gt;Node3</title>
-<path fill="none" stroke="#63b8ff" d="M376.72,-105.63C356.27,-95.87 328.72,-82.71 310.82,-74.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="375.3,-108.83 385.83,-109.98 378.31,-102.52 375.3,-108.83"/>
+<path fill="none" stroke="#63b8ff" d="M433.12,-106.67C404.41,-96.79 364.14,-82.93 338.44,-74.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="432.16,-110.04 442.76,-109.98 434.44,-103.42 432.16,-110.04"/>
 </g>
 <!-- Node14&#45;&gt;Node5 -->
-<g id="edge20" class="edge">
+<g id="edge21" class="edge">
 <title>Node14&#45;&gt;Node5</title>
-<path fill="none" stroke="#63b8ff" d="M427.74,-104.52C447.07,-91.54 468.84,-71.76 454.66,-55 427.24,-22.59 304.87,-13.77 236.42,-11.38"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="425.73,-101.65 419.17,-109.97 429.48,-107.56 425.73,-101.65"/>
+<path fill="none" stroke="#63b8ff" d="M447.07,-103.99C426.98,-90.16 395.12,-69.38 365.5,-55 334.45,-39.92 296.91,-27.06 271.53,-19.1"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="445.21,-106.96 455.42,-109.81 449.21,-101.22 445.21,-106.96"/>
 </g>
 <!-- Node14&#45;&gt;Node7 -->
-<g id="edge21" class="edge">
+<g id="edge22" class="edge">
 <title>Node14&#45;&gt;Node7</title>
-<path fill="none" stroke="#63b8ff" d="M433.38,-105.62C450.11,-97.68 470.92,-86.63 487.66,-74 509.87,-57.24 531.33,-32.22 541.89,-19.15"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="431.69,-102.55 424.07,-109.91 434.62,-108.9 431.69,-102.55"/>
+<path fill="none" stroke="#63b8ff" d="M518.26,-109.48C557.84,-101.48 608.52,-88.79 623.5,-74 638.57,-59.12 641.79,-32.83 642.41,-19.21"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="517.35,-106.09 508.21,-111.46 518.7,-112.96 517.35,-106.09"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:href="_nuki_utils_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="445.66,-74 353.66,-74 353.66,-55 445.66,-55 445.66,-74"/>
-<text text-anchor="middle" x="399.66" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiUtils.cpp</text>
+<polygon fill="white" stroke="#666666" points="614.5,-74 522.5,-74 522.5,-55 614.5,-55 614.5,-74"/>
+<text text-anchor="middle" x="568.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">src/NukiUtils.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node14&#45;&gt;Node15 -->
-<g id="edge22" class="edge">
+<g id="edge23" class="edge">
 <title>Node14&#45;&gt;Node15</title>
-<path fill="none" stroke="#63b8ff" d="M402.24,-99.66C401.58,-90.93 400.83,-80.99 400.31,-74.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="398.76,-100.04 403,-109.75 405.74,-99.51 398.76,-100.04"/>
+<path fill="none" stroke="#63b8ff" d="M492.78,-105.23C511.3,-95.51 535.92,-82.6 551.98,-74.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="490.96,-102.24 483.73,-109.98 494.21,-108.44 490.96,-102.24"/>
 </g>
 <!-- Node16&#45;&gt;Node4 -->
-<g id="edge24" class="edge">
+<g id="edge25" class="edge">
 <title>Node16&#45;&gt;Node4</title>
-<path fill="none" stroke="#63b8ff" d="M95.57,-154.62C97.78,-141 102.52,-122.84 112.66,-110 126.16,-92.92 148.15,-81.15 165.18,-74.03"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="92.07,-154.4 94.25,-164.77 99.02,-155.3 92.07,-154.4"/>
+<path fill="none" stroke="#63b8ff" d="M138.72,-157.61C114.3,-134.47 69.77,-92.29 50.64,-74.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="136.5,-160.33 146.17,-164.66 141.32,-155.24 136.5,-160.33"/>
 </g>
 <!-- Node16&#45;&gt;Node10 -->
-<g id="edge25" class="edge">
+<g id="edge26" class="edge">
 <title>Node16&#45;&gt;Node10</title>
-<path fill="none" stroke="#63b8ff" d="M114.91,-159.42C129.43,-149.81 148.2,-137.37 160.58,-129.17"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="112.92,-156.54 106.52,-164.98 116.79,-162.38 112.92,-156.54"/>
+<path fill="none" stroke="#63b8ff" d="M171.83,-158.04C181.76,-148.64 194.09,-136.98 202.34,-129.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="169.35,-155.57 164.5,-164.98 174.17,-160.65 169.35,-155.57"/>
 </g>
 <!-- Node17&#45;&gt;Node6 -->
-<g id="edge27" class="edge">
+<g id="edge28" class="edge">
 <title>Node17&#45;&gt;Node6</title>
-<path fill="none" stroke="#63b8ff" d="M563.85,-214.46C574.75,-206.95 586.42,-196.63 592.66,-184 611.11,-146.68 596.08,-94.47 588.93,-74.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="561.93,-211.54 555.39,-219.87 565.7,-217.43 561.93,-211.54"/>
+<path fill="none" stroke="#63b8ff" d="M629.75,-214.9C641.9,-207.59 654.73,-197.32 661.5,-184 676.4,-154.68 682.12,-135.63 661.5,-110 656.52,-103.82 562.44,-85.1 504.12,-74.01"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="627.75,-212.01 620.7,-219.91 631.14,-218.13 627.75,-212.01"/>
 </g>
 <!-- Node17&#45;&gt;Node12 -->
-<g id="edge28" class="edge">
+<g id="edge29" class="edge">
 <title>Node17&#45;&gt;Node12</title>
-<path fill="none" stroke="#63b8ff" d="M534.46,-209.95C532.47,-201.15 530.19,-191.06 528.61,-184.09"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="531.06,-210.77 536.68,-219.75 537.89,-209.22 531.06,-210.77"/>
+<path fill="none" stroke="#63b8ff" d="M598.72,-209.66C597.9,-200.93 596.96,-190.99 596.31,-184.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="595.25,-210.12 599.67,-219.75 602.22,-209.46 595.25,-210.12"/>
 </g>
 </g>
 </svg>

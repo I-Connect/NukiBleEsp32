@@ -6,6 +6,12 @@ var _nuki_constants_8h =
       [ "Slow", "_nuki_constants_8h.html#a50cd8903d8350caa174b2a5923ab7c62aefa5397985b8609a5dbeb430a4bcadd3", null ],
       [ "Slowest", "_nuki_constants_8h.html#a50cd8903d8350caa174b2a5923ab7c62a53ad658aa3b68ee6f8ac34262f27efc5", null ]
     ] ],
+    [ "AuthorizationIdType", "_nuki_constants_8h.html#acc97410506fbd81f769ab9ca09bf8e18", [
+      [ "App", "_nuki_constants_8h.html#acc97410506fbd81f769ab9ca09bf8e18aac863f346e618f9a959b5c95d5d28941", null ],
+      [ "Bridge", "_nuki_constants_8h.html#acc97410506fbd81f769ab9ca09bf8e18ade8504b73ea228d0ea9bbce69752092e", null ],
+      [ "Fob", "_nuki_constants_8h.html#acc97410506fbd81f769ab9ca09bf8e18a7473810e049b0e749ac409d877d66c82", null ],
+      [ "Keypad", "_nuki_constants_8h.html#acc97410506fbd81f769ab9ca09bf8e18a83b6427b45eaff29707e5b22380e2d72", null ]
+    ] ],
     [ "BatteryType", "_nuki_constants_8h.html#a1494a2f67b03f5128713185bc50796c6", [
       [ "Alkali", "_nuki_constants_8h.html#a1494a2f67b03f5128713185bc50796c6a098e792157e1beadc3ed73cb00cd42b0", null ],
       [ "Accumulators", "_nuki_constants_8h.html#a1494a2f67b03f5128713185bc50796c6a9847344b6abc15c6a232d5255cdf65b8", null ],

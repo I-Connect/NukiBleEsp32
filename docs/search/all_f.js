@@ -13,7 +13,7 @@ var searchData=
   ['pairingmode_10',['PairingMode',['../namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baabd9746cf5e271fccaa07697b5b5a0b77',1,'NukiLock::PairingMode()'],['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aabd9746cf5e271fccaa07697b5b5a0b77',1,'NukiOpener::PairingMode()']]],
   ['pairingresult_11',['PairingResult',['../namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632',1,'Nuki']]],
   ['pairingstate_12',['PairingState',['../namespace_nuki.html#af18b26b33ef86ab90c0e6e6dbafd1f61',1,'Nuki']]],
-  ['pairnuki_13',['pairNuki',['../class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14',1,'Nuki::NukiBle']]],
+  ['pairnuki_13',['pairNuki',['../class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700',1,'Nuki::NukiBle']]],
   ['payload_14',['payload',['../struct_nuki_lock_1_1_action.html#a474b7936ebcb39a2416ec0778c91b883',1,'NukiLock::Action::payload()'],['../struct_nuki_opener_1_1_action.html#a72b853c639ba254fe22d307df089a564',1,'NukiOpener::Action::payload()']]],
   ['payloadlen_15',['payloadLen',['../struct_nuki_opener_1_1_action.html#a57ff901296d569ab0149af6cf45624bc',1,'NukiOpener::Action::payloadLen()'],['../struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b',1,'NukiLock::Action::payloadLen()']]],
   ['printbuffer_16',['printBuffer',['../namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a',1,'Nuki']]],

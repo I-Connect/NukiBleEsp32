@@ -20,7 +20,7 @@ var class_nuki_1_1_nuki_ble =
     [ "initialize", "class_nuki_1_1_nuki_ble.html#a3e40d30549a6cbeac1072292670d07d4", null ],
     [ "isPairedWithLock", "class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca", null ],
     [ "logErrorCode", "class_nuki_1_1_nuki_ble.html#a4b0321c949c20375fbd58a017c4323cf", null ],
-    [ "pairNuki", "class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14", null ],
+    [ "pairNuki", "class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700", null ],
     [ "registerBleScanner", "class_nuki_1_1_nuki_ble.html#a5c239070e553f07971d2ccd05406d343", null ],
     [ "requestCalibration", "class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b", null ],
     [ "requestReboot", "class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a", null ],

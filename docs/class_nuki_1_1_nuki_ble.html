@@ -152,9 +152,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a050f54fbfcea03dc5238e8c66a7e89ca"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca">isPairedWithLock</a> () const</td></tr>
 <tr class="memdesc:a050f54fbfcea03dc5238e8c66a7e89ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pairing state (if credentials are stored or not)  <a href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca">More...</a><br /></td></tr>
 <tr class="separator:a050f54fbfcea03dc5238e8c66a7e89ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a9aaf4a9d8140255676a9f2712eba14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632">Nuki::PairingResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14">pairNuki</a> ()</td></tr>
-<tr class="memdesc:a4a9aaf4a9d8140255676a9f2712eba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if credentials are stored in preferences, if not initiate pairing.  <a href="class_nuki_1_1_nuki_ble.html#a4a9aaf4a9d8140255676a9f2712eba14">More...</a><br /></td></tr>
-<tr class="separator:a4a9aaf4a9d8140255676a9f2712eba14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a787125bfc92266571d95e94da6756700"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632">Nuki::PairingResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700">pairNuki</a> (<a class="el" href="namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18">AuthorizationIdType</a> idType=<a class="el" href="namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18ade8504b73ea228d0ea9bbce69752092e">AuthorizationIdType::Bridge</a>)</td></tr>
+<tr class="memdesc:a787125bfc92266571d95e94da6756700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if credentials are stored in preferences, if not initiate pairing.  <a href="class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700">More...</a><br /></td></tr>
+<tr class="separator:a787125bfc92266571d95e94da6756700"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c239070e553f07971d2ccd05406d343"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5c239070e553f07971d2ccd05406d343">registerBleScanner</a> (BleScanner::Publisher *bleScanner)</td></tr>
 <tr class="memdesc:a5c239070e553f07971d2ccd05406d343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the BLE scanner to be used for scanning for advertisements from the lock. BleScanner::Publisher is defined in dependent library <a href="https://github.com/I-Connect/BleScanner.git">https://github.com/I-Connect/BleScanner.git</a>.  <a href="class_nuki_1_1_nuki_ble.html#a5c239070e553f07971d2ccd05406d343">More...</a><br /></td></tr>
 <tr class="separator:a5c239070e553f07971d2ccd05406d343"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -883,8 +883,8 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
-<a id="a4a9aaf4a9d8140255676a9f2712eba14" name="a4a9aaf4a9d8140255676a9f2712eba14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a9aaf4a9d8140255676a9f2712eba14">&#9670;&#160;</a></span>pairNuki()</h2>
+<a id="a787125bfc92266571d95e94da6756700" name="a787125bfc92266571d95e94da6756700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a787125bfc92266571d95e94da6756700">&#9670;&#160;</a></span>pairNuki()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -892,7 +892,8 @@ template&lt;typename TDeviceAction &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632">PairingResult</a> Nuki::NukiBle::pairNuki </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18">AuthorizationIdType</a>&#160;</td>
+          <td class="paramname"><em>idType</em> = <code><a class="el" href="namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18ade8504b73ea228d0ea9bbce69752092e">AuthorizationIdType::Bridge</a></code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -905,7 +906,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-14-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a4a9aaf4a9d8140255676a9f2712eba14_cgraph.svg" width="416" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a787125bfc92266571d95e94da6756700_cgraph.svg" width="416" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1420,7 +1421,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li><li class="navelem"><a class="el" href="class_nuki_1_1_nuki_ble.html">NukiBle</a></li>
-    <li class="footer">Generated on Fri Sep 30 2022 11:04:58 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+    <li class="footer">Generated on Sun Oct 2 2022 09:13:35 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>
 </body>

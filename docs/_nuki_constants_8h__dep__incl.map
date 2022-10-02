@@ -1,19 +1,19 @@
 <map id="src/NukiConstants.h" name="src/NukiConstants.h">
-<area shape="rect" id="node1" title=" " alt="" coords="339,5,479,31"/>
-<area shape="rect" id="node2" href="$_nuki_ble_8h.html" title=" " alt="" coords="340,225,440,251"/>
-<area shape="rect" id="node8" href="$_nuki_ble_8hpp.html" title=" " alt="" coords="290,152,405,177"/>
-<area shape="rect" id="node9" href="$_nuki_data_types_8h.html" title=" " alt="" coords="406,79,548,104"/>
-<area shape="rect" id="node14" href="$_nuki_utils_8h.html" title=" " alt="" coords="490,225,598,251"/>
-<area shape="rect" id="node16" href="$_nuki_lock_constants_8h.html" title=" " alt="" coords="46,152,215,177"/>
-<area shape="rect" id="node17" href="$_nuki_opener_constants_8h.html" title=" " alt="" coords="632,79,815,104"/>
-<area shape="rect" id="node3" href="$_nuki_ble_8cpp.html" title=" " alt="" coords="338,299,453,324"/>
-<area shape="rect" id="node4" href="$_nuki_lock_8h.html" title=" " alt="" coords="203,299,314,324"/>
-<area shape="rect" id="node6" href="$_nuki_opener_8h.html" title=" " alt="" coords="725,299,848,324"/>
-<area shape="rect" id="node5" href="$_nuki_lock_8cpp.html" title=" " alt="" coords="196,372,320,397"/>
-<area shape="rect" id="node7" href="$_nuki_opener_8cpp.html" title=" " alt="" coords="668,372,806,397"/>
-<area shape="rect" id="node10" href="$_nuki_lock_utils_8h.html" title=" " alt="" coords="168,225,306,251"/>
-<area shape="rect" id="node12" href="$_nuki_opener_utils_8h.html" title=" " alt="" coords="632,152,783,177"/>
-<area shape="rect" id="node11" href="$_nuki_lock_utils_8cpp.html" title=" " alt="" coords="28,299,179,324"/>
-<area shape="rect" id="node13" href="$_nuki_opener_utils_8cpp.html" title=" " alt="" coords="622,225,786,251"/>
-<area shape="rect" id="node15" href="$_nuki_utils_8cpp.html" title=" " alt="" coords="477,299,600,324"/>
+<area shape="rect" id="node1" title=" " alt="" coords="421,5,561,31"/>
+<area shape="rect" id="node2" href="$_nuki_ble_8h.html" title=" " alt="" coords="380,225,480,251"/>
+<area shape="rect" id="node8" href="$_nuki_ble_8hpp.html" title=" " alt="" coords="373,152,487,177"/>
+<area shape="rect" id="node9" href="$_nuki_data_types_8h.html" title=" " alt="" coords="488,79,631,104"/>
+<area shape="rect" id="node14" href="$_nuki_utils_8h.html" title=" " alt="" coords="575,225,683,251"/>
+<area shape="rect" id="node16" href="$_nuki_lock_constants_8h.html" title=" " alt="" coords="128,152,297,177"/>
+<area shape="rect" id="node17" href="$_nuki_opener_constants_8h.html" title=" " alt="" coords="715,79,897,104"/>
+<area shape="rect" id="node3" href="$_nuki_ble_8cpp.html" title=" " alt="" coords="366,299,481,324"/>
+<area shape="rect" id="node4" href="$_nuki_lock_8h.html" title=" " alt="" coords="5,299,116,324"/>
+<area shape="rect" id="node6" href="$_nuki_opener_8h.html" title=" " alt="" coords="555,299,678,324"/>
+<area shape="rect" id="node5" href="$_nuki_lock_8cpp.html" title=" " alt="" coords="267,372,391,397"/>
+<area shape="rect" id="node7" href="$_nuki_opener_8cpp.html" title=" " alt="" coords="793,372,931,397"/>
+<area shape="rect" id="node10" href="$_nuki_lock_utils_8h.html" title=" " alt="" coords="219,225,356,251"/>
+<area shape="rect" id="node12" href="$_nuki_opener_utils_8h.html" title=" " alt="" coords="724,152,875,177"/>
+<area shape="rect" id="node11" href="$_nuki_lock_utils_8cpp.html" title=" " alt="" coords="140,299,291,324"/>
+<area shape="rect" id="node13" href="$_nuki_opener_utils_8cpp.html" title=" " alt="" coords="711,225,875,251"/>
+<area shape="rect" id="node15" href="$_nuki_utils_8cpp.html" title=" " alt="" coords="702,299,825,324"/>
 </map>
