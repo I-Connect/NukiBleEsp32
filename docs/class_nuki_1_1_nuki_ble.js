@@ -37,5 +37,6 @@ var class_nuki_1_1_nuki_ble =
     [ "updateTime", "class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1", null ],
     [ "verifySecurityPin", "class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233", null ],
     [ "errorCode", "class_nuki_1_1_nuki_ble.html#a448a1cd276fb8643bc983c447d21c231", null ],
-    [ "lastMsgCodeReceived", "class_nuki_1_1_nuki_ble.html#ae5afb32ec14d3be623a5cf4995352cf6", null ]
+    [ "lastMsgCodeReceived", "class_nuki_1_1_nuki_ble.html#ae5afb32ec14d3be623a5cf4995352cf6", null ],
+    [ "lockBusyRetryAttempt", "class_nuki_1_1_nuki_ble.html#acab05f51935e34b9cffb5703ab15d245", null ]
 ];

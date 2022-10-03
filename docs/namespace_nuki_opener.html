@@ -253,8 +253,6 @@ Functions</h2></td></tr>
 <tr class="separator:a84631e75b3f180ead51e1a292fcee637"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01fb60e0e360c42ad366aef691d5a390"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a01fb60e0e360c42ad366aef691d5a390">logConfig</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3afa535ffb25e1fd20341652f9be21e06e">Config</a> config)</td></tr>
 <tr class="separator:a01fb60e0e360c42ad366aef691d5a390"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ad2a7478182cd846136e0f2100f6e3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a3ad2a7478182cd846136e0f2100f6e3a">logErrorCode</a> (uint8_t errorCode)</td></tr>
-<tr class="separator:a3ad2a7478182cd846136e0f2100f6e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab62811be19a9ac8b70ee75cdab93d77a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#ab62811be19a9ac8b70ee75cdab93d77a">loggingTypeToString</a> (const <a class="el" href="namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667d">LoggingType</a> state, char *str)</td></tr>
 <tr class="separator:ab62811be19a9ac8b70ee75cdab93d77a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03ae7b04ec5315c8419d636713a24c42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a03ae7b04ec5315c8419d636713a24c42">logKeypadEntry</a> (KeypadEntry keypadEntry)</td></tr>
@@ -277,6 +275,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2787c094621c78f690c0919692d86698"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9915ff097023a69e5792e791336bfcd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a9915ff097023a69e5792e791336bfcd6">logNukiTrigger</a> (<a class="el" href="namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2">Trigger</a> nukiTrigger)</td></tr>
 <tr class="separator:a9915ff097023a69e5792e791336bfcd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac113c8306166cc9eca2b20d75abdb953"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#ac113c8306166cc9eca2b20d75abdb953">logOpenerErrorCode</a> (uint8_t errorCode)</td></tr>
+<tr class="separator:ac113c8306166cc9eca2b20d75abdb953"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa944d8da41129e4c94392db3b7cd2ae6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#aa944d8da41129e4c94392db3b7cd2ae6">logTimeControlEntry</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3b348e6ffdbc14464309f43002649c3f">TimeControlEntry</a> timeControlEntry)</td></tr>
 <tr class="separator:aa944d8da41129e4c94392db3b7cd2ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04eba3a5cfcbbc621010c488d6707745"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a04eba3a5cfcbbc621010c488d6707745">logUpdatedAuthorizationEntry</a> (UpdatedAuthorizationEntry updatedAuthorizationEntry)</td></tr>
@@ -880,24 +880,6 @@ template&lt;std::size_t N&gt; </div>
 
 </div>
 </div>
-<a id="a3ad2a7478182cd846136e0f2100f6e3a" name="a3ad2a7478182cd846136e0f2100f6e3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ad2a7478182cd846136e0f2100f6e3a">&#9670;&#160;</a></span>logErrorCode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void NukiOpener::logErrorCode </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>errorCode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ab62811be19a9ac8b70ee75cdab93d77a" name="ab62811be19a9ac8b70ee75cdab93d77a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab62811be19a9ac8b70ee75cdab93d77a">&#9670;&#160;</a></span>loggingTypeToString()</h2>
 
@@ -1170,6 +1152,32 @@ template&lt;std::size_t N&gt; </div>
 
 </div>
 </div>
+<a id="ac113c8306166cc9eca2b20d75abdb953" name="ac113c8306166cc9eca2b20d75abdb953"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac113c8306166cc9eca2b20d75abdb953">&#9670;&#160;</a></span>logOpenerErrorCode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NukiOpener::logOpenerErrorCode </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>errorCode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespace_nuki_opener_ac113c8306166cc9eca2b20d75abdb953_icgraph.svg" width="439" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="aa944d8da41129e4c94392db3b7cd2ae6" name="aa944d8da41129e4c94392db3b7cd2ae6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa944d8da41129e4c94392db3b7cd2ae6">&#9670;&#160;</a></span>logTimeControlEntry()</h2>
 
@@ -1185,11 +1193,11 @@ template&lt;std::size_t N&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div id="dynsection-11" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-12" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespace_nuki_opener_aa944d8da41129e4c94392db3b7cd2ae6_icgraph.svg" width="410" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
@@ -1331,7 +1339,7 @@ template&lt;std::size_t N&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_opener.html">NukiOpener</a></li>
-    <li class="footer">Generated on Sun Oct 2 2022 14:51:19 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+    <li class="footer">Generated on Mon Oct 3 2022 12:11:26 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>
 </body>
