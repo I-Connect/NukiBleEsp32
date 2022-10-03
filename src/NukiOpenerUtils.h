@@ -32,7 +32,7 @@ void cmdResultToString(const CmdResult state, char* str);
 template<std::size_t N>
 uint8_t getWeekdaysIntFromBitset(const std::bitset<N> bits);
 
-void logErrorCode(uint8_t errorCode);
+void logOpenerErrorCode(uint8_t errorCode);
 void logConfig(Config config);
 void logNewConfig(NewConfig newConfig);
 void logNewKeypadEntry(NewKeypadEntry newKeypadEntry);

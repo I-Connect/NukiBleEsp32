@@ -1,6 +1,6 @@
+#include "NukiLockUtils.h"
 #include "NukiLock.h"
 #include "NukiUtils.h"
-#include "NukiLockUtils.h"
 
 namespace NukiLock {
 NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
@@ -10,9 +10,7 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
             keyturnerServiceUUID,
             keyturnerGdioUUID,
             keyturnerUserDataUUID,
-            deviceName) {
-
-}
+            deviceName) {}
 
 Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
@@ -561,7 +559,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
 }
 
 void NukiLock::logErrorCode(uint8_t errorCode) {
-  NukiLock::logErrorCode(errorCode);
+  logLockErrorCode(errorCode);
 }
 
 }

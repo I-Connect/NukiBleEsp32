@@ -249,6 +249,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     virtual void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
     virtual void logErrorCode(uint8_t errorCode) = 0;
     uint8_t errorCode;
+    uint8_t lockBusyRetryAttempt = 0;
     Command lastMsgCodeReceived = Command::Empty;
 
   private:

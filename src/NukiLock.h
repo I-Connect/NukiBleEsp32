@@ -2,6 +2,7 @@
 
 #include "NukiBle.h"
 #include "NukiLockConstants.h"
+#include "NukiLockUtils.h"
 
 namespace NukiLock {
 
@@ -302,9 +303,11 @@ class NukiLock : public Nuki::NukiBle {
      */
     const ErrorCode getLastError() const;
 
+    virtual void logErrorCode(uint8_t errorCode) override;
+
   protected:
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) override;
-    virtual void logErrorCode(uint8_t errorCode) override;
+
 
   private:
     Nuki::CmdResult setConfig(NewConfig newConfig);

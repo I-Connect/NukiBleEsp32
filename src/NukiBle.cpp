@@ -974,7 +974,9 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
   switch (returnCode) {
     case Command::RequestData : {
+      #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("requestData");
+      #endif
       break;
     }
     case Command::PublicKey : {

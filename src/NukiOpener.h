@@ -239,9 +239,11 @@ class NukiOpener : public Nuki::NukiBle {
      */
     const ErrorCode getLastError() const;
 
+    virtual void logErrorCode(uint8_t errorCode) override;
+
   protected:
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) override;
-    virtual void logErrorCode(uint8_t errorCode) override;
+
 
   private:
     Nuki::CmdResult setConfig(NewConfig newConfig);

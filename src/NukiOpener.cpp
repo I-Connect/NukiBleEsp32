@@ -498,7 +498,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
 }
 
 void NukiOpener::logErrorCode(uint8_t errorCode) {
-  NukiOpener::logErrorCode(errorCode);
+  logOpenerErrorCode(errorCode);
 }
 
 

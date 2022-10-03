@@ -42,8 +42,7 @@ void cmdResultToString(const CmdResult state, char* str) {
   }
 }
 
-void logErrorCode(uint8_t errorCode) {
-
+void logLockErrorCode(uint8_t errorCode) {
   switch (errorCode) {
     case (uint8_t)ErrorCode::ERROR_BAD_CRC :
       log_e("ERROR_BAD_CRC");
