@@ -241,7 +241,6 @@ Nuki::CmdResult NukiLock::enableAutoUpdate(const bool enable) {
   return result;
 }
 
-
 Nuki::CmdResult NukiLock::enablePairing(const bool enable) {
   Config oldConfig;
   Nuki::CmdResult result = requestConfig(&oldConfig);
@@ -252,6 +251,14 @@ Nuki::CmdResult NukiLock::enablePairing(const bool enable) {
   return result;
 }
 
+bool NukiLock::pairingEnabled() {
+  Config config;
+  Nuki::CmdResult result = requestConfig(&config);
+  if (result == Nuki::CmdResult::Success) {
+    return config.pairingEnabled;
+  }
+  return false;
+}
 
 Nuki::CmdResult NukiLock::enableLedFlash(const bool enable) {
   Config oldConfig;
@@ -396,6 +403,22 @@ Nuki::CmdResult NukiLock::retrieveLogEntries(const uint32_t startIndex, const ui
   action.payloadLen = sizeof(payload);
 
   listOfLogEntries.clear();
+
+  return executeAction(action);
+}
+
+Nuki::CmdResult NukiLock::retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count) {
+  Action action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &offset, 2);
+  memcpy(&payload[2], &count, 2);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RequestAuthorizationEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfAuthorizationEntries.clear();
 
   return executeAction(action);
 }
@@ -550,6 +573,14 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       #ifdef DEBUG_NUKI_READABLE_DATA
       logLogEntry(logEntry);
       #endif
+      break;
+    }
+    case Command::AuthorizationEntry : {
+      printBuffer((byte*)data, dataLen, false, "authEntry");
+      AuthorizationEntry authEntry;
+      memcpy(&authEntry, data, sizeof(authEntry));
+      listOfAuthorizationEntries.push_back(authEntry);
+      logAuthorizationEntry(authEntry);
       break;
     }
     default:

@@ -4,6 +4,8 @@
 - Fixed build issue and exception when enabeling debugging
 - Added "Nightmode active" and "Accessory Battery State" to keyturner struct data
 - Added Nuki Opener support
+- Added pairingEnabled method
+- Added retreiving and logging of authorization entries 
 
 ## V0.0.8 (2022-05-18)
 - Prevented millis() overflow issue
