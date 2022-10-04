@@ -124,7 +124,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
-    while (connectRetry < 10) {
+    while (connectRetry < 3) {
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
           bleScanner->enableScanning(true);
@@ -147,6 +147,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   }
   bleScanner->enableScanning(true);
   connecting = false;
+  log_w("BLE Connect failed");
   return false;
 }
 
@@ -214,6 +215,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
                 ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
                 oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
           #endif
+          lastHeartbeat = millis();
           if ((oBeacon.getSignalPower() & 0x01) > 0) {
             if (eventHandler) {
               eventHandler->notify(EventType::KeyTurnerStatusUpdated);

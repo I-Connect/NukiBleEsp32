@@ -23,6 +23,7 @@
 #define GENERAL_TIMEOUT 3000
 #define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
+#define HEARTBEAT_TIMEOUT 30000
 
 namespace Nuki {
 class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
@@ -304,6 +305,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Nuki::CommandState nukiCommandState = Nuki::CommandState::Idle;
 
     uint32_t timeNow = 0;
+    uint32_t lastHeartbeat = 0;
 
     BleScanner::Publisher* bleScanner = nullptr;
     bool isPaired = false;
