@@ -173,6 +173,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8aa24e2040634ebec0ce529f8d5d125"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html#ae8aa24e2040634ebec0ce529f8d5d125">isBatteryCritical</a> ()</td></tr>
 <tr class="memdesc:ae8aa24e2040634ebec0ce529f8d5d125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns battery critical state parsed from the battery state byte (battery critical byte)  <a href="class_nuki_lock_1_1_nuki_lock.html#ae8aa24e2040634ebec0ce529f8d5d125">More...</a><br /></td></tr>
 <tr class="separator:ae8aa24e2040634ebec0ce529f8d5d125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace85fa0423fe9089038cb5887e64a8a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html#ace85fa0423fe9089038cb5887e64a8a4">isKeypadBatteryCritical</a> ()</td></tr>
+<tr class="memdesc:ace85fa0423fe9089038cb5887e64a8a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns keypad battery critical state in case this is supported.  <a href="class_nuki_lock_1_1_nuki_lock.html#ace85fa0423fe9089038cb5887e64a8a4">More...</a><br /></td></tr>
+<tr class="separator:ace85fa0423fe9089038cb5887e64a8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a542fd3c88bfc43ff0b3b73afde3266f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html#a542fd3c88bfc43ff0b3b73afde3266f9">lockAction</a> (const <a class="el" href="namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555">LockAction</a> lockAction, const uint32_t nukiAppId=1, const uint8_t flags=0, const char *nameSuffix=nullptr, const uint8_t nameSuffixLen=0)</td></tr>
 <tr class="memdesc:a542fd3c88bfc43ff0b3b73afde3266f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends lock action cmd via BLE to the lock.  <a href="class_nuki_lock_1_1_nuki_lock.html#a542fd3c88bfc43ff0b3b73afde3266f9">More...</a><br /></td></tr>
 <tr class="separator:a542fd3c88bfc43ff0b3b73afde3266f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -891,6 +894,27 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="ace85fa0423fe9089038cb5887e64a8a4" name="ace85fa0423fe9089038cb5887e64a8a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace85fa0423fe9089038cb5887e64a8a4">&#9670;&#160;</a></span>isKeypadBatteryCritical()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool NukiLock::NukiLock::isKeypadBatteryCritical </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns keypad battery critical state in case this is supported. </p>
+<p >Note that <code>retrieveOpenerState()</code> needs to be called first to retrieve the needed data</p>
+<dl class="section return"><dt>Returns</dt><dd>true if critical </dd></dl>
+
+</div>
+</div>
 <a id="a542fd3c88bfc43ff0b3b73afde3266f9" name="a542fd3c88bfc43ff0b3b73afde3266f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a542fd3c88bfc43ff0b3b73afde3266f9">&#9670;&#160;</a></span>lockAction()</h2>
 
@@ -1520,7 +1544,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_lock.html">NukiLock</a></li><li class="navelem"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html">NukiLock</a></li>
-    <li class="footer">Generated on Wed Oct 5 2022 08:44:57 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+    <li class="footer">Generated on Wed Oct 5 2022 12:06:31 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>
 </body>
