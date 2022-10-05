@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555":[1,0,1,5],
+"namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a02d2a7ceeeea3587a4cb7cd1d8f173a7":[1,0,1,5,2],
 "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a06c7dbc24df6f12a62609defae01495b":[1,0,1,5,6],
 "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a67b54505a5a3c64673bdd2bf36e4976a":[1,0,1,5,7],
 "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a6f12f833f6c5125364df1e4d1b3d5fa4":[1,0,1,5,5],

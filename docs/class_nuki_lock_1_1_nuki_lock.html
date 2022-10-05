@@ -122,6 +122,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae580874f09b745718bb40c263de51c6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e">addTimeControlEntry</a> (NewTimeControlEntry newTimecontrolEntry)</td></tr>
 <tr class="memdesc:ae580874f09b745718bb40c263de51c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authorization entries, it will execute the defined action at the defined time in the newTimeControlEntry.  <a href="class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e">More...</a><br /></td></tr>
 <tr class="separator:ae580874f09b745718bb40c263de51c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94dc36739ce3ac99fe6d404cb22d7f72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html#a94dc36739ce3ac99fe6d404cb22d7f72">deleteAuthorizationEntry</a> (const uint32_t id)</td></tr>
+<tr class="memdesc:a94dc36739ce3ac99fe6d404cb22d7f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the authorization entry from the lock.  <a href="class_nuki_lock_1_1_nuki_lock.html#a94dc36739ce3ac99fe6d404cb22d7f72">More...</a><br /></td></tr>
+<tr class="separator:a94dc36739ce3ac99fe6d404cb22d7f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7f3198fd83119c4410720add1cb15f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html#ab7f3198fd83119c4410720add1cb15f4">disableAutoUnlock</a> (const bool disable)</td></tr>
 <tr class="memdesc:ab7f3198fd83119c4410720add1cb15f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current advanced config from the lock, updates the disable autounlock parameter and sends the new advanced config to the lock via BLE.  <a href="class_nuki_lock_1_1_nuki_lock.html#ab7f3198fd83119c4410720add1cb15f4">More...</a><br /></td></tr>
 <tr class="separator:ab7f3198fd83119c4410720add1cb15f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -413,6 +416,32 @@ Additional Inherited Members</h2></td></tr>
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ae580874f09b745718bb40c263de51c6e_cgraph.svg" width="406" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
+
+</div>
+</div>
+<a id="a94dc36739ce3ac99fe6d404cb22d7f72" name="a94dc36739ce3ac99fe6d404cb22d7f72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94dc36739ce3ac99fe6d404cb22d7f72">&#9670;&#160;</a></span>deleteAuthorizationEntry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> NukiLock::NukiLock::deleteAuthorizationEntry </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the authorization entry from the lock. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>id to be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1491,7 +1520,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_lock.html">NukiLock</a></li><li class="navelem"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html">NukiLock</a></li>
-    <li class="footer">Generated on Tue Oct 4 2022 14:53:21 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
+    <li class="footer">Generated on Wed Oct 5 2022 08:44:57 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>
 </body>

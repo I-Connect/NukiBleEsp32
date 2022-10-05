@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"index.html#autotoc_md2":[0,1],
+"index.html#autotoc_md3":[0,2],
 "index.html#autotoc_md4":[0,3],
 "index.html#autotoc_md5":[0,4],
 "index.html#autotoc_md6":[0,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af6147c9c9b908be9b52803698be57ad2":[1,0,1,7,2],
 "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af74f4f92bfeb161dde6409f4ced770c5":[1,0,1,7,4],
 "namespace_nuki_lock.html#a32c97560239db2a59f75190e4c7684bd":[1,0,1,11],
-"namespace_nuki_lock.html#a33b400888aadb340088c9c208a5015e9":[1,0,1,40],
-"namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555":[1,0,1,5],
-"namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a02d2a7ceeeea3587a4cb7cd1d8f173a7":[1,0,1,5,2]
+"namespace_nuki_lock.html#a33b400888aadb340088c9c208a5015e9":[1,0,1,40]
 };

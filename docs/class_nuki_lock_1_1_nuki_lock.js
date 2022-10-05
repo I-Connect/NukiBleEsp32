@@ -2,6 +2,7 @@ var class_nuki_lock_1_1_nuki_lock =
 [
     [ "NukiLock", "class_nuki_lock_1_1_nuki_lock.html#a98d6daa6b2e9adb789bdbfdea5106ff9", null ],
     [ "addTimeControlEntry", "class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e", null ],
+    [ "deleteAuthorizationEntry", "class_nuki_lock_1_1_nuki_lock.html#a94dc36739ce3ac99fe6d404cb22d7f72", null ],
     [ "disableAutoUnlock", "class_nuki_lock_1_1_nuki_lock.html#ab7f3198fd83119c4410720add1cb15f4", null ],
     [ "enableAutoBatteryTypeDetection", "class_nuki_lock_1_1_nuki_lock.html#ac03f0730a8d0fadbbdf4244d8c2e2742", null ],
     [ "enableAutoLock", "class_nuki_lock_1_1_nuki_lock.html#a0c1f973e20c4a0971adcd4e1afa11da2", null ],
