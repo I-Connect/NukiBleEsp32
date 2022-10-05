@@ -1,6 +1,6 @@
 ## V0.0.9 (2022-10-04)
 - Prevented executing action when lock is not present (battery or lock failure) based on advertising heartbeat
-- Reduced BLE connect retries from 10 to 3 
+- Reduced BLE connect retries from 10 to 5 
 - Fixed build issue and exception when enabeling debugging
 - Added "Nightmode active" and "Accessory Battery State" to keyturner struct data
 - Added Nuki Opener support

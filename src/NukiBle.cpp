@@ -124,7 +124,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     uint8_t connectRetry = 0;
-    while (connectRetry < 3) {
+    while (connectRetry < 5) {
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
           bleScanner->enableScanning(true);

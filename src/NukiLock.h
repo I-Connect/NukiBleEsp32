@@ -299,6 +299,15 @@ class NukiLock : public Nuki::NukiBle {
     bool isBatteryCritical();
 
     /**
+     * @brief Returns keypad battery critical state in case this is supported
+     *
+     * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
+     *
+     * @return true if critical
+     */
+    bool isKeypadBatteryCritical();
+
+    /**
      * @brief Returns battery charging state parsed from the battery state byte (battery critical byte)
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data

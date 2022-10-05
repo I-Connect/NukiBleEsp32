@@ -437,11 +437,18 @@ Nuki::CmdResult NukiLock::deleteAuthorizationEntry(uint32_t id) {
 }
 
 bool NukiLock::isBatteryCritical() {
-  return keyTurnerState.criticalBatteryState & 1;
+  return ((keyTurnerState.criticalBatteryState & (1 << 0)) != 0);
+}
+
+bool NukiLock::isKeypadBatteryCritical() {
+  if ((keyTurnerState.accessoryBatteryState & (1 << 7)) != 0) {
+    return ((keyTurnerState.accessoryBatteryState & (1 << 6)) != 0);
+  }
+  return false;
 }
 
 bool NukiLock::isBatteryCharging() {
-  return keyTurnerState.criticalBatteryState & (1 << 1);
+  return ((keyTurnerState.criticalBatteryState & (1 << 1)) != 0);
 }
 
 uint8_t NukiLock::getBatteryPerc() {
