@@ -283,6 +283,13 @@ class NukiLock : public Nuki::NukiBle {
     Nuki::CmdResult retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count);
 
     /**
+     * @brief Deletes the authorization entry from the lock
+     *
+     * @param id id to be deleted
+     */
+    Nuki::CmdResult deleteAuthorizationEntry(const uint32_t id);
+
+    /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data

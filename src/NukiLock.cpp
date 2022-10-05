@@ -423,6 +423,19 @@ Nuki::CmdResult NukiLock::retrieveAuthorizationEntries(const uint16_t offset, co
   return executeAction(action);
 }
 
+Nuki::CmdResult NukiLock::deleteAuthorizationEntry(uint32_t id) {
+  Action action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &id, 4);
+
+  action.cmdType = CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RemoveUserAuthorization;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  return executeAction(action);
+}
+
 bool NukiLock::isBatteryCritical() {
   return keyTurnerState.criticalBatteryState & 1;
 }
