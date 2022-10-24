@@ -551,6 +551,31 @@ void NukiBle::saveCredentials() {
   }
 }
 
+uint16_t NukiBle::getSecurityPincode() {
+
+  if (takeNukiBleSemaphore("retr pincode cred")) {
+    uint16_t storedPincode = 0000;
+    if ((preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &storedPincode, 2) > 0)) {
+      giveNukiBleSemaphore();
+      return storedPincode;
+    }
+    giveNukiBleSemaphore();
+  }
+  return 0;
+}
+
+void NukiBle::getMacAddress(char* macAddress) {
+  unsigned char buf[6];
+  if (takeNukiBleSemaphore("retr pincode cred")) {
+    if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buf, 6) > 0)) {
+      BLEAddress address = BLEAddress(buf);
+      sprintf(macAddress, "%d", address.toString().c_str());
+      giveNukiBleSemaphore();
+    }
+    giveNukiBleSemaphore();
+  }
+}
+
 bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];

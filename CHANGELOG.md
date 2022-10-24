@@ -7,6 +7,8 @@
 - Added pairingEnabled method
 - Added retreiving and logging of authorization entries 
 - Added deleteAuthorizationEntry
+- Added getSecurityPincode
+- Added getMacAddress
 
 ## V0.0.8 (2022-05-18)
 - Prevented millis() overflow issue

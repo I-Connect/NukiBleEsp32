@@ -189,6 +189,14 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool saveSecurityPincode(const uint16_t pinCode);
 
     /**
+     * @brief Gets the pincode stored on the esp. This pincode is used for sending/setting config via BLE to the lock
+     * by other methods and needs to be the same pincode as stored in the lock
+     *
+     * @return pincode
+     */
+    uint16_t getSecurityPincode();
+
+    /**
      * @brief Send the new pincode command to the lock via BLE
      * (this command uses the earlier by saveSecurityPincode() stored pincode which needs to be the same as
      * the pincode stored in the lock)
@@ -206,7 +214,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      */
     Nuki::CmdResult verifySecurityPin();
 
-
+    /**
+     * @brief Gets the ble mac address of the paired lock stored on the esp.
+     *
+     * @return 18 byte Char array with mac address
+     */
+    void getMacAddress(char* macAddress);
 
     /**
      * @brief Initializes stored preferences based on the devicename passed in the constructor,
