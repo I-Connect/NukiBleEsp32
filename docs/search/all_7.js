@@ -10,7 +10,9 @@ var searchData=
   ['getlasterror_7',['getLastError',['../class_nuki_lock_1_1_nuki_lock.html#a6fe38ed0e5e9bd572875f2b19a32af04',1,'NukiLock::NukiLock::getLastError()'],['../class_nuki_opener_1_1_nuki_opener.html#abf85adf44965fd8a36712ede22ac643c',1,'NukiOpener::NukiOpener::getLastError()']]],
   ['getlogentries_8',['getLogEntries',['../class_nuki_lock_1_1_nuki_lock.html#afff96e5e0cb7dac48113ada69e1aff56',1,'NukiLock::NukiLock::getLogEntries()'],['../class_nuki_opener_1_1_nuki_opener.html#aafc2f92a96c60fdec189066b3a34da6f',1,'NukiOpener::NukiOpener::getLogEntries()']]],
   ['getlogentrycount_9',['getLogEntryCount',['../class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96',1,'Nuki::NukiBle']]],
-  ['getrssi_10',['getRssi',['../class_nuki_1_1_nuki_ble.html#ac7e3243ff1881ec7c075f72831bd6691',1,'Nuki::NukiBle']]],
-  ['gettimecontrolentries_11',['getTimeControlEntries',['../class_nuki_opener_1_1_nuki_opener.html#a410947eb5c2922039dbd82fe10c824ef',1,'NukiOpener::NukiOpener::getTimeControlEntries()'],['../class_nuki_lock_1_1_nuki_lock.html#ac6457349ae032efb2d299681ac1ad21c',1,'NukiLock::NukiLock::getTimeControlEntries()']]],
-  ['getweekdaysintfrombitset_12',['getWeekdaysIntFromBitset',['../namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3',1,'NukiOpener::getWeekdaysIntFromBitset()'],['../namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05',1,'Nuki::getWeekdaysIntFromBitset()']]]
+  ['getmacaddress_10',['getMacAddress',['../class_nuki_1_1_nuki_ble.html#a492a38e70bbb90cab3cf2f712822a778',1,'Nuki::NukiBle']]],
+  ['getrssi_11',['getRssi',['../class_nuki_1_1_nuki_ble.html#ac7e3243ff1881ec7c075f72831bd6691',1,'Nuki::NukiBle']]],
+  ['getsecuritypincode_12',['getSecurityPincode',['../class_nuki_1_1_nuki_ble.html#ae8dfa35d43232706a75c6d14f35ae88e',1,'Nuki::NukiBle']]],
+  ['gettimecontrolentries_13',['getTimeControlEntries',['../class_nuki_opener_1_1_nuki_opener.html#a410947eb5c2922039dbd82fe10c824ef',1,'NukiOpener::NukiOpener::getTimeControlEntries()'],['../class_nuki_lock_1_1_nuki_lock.html#ac6457349ae032efb2d299681ac1ad21c',1,'NukiLock::NukiLock::getTimeControlEntries()']]],
+  ['getweekdaysintfrombitset_14',['getWeekdaysIntFromBitset',['../namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3',1,'NukiOpener::getWeekdaysIntFromBitset()'],['../namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05',1,'Nuki::getWeekdaysIntFromBitset()']]]
 ];
