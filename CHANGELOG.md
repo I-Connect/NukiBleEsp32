@@ -9,6 +9,8 @@
 - Added deleteAuthorizationEntry
 - Added getSecurityPincode
 - Added getMacAddress
+- Fixed not working pairing timeout
+- Added lockHeartBeat when pairing successfull
 
 ## V0.0.8 (2022-05-18)
 - Prevented millis() overflow issue

@@ -300,6 +300,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool retrieveCredentials();
     void deleteCredentials();
     Nuki::PairingState pairStateMachine(const Nuki::PairingState nukiPairingState);
+    Nuki::PairingState nukiPairingResultState = Nuki::PairingState::InitPairing;
 
     unsigned char authenticator[32];
     Preferences preferences;

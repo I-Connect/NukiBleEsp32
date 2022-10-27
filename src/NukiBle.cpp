@@ -92,6 +92,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
       if (nukiPairingState == PairingState::Success) {
         saveCredentials();
         result = PairingResult::Success;
+        lastHeartbeat = millis();
       } else {
         result = PairingResult::Timeout;
       }
@@ -624,11 +625,11 @@ void NukiBle::deleteCredentials() {
 PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
   switch (nukiPairingState) {
     case PairingState::InitPairing: {
-
       memset(challengeNonceK, 0, sizeof(challengeNonceK));
       memset(remotePublicKey, 0, sizeof(remotePublicKey));
       receivedStatus = 0xff;
-      return PairingState::ReqRemPubKey;
+      timeNow = millis();
+      nukiPairingResultState = PairingState::ReqRemPubKey;
     }
     case PairingState::ReqRemPubKey: {
       //Request remote public key (Sent message should be 0100030027A7)
@@ -639,12 +640,11 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       uint16_t cmd = (uint16_t)Command::PublicKey;
       memcpy(buff, &cmd, sizeof(Command));
       sendPlainMessage(Command::RequestData, buff, sizeof(Command));
-      timeNow = millis();
-      return PairingState::RecRemPubKey;
+      nukiPairingResultState = PairingState::RecRemPubKey;
     }
     case PairingState::RecRemPubKey: {
       if (isCharArrayNotEmpty(remotePublicKey, sizeof(remotePublicKey))) {
-        return PairingState::SendPubKey;
+        nukiPairingResultState = PairingState::SendPubKey;
       }
       break;
     }
@@ -653,7 +653,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       log_d("##################### SEND CLIENT PUBLIC KEY #########################");
       #endif
       sendPlainMessage(Command::PublicKey, myPublicKey, sizeof(myPublicKey));
-      return PairingState::GenKeyPair;
+      nukiPairingResultState = PairingState::GenKeyPair;
     }
     case PairingState::GenKeyPair: {
       #ifdef DEBUG_NUKI_CONNECT
@@ -671,8 +671,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       unsigned char sigma[] = "expand 32-byte k";
       crypto_core_hsalsa20(secretKeyK, in, sharedKeyS, sigma);
       printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
-      timeNow = millis();
-      return PairingState::CalculateAuth;
+      nukiPairingResultState = PairingState::CalculateAuth;
     }
     case PairingState::CalculateAuth: {
       if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
@@ -688,7 +687,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         crypto_auth_hmacsha256(authenticator, hmacPayload, sizeof(hmacPayload), secretKeyK);
         printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result");
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
-        return PairingState::SendAuth;
+        nukiPairingResultState = PairingState::SendAuth;
       }
       break;
     }
@@ -697,8 +696,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       log_d("##################### SEND AUTHENTICATOR #########################");
       #endif
       sendPlainMessage(Command::AuthorizationAuthenticator, authenticator, sizeof(authenticator));
-      timeNow = millis();
-      return PairingState::SendAuthData;
+      nukiPairingResultState = PairingState::SendAuthData;
     }
     case PairingState::SendAuthData: {
       if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
@@ -735,8 +733,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
 
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
         sendPlainMessage(Command::AuthorizationData, authorizationDataMessage, sizeof(authorizationDataMessage));
-        timeNow = millis();
-        return PairingState::SendAuthIdConf;
+        nukiPairingResultState = PairingState::SendAuthIdConf;
       }
       break;
     }
@@ -757,8 +754,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         memcpy(&confirmationDataMessage[0], authenticator, sizeof(authenticator));
         memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
         sendPlainMessage(Command::AuthorizationIdConfirmation, confirmationDataMessage, sizeof(confirmationDataMessage));
-        timeNow = millis();
-        return PairingState::RecStatus;
+        nukiPairingResultState = PairingState::RecStatus;
       }
       break;
     }
@@ -767,23 +763,22 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("####################### PAIRING DONE ###############################################");
         #endif
-        return PairingState::Success;
+        nukiPairingResultState = PairingState::Success;
       }
       break;
     }
     default: {
       log_e("Unknown pairing status");
-      return PairingState::Timeout;
+      nukiPairingResultState = PairingState::Timeout;
     }
   }
 
   if (millis() - timeNow > PAIRING_TIMEOUT) {
     log_w("Pairing timeout");
-    return PairingState::Timeout;
+    nukiPairingResultState = PairingState::Timeout;
   }
 
-  // Nothing happend, returned same state
-  return nukiPairingState;
+  return nukiPairingResultState;
 }
 
 bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
