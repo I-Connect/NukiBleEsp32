@@ -80,6 +80,9 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
   PairingResult result = PairingResult::Pairing;
 
   if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("Nuki in pairing mode found");
+    #endif
     if (connectBle(bleAddress)) {
       crypto_box_keypair(myPublicKey, myPrivateKey);
 
@@ -108,7 +111,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
   log_d("pairing result %d", result);
   #endif
 
-  isPaired = result == PairingResult::Success;
+  isPaired = (result == PairingResult::Success);
   return result;
 }
 
@@ -121,6 +124,9 @@ void NukiBle::unPairNuki() {
 }
 
 bool NukiBle::connectBle(const BLEAddress bleAddress) {
+  #ifdef DEBUG_NUKI_CONNECT
+  log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+  #endif
   connecting = true;
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
@@ -233,6 +239,8 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
         #endif
         bleAddress = advertisedDevice->getAddress();
         pairingServiceAvailable = true;
+      } else {
+        pairingServiceAvailable = false;
       }
     }
   }
@@ -597,11 +605,18 @@ bool NukiBle::retrieveCredentials() {
       log_d("PinCode: %d", pinCode);
       #endif
 
+      if (secretKeyK[0] == 0x00 || authorizationId[0] == 0x00) {
+        log_w("secret key OR authorizationId is empty: not paired");
+        giveNukiBleSemaphore();
+        return false;
+      }
+
       if (pinCode == 0) {
         log_w("Pincode is 000000");
       }
 
     } else {
+      log_e("Getting data from NVS issue");
       giveNukiBleSemaphore();
       return false;
     }
@@ -613,8 +628,12 @@ bool NukiBle::retrieveCredentials() {
 
 void NukiBle::deleteCredentials() {
   if (takeNukiBleSemaphore("del cred")) {
-    preferences.remove(SECRET_KEY_STORE_NAME);
-    preferences.remove(AUTH_ID_STORE_NAME);
+    unsigned char emptySecretKeyK[32] = {0x00};
+    unsigned char emptyAuthorizationId[4] = {0x00};
+    preferences.putBytes(SECRET_KEY_STORE_NAME, emptySecretKeyK, 32);
+    preferences.putBytes(AUTH_ID_STORE_NAME, emptyAuthorizationId, 4);
+    // preferences.remove(SECRET_KEY_STORE_NAME);
+    // preferences.remove(AUTH_ID_STORE_NAME);
     giveNukiBleSemaphore();
   }
   #ifdef DEBUG_NUKI_CONNECT

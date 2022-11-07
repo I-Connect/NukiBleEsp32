@@ -1,3 +1,7 @@
+## V0.0.10 (2022-11-07)
+- Prevented pairing failure when pairing - unpairing - pairing
+- Refactored checking credentials (not deleting preference key's anymore)
+
 ## V0.0.9 (2022-10-04)
 - Prevented executing action when lock is not present (battery or lock failure) based on advertising heartbeat
 - Reduced BLE connect retries from 10 to 5 
