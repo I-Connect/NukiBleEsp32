@@ -20,6 +20,7 @@
 #include "sodium/crypto_secretbox.h"
 #include "sodium/crypto_box.h"
 #include "NimBLEBeacon.h"
+#include "SenseLogging.h"
 
 #define NUKI_SEMAPHORE_TIMEOUT 1000
 
@@ -58,6 +59,7 @@ void NukiBle::initialize() {
 
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
+  pClient->setConnectTimeout(1);
 
   isPaired = retrieveCredentials();
 }
@@ -124,12 +126,13 @@ void NukiBle::unPairNuki() {
 }
 
 bool NukiBle::connectBle(const BLEAddress bleAddress) {
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
-  #endif
   connecting = true;
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+    #endif
+
     uint8_t connectRetry = 0;
     while (connectRetry < 5) {
       if (pClient->connect(bleAddress, true)) {
@@ -524,6 +527,7 @@ bool NukiBle::saveSecurityPincode(const uint16_t pinCode) {
 }
 
 void NukiBle::saveCredentials() {
+  ASYNC_LOG_W("Saving credentials");
   unsigned char currentBleAddress[6];
   unsigned char storedBleAddress[6];
   uint16_t defaultPincode = 0;
@@ -627,6 +631,7 @@ bool NukiBle::retrieveCredentials() {
 }
 
 void NukiBle::deleteCredentials() {
+  ASYNC_LOG_W("Deleting credentials");
   if (takeNukiBleSemaphore("del cred")) {
     unsigned char emptySecretKeyK[32] = {0x00};
     unsigned char emptyAuthorizationId[4] = {0x00};
