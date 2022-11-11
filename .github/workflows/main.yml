@@ -18,7 +18,7 @@ jobs:
         env: [debug, release]
 
     steps:
-    - uses: fusion-engineering/setup-git-credentials@v2
+    - uses: de-vri-es/setup-git-credentials@v2
       with:
         # GIT_CREDENTIALS secret should contain https://<username>:<token>@github.com
         # where token is a Personal Access Token generated on https://github.com/settings/tokens
@@ -33,7 +33,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
     - name: Cache PlatformIO
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.platformio
         key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
