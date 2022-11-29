@@ -267,17 +267,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Command lastMsgCodeReceived = Command::Empty;
 
   private:
-//Keyturner Pairing Service
-    const NimBLEUUID pairingServiceUUID;
-//Keyturner Service
-    const NimBLEUUID deviceServiceUUID;
-//Keyturner pairing Data Input Output characteristic
-    const NimBLEUUID gdioUUID;
-//User-Specific Data Input Output characteristic
-    const NimBLEUUID userDataUUID;
-
-    const std::string preferencesId;
-
     SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateMutex();
     bool takeNukiBleSemaphore(std::string taker);
     std::string owner = "free";
@@ -310,6 +299,17 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     std::string deviceName;       //The name to be displayed for this authorization and used for storing preferences
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
     BLEClient* pClient = nullptr;
+
+//Keyturner Pairing Service
+    const NimBLEUUID pairingServiceUUID;
+//Keyturner Service
+    const NimBLEUUID deviceServiceUUID;
+//Keyturner pairing Data Input Output characteristic
+    const NimBLEUUID gdioUUID;
+//User-Specific Data Input Output characteristic
+    const NimBLEUUID userDataUUID;
+
+    const std::string preferencesId;
 
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
