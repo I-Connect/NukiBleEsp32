@@ -1191,4 +1191,8 @@ int NukiBle::getRssi() {
   return rssi;
 }
 
+uint32_t NukiBle::getLastHeartbeat() {
+  return lastHeartbeat;
+}
+
 } // namespace Nuki
