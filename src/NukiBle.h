@@ -243,6 +243,13 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     */
     int getRssi();
 
+    /**
+    * @brief Returns the timestamp in milliseconds when the last ble beacon has been received from the device
+    *
+    * @return Timestamp in milliseconds
+    */
+    int getLastReceivedBeaconTs();
+
   protected:
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
@@ -345,6 +352,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
     int rssi = 0;
+    unsigned long lastReceivedBeaconTs = 0;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;

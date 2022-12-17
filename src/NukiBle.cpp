@@ -187,6 +187,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
       rssi = advertisedDevice->getRSSI();
+      lastReceivedBeaconTs = millis();
 
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
@@ -1189,6 +1190,11 @@ void NukiBle::giveNukiBleSemaphore() {
 
 int NukiBle::getRssi() {
   return rssi;
+}
+
+int NukiBle::getLastReceivedBeaconTs()
+{
+  return lastReceivedBeaconTs;
 }
 
 } // namespace Nuki
