@@ -1192,8 +1192,7 @@ int NukiBle::getRssi() {
   return rssi;
 }
 
-int NukiBle::getLastReceivedBeaconTs()
-{
+int NukiBle::getLastReceivedBeaconTs() {
   return lastReceivedBeaconTs;
 }
 

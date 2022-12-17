@@ -4,7 +4,7 @@
 namespace Nuki {
 template<typename TDeviceAction>
 Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
-  if (millis() - lastHeartbeat > HEARTBEAT_TIMEOUT ) {
+  if (millis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
     log_e("Lock Heartbeat timeout, command failed");
     return Nuki::CmdResult::Error;
   }
