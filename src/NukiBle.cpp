@@ -1196,4 +1196,8 @@ int NukiBle::getLastReceivedBeaconTs() {
   return lastReceivedBeaconTs;
 }
 
+uint32_t NukiBle::getLastHeartbeat() {
+  return lastHeartbeat;
+}
+
 } // namespace Nuki

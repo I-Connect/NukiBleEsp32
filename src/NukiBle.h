@@ -250,6 +250,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     */
     int getLastReceivedBeaconTs();
 
+    * @brief Returns the timestamp (millis) of the last received BLE beacon from the lock.
+    *
+     * @return Last heartbeat value
+    */
+    uint32_t getLastHeartbeat();
+
   protected:
     bool connectBle(const BLEAddress bleAddress);
     void extendDisonnectTimeout();
