@@ -1,14 +1,14 @@
 <map id="Nuki::printBuffer" name="Nuki::printBuffer">
-<area shape="rect" id="node1" title=" " coords="275,319,389,345"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." coords="15,5,217,45"/>
-<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." coords="31,69,201,109"/>
-<area shape="rect" id="node4" href="$class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." coords="42,133,190,173"/>
-<area shape="rect" id="node5" href="$class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." coords="33,197,199,237"/>
-<area shape="rect" id="node6" href="$namespace_nuki.html#acef61520e1f6e537552b14ca4b519f44" title=" " coords="45,262,187,287"/>
-<area shape="rect" id="node7" href="$class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5" title=" " coords="37,312,195,352"/>
-<area shape="rect" id="node8" href="$class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da" title=" " coords="33,376,199,416"/>
-<area shape="rect" id="node9" href="$class_nuki_1_1_nuki_ble.html#af47efb4e020a327687327ad82963b347" title="Sends an updated authorization entry to the lock via BLE." coords="5,440,227,480"/>
-<area shape="rect" id="node10" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." coords="21,504,211,544"/>
-<area shape="rect" id="node11" href="$class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" coords="33,568,199,608"/>
-<area shape="rect" id="node12" href="$class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" coords="33,632,199,672"/>
+<area shape="rect" id="node1" title=" " alt="" coords="275,319,389,345"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="15,5,217,45"/>
+<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="31,69,201,109"/>
+<area shape="rect" id="node4" href="$class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="42,133,190,173"/>
+<area shape="rect" id="node5" href="$class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="33,197,199,237"/>
+<area shape="rect" id="node6" href="$namespace_nuki.html#acef61520e1f6e537552b14ca4b519f44" title=" " alt="" coords="45,262,187,287"/>
+<area shape="rect" id="node7" href="$class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5" title=" " alt="" coords="37,312,195,352"/>
+<area shape="rect" id="node8" href="$class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da" title=" " alt="" coords="33,376,199,416"/>
+<area shape="rect" id="node9" href="$class_nuki_1_1_nuki_ble.html#af47efb4e020a327687327ad82963b347" title="Sends an updated authorization entry to the lock via BLE." alt="" coords="5,440,227,480"/>
+<area shape="rect" id="node10" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="21,504,211,544"/>
+<area shape="rect" id="node11" href="$class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="33,568,199,608"/>
+<area shape="rect" id="node12" href="$class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="33,632,199,672"/>
 </map>

@@ -1,8 +1,8 @@
 <map id="src/NukiLockConstants.h" name="src/NukiLockConstants.h">
-<area shape="rect" id="node1" title=" " coords="29,5,199,31"/>
-<area shape="rect" id="node2" href="$_nuki_lock_8h.html" title=" " coords="5,152,116,177"/>
-<area shape="rect" id="node4" href="$_nuki_lock_utils_8h.html" title=" " coords="99,79,236,104"/>
-<area shape="rect" id="node3" href="$_nuki_lock_8cpp.html" title=" " coords="45,225,169,251"/>
-<area shape="rect" id="node5" href="$_nuki_ble_8cpp.html" title=" " coords="191,152,306,177"/>
-<area shape="rect" id="node6" href="$_nuki_lock_utils_8cpp.html" title=" " coords="331,152,481,177"/>
+<area shape="rect" id="node1" title=" " alt="" coords="29,5,199,31"/>
+<area shape="rect" id="node2" href="$_nuki_lock_8h.html" title=" " alt="" coords="5,152,116,177"/>
+<area shape="rect" id="node4" href="$_nuki_lock_utils_8h.html" title=" " alt="" coords="99,79,236,104"/>
+<area shape="rect" id="node3" href="$_nuki_lock_8cpp.html" title=" " alt="" coords="45,225,169,251"/>
+<area shape="rect" id="node5" href="$_nuki_ble_8cpp.html" title=" " alt="" coords="191,152,306,177"/>
+<area shape="rect" id="node6" href="$_nuki_lock_utils_8cpp.html" title=" " alt="" coords="331,152,481,177"/>
 </map>

@@ -14,6 +14,7 @@ var class_nuki_1_1_nuki_ble =
     [ "getAuthorizationEntries", "class_nuki_1_1_nuki_ble.html#aa0efa09f2e6f191679d9f47482320639", null ],
     [ "getKeypadEntries", "class_nuki_1_1_nuki_ble.html#a018d9c075633e04c2c415597614db5b5", null ],
     [ "getKeypadEntryCount", "class_nuki_1_1_nuki_ble.html#ad94d354153b8b4f779f7a7a32258ff48", null ],
+    [ "getLastHeartbeat", "class_nuki_1_1_nuki_ble.html#a1b8629906aa390ae74fb9bb18d5ad7de", null ],
     [ "getLogEntryCount", "class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96", null ],
     [ "getMacAddress", "class_nuki_1_1_nuki_ble.html#a492a38e70bbb90cab3cf2f712822a778", null ],
     [ "getRssi", "class_nuki_1_1_nuki_ble.html#ac7e3243ff1881ec7c075f72831bd6691", null ],

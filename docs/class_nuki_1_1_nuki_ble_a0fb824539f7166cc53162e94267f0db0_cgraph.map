@@ -1,8 +1,8 @@
 <map id="Nuki::NukiBle::retrieveAuthorizationEntries" name="Nuki::NukiBle::retrieveAuthorizationEntries">
-<area shape="rect" id="node1" title="Request the lock via BLE to send the existing authorizationentries." coords="5,99,231,139"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " coords="279,106,468,131"/>
-<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " coords="530,5,714,45"/>
-<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " coords="526,69,718,109"/>
-<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " coords="516,134,728,159"/>
-<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " coords="521,184,723,224"/>
+<area shape="rect" id="node1" title="Request the lock via BLE to send the existing authorizationentries." alt="" coords="5,99,231,139"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="279,106,468,131"/>
+<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="530,5,714,45"/>
+<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="526,69,718,109"/>
+<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="516,134,728,159"/>
+<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " alt="" coords="521,184,723,224"/>
 </map>

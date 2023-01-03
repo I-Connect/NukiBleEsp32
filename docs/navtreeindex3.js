@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"functions_func.html":[2,3,1],
+"functions_vars.html":[2,3,2],
 "globals.html":[3,1,0],
 "globals_defs.html":[3,1,1],
 "hierarchy.html":[2,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "namespace_nuki_lock.html#a2d3b067c17f394b8fad515ca3f35f03c":[1,0,1,33],
 "namespace_nuki_lock.html#a2da27d3f227f70f0404f5ed7e9f4bd65":[1,0,1,36],
 "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87":[1,0,1,7],
-"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a13052aceaadac2d27d26269dededc2e9":[1,0,1,7,1],
-"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a3ef869fb69491527aac9612c5b039331":[1,0,1,7,3],
-"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a9272dbb9cfef10ff6cda9beff4335f06":[1,0,1,7,5]
+"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a13052aceaadac2d27d26269dededc2e9":[1,0,1,7,1]
 };

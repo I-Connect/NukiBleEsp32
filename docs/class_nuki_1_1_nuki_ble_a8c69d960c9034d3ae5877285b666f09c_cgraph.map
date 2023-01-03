@@ -1,10 +1,10 @@
 <map id="Nuki::NukiBle::addAuthorizationEntry" name="Nuki::NukiBle::addAuthorizationEntry">
-<area shape="rect" id="node1" title="Sends a new authorization entry to the lock via BLE." coords="5,156,208,196"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " coords="263,106,452,131"/>
-<area shape="rect" id="node7" href="$namespace_nuki_lock.html#a6ed41649d4ecfc8ec23f170ff9bbcad1" title=" " coords="256,156,459,196"/>
-<area shape="rect" id="node8" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " coords="300,221,415,246"/>
-<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " coords="521,5,705,45"/>
-<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " coords="517,69,709,109"/>
-<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " coords="507,134,719,159"/>
-<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " coords="511,184,714,224"/>
+<area shape="rect" id="node1" title="Sends a new authorization entry to the lock via BLE." alt="" coords="5,156,208,196"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="263,106,452,131"/>
+<area shape="rect" id="node7" href="$namespace_nuki_lock.html#a6ed41649d4ecfc8ec23f170ff9bbcad1" title=" " alt="" coords="256,156,459,196"/>
+<area shape="rect" id="node8" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="300,221,415,246"/>
+<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="521,5,705,45"/>
+<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="517,69,709,109"/>
+<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="507,134,719,159"/>
+<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " alt="" coords="511,184,714,224"/>
 </map>

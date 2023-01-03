@@ -1,6 +1,6 @@
 <map id="NukiOpener::NukiOpener" name="NukiOpener::NukiOpener">
-<area shape="rect" id="node1" title=" " coords="76,152,243,177"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html" title=" " coords="109,79,210,104"/>
-<area shape="rect" id="node3" title=" " coords="5,5,143,31"/>
-<area shape="rect" id="node4" title=" " coords="167,5,325,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="76,152,243,177"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html" title=" " alt="" coords="109,79,210,104"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,143,31"/>
+<area shape="rect" id="node4" title=" " alt="" coords="167,5,325,31"/>
 </map>
