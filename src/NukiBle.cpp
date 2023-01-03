@@ -187,6 +187,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
       rssi = advertisedDevice->getRSSI();
+      lastReceivedBeaconTs = millis();
 
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
@@ -904,7 +905,7 @@ bool NukiBle::registerOnGdioChar() {
 
         using namespace std::placeholders;
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
-        pGdioCharacteristic->subscribe(false, callback); //false = indication, true = notification
+        pGdioCharacteristic->subscribe(false, callback, true); //false = indication, true = notification
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("GDIO characteristic registered");
         #endif
@@ -939,7 +940,7 @@ bool NukiBle::registerOnUsdioChar() {
         using namespace std::placeholders;
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
 
-        pUsdioCharacteristic->subscribe(false, callback); //false = indication, true = notification
+        pUsdioCharacteristic->subscribe(false, callback, true); //false = indication, true = notification
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("USDIO characteristic registered");
         #endif
@@ -1189,6 +1190,10 @@ void NukiBle::giveNukiBleSemaphore() {
 
 int NukiBle::getRssi() {
   return rssi;
+}
+
+int NukiBle::getLastReceivedBeaconTs() {
+  return lastReceivedBeaconTs;
 }
 
 uint32_t NukiBle::getLastHeartbeat() {
