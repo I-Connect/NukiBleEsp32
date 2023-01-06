@@ -33,6 +33,7 @@ enum CmdResult : uint8_t {
   TimeOut   = 3,
   Working   = 4,
   NotPaired = 5,
+  Lock_Busy = 6,
   Error     = 99
 };
 
