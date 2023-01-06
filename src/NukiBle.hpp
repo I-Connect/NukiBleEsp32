@@ -326,7 +326,6 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        lockBusyRetryAttempt = 0;
         return Nuki::CmdResult::Success;
       }
       break;
@@ -359,7 +358,6 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        lockBusyRetryAttempt = 0;
         return Nuki::CmdResult::Success;
       }
       break;
