@@ -98,6 +98,7 @@ enum class State : uint8_t {
   Uninitialized   = 0x00,
   PairingMode     = 0x01,
   DoorMode        = 0x02,
+  ContinuousMode  = 0x03,
   MaintenanceMode = 0x04
 };
 
