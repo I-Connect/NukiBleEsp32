@@ -112,7 +112,6 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        lockBusyRetryAttempt = 0;
         return Nuki::CmdResult::Success;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
         #ifdef DEBUG_NUKI_COMMUNICATION
@@ -122,26 +121,15 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
-        if (lockBusyRetryAttempt < 2) {
-          #ifdef DEBUG_NUKI_COMMUNICATION
-          log_d("************************ LOCK BUSY RETRYING (%d) ************************", lockBusyRetryAttempt);
-          #endif
-          lockBusyRetryAttempt++;
-          delay(1000);
-          nukiCommandState = CommandState::Idle;
-          lastMsgCodeReceived = Command::Empty;
-        } else {
-          lockBusyRetryAttempt = 0;
-          #ifdef DEBUG_NUKI_COMMUNICATION
-          log_d("************************ LOCK BUSY RETRY FAILED ************************");
-          #endif
-          nukiCommandState = CommandState::Idle;
-          lastMsgCodeReceived = Command::Empty;
-          return Nuki::CmdResult::Failed;
-        }
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
+        #endif
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return Nuki::CmdResult::Lock_Busy;
       }
-      break;
     }
+    break;
     default: {
       log_w("Unknown request command state");
       return Nuki::CmdResult::Failed;
@@ -235,29 +223,17 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
-        if (lockBusyRetryAttempt < 2) {
-          #ifdef DEBUG_NUKI_COMMUNICATION
-          log_d("************************ LOCK BUSY RETRYING (%d) ************************", lockBusyRetryAttempt);
-          #endif
-          lockBusyRetryAttempt++;
-          delay(1000);
-          nukiCommandState = CommandState::Idle;
-          lastMsgCodeReceived = Command::Empty;
-        } else {
-          lockBusyRetryAttempt = 0;
-          #ifdef DEBUG_NUKI_COMMUNICATION
-          log_d("************************ LOCK BUSY RETRY FAILED ************************");
-          #endif
-          nukiCommandState = CommandState::Idle;
-          lastMsgCodeReceived = Command::Empty;
-          return Nuki::CmdResult::Failed;
-        }
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
+        #endif
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return Nuki::CmdResult::Lock_Busy;
       } else if (crcCheckOke) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ DATA RECEIVED ************************");
         #endif
         nukiCommandState = CommandState::Idle;
-        lockBusyRetryAttempt = 0;
         return Nuki::CmdResult::Success;
       }
       break;
@@ -350,7 +326,6 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        lockBusyRetryAttempt = 0;
         return Nuki::CmdResult::Success;
       }
       break;
@@ -371,30 +346,18 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
-        if (lockBusyRetryAttempt < 2) {
-          #ifdef DEBUG_NUKI_COMMUNICATION
-          log_d("************************ LOCK BUSY RETRYING (%d) ************************", lockBusyRetryAttempt);
-          #endif
-          lockBusyRetryAttempt++;
-          delay(1000);
-          nukiCommandState = CommandState::Idle;
-          lastMsgCodeReceived = Command::Empty;
-        } else {
-          lockBusyRetryAttempt = 0;
-          #ifdef DEBUG_NUKI_COMMUNICATION
-          log_d("************************ LOCK BUSY RETRY FAILED ************************");
-          #endif
-          nukiCommandState = CommandState::Idle;
-          lastMsgCodeReceived = Command::Empty;
-          return Nuki::CmdResult::Failed;
-        }
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
+        #endif
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return Nuki::CmdResult::Lock_Busy;
       } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::Complete) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ COMMAND SUCCESS ************************");
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        lockBusyRetryAttempt = 0;
         return Nuki::CmdResult::Success;
       }
       break;
