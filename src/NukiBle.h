@@ -241,14 +241,21 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     *
      * @return RSSI value
     */
-    int getRssi();
+    int getRssi() const;
 
     /**
     * @brief Returns the timestamp in milliseconds when the last ble beacon has been received from the device
     *
     * @return Timestamp in milliseconds
     */
-    int getLastReceivedBeaconTs();
+    int getLastReceivedBeaconTs() const;
+
+    /**
+    * @brief Returns the BLE address of the device if paired.
+    *
+    * @return BLE address
+    */
+    const BLEAddress getBleAddress() const;
 
     /**
     * @brief Returns the timestamp (millis) of the last received BLE beacon from the lock.

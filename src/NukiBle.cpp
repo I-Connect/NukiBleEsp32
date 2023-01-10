@@ -1188,16 +1188,21 @@ void NukiBle::giveNukiBleSemaphore() {
   xSemaphoreGive(nukiBleSemaphore);
 }
 
-int NukiBle::getRssi() {
+int NukiBle::getRssi() const {
   return rssi;
 }
 
-int NukiBle::getLastReceivedBeaconTs() {
+int NukiBle::getLastReceivedBeaconTs() const {
   return lastReceivedBeaconTs;
 }
 
 uint32_t NukiBle::getLastHeartbeat() {
   return lastHeartbeat;
+}
+
+const BLEAddress NukiBle::getBleAddress() const
+{
+  return bleAddress;
 }
 
 } // namespace Nuki
