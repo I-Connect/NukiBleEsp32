@@ -1,6 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"files.html":[3,0],
 "functions.html":[2,3,0],
 "functions_func.html":[2,3,1],
 "functions_vars.html":[2,3,2],
@@ -84,7 +83,8 @@ var NAVTREEINDEX3 =
 "namespace_nuki.html#a359df6879f1b774782a6985a1d1e9de9":[1,0,0,21],
 "namespace_nuki.html#a3a246ecee6c1228f277b473fe13b248a":[1,0,0,19],
 "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918":[1,0,0,5],
-"namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a2d4718b7697dc267b6e2b487dd266534":[1,0,0,5,5],
+"namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a2d4718b7697dc267b6e2b487dd266534":[1,0,0,5,6],
+"namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a31eb07da4469c1940f3c1de2c98312a6":[1,0,0,5,5],
 "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a8a9918e4657e04fe87aa50481ba89be9":[1,0,0,5,1],
 "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a992bbef0ea7d7267e13ed37b5db0fe64":[1,0,0,5,4],
 "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a9e7fc40dd55809a6a0fc117755a9d351":[1,0,0,5,0],

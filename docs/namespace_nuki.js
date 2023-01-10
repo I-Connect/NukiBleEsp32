@@ -25,6 +25,7 @@ var namespace_nuki =
       [ "TimeOut", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918acd18224efcf9c31cb112fe0d2305a4c5", null ],
       [ "Working", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918ad4d45128f4f84fae556b04c9db82d171", null ],
       [ "NotPaired", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a992bbef0ea7d7267e13ed37b5db0fe64", null ],
+      [ "Lock_Busy", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a31eb07da4469c1940f3c1de2c98312a6", null ],
       [ "Error", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a2d4718b7697dc267b6e2b487dd266534", null ]
     ] ],
     [ "Command", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3", [

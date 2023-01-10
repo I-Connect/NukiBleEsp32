@@ -7,6 +7,7 @@ var _nuki_data_types_8h =
       [ "TimeOut", "_nuki_data_types_8h.html#a486931322cf764426f77d97d8c4a5918acd18224efcf9c31cb112fe0d2305a4c5", null ],
       [ "Working", "_nuki_data_types_8h.html#a486931322cf764426f77d97d8c4a5918ad4d45128f4f84fae556b04c9db82d171", null ],
       [ "NotPaired", "_nuki_data_types_8h.html#a486931322cf764426f77d97d8c4a5918a992bbef0ea7d7267e13ed37b5db0fe64", null ],
+      [ "Lock_Busy", "_nuki_data_types_8h.html#a486931322cf764426f77d97d8c4a5918a31eb07da4469c1940f3c1de2c98312a6", null ],
       [ "Error", "_nuki_data_types_8h.html#a486931322cf764426f77d97d8c4a5918a2d4718b7697dc267b6e2b487dd266534", null ]
     ] ],
     [ "CommandState", "_nuki_data_types_8h.html#a93b74dc3b051cbfa04004627d2df597b", [
