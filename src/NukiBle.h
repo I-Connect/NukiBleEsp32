@@ -248,7 +248,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     *
     * @return Timestamp in milliseconds
     */
-    int getLastReceivedBeaconTs() const;
+    unsigned long getLastReceivedBeaconTs() const;
 
     /**
     * @brief Returns the BLE address of the device if paired.

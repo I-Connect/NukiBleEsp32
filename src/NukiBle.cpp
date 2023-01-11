@@ -1192,7 +1192,7 @@ int NukiBle::getRssi() const {
   return rssi;
 }
 
-int NukiBle::getLastReceivedBeaconTs() const {
+unsigned long  NukiBle::getLastReceivedBeaconTs() const {
   return lastReceivedBeaconTs;
 }
 
