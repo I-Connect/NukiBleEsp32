@@ -88,6 +88,7 @@ var namespace_nuki_opener =
       [ "Uninitialized", "namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aaf704f57ea420275ad51bf55b7dec2c96", null ],
       [ "PairingMode", "namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aabd9746cf5e271fccaa07697b5b5a0b77", null ],
       [ "DoorMode", "namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aad70fff996708bae037f6b32033ba92fc", null ],
+      [ "ContinuousMode", "namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa9a186789c704a614d2f5b01d13d5b0ba", null ],
       [ "MaintenanceMode", "namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa56df076289c5d964a2d55f155a9e3ee9", null ]
     ] ],
     [ "Trigger", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2", [

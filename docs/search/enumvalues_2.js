@@ -17,5 +17,6 @@ var searchData=
   ['commandwithchallengeandpin_14',['CommandWithChallengeAndPin',['../namespace_nuki.html#acfab7799acfeeaea370901e50b67cb9fad70e628169f0a0dcf3874f511bad58d8',1,'Nuki']]],
   ['complete_15',['Complete',['../namespace_nuki.html#a6bda91e4cff6b08141b7f31f1620de80aae94f80b3ce82062a5dd7815daa04f9d',1,'Nuki']]],
   ['config_16',['Config',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3afa535ffb25e1fd20341652f9be21e06e',1,'Nuki']]],
-  ['continuousmodeaction_17',['ContinuousModeAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf',1,'Nuki']]]
+  ['continuousmode_17',['ContinuousMode',['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa9a186789c704a614d2f5b01d13d5b0ba',1,'NukiOpener']]],
+  ['continuousmodeaction_18',['ContinuousModeAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf',1,'Nuki']]]
 ];
