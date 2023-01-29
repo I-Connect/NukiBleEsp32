@@ -77,6 +77,7 @@ Nuki::CmdResult NukiLock::requestBatteryReport(BatteryReport* retrievedBatteryRe
 Nuki::CmdResult NukiLock::requestConfig(Config* retrievedConfig) {
   Action action;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::CommandWithChallenge;
   action.command = Command::RequestConfig;
 
@@ -90,6 +91,7 @@ Nuki::CmdResult NukiLock::requestConfig(Config* retrievedConfig) {
 Nuki::CmdResult NukiLock::requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig) {
   Action action;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::CommandWithChallenge;
   action.command = Command::RequestAdvancedConfig;
 
