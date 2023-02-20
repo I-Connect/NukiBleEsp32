@@ -344,14 +344,14 @@ class NukiLock : public Nuki::NukiBle {
     void createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
     Nuki::CmdResult setFromAdvancedConfig(const AdvancedConfig config);
 
-    KeyTurnerState keyTurnerState;
-    BatteryReport batteryReport;
+    KeyTurnerState keyTurnerState = {};
+    BatteryReport batteryReport = {};
     std::list<TimeControlEntry> listOfTimeControlEntries;
     std::list<LogEntry> listOfLogEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
 
-    Config config;
-    AdvancedConfig advancedConfig;
+    Config config = {};
+    AdvancedConfig advancedConfig = {};
 };
 
 }

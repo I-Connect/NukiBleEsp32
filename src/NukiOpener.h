@@ -253,13 +253,13 @@ class NukiOpener : public Nuki::NukiBle {
     void createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig);
     Nuki::CmdResult setFromAdvancedConfig(const AdvancedConfig config);
 
-    OpenerState openerState;
-    BatteryReport batteryReport;
+    OpenerState openerState = {};
+    BatteryReport batteryReport = {};
     std::list<TimeControlEntry> listOfTimeControlEntries;
     std::list<LogEntry> listOfLogEntries;
 
-    Config config;
-    AdvancedConfig advancedConfig;
+    Config config = {};
+    AdvancedConfig advancedConfig = {};
 
 };
 
