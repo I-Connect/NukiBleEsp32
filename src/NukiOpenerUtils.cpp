@@ -181,6 +181,7 @@ void logConfig(Config config) {
   log_d("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
   log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
   log_d("timeZoneId :%d", config.timeZoneId);
+  log_d("hasKeypadV2 :%d", config.hasKeypadV2);
   #endif
 }
 

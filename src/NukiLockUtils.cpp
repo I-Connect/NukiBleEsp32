@@ -187,6 +187,7 @@ void logConfig(Config config) {
   log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
   log_d("homeKitStatus :%d", config.homeKitStatus);
   log_d("timeZoneId :%d", config.timeZoneId);
+  log_d("hasKeypadV2 :%d", config.hasKeypadV2);
   #endif
 }
 
