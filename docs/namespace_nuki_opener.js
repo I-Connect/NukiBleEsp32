@@ -102,6 +102,7 @@ var namespace_nuki_opener =
     [ "completionStatusToString", "namespace_nuki_opener.html#a0a2d135ae3ef54e3226280e1efa73c2a", null ],
     [ "doorSensorStateToString", "namespace_nuki_opener.html#a0047e07ce2159fd4bc80769a06fbf1b7", null ],
     [ "getWeekdaysIntFromBitset", "namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3", null ],
+    [ "lockactionToString", "namespace_nuki_opener.html#a3eb4b4e6b42f9dfca328d0e63a8cf7a8", null ],
     [ "lockstateToString", "namespace_nuki_opener.html#afa92b28fac24866d93b619b4bbbd24bd", null ],
     [ "logAdvancedConfig", "namespace_nuki_opener.html#a5df6b087b417e58c5c7a085a7f97fa63", null ],
     [ "logAuthorizationEntry", "namespace_nuki_opener.html#a924e3f1ef23a3d30d89d60956a64a0ff", null ],

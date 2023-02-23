@@ -245,6 +245,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ac1fc5a534be20aad0d158511c3cbfff3"><td class="memTemplItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3">getWeekdaysIntFromBitset</a> (const std::bitset&lt; N &gt; bits)</td></tr>
 <tr class="memdesc:ac1fc5a534be20aad0d158511c3cbfff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate a bitset&lt;N&gt; into <a class="el" href="namespace_nuki.html">Nuki</a> weekdays int.  <br /></td></tr>
 <tr class="separator:ac1fc5a534be20aad0d158511c3cbfff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb4b4e6b42f9dfca328d0e63a8cf7a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a3eb4b4e6b42f9dfca328d0e63a8cf7a8">lockactionToString</a> (const <a class="el" href="namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39">LockAction</a> action, char *str)</td></tr>
+<tr class="separator:a3eb4b4e6b42f9dfca328d0e63a8cf7a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa92b28fac24866d93b619b4bbbd24bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#afa92b28fac24866d93b619b4bbbd24bd">lockstateToString</a> (const <a class="el" href="namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7">LockState</a> state, char *str)</td></tr>
 <tr class="separator:afa92b28fac24866d93b619b4bbbd24bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5df6b087b417e58c5c7a085a7f97fa63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_nuki_opener.html#a5df6b087b417e58c5c7a085a7f97fa63">logAdvancedConfig</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a2737280956113ab6c577c221f60cd8a6">AdvancedConfig</a> advancedConfig)</td></tr>
@@ -724,6 +726,42 @@ template&lt;std::size_t N&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t with bit6 = Monday ... bit0 = Sunday </dd></dl>
+
+</div>
+</div>
+<a id="a3eb4b4e6b42f9dfca328d0e63a8cf7a8" name="a3eb4b4e6b42f9dfca328d0e63a8cf7a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eb4b4e6b42f9dfca328d0e63a8cf7a8">&#9670;&#160;</a></span>lockactionToString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NukiOpener::lockactionToString </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39">LockAction</a>&#160;</td>
+          <td class="paramname"><em>action</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1344,7 +1382,7 @@ template&lt;std::size_t N&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_opener.html">NukiOpener</a></li>
-    <li class="footer">Generated on Mon Jan 30 2023 21:48:33 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+    <li class="footer">Generated on Thu Feb 23 2023 19:05:41 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>
 </body>

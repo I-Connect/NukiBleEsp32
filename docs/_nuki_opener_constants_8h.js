@@ -99,6 +99,7 @@ var _nuki_opener_constants_8h =
     [ "__attribute__", "_nuki_opener_constants_8h.html#aad7d6b0194a17c63e1016ede4a5db454", null ],
     [ "completionStatusToString", "_nuki_opener_constants_8h.html#a0a2d135ae3ef54e3226280e1efa73c2a", null ],
     [ "doorSensorStateToString", "_nuki_opener_constants_8h.html#a0047e07ce2159fd4bc80769a06fbf1b7", null ],
+    [ "lockactionToString", "_nuki_opener_constants_8h.html#a3eb4b4e6b42f9dfca328d0e63a8cf7a8", null ],
     [ "lockstateToString", "_nuki_opener_constants_8h.html#afa92b28fac24866d93b619b4bbbd24bd", null ],
     [ "loggingTypeToString", "_nuki_opener_constants_8h.html#ab62811be19a9ac8b70ee75cdab93d77a", null ],
     [ "triggerToString", "_nuki_opener_constants_8h.html#ae89c4047cc0a8a5de4ec643369184807", null ],
