@@ -1201,8 +1201,7 @@ uint32_t NukiBle::getLastHeartbeat() {
   return lastHeartbeat;
 }
 
-const BLEAddress NukiBle::getBleAddress() const
-{
+const BLEAddress NukiBle::getBleAddress() const {
   return bleAddress;
 }
 
