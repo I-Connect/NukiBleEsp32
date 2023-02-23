@@ -147,6 +147,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         log_w("BLE Connect failed, retrying");
       }
       connectRetry++;
+      esp_task_wdt_reset();
       delay(10);
     }
   } else {
