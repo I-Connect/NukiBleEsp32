@@ -609,7 +609,7 @@ bool NukiBle::retrieveCredentials() {
       log_d("PinCode: %d", pinCode);
       #endif
 
-      if (secretKeyK[0] == 0x00 || authorizationId[0] == 0x00) {
+      if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
         log_w("secret key OR authorizationId is empty: not paired");
         giveNukiBleSemaphore();
         return false;
