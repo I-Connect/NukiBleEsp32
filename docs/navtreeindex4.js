@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baad70fff996708bae037f6b32033ba92fc":[1,0,1,8,2],
+"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baaf704f57ea420275ad51bf55b7dec2c96":[1,0,1,8,0],
+"namespace_nuki_lock.html#a0c1cccefe6ccb1032886a396ba591e45":[1,0,1,25],
 "namespace_nuki_lock.html#a1f418bfd133c7c6e14f5db1b53520ca3":[1,0,1,39],
 "namespace_nuki_lock.html#a25df63b7dbf1172e23783675ac8c75bb":[1,0,1,29],
 "namespace_nuki_lock.html#a2d3b067c17f394b8fad515ca3f35f03c":[1,0,1,33],
@@ -214,10 +217,10 @@ var NAVTREEINDEX4 =
 "namespacemembers_vars.html":[1,1,2],
 "namespaces.html":[1,0],
 "pages.html":[],
-"struct_nuki_lock_1_1_action.html":[2,0,1,0],
 "struct_nuki_lock_1_1_action.html":[1,0,1,0],
-"struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b":[2,0,1,0,3],
+"struct_nuki_lock_1_1_action.html":[2,0,1,0],
 "struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b":[1,0,1,0,3],
+"struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b":[2,0,1,0,3],
 "struct_nuki_lock_1_1_action.html#a31eafa284a08c2b6658616455a552774":[2,0,1,0,1],
 "struct_nuki_lock_1_1_action.html#a31eafa284a08c2b6658616455a552774":[1,0,1,0,1],
 "struct_nuki_lock_1_1_action.html#a474b7936ebcb39a2416ec0778c91b883":[2,0,1,0,2],

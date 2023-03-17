@@ -7,6 +7,7 @@ var _nuki_utils_8cpp =
     [ "encode", "_nuki_utils_8cpp.html#a359df6879f1b774782a6985a1d1e9de9", null ],
     [ "generateNonce", "_nuki_utils_8cpp.html#acef61520e1f6e537552b14ca4b519f44", null ],
     [ "getWeekdaysIntFromBitset", "_nuki_utils_8cpp.html#aacbd1098adadb8b3b929e83c6de37c05", null ],
+    [ "isCharArrayEmpty", "_nuki_utils_8cpp.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0", null ],
     [ "isCharArrayNotEmpty", "_nuki_utils_8cpp.html#af7752bab0ff47daf5e6082b7925874e5", null ],
     [ "printBuffer", "_nuki_utils_8cpp.html#a280e19d4682ca4b35d3fe64001da816a", null ]
 ];

@@ -192,6 +192,7 @@ var namespace_nuki =
     [ "encode", "namespace_nuki.html#a359df6879f1b774782a6985a1d1e9de9", null ],
     [ "generateNonce", "namespace_nuki.html#acef61520e1f6e537552b14ca4b519f44", null ],
     [ "getWeekdaysIntFromBitset", "namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05", null ],
+    [ "isCharArrayEmpty", "namespace_nuki.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0", null ],
     [ "isCharArrayNotEmpty", "namespace_nuki.html#af7752bab0ff47daf5e6082b7925874e5", null ],
     [ "printBuffer", "namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a", null ],
     [ "AUTH_ID_STORE_NAME", "namespace_nuki.html#a553724683ab9b1ec83eb60a61a8c8060", null ],
