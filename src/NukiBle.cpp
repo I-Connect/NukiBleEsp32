@@ -868,20 +868,10 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     memcpy(&dataToSend[0], additionalData, sizeof(additionalData));
     memcpy(&dataToSend[30], plainDataEncr, sizeof(plainDataEncr));
 
-    uint32_t beforeConnectBle = millis();
-    uint32_t afterConnectBle = 0;
     if (connectBle(bleAddress)) {
       printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
-      afterConnectBle = millis();
-      Serial.print("sendEncryptedMessage: connectBle success after ");
-      Serial.print(afterConnectBle - beforeConnectBle);
-      Serial.println(" ms");
       return pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
     } else {
-      afterConnectBle = millis();
-      Serial.print("sendEncryptedMessage: connectBle failed after ");
-      Serial.print(afterConnectBle - beforeConnectBle);
-      Serial.println(" ms");
       log_w("Send encr msg failed due to unable to connect");
     }
   } else {
