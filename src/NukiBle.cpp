@@ -58,6 +58,7 @@ void NukiBle::initialize() {
 
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
+  pClient->setConnectTimeout(connectTimeoutSec);
 
   isPaired = retrieveCredentials();
 }
@@ -67,7 +68,9 @@ void NukiBle::registerBleScanner(BleScanner::Publisher* bleScanner) {
   bleScanner->subscribe(this);
 }
 
-PairingResult NukiBle::pairNuki() {
+PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
+  authorizationIdType = idType;
+
   if (retrieveCredentials()) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
@@ -78,14 +81,10 @@ PairingResult NukiBle::pairNuki() {
   PairingResult result = PairingResult::Pairing;
 
   if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
-    uint32_t beforeConnectBle = millis();
-    uint32_t afterConnectBle = 0;
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("Nuki in pairing mode found");
+    #endif
     if (connectBle(bleAddress)) {
-      afterConnectBle = millis();
-      Serial.print("pairNuki: connectBle success after ");
-      Serial.print(afterConnectBle - beforeConnectBle);
-      Serial.println(" ms");
-
       crypto_box_keypair(myPublicKey, myPrivateKey);
 
       PairingState nukiPairingState = PairingState::InitPairing;
@@ -97,16 +96,11 @@ PairingResult NukiBle::pairNuki() {
       if (nukiPairingState == PairingState::Success) {
         saveCredentials();
         result = PairingResult::Success;
+        lastHeartbeat = millis();
       } else {
         result = PairingResult::Timeout;
       }
       extendDisonnectTimeout();
-    }
-    else {
-    afterConnectBle = millis();
-    Serial.print("pairNuki: connectBle failed after ");
-    Serial.print(afterConnectBle - beforeConnectBle);
-    Serial.println(" ms");
     }
   } else {
     #ifdef DEBUG_NUKI_CONNECT
@@ -118,7 +112,7 @@ PairingResult NukiBle::pairNuki() {
   log_d("pairing result %d", result);
   #endif
 
-  isPaired = result == PairingResult::Success;
+  isPaired = (result == PairingResult::Success);
   return result;
 }
 
@@ -134,11 +128,16 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   connecting = true;
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+    #endif
+
     uint8_t connectRetry = 0;
     pClient->setConnectTimeout(connectTimeoutSec);
     while (connectRetry < connectRetries) {
-      Serial.print("connectBle retry ");
-      Serial.println(connectRetry);
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("connection attemnpt %d", connectRetry);
+      #endif
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
           bleScanner->enableScanning(true);
@@ -152,6 +151,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         log_w("BLE Connect failed, #d retries left", connectRetries - connectRetry - 1);
       }
       connectRetry++;
+      esp_task_wdt_reset();
       delay(10);
     }
   } else {
@@ -161,6 +161,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   }
   bleScanner->enableScanning(true);
   connecting = false;
+  log_w("BLE Connect failed");
   return false;
 }
 
@@ -198,6 +199,9 @@ void NukiBle::extendDisonnectTimeout() {
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
+      rssi = advertisedDevice->getRSSI();
+      lastReceivedBeaconTs = millis();
+
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
       char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
@@ -234,6 +238,7 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
                 ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
                 oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
           #endif
+          lastHeartbeat = millis();
           if ((oBeacon.getSignalPower() & 0x01) > 0) {
             if (eventHandler) {
               eventHandler->notify(EventType::KeyTurnerStatusUpdated);
@@ -250,6 +255,8 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
         #endif
         bleAddress = advertisedDevice->getAddress();
         pairingServiceAvailable = true;
+      } else {
+        pairingServiceAvailable = false;
       }
     }
   }
@@ -272,30 +279,35 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
 
   uint32_t timeNow = millis();
   Nuki::CmdResult result = executeAction(action);
-  //wait for return of Keypad Code Count (0x0044)
-  while (!keypadCodeCountReceived) {
-    if (millis() - timeNow > GENERAL_TIMEOUT) {
-      log_w("Receive keypad count timeout");
-      return CmdResult::TimeOut;
-    }
-    delay(10);
-  }
-  #ifdef DEBUG_NUKI_COMMAND
-  log_d("Keypad code count %d", getKeypadEntryCount());
-  #endif
 
-  //wait for return of Keypad Codes (0x0045)
-  timeNow = millis();
-  while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
-    if (millis() - timeNow > GENERAL_TIMEOUT) {
-      log_w("Receive keypadcodes timeout");
-      return CmdResult::TimeOut;
+  if (result == Nuki::CmdResult::Success) {
+    //wait for return of Keypad Code Count (0x0044)
+    while (!keypadCodeCountReceived) {
+      if (millis() - timeNow > GENERAL_TIMEOUT) {
+        log_w("Receive keypad count timeout");
+        return CmdResult::TimeOut;
+      }
+      delay(10);
     }
-    delay(10);
+    #ifdef DEBUG_NUKI_COMMAND
+    log_d("Keypad code count %d", getKeypadEntryCount());
+    #endif
+
+    //wait for return of Keypad Codes (0x0045)
+    timeNow = millis();
+    while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
+      if (millis() - timeNow > GENERAL_TIMEOUT) {
+        log_w("Receive keypadcodes timeout");
+        return CmdResult::TimeOut;
+      }
+      delay(10);
+    }
+    #ifdef DEBUG_NUKI_COMMAND
+    log_d("%d codes received", nrOfReceivedKeypadCodes);
+    #endif
+  } else {
+    log_w("Retreive keypad codes from lock failed");
   }
-  #ifdef DEBUG_NUKI_COMMAND
-  log_d("%d codes received", nrOfReceivedKeypadCodes);
-  #endif
   return result;
 }
 
@@ -313,7 +325,7 @@ Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addKeyPadEntry, payloadlen: %d", sizeof(NewKeypadEntry));
     printBuffer(action.payload, sizeof(NewKeypadEntry), false, "addKeyPadCode content: ");
-    logNewKeypadEntry(newKeypadEntry);
+    NukiLock::logNewKeypadEntry(newKeypadEntry);
     #endif
   }
   return result;
@@ -333,7 +345,7 @@ Nuki::CmdResult NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addKeyPadEntry, payloadlen: %d", sizeof(UpdatedKeypadEntry));
     printBuffer(action.payload, sizeof(UpdatedKeypadEntry), false, "updatedKeypad content: ");
-    logUpdatedKeypadEntry(updatedKeyPadEntry);
+    NukiLock::logUpdatedKeypadEntry(updatedKeyPadEntry);
     #endif
   }
   return result;
@@ -406,7 +418,7 @@ Nuki::CmdResult NukiBle::addAuthorizationEntry(NewAuthorizationEntry newAuthoriz
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addAuthorizationEntry, payloadlen: %d", sizeof(NewAuthorizationEntry));
     printBuffer(action.payload, sizeof(NewAuthorizationEntry), false, "addAuthorizationEntry content: ");
-    logNewAuthorizationEntry(newAuthorizationEntry);
+    NukiLock::logNewAuthorizationEntry(newAuthorizationEntry);
     #endif
   }
   return result;
@@ -428,36 +440,10 @@ Nuki::CmdResult NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry upda
     #ifdef DEBUG_NUKI_READABLE_DATA
     log_d("addAuthorizationEntry, payloadlen: %d", sizeof(UpdatedAuthorizationEntry));
     printBuffer(action.payload, sizeof(UpdatedAuthorizationEntry), false, "updatedKeypad content: ");
-    logUpdatedAuthorizationEntry(updatedAuthorizationEntry);
+    NukiLock::logUpdatedAuthorizationEntry(updatedAuthorizationEntry);
     #endif
   }
   return result;
-}
-
-Nuki::CmdResult NukiBle::retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount) {
-  NukiLock::Action action;
-  unsigned char payload[8] = {0};
-  memcpy(payload, &startIndex, 4);
-  memcpy(&payload[4], &count, 2);
-  memcpy(&payload[6], &sortOrder, 1);
-  memcpy(&payload[7], &totalCount, 1);
-
-  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
-  action.command = Command::RequestLogEntries;
-  memcpy(action.payload, &payload, sizeof(payload));
-  action.payloadLen = sizeof(payload);
-
-  listOfLogEntries.clear();
-
-  return executeAction(action);
-}
-
-void NukiBle::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
-  requestedLogEntries->clear();
-
-  for (const auto& it : listOfLogEntries) {
-    requestedLogEntries->push_back(it);
-  }
 }
 
 uint16_t NukiBle::getLogEntryCount() {
@@ -590,6 +576,31 @@ void NukiBle::saveCredentials() {
   }
 }
 
+uint16_t NukiBle::getSecurityPincode() {
+
+  if (takeNukiBleSemaphore("retr pincode cred")) {
+    uint16_t storedPincode = 0000;
+    if ((preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &storedPincode, 2) > 0)) {
+      giveNukiBleSemaphore();
+      return storedPincode;
+    }
+    giveNukiBleSemaphore();
+  }
+  return 0;
+}
+
+void NukiBle::getMacAddress(char* macAddress) {
+  unsigned char buf[6];
+  if (takeNukiBleSemaphore("retr pincode cred")) {
+    if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buf, 6) > 0)) {
+      BLEAddress address = BLEAddress(buf);
+      sprintf(macAddress, "%d", address.toString().c_str());
+      giveNukiBleSemaphore();
+    }
+    giveNukiBleSemaphore();
+  }
+}
+
 bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
@@ -610,11 +621,18 @@ bool NukiBle::retrieveCredentials() {
       log_d("PinCode: %d", pinCode);
       #endif
 
+      if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
+        log_w("secret key OR authorizationId is empty: not paired");
+        giveNukiBleSemaphore();
+        return false;
+      }
+
       if (pinCode == 0) {
         log_w("Pincode is 000000");
       }
 
     } else {
+      log_e("Getting data from NVS issue");
       giveNukiBleSemaphore();
       return false;
     }
@@ -626,8 +644,12 @@ bool NukiBle::retrieveCredentials() {
 
 void NukiBle::deleteCredentials() {
   if (takeNukiBleSemaphore("del cred")) {
-    preferences.remove(SECRET_KEY_STORE_NAME);
-    preferences.remove(AUTH_ID_STORE_NAME);
+    unsigned char emptySecretKeyK[32] = {0x00};
+    unsigned char emptyAuthorizationId[4] = {0x00};
+    preferences.putBytes(SECRET_KEY_STORE_NAME, emptySecretKeyK, 32);
+    preferences.putBytes(AUTH_ID_STORE_NAME, emptyAuthorizationId, 4);
+    // preferences.remove(SECRET_KEY_STORE_NAME);
+    // preferences.remove(AUTH_ID_STORE_NAME);
     giveNukiBleSemaphore();
   }
   #ifdef DEBUG_NUKI_CONNECT
@@ -638,11 +660,11 @@ void NukiBle::deleteCredentials() {
 PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
   switch (nukiPairingState) {
     case PairingState::InitPairing: {
-
       memset(challengeNonceK, 0, sizeof(challengeNonceK));
       memset(remotePublicKey, 0, sizeof(remotePublicKey));
       receivedStatus = 0xff;
-      return PairingState::ReqRemPubKey;
+      timeNow = millis();
+      nukiPairingResultState = PairingState::ReqRemPubKey;
     }
     case PairingState::ReqRemPubKey: {
       //Request remote public key (Sent message should be 0100030027A7)
@@ -653,12 +675,11 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       uint16_t cmd = (uint16_t)Command::PublicKey;
       memcpy(buff, &cmd, sizeof(Command));
       sendPlainMessage(Command::RequestData, buff, sizeof(Command));
-      timeNow = millis();
-      return PairingState::RecRemPubKey;
+      nukiPairingResultState = PairingState::RecRemPubKey;
     }
     case PairingState::RecRemPubKey: {
       if (isCharArrayNotEmpty(remotePublicKey, sizeof(remotePublicKey))) {
-        return PairingState::SendPubKey;
+        nukiPairingResultState = PairingState::SendPubKey;
       }
       break;
     }
@@ -667,7 +688,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       log_d("##################### SEND CLIENT PUBLIC KEY #########################");
       #endif
       sendPlainMessage(Command::PublicKey, myPublicKey, sizeof(myPublicKey));
-      return PairingState::GenKeyPair;
+      nukiPairingResultState = PairingState::GenKeyPair;
     }
     case PairingState::GenKeyPair: {
       #ifdef DEBUG_NUKI_CONNECT
@@ -685,8 +706,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       unsigned char sigma[] = "expand 32-byte k";
       crypto_core_hsalsa20(secretKeyK, in, sharedKeyS, sigma);
       printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
-      timeNow = millis();
-      return PairingState::CalculateAuth;
+      nukiPairingResultState = PairingState::CalculateAuth;
     }
     case PairingState::CalculateAuth: {
       if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
@@ -702,7 +722,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         crypto_auth_hmacsha256(authenticator, hmacPayload, sizeof(hmacPayload), secretKeyK);
         printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result");
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
-        return PairingState::SendAuth;
+        nukiPairingResultState = PairingState::SendAuth;
       }
       break;
     }
@@ -711,8 +731,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       log_d("##################### SEND AUTHENTICATOR #########################");
       #endif
       sendPlainMessage(Command::AuthorizationAuthenticator, authenticator, sizeof(authenticator));
-      timeNow = millis();
-      return PairingState::SendAuthData;
+      nukiPairingResultState = PairingState::SendAuthData;
     }
     case PairingState::SendAuthData: {
       if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
@@ -720,7 +739,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         log_d("##################### SEND AUTHORIZATION DATA #########################");
         #endif
         unsigned char authorizationData[101] = {};
-        unsigned char authorizationDataIdType[1] = {0x01}; //0 = App, 1 = Bridge, 2 = Fob, 3 = Keypad
+        unsigned char authorizationDataIdType[1] = {(unsigned char)authorizationIdType };
         unsigned char authorizationDataId[4] = {};
         unsigned char authorizationDataName[32] = {};
         unsigned char authorizationDataNonce[32] = {};
@@ -749,8 +768,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
 
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
         sendPlainMessage(Command::AuthorizationData, authorizationDataMessage, sizeof(authorizationDataMessage));
-        timeNow = millis();
-        return PairingState::SendAuthIdConf;
+        nukiPairingResultState = PairingState::SendAuthIdConf;
       }
       break;
     }
@@ -771,8 +789,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         memcpy(&confirmationDataMessage[0], authenticator, sizeof(authenticator));
         memcpy(&confirmationDataMessage[32], authorizationId, sizeof(authorizationId));
         sendPlainMessage(Command::AuthorizationIdConfirmation, confirmationDataMessage, sizeof(confirmationDataMessage));
-        timeNow = millis();
-        return PairingState::RecStatus;
+        nukiPairingResultState = PairingState::RecStatus;
       }
       break;
     }
@@ -781,23 +798,22 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("####################### PAIRING DONE ###############################################");
         #endif
-        return PairingState::Success;
+        nukiPairingResultState = PairingState::Success;
       }
       break;
     }
     default: {
       log_e("Unknown pairing status");
-      return PairingState::Timeout;
+      nukiPairingResultState = PairingState::Timeout;
     }
   }
 
   if (millis() - timeNow > PAIRING_TIMEOUT) {
     log_w("Pairing timeout");
-    return PairingState::Timeout;
+    nukiPairingResultState = PairingState::Timeout;
   }
 
-  // Nothing happend, returned same state
-  return nukiPairingState;
+  return nukiPairingResultState;
 }
 
 bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen) {
@@ -922,7 +938,7 @@ bool NukiBle::registerOnGdioChar() {
 
         using namespace std::placeholders;
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
-        pGdioCharacteristic->subscribe(false, callback); //false = indication, true = notification
+        pGdioCharacteristic->subscribe(false, callback, true); //false = indication, true = notification
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("GDIO characteristic registered");
         #endif
@@ -957,7 +973,7 @@ bool NukiBle::registerOnUsdioChar() {
         using namespace std::placeholders;
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
 
-        pUsdioCharacteristic->subscribe(false, callback); //false = indication, true = notification
+        pUsdioCharacteristic->subscribe(false, callback, true); //false = indication, true = notification
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("USDIO characteristic registered");
         #endif
@@ -1035,7 +1051,9 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
   switch (returnCode) {
     case Command::RequestData : {
+      #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("requestData");
+      #endif
       break;
     }
     case Command::PublicKey : {
@@ -1072,7 +1090,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       memcpy(&authEntry, data, sizeof(authEntry));
       listOfAuthorizationEntries.push_back(authEntry);
       #ifdef DEBUG_NUKI_READABLE_DATA
-      logAuthorizationEntry(authEntry);
+      NukiLock::logAuthorizationEntry(authEntry);
       #endif
       break;
     }
@@ -1116,16 +1134,6 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       log_d("authorizationEntryCount: %d", count);
       break;
     }
-    case Command::LogEntry : {
-      printBuffer((byte*)data, dataLen, false, "logEntry");
-      LogEntry logEntry;
-      memcpy(&logEntry, data, sizeof(logEntry));
-      listOfLogEntries.push_back(logEntry);
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      logLogEntry(logEntry);
-      #endif
-      break;
-    }
     case Command::LogEntryCount : {
       memcpy(&loggingEnabled, data, sizeof(logEntryCount));
       memcpy(&logEntryCount, &data[1], sizeof(logEntryCount));
@@ -1163,7 +1171,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
 
       printBuffer((byte*)data, dataLen, false, "keypadCode");
       #ifdef DEBUG_NUKI_READABLE_DATA
-      logKeypadEntry(keypadEntry);
+      NukiLock::logKeypadEntry(keypadEntry);
       #endif
       break;
     }
@@ -1211,6 +1219,22 @@ bool NukiBle::takeNukiBleSemaphore(std::string taker) {
 void NukiBle::giveNukiBleSemaphore() {
   owner = "free";
   xSemaphoreGive(nukiBleSemaphore);
+}
+
+int NukiBle::getRssi() const {
+  return rssi;
+}
+
+unsigned long  NukiBle::getLastReceivedBeaconTs() const {
+  return lastReceivedBeaconTs;
+}
+
+uint32_t NukiBle::getLastHeartbeat() {
+  return lastHeartbeat;
+}
+
+const BLEAddress NukiBle::getBleAddress() const {
+  return bleAddress;
 }
 
 } // namespace Nuki

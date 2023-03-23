@@ -193,6 +193,24 @@ class NukiOpener : public Nuki::NukiBle {
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
     /**
+     * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
+     *
+     * @param requestedLogEntries list to store the returned log entries
+     */
+    void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+
+    /**
+    * @brief Request the lock via BLE to send the log entries
+    *
+    * @param startIndex Startindex of first log msg to be send
+    * @param count The number of log entries to be read, starting at the specified start index.
+    * @param sortOrder The desired sort order
+    * @param totalCount true if a Log Entry Count is requested from the lock
+    */
+    Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
+                                       const bool totalCount);
+
+    /**
      * @brief Requests config from Lock via BLE
      *
      * @param retrievedConfig Nuki api based datatype to store the retrieved config
@@ -221,9 +239,11 @@ class NukiOpener : public Nuki::NukiBle {
      */
     const ErrorCode getLastError() const;
 
+    virtual void logErrorCode(uint8_t errorCode) override;
+
   protected:
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) override;
-    virtual void logErrorCode(uint8_t errorCode) override;
+
 
   private:
     Nuki::CmdResult setConfig(NewConfig newConfig);
@@ -236,6 +256,7 @@ class NukiOpener : public Nuki::NukiBle {
     OpenerState openerState;
     BatteryReport batteryReport;
     std::list<TimeControlEntry> listOfTimeControlEntries;
+    std::list<LogEntry> listOfLogEntries;
 
     Config config;
     AdvancedConfig advancedConfig;

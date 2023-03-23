@@ -1,6 +1,6 @@
+#include "NukiLockUtils.h"
 #include "NukiLock.h"
 #include "NukiUtils.h"
-#include "NukiLockUtils.h"
 
 namespace NukiLock {
 NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
@@ -10,9 +10,7 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
             keyturnerServiceUUID,
             keyturnerGdioUUID,
             keyturnerUserDataUUID,
-            deviceName) {
-
-}
+            deviceName) {}
 
 Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
@@ -79,6 +77,7 @@ Nuki::CmdResult NukiLock::requestBatteryReport(BatteryReport* retrievedBatteryRe
 Nuki::CmdResult NukiLock::requestConfig(Config* retrievedConfig) {
   Action action;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::CommandWithChallenge;
   action.command = Command::RequestConfig;
 
@@ -92,6 +91,7 @@ Nuki::CmdResult NukiLock::requestConfig(Config* retrievedConfig) {
 Nuki::CmdResult NukiLock::requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig) {
   Action action;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::CommandWithChallenge;
   action.command = Command::RequestAdvancedConfig;
 
@@ -243,7 +243,6 @@ Nuki::CmdResult NukiLock::enableAutoUpdate(const bool enable) {
   return result;
 }
 
-
 Nuki::CmdResult NukiLock::enablePairing(const bool enable) {
   Config oldConfig;
   Nuki::CmdResult result = requestConfig(&oldConfig);
@@ -254,6 +253,14 @@ Nuki::CmdResult NukiLock::enablePairing(const bool enable) {
   return result;
 }
 
+bool NukiLock::pairingEnabled() {
+  Config config;
+  Nuki::CmdResult result = requestConfig(&config);
+  if (result == Nuki::CmdResult::Success) {
+    return config.pairingEnabled;
+  }
+  return false;
+}
 
 Nuki::CmdResult NukiLock::enableLedFlash(const bool enable) {
   Config oldConfig;
@@ -376,12 +383,74 @@ void NukiLock::getTimeControlEntries(std::list<TimeControlEntry>* requestedTimeC
   }
 }
 
+void NukiLock::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
+  requestedLogEntries->clear();
+
+  for (const auto& it : listOfLogEntries) {
+    requestedLogEntries->push_back(it);
+  }
+}
+
+Nuki::CmdResult NukiLock::retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount) {
+  Action action;
+  unsigned char payload[8] = {0};
+  memcpy(payload, &startIndex, 4);
+  memcpy(&payload[4], &count, 2);
+  memcpy(&payload[6], &sortOrder, 1);
+  memcpy(&payload[7], &totalCount, 1);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RequestLogEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfLogEntries.clear();
+
+  return executeAction(action);
+}
+
+Nuki::CmdResult NukiLock::retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count) {
+  Action action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &offset, 2);
+  memcpy(&payload[2], &count, 2);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RequestAuthorizationEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfAuthorizationEntries.clear();
+
+  return executeAction(action);
+}
+
+Nuki::CmdResult NukiLock::deleteAuthorizationEntry(uint32_t id) {
+  Action action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &id, 4);
+
+  action.cmdType = CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RemoveUserAuthorization;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  return executeAction(action);
+}
+
 bool NukiLock::isBatteryCritical() {
-  return keyTurnerState.criticalBatteryState & 1;
+  return ((keyTurnerState.criticalBatteryState & (1 << 0)) != 0);
+}
+
+bool NukiLock::isKeypadBatteryCritical() {
+  if ((keyTurnerState.accessoryBatteryState & (1 << 7)) != 0) {
+    return ((keyTurnerState.accessoryBatteryState & (1 << 6)) != 0);
+  }
+  return false;
 }
 
 bool NukiLock::isBatteryCharging() {
-  return keyTurnerState.criticalBatteryState & (1 << 1);
+  return ((keyTurnerState.criticalBatteryState & (1 << 1)) != 0);
 }
 
 uint8_t NukiLock::getBatteryPerc() {
@@ -518,6 +587,24 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       listOfTimeControlEntries.push_back(timeControlEntry);
       break;
     }
+    case Command::LogEntry : {
+      printBuffer((byte*)data, dataLen, false, "logEntry");
+      LogEntry logEntry;
+      memcpy(&logEntry, data, sizeof(logEntry));
+      listOfLogEntries.push_back(logEntry);
+      #ifdef DEBUG_NUKI_READABLE_DATA
+      logLogEntry(logEntry);
+      #endif
+      break;
+    }
+    case Command::AuthorizationEntry : {
+      printBuffer((byte*)data, dataLen, false, "authEntry");
+      AuthorizationEntry authEntry;
+      memcpy(&authEntry, data, sizeof(authEntry));
+      listOfAuthorizationEntries.push_back(authEntry);
+      logAuthorizationEntry(authEntry);
+      break;
+    }
     default:
       NukiBle::handleReturnMessage(returnCode, data, dataLen);
   }
@@ -525,7 +612,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
 }
 
 void NukiLock::logErrorCode(uint8_t errorCode) {
-  NukiLock::logErrorCode(errorCode);
+  logLockErrorCode(errorCode);
 }
 
 }

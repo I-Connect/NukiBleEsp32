@@ -42,8 +42,7 @@ void cmdResultToString(const CmdResult state, char* str) {
   }
 }
 
-void logErrorCode(uint8_t errorCode) {
-
+void logLockErrorCode(uint8_t errorCode) {
   switch (errorCode) {
     case (uint8_t)ErrorCode::ERROR_BAD_CRC :
       log_e("ERROR_BAD_CRC");
@@ -534,6 +533,9 @@ void logKeyturnerState(KeyTurnerState keyTurnerState) {
   log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
   logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus);
   log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
+  log_d("nightModeActive: %d", keyTurnerState.nightModeActive);
+  log_d("Keypad bat critical feature supported: %d", keyTurnerState.accessoryBatteryState & 1);
+  log_d("Keypad Battery Critical: %d", keyTurnerState.accessoryBatteryState & 2);
   #endif
 }
 

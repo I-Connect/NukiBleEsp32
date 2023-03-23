@@ -1,3 +1,5 @@
+Note that generated documentation can be found here: https://i-connect.github.io/NukiBleEsp32/
+
 # Nuki BLE for Esp32
 This lib is made for communicating directly to a Nuki smart lock or a Nuki opener via BLE without the need of a Nuki Bridge.
 Implementation is according to [Nuki Smart Lock BLE API](https://developer.nuki.io/page/nuki-smart-lock-api-2/2/) 

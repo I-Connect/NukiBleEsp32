@@ -1,3 +1,21 @@
+## V0.0.10 (2022-11-07)
+- Prevented pairing failure when pairing - unpairing - pairing
+- Refactored checking credentials (not deleting preference key's anymore)
+
+## V0.0.9 (2022-10-04)
+- Prevented executing action when lock is not present (battery or lock failure) based on advertising heartbeat
+- Reduced BLE connect retries from 10 to 5 
+- Fixed build issue and exception when enabeling debugging
+- Added "Nightmode active" and "Accessory Battery State" to keyturner struct data
+- Added Nuki Opener support
+- Added pairingEnabled method
+- Added retreiving and logging of authorization entries 
+- Added deleteAuthorizationEntry
+- Added getSecurityPincode
+- Added getMacAddress
+- Fixed not working pairing timeout
+- Added lockHeartBeat when pairing successfull
+
 ## V0.0.8 (2022-05-18)
 - Prevented millis() overflow issue
 - Corrected setDisonnectTimeout()

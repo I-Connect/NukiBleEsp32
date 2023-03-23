@@ -2,6 +2,7 @@
 
 #include "NukiBle.h"
 #include "NukiLockConstants.h"
+#include "NukiLockUtils.h"
 
 namespace NukiLock {
 
@@ -168,7 +169,6 @@ class NukiLock : public Nuki::NukiBle {
      */
     Nuki::CmdResult enableAutoUpdate(const bool enable);
 
-
     /**
      * @brief Sets the lock ability to pair with other devices (can be used to prevent unauthorized pairing)
      * Gets the current config from the lock, updates the pairing parameter and sends the new config to the lock via BLE
@@ -179,6 +179,10 @@ class NukiLock : public Nuki::NukiBle {
      */
     Nuki::CmdResult enablePairing(const bool enable);
 
+    /**
+     * @brief Gets the lock current config wrt pairing with other devices
+     */
+    bool pairingEnabled();
 
     /**
      * @brief Gets the current config from the lock, updates the whether or not the flashing
@@ -253,6 +257,39 @@ class NukiLock : public Nuki::NukiBle {
     void getTimeControlEntries(std::list<TimeControlEntry>* timeControlEntries);
 
     /**
+     * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
+     *
+     * @param requestedLogEntries list to store the returned log entries
+     */
+    void getLogEntries(std::list<LogEntry>* requestedLogEntries);
+
+    /**
+     * @brief Request the lock via BLE to send the log entries
+     *
+     * @param startIndex Startindex of first log msg to be send
+     * @param count The number of log entries to be read, starting at the specified start index.
+     * @param sortOrder The desired sort order
+     * @param totalCount true if a Log Entry Count is requested from the lock
+     */
+    Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
+                                       const bool totalCount);
+
+    /**
+     * @brief Request the lock via BLE to send the authorization entries
+     *
+     * @param offset Startindex of first log msg to be send
+     * @param count The number of log entries to be read, starting at the specified start index.
+     */
+    Nuki::CmdResult retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count);
+
+    /**
+     * @brief Deletes the authorization entry from the lock
+     *
+     * @param id id to be deleted
+     */
+    Nuki::CmdResult deleteAuthorizationEntry(const uint32_t id);
+
+    /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
@@ -260,6 +297,15 @@ class NukiLock : public Nuki::NukiBle {
      * @return true if critical
      */
     bool isBatteryCritical();
+
+    /**
+     * @brief Returns keypad battery critical state in case this is supported
+     *
+     * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
+     *
+     * @return true if critical
+     */
+    bool isKeypadBatteryCritical();
 
     /**
      * @brief Returns battery charging state parsed from the battery state byte (battery critical byte)
@@ -284,9 +330,11 @@ class NukiLock : public Nuki::NukiBle {
      */
     const ErrorCode getLastError() const;
 
+    virtual void logErrorCode(uint8_t errorCode) override;
+
   protected:
     void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) override;
-    virtual void logErrorCode(uint8_t errorCode) override;
+
 
   private:
     Nuki::CmdResult setConfig(NewConfig newConfig);
@@ -299,6 +347,8 @@ class NukiLock : public Nuki::NukiBle {
     KeyTurnerState keyTurnerState;
     BatteryReport batteryReport;
     std::list<TimeControlEntry> listOfTimeControlEntries;
+    std::list<LogEntry> listOfLogEntries;
+    std::list<AuthorizationEntry> listOfAuthorizationEntries;
 
     Config config;
     AdvancedConfig advancedConfig;

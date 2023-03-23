@@ -23,6 +23,7 @@
 #define GENERAL_TIMEOUT 3000
 #define CMD_TIMEOUT 10000
 #define PAIRING_TIMEOUT 30000
+#define HEARTBEAT_TIMEOUT 30000
 
 namespace Nuki {
 class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
@@ -48,7 +49,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      * @return
      */
-    Nuki::PairingResult pairNuki();
+    Nuki::PairingResult pairNuki(AuthorizationIdType idType = AuthorizationIdType::Bridge);
 
     /**
      * @brief Delete stored credentials
@@ -91,24 +92,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @brief Returns pairing state (if credentials are stored or not)
      */
     const bool isPairedWithLock() const;
-
-    /**
-     * @brief Request the lock via BLE to send the log entries
-     *
-     * @param startIndex Startindex of first log msg to be send
-     * @param count The number of log entries to be read, starting at the specified start index.
-     * @param sortOrder The desired sort order
-     * @param totalCount true if a Log Entry Count is requested from the lock
-     */
-    Nuki::CmdResult retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder,
-                                       const bool totalCount);
-
-    /**
-     * @brief Get the Log Entries stored on the esp. Only available after executing retreiveLogEntries.
-     *
-     * @param requestedLogEntries list to store the returned log entries
-     */
-    void getLogEntries(std::list<LogEntry>* requestedLogEntries);
 
     /**
      * @brief Returns the log entry count. Only available after executing retreiveLogEntries.
@@ -220,6 +203,14 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool saveSecurityPincode(const uint16_t pinCode);
 
     /**
+     * @brief Gets the pincode stored on the esp. This pincode is used for sending/setting config via BLE to the lock
+     * by other methods and needs to be the same pincode as stored in the lock
+     *
+     * @return pincode
+     */
+    uint16_t getSecurityPincode();
+
+    /**
      * @brief Send the new pincode command to the lock via BLE
      * (this command uses the earlier by saveSecurityPincode() stored pincode which needs to be the same as
      * the pincode stored in the lock)
@@ -237,7 +228,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      */
     Nuki::CmdResult verifySecurityPin();
 
-
+    /**
+     * @brief Gets the ble mac address of the paired lock stored on the esp.
+     *
+     * @return 18 byte Char array with mac address
+     */
+    void getMacAddress(char* macAddress);
 
     /**
      * @brief Initializes stored preferences based on the devicename passed in the constructor,
@@ -253,6 +249,34 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param bleScanner the publisher of the BLE scanner
      */
     void registerBleScanner(BleScanner::Publisher* bleScanner);
+
+    /**
+    * @brief Returns the RSSI of the last received ble beacon broadcast
+    *
+     * @return RSSI value
+    */
+    int getRssi() const;
+
+    /**
+    * @brief Returns the timestamp in milliseconds when the last ble beacon has been received from the device
+    *
+    * @return Timestamp in milliseconds
+    */
+    unsigned long getLastReceivedBeaconTs() const;
+
+    /**
+    * @brief Returns the BLE address of the device if paired.
+    *
+    * @return BLE address
+    */
+    const BLEAddress getBleAddress() const;
+
+    /**
+    * @brief Returns the timestamp (millis) of the last received BLE beacon from the lock.
+    *
+    * @return Last heartbeat value
+    */
+    uint32_t getLastHeartbeat();
 
   protected:
     bool connectBle(const BLEAddress bleAddress);
@@ -277,17 +301,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Command lastMsgCodeReceived = Command::Empty;
 
   private:
-//Keyturner Pairing Service
-    const NimBLEUUID pairingServiceUUID;
-//Keyturner Service
-    const NimBLEUUID deviceServiceUUID;
-//Keyturner pairing Data Input Output characteristic
-    const NimBLEUUID gdioUUID;
-//User-Specific Data Input Output characteristic
-    const NimBLEUUID userDataUUID;
-
-    const std::string preferencesId;
-
     SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateMutex();
     bool takeNukiBleSemaphore(std::string taker);
     std::string owner = "free";
@@ -296,8 +309,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool connecting = false;
     uint32_t lastStartTimeout = 0;
     uint16_t timeoutDuration = 1000;
-    uint8_t connectTimeoutSec = 30;
-    uint8_t connectRetries = 10;
+    uint8_t connectTimeoutSec = 1;
+    uint8_t connectRetries = 5;
 
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
@@ -313,6 +326,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool retrieveCredentials();
     void deleteCredentials();
     Nuki::PairingState pairStateMachine(const Nuki::PairingState nukiPairingState);
+    Nuki::PairingState nukiPairingResultState = Nuki::PairingState::InitPairing;
 
     unsigned char authenticator[32];
     Preferences preferences;
@@ -323,6 +337,17 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
     BLEClient* pClient = nullptr;
 
+//Keyturner Pairing Service
+    const NimBLEUUID pairingServiceUUID;
+//Keyturner Service
+    const NimBLEUUID deviceServiceUUID;
+//Keyturner pairing Data Input Output characteristic
+    const NimBLEUUID gdioUUID;
+//User-Specific Data Input Output characteristic
+    const NimBLEUUID userDataUUID;
+
+    const std::string preferencesId;
+
     BLERemoteService* pKeyturnerPairingService = nullptr;
     BLERemoteCharacteristic* pGdioCharacteristic = nullptr;
     BLERemoteService* pKeyturnerDataService = nullptr;
@@ -331,6 +356,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Nuki::CommandState nukiCommandState = Nuki::CommandState::Idle;
 
     uint32_t timeNow = 0;
+    uint32_t lastHeartbeat = 0;
 
     BleScanner::Publisher* bleScanner = nullptr;
     bool isPaired = false;
@@ -355,9 +381,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool keypadCodeCountReceived = false;
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
-    std::list<LogEntry> listOfLogEntries;
+    int rssi = 0;
+    unsigned long lastReceivedBeaconTs = 0;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
+    AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;
 
 };
 

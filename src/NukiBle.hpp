@@ -4,6 +4,11 @@
 namespace Nuki {
 template<typename TDeviceAction>
 Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
+  if (millis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
+    log_e("Lock Heartbeat timeout, command failed");
+    return Nuki::CmdResult::Error;
+  }
+
   #ifdef DEBUG_NUKI_CONNECT
   log_d("************************ CHECK PAIRED ************************");
   #endif
@@ -108,16 +113,23 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Success;
-      } else if (lastMsgCodeReceived == Command::ErrorReport) {
+      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ COMMAND FAILED ************************");
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
+      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
+        #endif
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return Nuki::CmdResult::Lock_Busy;
       }
-      break;
     }
+    break;
     default: {
       log_w("Unknown request command state");
       return Nuki::CmdResult::Failed;
@@ -203,13 +215,20 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         log_w("************************ COMMAND FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived == Command::ErrorReport) {
+      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ COMMAND FAILED ************************");
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
+      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
+        #endif
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return Nuki::CmdResult::Lock_Busy;
       } else if (crcCheckOke) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ DATA RECEIVED ************************");
@@ -319,13 +338,20 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         log_w("************************ COMMAND FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived == Command::ErrorReport) {
+      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ COMMAND FAILED ************************");
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
+      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
+        #ifdef DEBUG_NUKI_COMMUNICATION
+        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
+        #endif
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return Nuki::CmdResult::Lock_Busy;
       } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::Complete) {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("************************ COMMAND SUCCESS ************************");

@@ -15,7 +15,7 @@ BleScanner::Scanner scanner;
 
 NukiLock::KeyTurnerState retrievedKeyTurnerState;
 NukiLock::BatteryReport _batteryReport;
-std::list<Nuki::LogEntry> requestedLogEntries;
+std::list<NukiLock::LogEntry> requestedLogEntries;
 std::list<Nuki::KeypadEntry> requestedKeypadEntries;
 std::list<Nuki::AuthorizationEntry> requestedAuthorizationEntries;
 std::list<NukiLock::TimeControlEntry> requestedTimeControlEntries;
@@ -73,7 +73,7 @@ void requestLogEntries() {
   if (result == 1) {
     delay(5000);
     nukiLock.getLogEntries(&requestedLogEntries);
-    std::list<Nuki::LogEntry>::iterator it = requestedLogEntries.begin();
+    std::list<NukiLock::LogEntry>::iterator it = requestedLogEntries.begin();
     while (it != requestedLogEntries.end()) {
       log_d("Log[%d] %d-%d-%d %d:%d:%d", it->index, it->timeStampYear, it->timeStampMonth, it->timeStampDay, it->timeStampHour, it->timeStampMinute, it->timeStampSecond);
       it++;

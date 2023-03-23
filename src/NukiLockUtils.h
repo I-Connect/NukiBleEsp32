@@ -23,7 +23,7 @@ namespace NukiLock {
 void cmdResultToString(const CmdResult state, char* str);
 
 
-void logErrorCode(uint8_t errorCode);
+void logLockErrorCode(uint8_t errorCode);
 void logConfig(Config config);
 void logNewConfig(NewConfig newConfig);
 void logNewKeypadEntry(NewKeypadEntry newKeypadEntry);
