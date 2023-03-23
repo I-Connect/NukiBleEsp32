@@ -902,16 +902,8 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   uint32_t beforeConnectBle = millis();
   uint32_t afterConnectBle = 0;
   if (connectBle(bleAddress)) {
-    afterConnectBle = millis();
-    Serial.print("sendPlainMessage: connectBle success after ");
-    Serial.print(afterConnectBle - beforeConnectBle);
-    Serial.println(" ms");
     return pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   } else {
-    afterConnectBle = millis();
-    Serial.print("sendPlainMessage: connectBle failed after ");
-    Serial.print(afterConnectBle - beforeConnectBle);
-    Serial.println(" ms");
     log_w("Send plain msg failed due to unable to connect");
   }
   return false;
