@@ -1,6 +1,10 @@
 var NAVTREEINDEX3 =
 {
+"class_nuki_opener_1_1_nuki_opener.html#aeda4cb90d96951662969b5a77560e7f0":[1,0,2,1,22],
+"class_nuki_opener_1_1_nuki_opener.html#aeff91361728c22170ffcdce86c1de701":[2,0,2,1,29],
+"class_nuki_opener_1_1_nuki_opener.html#aeff91361728c22170ffcdce86c1de701":[1,0,2,1,29],
 "class_nuki_opener_1_1_nuki_opener.html#af25efc0b89615b203dcc72637f0fcd4a":[2,0,2,1,26],
+"class_nuki_opener_1_1_nuki_opener.html#af25efc0b89615b203dcc72637f0fcd4a":[1,0,2,1,26],
 "class_nuki_opener_1_1_nuki_opener.html#af7bf0184f8d1996da0660950c9147c5d":[1,0,2,1,12],
 "class_nuki_opener_1_1_nuki_opener.html#af7bf0184f8d1996da0660950c9147c5d":[2,0,2,1,12],
 "classes.html":[2,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX3 =
 "namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420adcb84ce1222c338a32ed7df37808d8fc":[1,0,1,4,15],
 "namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420aeedc285975c5053ff40831e640431a0b":[1,0,1,4,0],
 "namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420af0a9f7df81ff05963fb13745c83b9c38":[1,0,1,4,4],
-"namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420af4ac5abd36f3359c83503c23e99a957c":[1,0,1,4,30],
-"namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420afe880629be9dfa5b89a342cf3744cac4":[1,0,1,4,22],
-"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893ba":[1,0,1,8],
-"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baa56df076289c5d964a2d55f155a9e3ee9":[1,0,1,8,3],
-"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baabd9746cf5e271fccaa07697b5b5a0b77":[1,0,1,8,1]
+"namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420af4ac5abd36f3359c83503c23e99a957c":[1,0,1,4,30]
 };

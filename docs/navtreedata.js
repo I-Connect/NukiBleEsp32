@@ -69,8 +69,8 @@ var NAVTREEINDEX =
 "_nuki_ble_8cpp.html",
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104a",
 "_nuki_utils_8h.html#a3a246ecee6c1228f277b473fe13b248a",
-"class_nuki_opener_1_1_nuki_opener.html#af25efc0b89615b203dcc72637f0fcd4a",
-"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baad70fff996708bae037f6b32033ba92fc"
+"class_nuki_opener_1_1_nuki_opener.html#aeda4cb90d96951662969b5a77560e7f0",
+"namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420afe880629be9dfa5b89a342cf3744cac4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

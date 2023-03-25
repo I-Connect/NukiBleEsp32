@@ -32,6 +32,8 @@ var class_nuki_1_1_nuki_ble =
     [ "retrieveAuthorizationEntries", "class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0", null ],
     [ "retrieveKeypadEntries", "class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d", null ],
     [ "saveSecurityPincode", "class_nuki_1_1_nuki_ble.html#ad636dbf0bbe9d6f58b4775b2fddaf64e", null ],
+    [ "setConnectRetries", "class_nuki_1_1_nuki_ble.html#a7398219e296dd6be6a732db9029de579", null ],
+    [ "setConnectTimeout", "class_nuki_1_1_nuki_ble.html#a99f182c0317e073ed51b49c6c35a8230", null ],
     [ "setDisonnectTimeout", "class_nuki_1_1_nuki_ble.html#ae0cd65305d7b4a15c91416f19ab1a7aa", null ],
     [ "setEventHandler", "class_nuki_1_1_nuki_ble.html#a99b0da8b11159f56ca3ab029b90610ae", null ],
     [ "setSecurityPin", "class_nuki_1_1_nuki_ble.html#a6603fe4282fcab83f3038400e2c70207", null ],

@@ -188,6 +188,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad636dbf0bbe9d6f58b4775b2fddaf64e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad636dbf0bbe9d6f58b4775b2fddaf64e">saveSecurityPincode</a> (const uint16_t pinCode)</td></tr>
 <tr class="memdesc:ad636dbf0bbe9d6f58b4775b2fddaf64e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the pincode on the esp. This pincode is used for sending/setting config via BLE to the lock by other methods and needs to be the same pincode as stored in the lock.  <br /></td></tr>
 <tr class="separator:ad636dbf0bbe9d6f58b4775b2fddaf64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7398219e296dd6be6a732db9029de579"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a7398219e296dd6be6a732db9029de579">setConnectRetries</a> (uint8_t retries)</td></tr>
+<tr class="memdesc:a7398219e296dd6be6a732db9029de579"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Connect number of retries.  <br /></td></tr>
+<tr class="separator:a7398219e296dd6be6a732db9029de579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99f182c0317e073ed51b49c6c35a8230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a99f182c0317e073ed51b49c6c35a8230">setConnectTimeout</a> (uint8_t timeout)</td></tr>
+<tr class="memdesc:a99f182c0317e073ed51b49c6c35a8230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Connect Timeout in seconds.  <br /></td></tr>
+<tr class="separator:a99f182c0317e073ed51b49c6c35a8230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0cd65305d7b4a15c91416f19ab1a7aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ae0cd65305d7b4a15c91416f19ab1a7aa">setDisonnectTimeout</a> (uint32_t timeoutMs)</td></tr>
 <tr class="memdesc:ae0cd65305d7b4a15c91416f19ab1a7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Disonnect Timeout, if longer than ~20 sec the lock will disconnect by itself if there is no BLE communication.  <br /></td></tr>
 <tr class="separator:ae0cd65305d7b4a15c91416f19ab1a7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1225,6 +1231,58 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
+<a id="a7398219e296dd6be6a732db9029de579" name="a7398219e296dd6be6a732db9029de579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7398219e296dd6be6a732db9029de579">&#9670;&#160;</a></span>setConnectRetries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setConnectRetries </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>retries</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the BLE Connect number of retries. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">retries</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a99f182c0317e073ed51b49c6c35a8230" name="a99f182c0317e073ed51b49c6c35a8230"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99f182c0317e073ed51b49c6c35a8230">&#9670;&#160;</a></span>setConnectTimeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setConnectTimeout </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>timeout</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the BLE Connect Timeout in seconds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeout</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae0cd65305d7b4a15c91416f19ab1a7aa" name="ae0cd65305d7b4a15c91416f19ab1a7aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0cd65305d7b4a15c91416f19ab1a7aa">&#9670;&#160;</a></span>setDisonnectTimeout()</h2>
 
@@ -1537,7 +1595,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li><li class="navelem"><a class="el" href="class_nuki_1_1_nuki_ble.html">NukiBle</a></li>
-    <li class="footer">Generated on Fri Mar 17 2023 07:22:13 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
+    <li class="footer">Generated on Sat Mar 25 2023 21:03:38 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6 </li>
   </ul>
 </div>
 </body>
