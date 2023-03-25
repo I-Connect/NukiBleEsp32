@@ -75,6 +75,20 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void setDisonnectTimeout(uint32_t timeoutMs);
 
     /**
+     * @brief Set the BLE Connect Timeout in seconds.
+     *
+     * @param timeout
+     */
+    void setConnectTimeout(uint8_t timeout);
+
+    /**
+     * @brief Set the BLE Connect number of retries.
+     *
+     * @param retries
+     */
+    void setConnectRetries(uint8_t retries);
+
+    /**
      * @brief Returns pairing state (if credentials are stored or not)
      */
     const bool isPairedWithLock() const;
@@ -295,6 +309,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool connecting = false;
     uint32_t lastStartTimeout = 0;
     uint16_t timeoutDuration = 1000;
+    uint8_t connectTimeoutSec = 1;
+    uint8_t connectRetries = 5;
+
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
