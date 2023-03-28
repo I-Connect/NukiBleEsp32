@@ -37,6 +37,15 @@ bool isCharArrayNotEmpty(unsigned char* array, uint16_t len) {
   return false;
 }
 
+bool isCharArrayEmpty(unsigned char* array, uint16_t len) {
+  for (size_t i = 0; i < len; i++) {
+    if (array[i] != 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
 bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len) {
   for (int i = 0; i < len; i++) {
     if (a[i] != b[i]) {

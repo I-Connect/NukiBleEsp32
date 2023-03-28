@@ -176,6 +176,9 @@ struct __attribute__((packed)) Config {
   unsigned char firmwareVersion[3];
   unsigned char hardwareRevision[2];
   TimeZoneId timeZoneId;
+  uint8_t undocumented1;
+  uint8_t undocumented2;
+  uint8_t hasKeypadV2;
 };
 
 struct __attribute__((packed)) NewConfig {
@@ -294,6 +297,38 @@ struct __attribute__((packed)) LogEntry {
   LoggingType loggingType;
   uint8_t data[8];
 };
+
+inline void lockactionToString(const LockAction action, char* str) {
+  switch (action) {
+    case LockAction::ActivateRTO:
+      strcpy(str, "ActivateRTO");
+      break;
+    case LockAction::DeactivateRTO:
+      strcpy(str, "DeactivateRTO");
+      break;
+    case LockAction::ElectricStrikeActuation:
+      strcpy(str, "ElectricStrikeActuation");
+      break;
+    case LockAction::ActivateCM:
+      strcpy(str, "ActivateCM");
+      break;
+    case LockAction::DeactivateCM:
+      strcpy(str, "DeactivateCM");
+      break;
+    case LockAction::FobAction1:
+      strcpy(str, "FobAction1");
+      break;
+    case LockAction::FobAction2:
+      strcpy(str, "FobAction2");
+      break;
+    case LockAction::FobAction3:
+      strcpy(str, "FobAction3");
+      break;
+    default:
+      strcpy(str, "Unknown");
+      break;
+  }
+}
 
 inline void lockstateToString(const LockState state, char* str) {
   switch (state) {

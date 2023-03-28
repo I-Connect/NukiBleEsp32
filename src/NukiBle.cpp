@@ -58,7 +58,7 @@ void NukiBle::initialize() {
 
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
-  pClient->setConnectTimeout(1);
+  pClient->setConnectTimeout(connectTimeoutSec);
 
   isPaired = retrieveCredentials();
 }
@@ -133,7 +133,11 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
     #endif
 
     uint8_t connectRetry = 0;
-    while (connectRetry < 5) {
+    pClient->setConnectTimeout(connectTimeoutSec);
+    while (connectRetry < connectRetries) {
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("connection attemnpt %d", connectRetry);
+      #endif
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
           bleScanner->enableScanning(true);
@@ -144,9 +148,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         }
       } else {
         pClient->disconnect();
-        log_w("BLE Connect failed, retrying");
+        log_w("BLE Connect failed, #d retries left", connectRetries - connectRetry - 1);
       }
       connectRetry++;
+      esp_task_wdt_reset();
       delay(10);
     }
   } else {
@@ -177,6 +182,14 @@ void NukiBle::updateConnectionState() {
 
 void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
   timeoutDuration = timeoutMs;
+}
+
+void NukiBle::setConnectTimeout(uint8_t timeout) {
+  connectTimeoutSec = timeout;
+}
+
+void NukiBle::setConnectRetries(uint8_t retries) {
+  connectRetries = retries;
 }
 
 void NukiBle::extendDisonnectTimeout() {
@@ -608,7 +621,7 @@ bool NukiBle::retrieveCredentials() {
       log_d("PinCode: %d", pinCode);
       #endif
 
-      if (secretKeyK[0] == 0x00 || authorizationId[0] == 0x00) {
+      if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
         log_w("secret key OR authorizationId is empty: not paired");
         giveNukiBleSemaphore();
         return false;
@@ -886,6 +899,8 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
   #endif
 
+  uint32_t beforeConnectBle = millis();
+  uint32_t afterConnectBle = 0;
   if (connectBle(bleAddress)) {
     return pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   } else {
@@ -1200,8 +1215,7 @@ uint32_t NukiBle::getLastHeartbeat() {
   return lastHeartbeat;
 }
 
-const BLEAddress NukiBle::getBleAddress() const
-{
+const BLEAddress NukiBle::getBleAddress() const {
   return bleAddress;
 }
 

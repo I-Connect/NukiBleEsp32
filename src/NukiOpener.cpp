@@ -40,6 +40,7 @@ Nuki::CmdResult NukiOpener::requestOpenerState(OpenerState* state) {
   Action action;
   uint16_t payload = (uint16_t)Command::KeyturnerStates;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::Command;
   action.command = Command::RequestData;
   memcpy(&action.payload[0], &payload, sizeof(payload));
@@ -62,6 +63,7 @@ Nuki::CmdResult NukiOpener::requestBatteryReport(BatteryReport* retrievedBattery
   Action action;
   uint16_t payload = (uint16_t)Command::BatteryReport;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::Command;
   action.command = Command::RequestData;
   memcpy(&action.payload[0], &payload, sizeof(payload));
@@ -78,6 +80,7 @@ Nuki::CmdResult NukiOpener::requestBatteryReport(BatteryReport* retrievedBattery
 Nuki::CmdResult NukiOpener::requestConfig(Config* retrievedConfig) {
   Action action;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::CommandWithChallenge;
   action.command = Command::RequestConfig;
 
@@ -91,6 +94,7 @@ Nuki::CmdResult NukiOpener::requestConfig(Config* retrievedConfig) {
 Nuki::CmdResult NukiOpener::requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig) {
   Action action;
 
+  memset(&action, 0, sizeof(action));
   action.cmdType = Nuki::CommandType::CommandWithChallenge;
   action.command = Command::RequestAdvancedConfig;
 
