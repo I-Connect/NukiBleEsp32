@@ -68,10 +68,9 @@ int decode(unsigned char* output, unsigned char* input, unsigned long long len, 
 }
 
 void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes) {
-
+  randomSeed(millis());
   for (int i = 0 ; i < nrOfBytes ; i++) {
-    randomSeed(millis());
-    hexArray[i] = random(0, 65500);
+    hexArray[i] = random(0, 255);
   }
   printBuffer((byte*)hexArray, nrOfBytes, false, "Nonce");
 }
