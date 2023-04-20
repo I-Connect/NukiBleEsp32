@@ -19,15 +19,6 @@ namespace NukiLock {
 
 using namespace Nuki;
 
-//Keyturner Pairing Service
-const NimBLEUUID keyturnerPairingServiceUUID  = NimBLEUUID("a92ee100-5501-11e4-916c-0800200c9a66");
-//Keyturner Service
-const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
-//Keyturner pairing Data Input Output characteristic
-const NimBLEUUID keyturnerGdioUUID  = NimBLEUUID("a92ee101-5501-11e4-916c-0800200c9a66");
-//User-Specific Data Input Output characteristic
-const NimBLEUUID keyturnerUserDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
-
 struct Action {
   CommandType cmdType;
   Command command;

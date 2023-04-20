@@ -183,7 +183,8 @@ void setup() {
     nukiLock.enableLedFlash(false);
   }
 
-  // nukiLock.savePincode(9999);
+  // nukiLock.saveSecurityPincode(****);
+  // nukiLock.setSecurityPin(****);
   // nukiLock.unPairNuki();
 }
 

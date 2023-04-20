@@ -136,7 +136,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
     pClient->setConnectTimeout(connectTimeoutSec);
     while (connectRetry < connectRetries) {
       #ifdef DEBUG_NUKI_CONNECT
-      log_d("connection attemnpt %d", connectRetry);
+      log_d("connection attempt %d", connectRetry);
       #endif
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
@@ -148,7 +148,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         }
       } else {
         pClient->disconnect();
-        log_w("BLE Connect failed, #d retries left", connectRetries - connectRetry - 1);
+        log_w("BLE Connect failed, %d retries left", connectRetries - connectRetry - 1);
       }
       connectRetry++;
       esp_task_wdt_reset();
@@ -248,16 +248,15 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
       }
     }
   } else {
-    if (advertisedDevice->haveServiceData()) {
-      if (advertisedDevice->getServiceData(pairingServiceUUID) != "") {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
-        #endif
-        bleAddress = advertisedDevice->getAddress();
-        pairingServiceAvailable = true;
-      } else {
-        pairingServiceAvailable = false;
-      }
+    if ((advertisedDevice->haveServiceUUID() && advertisedDevice->getServiceDataUUID() == pairingServiceUUID) ||
+        advertisedDevice->haveServiceData() && advertisedDevice->getServiceData(pairingServiceUUID) != "") {
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+      #endif
+      bleAddress = advertisedDevice->getAddress();
+      pairingServiceAvailable = true;
+    } else {
+      pairingServiceAvailable = false;
     }
   }
 }
@@ -632,7 +631,7 @@ bool NukiBle::retrieveCredentials() {
       }
 
     } else {
-      log_e("Getting data from NVS issue");
+      log_e("No preferences stored or issue reading data, maybe never paired before");
       giveNukiBleSemaphore();
       return false;
     }
