@@ -620,18 +620,18 @@ bool NukiBle::retrieveCredentials() {
       log_d("PinCode: %d", pinCode);
       #endif
 
-      if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
-        log_w("secret key OR authorizationId is empty: not paired");
-        giveNukiBleSemaphore();
-        return false;
-      }
+      // if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
+      //   log_w("secret key OR authorizationId is empty: not paired");
+      //   giveNukiBleSemaphore();
+      //   return false;
+      // }
 
       if (pinCode == 0) {
         log_w("Pincode is 000000");
       }
 
     } else {
-      log_e("No preferences stored or issue reading data, maybe never paired before");
+      log_w("No preferences stored or issue reading data, maybe never paired before");
       giveNukiBleSemaphore();
       return false;
     }
@@ -643,12 +643,14 @@ bool NukiBle::retrieveCredentials() {
 
 void NukiBle::deleteCredentials() {
   if (takeNukiBleSemaphore("del cred")) {
-    unsigned char emptySecretKeyK[32] = {0x00};
-    unsigned char emptyAuthorizationId[4] = {0x00};
-    preferences.putBytes(SECRET_KEY_STORE_NAME, emptySecretKeyK, 32);
-    preferences.putBytes(AUTH_ID_STORE_NAME, emptyAuthorizationId, 4);
-    // preferences.remove(SECRET_KEY_STORE_NAME);
-    // preferences.remove(AUTH_ID_STORE_NAME);
+    // unsigned char emptySecretKeyK[32] = {0x00};
+    // unsigned char emptyAuthorizationId[4] = {0x00};
+    // preferences.putBytes(SECRET_KEY_STORE_NAME, emptySecretKeyK, 32);
+    // preferences.putBytes(AUTH_ID_STORE_NAME, emptyAuthorizationId, 4);
+    preferences.remove(SECRET_KEY_STORE_NAME);
+    preferences.remove(AUTH_ID_STORE_NAME);
+    preferences.remove(SECURITY_PINCODE_STORE_NAME);
+    preferences.remove(BLE_ADDRESS_STORE_NAME);
     giveNukiBleSemaphore();
   }
   #ifdef DEBUG_NUKI_CONNECT
