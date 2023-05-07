@@ -618,7 +618,6 @@ bool NukiBle::retrieveCredentials() {
       printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
       log_d("bleAddress: %s", bleAddress.toString().c_str());
       printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
-      log_d("PinCode: %d", pinCode);
       #endif
 
       if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
@@ -628,11 +627,11 @@ bool NukiBle::retrieveCredentials() {
       }
 
       if (pinCode == 0) {
-        log_w("Pincode is 000000");
+        log_w("Pincode is 000000, probably not defined");
       }
 
     } else {
-      log_e("Getting data from NVS issue");
+      log_e("Error getting data from NVS");
       giveNukiBleSemaphore();
       return false;
     }
