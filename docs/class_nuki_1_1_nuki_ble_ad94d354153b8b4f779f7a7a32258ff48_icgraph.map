@@ -1,4 +1,4 @@
 <map id="Nuki::NukiBle::getKeypadEntryCount" name="Nuki::NukiBle::getKeypadEntryCount">
-<area shape="rect" id="node1" title="Returns the keypad entry count. Only available after executing retreiveKeypadEntries." alt="" coords="247,5,415,45"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="5,5,199,45"/>
+<area shape="rect" id="node1" title="Returns the keypad entry count. Only available after executing retreiveKeypadEntries." alt="" coords="246,5,413,46"/>
+<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="5,5,198,46"/>
 </map>

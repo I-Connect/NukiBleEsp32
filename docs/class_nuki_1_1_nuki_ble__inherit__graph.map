@@ -1,7 +1,7 @@
 <map id="Nuki::NukiBle" name="Nuki::NukiBle">
-<area shape="rect" id="node1" title=" " alt="" coords="113,79,214,104"/>
-<area shape="rect" id="node4" href="$class_nuki_lock_1_1_nuki_lock.html" title=" " alt="" coords="5,152,145,177"/>
-<area shape="rect" id="node5" href="$class_nuki_opener_1_1_nuki_opener.html" title=" " alt="" coords="169,152,336,177"/>
-<area shape="rect" id="node2" title=" " alt="" coords="9,5,147,31"/>
-<area shape="rect" id="node3" title=" " alt="" coords="171,5,329,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="113,79,213,105"/>
+<area shape="rect" id="node4" href="$class_nuki_lock_1_1_nuki_lock.html" title=" " alt="" coords="5,153,145,178"/>
+<area shape="rect" id="node5" href="$class_nuki_opener_1_1_nuki_opener.html" title=" " alt="" coords="168,153,334,178"/>
+<area shape="rect" id="node2" title=" " alt="" coords="10,5,146,31"/>
+<area shape="rect" id="node3" title=" " alt="" coords="170,5,327,31"/>
 </map>
