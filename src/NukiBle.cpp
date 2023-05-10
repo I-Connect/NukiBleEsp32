@@ -148,7 +148,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         }
       } else {
         pClient->disconnect();
-        log_w("BLE Connect failed, #d retries left", connectRetries - connectRetry - 1);
+        log_w("BLE Connect failed, %d retries left", connectRetries - connectRetry - 1);
       }
       connectRetry++;
       esp_task_wdt_reset();
