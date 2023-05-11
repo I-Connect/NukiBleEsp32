@@ -12,13 +12,13 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
   #ifdef DEBUG_NUKI_CONNECT
   log_d("************************ CHECK PAIRED ************************");
   #endif
-  if (retrieveCredentials()) {
+  if (isPaired) {
     #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials retrieved from preferences, ready for commands");
+    log_d("Lock is paired, ready for commands");
     #endif
   } else {
     #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials NOT retrieved from preferences, first pair with the lock");
+    log_d("Lock not paired, first pair with the lock");
     #endif
     return Nuki::CmdResult::NotPaired;
   }

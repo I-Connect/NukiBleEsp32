@@ -71,7 +71,7 @@ void NukiBle::registerBleScanner(BleScanner::Publisher* bleScanner) {
 PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
   authorizationIdType = idType;
 
-  if (retrieveCredentials()) {
+  if (isPaired) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Allready paired");
     #endif
@@ -138,9 +138,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
       #ifdef DEBUG_NUKI_CONNECT
       log_d("connection attempt %d", connectRetry);
       #endif
+
       if (pClient->connect(bleAddress, true)) {
         if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registiring gdio crashes esp
-          bleScanner->enableScanning(true);
+          // bleScanner->enableScanning(true);
           connecting = false;
           return true;
         } else {
@@ -150,9 +151,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         pClient->disconnect();
         log_w("BLE Connect failed, %d retries left", connectRetries - connectRetry - 1);
       }
+
       connectRetry++;
       esp_task_wdt_reset();
-      delay(10);
+      delay(100);
     }
   } else {
     bleScanner->enableScanning(true);
@@ -576,27 +578,18 @@ void NukiBle::saveCredentials() {
 }
 
 uint16_t NukiBle::getSecurityPincode() {
-
-  if (takeNukiBleSemaphore("retr pincode cred")) {
-    uint16_t storedPincode = 0000;
-    if ((preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &storedPincode, 2) > 0)) {
-      giveNukiBleSemaphore();
-      return storedPincode;
-    }
-    giveNukiBleSemaphore();
+  uint16_t storedPincode = 0000;
+  if ((preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &storedPincode, 2) > 0)) {
+    return storedPincode;
   }
   return 0;
 }
 
 void NukiBle::getMacAddress(char* macAddress) {
   unsigned char buf[6];
-  if (takeNukiBleSemaphore("retr pincode cred")) {
-    if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buf, 6) > 0)) {
-      BLEAddress address = BLEAddress(buf);
-      sprintf(macAddress, "%d", address.toString().c_str());
-      giveNukiBleSemaphore();
-    }
-    giveNukiBleSemaphore();
+  if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buf, 6) > 0)) {
+    BLEAddress address = BLEAddress(buf);
+    sprintf(macAddress, "%d", address.toString().c_str());
   }
 }
 
@@ -604,55 +597,38 @@ bool NukiBle::retrieveCredentials() {
   //TODO check on empty (invalid) credentials?
   unsigned char buff[6];
 
-  if (takeNukiBleSemaphore("retr cred")) {
-    if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
-        && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
-        && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
-        && (preferences.getBytes(AUTH_ID_STORE_NAME, authorizationId, 4) > 0)
-       ) {
-      bleAddress = BLEAddress(buff);
+  if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
+      && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
+      && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
+      && (preferences.getBytes(AUTH_ID_STORE_NAME, authorizationId, 4) > 0)
+     ) {
+    bleAddress = BLEAddress(buff);
 
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("[%s] Credentials retrieved :", deviceName.c_str());
-      printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
-      log_d("bleAddress: %s", bleAddress.toString().c_str());
-      printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
-      log_d("PinCode: %d", pinCode);
-      #endif
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("[%s] Credentials retrieved :", deviceName.c_str());
+    printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
+    log_d("bleAddress: %s", bleAddress.toString().c_str());
+    printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
+    log_d("PinCode: %d", pinCode);
+    #endif
 
-      // if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
-      //   log_w("secret key OR authorizationId is empty: not paired");
-      //   giveNukiBleSemaphore();
-      //   return false;
-      // }
-
-      if (pinCode == 0) {
-        log_w("Pincode is 000000");
-      }
-
-    } else {
-      log_w("No preferences stored or issue reading data, maybe never paired before");
-      giveNukiBleSemaphore();
-      return false;
+    if (pinCode == 0) {
+      log_w("Pincode is 000000");
     }
-    giveNukiBleSemaphore();
+
+  } else {
+    log_w("No preferences stored or issue reading data, maybe never paired before");
+    return false;
   }
 
   return true;
 }
 
 void NukiBle::deleteCredentials() {
-  if (takeNukiBleSemaphore("del cred")) {
-    // unsigned char emptySecretKeyK[32] = {0x00};
-    // unsigned char emptyAuthorizationId[4] = {0x00};
-    // preferences.putBytes(SECRET_KEY_STORE_NAME, emptySecretKeyK, 32);
-    // preferences.putBytes(AUTH_ID_STORE_NAME, emptyAuthorizationId, 4);
-    preferences.remove(SECRET_KEY_STORE_NAME);
-    preferences.remove(AUTH_ID_STORE_NAME);
-    preferences.remove(SECURITY_PINCODE_STORE_NAME);
-    preferences.remove(BLE_ADDRESS_STORE_NAME);
-    giveNukiBleSemaphore();
-  }
+  preferences.remove(SECRET_KEY_STORE_NAME);
+  preferences.remove(AUTH_ID_STORE_NAME);
+  preferences.remove(SECURITY_PINCODE_STORE_NAME);
+  preferences.remove(BLE_ADDRESS_STORE_NAME);
   #ifdef DEBUG_NUKI_CONNECT
   log_d("Credentials deleted");
   #endif
@@ -875,6 +851,7 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     } else {
       log_w("Send encr msg failed due to unable to connect");
     }
+    bleScanner->enableScanning(true);
   } else {
     log_w("Send msg failed due to encryption fail");
   }
