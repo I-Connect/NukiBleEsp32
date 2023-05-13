@@ -362,4 +362,27 @@ struct __attribute__((packed)) TimeValue {
   uint8_t minute;
   uint16_t second;
 };
+
+inline void doorSensorStateToString(const DoorSensorState state, char* str) {
+  switch (state) {
+    case DoorSensorState::Calibrating:
+      strcpy(str, "calibrating");
+      break;
+    case DoorSensorState::Deactivated:
+      strcpy(str, "deactivated");
+      break;
+    case DoorSensorState::DoorClosed:
+      strcpy(str, "doorclosed");
+      break;
+    case DoorSensorState::DoorOpened:
+      strcpy(str, "dooropened");
+      break;
+    case DoorSensorState::Unavailable:
+      strcpy(str, "unavailable");
+      break;
+    case DoorSensorState::DoorStateUnknown:
+      strcpy(str, "doorstateunkown");
+      break;
+  }
+}
 } // namespace Nuki
