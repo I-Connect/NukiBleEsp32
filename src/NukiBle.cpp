@@ -126,7 +126,7 @@ void NukiBle::unPairNuki() {
 
 bool NukiBle::connectBle(const BLEAddress bleAddress) {
   connecting = true;
-  bleScanner->enableScanning(false);
+  // bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
@@ -157,11 +157,11 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
       delay(100);
     }
   } else {
-    bleScanner->enableScanning(true);
+    // bleScanner->enableScanning(true);
     connecting = false;
     return true;
   }
-  bleScanner->enableScanning(true);
+  // bleScanner->enableScanning(true);
   connecting = false;
   log_w("BLE Connect failed");
   return false;
@@ -851,7 +851,7 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     } else {
       log_w("Send encr msg failed due to unable to connect");
     }
-    bleScanner->enableScanning(true);
+    // bleScanner->enableScanning(true);
   } else {
     log_w("Send msg failed due to encryption fail");
   }
