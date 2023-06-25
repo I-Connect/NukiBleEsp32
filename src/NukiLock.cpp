@@ -12,16 +12,17 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
             keyturnerUserDataUUID,
             deviceName) {}
 
-Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
+Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix) 
+{
   Action action;
-  unsigned char payload[5 + nameSuffixLen] = {0};
+  unsigned char payload[sizeof(LockAction) + 4 + 1 + 20] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
   memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
   memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
   uint8_t payloadLen = 0;
   if (nameSuffix) {
-    memcpy(&payload[sizeof(LockAction) + 4 + 1], nameSuffix, nameSuffixLen);
-    payloadLen = sizeof(LockAction) + 4 + 1 + nameSuffixLen;
+    strncpy((char*)&payload[sizeof(LockAction) + 4 + 1], nameSuffix, 20);
+    payloadLen = sizeof(LockAction) + 4 + 1 + 20;
   } else {
     payloadLen = sizeof(LockAction) + 4 + 1;
   }
