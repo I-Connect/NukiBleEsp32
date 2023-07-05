@@ -536,30 +536,24 @@ Nuki::CmdResult NukiBle::updateTime(TimeValue time) {
   return result;
 }
 
-bool NukiBle::saveSecurityPincode(const uint16_t pinCode) {
-  return (preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) == 2);
+bool NukiBle::saveSecurityPincode(const uint16_t _pinCode) {
+  bool result = preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &_pinCode, 2) == 2;
+  if (result) {
+    pinCode = _pinCode;
+  } else {
+    log_w("Save security pincode failed");
+  }
+  return result;
 }
 
 void NukiBle::saveCredentials() {
   unsigned char currentBleAddress[6];
-  unsigned char storedBleAddress[6];
-  uint16_t defaultPincode = 0;
   currentBleAddress[0] = bleAddress.getNative()[5];
   currentBleAddress[1] = bleAddress.getNative()[4];
   currentBleAddress[2] = bleAddress.getNative()[3];
   currentBleAddress[3] = bleAddress.getNative()[2];
   currentBleAddress[4] = bleAddress.getNative()[1];
   currentBleAddress[5] = bleAddress.getNative()[0];
-
-  preferences.getBytes(BLE_ADDRESS_STORE_NAME, storedBleAddress, 6);
-
-  if (compareCharArray(currentBleAddress, storedBleAddress, 6)) {
-    //only store earlier retreived pin code if address is the same
-    //otherwise it is a different/new lock
-    preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2);
-  } else {
-    preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &defaultPincode, 2);
-  }
 
   if ((preferences.putBytes(BLE_ADDRESS_STORE_NAME, currentBleAddress, 6) == 6)
       && (preferences.putBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) == 32)
@@ -598,19 +592,19 @@ bool NukiBle::retrieveCredentials() {
   unsigned char buff[6];
 
   if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buff, 6) > 0)
-      && (preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) > 0)
       && (preferences.getBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) > 0)
       && (preferences.getBytes(AUTH_ID_STORE_NAME, authorizationId, 4) > 0)
      ) {
     bleAddress = BLEAddress(buff);
+    preferences.getBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2);
 
-    #ifdef DEBUG_NUKI_CONNECT
+    // #ifdef DEBUG_NUKI_CONNECT
     log_d("[%s] Credentials retrieved :", deviceName.c_str());
     printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
     log_d("bleAddress: %s", bleAddress.toString().c_str());
     printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
     log_d("PinCode: %d", pinCode);
-    #endif
+    // #endif
 
     if (pinCode == 0) {
       log_w("Pincode is 000000");
@@ -629,9 +623,9 @@ void NukiBle::deleteCredentials() {
   preferences.remove(AUTH_ID_STORE_NAME);
   preferences.remove(SECURITY_PINCODE_STORE_NAME);
   preferences.remove(BLE_ADDRESS_STORE_NAME);
-  #ifdef DEBUG_NUKI_CONNECT
+  // #ifdef DEBUG_NUKI_CONNECT
   log_d("Credentials deleted");
-  #endif
+  // #endif
 }
 
 PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
