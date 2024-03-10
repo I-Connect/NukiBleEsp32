@@ -12,8 +12,7 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
             keyturnerUserDataUUID,
             deviceName) {}
 
-Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix) 
-{
+Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
   unsigned char payload[sizeof(LockAction) + 4 + 1 + 20] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
@@ -21,7 +20,10 @@ Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t
   memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
   uint8_t payloadLen = 0;
   if (nameSuffix) {
-    strncpy((char*)&payload[sizeof(LockAction) + 4 + 1], nameSuffix, 20);
+    //If nameSuffixLen is between 1 & 18, use it, else use 19 (keep 1 for ending '\0')
+    uint8_t len = nameSuffixLen>0 && nameSuffixLen<19 ? nameSuffixLen : 19;
+    strncpy((char*)&payload[sizeof(LockAction) + 4 + 1], nameSuffix, len);
+    payload[sizeof(LockAction) + 4 + 1 + len] = '\0'; //In any case, add '\0' at end of string
     payloadLen = sizeof(LockAction) + 4 + 1 + 20;
   } else {
     payloadLen = sizeof(LockAction) + 4 + 1;
