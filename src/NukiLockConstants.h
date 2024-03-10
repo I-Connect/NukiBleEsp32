@@ -117,6 +117,19 @@ enum class LockAction : uint8_t {
   FobAction3      = 0x83
 };
 
+enum class KeypadActionSource : uint8_t {
+  ArrowKey = 0x00,
+  Code = 0x01
+};
+
+enum class KeypadAction : uint8_t {
+  Intelligent     = 0x00,
+  Unlock          = 0x01,
+  Lock            = 0x02,
+  Unlatch         = 0x03,
+  LockNgo         = 0x04
+};
+
 enum class ButtonPressAction : uint8_t {
   NoAction          = 0x00,
   Intelligent       = 0x01,
