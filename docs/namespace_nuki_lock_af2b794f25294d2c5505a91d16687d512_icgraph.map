@@ -1,4 +1,5 @@
 <map id="NukiLock::logUpdatedKeypadEntry" name="NukiLock::logUpdatedKeypadEntry">
-<area shape="rect" id="node1" title=" " alt="" coords="242,5,434,46"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="5,5,194,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="242,5,434,46"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="5,5,194,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,28,194,28,194,23,226,23"/>
 </map>

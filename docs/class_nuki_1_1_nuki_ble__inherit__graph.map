@@ -1,7 +1,11 @@
 <map id="Nuki::NukiBle" name="Nuki::NukiBle">
-<area shape="rect" id="node1" title=" " alt="" coords="113,79,213,105"/>
-<area shape="rect" id="node4" href="$class_nuki_lock_1_1_nuki_lock.html" title=" " alt="" coords="5,153,145,178"/>
-<area shape="rect" id="node5" href="$class_nuki_opener_1_1_nuki_opener.html" title=" " alt="" coords="168,153,334,178"/>
-<area shape="rect" id="node2" title=" " alt="" coords="10,5,146,31"/>
-<area shape="rect" id="node3" title=" " alt="" coords="170,5,327,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="113,79,213,105"/>
+<area shape="rect" id="Node000004" href="$class_nuki_lock_1_1_nuki_lock.html" title=" " alt="" coords="5,153,145,178"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,117,91,154,88,150,135,113"/>
+<area shape="rect" id="Node000005" href="$class_nuki_opener_1_1_nuki_opener.html" title=" " alt="" coords="168,153,334,178"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="191,113,238,150,235,154,188,117"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="10,5,146,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,39,150,77,147,81,102,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="170,5,327,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="224,43,179,81,176,77,221,39"/>
 </map>

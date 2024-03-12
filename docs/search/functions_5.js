@@ -9,7 +9,7 @@ var searchData=
   ['getlasterror_6',['getLastError',['../class_nuki_lock_1_1_nuki_lock.html#a6fe38ed0e5e9bd572875f2b19a32af04',1,'NukiLock::NukiLock::getLastError()'],['../class_nuki_opener_1_1_nuki_opener.html#abf85adf44965fd8a36712ede22ac643c',1,'NukiOpener::NukiOpener::getLastError()']]],
   ['getlastheartbeat_7',['getLastHeartbeat',['../class_nuki_1_1_nuki_ble.html#a1b8629906aa390ae74fb9bb18d5ad7de',1,'Nuki::NukiBle']]],
   ['getlastreceivedbeaconts_8',['getLastReceivedBeaconTs',['../class_nuki_1_1_nuki_ble.html#ab5549c3abc871476916f317762bbc0f7',1,'Nuki::NukiBle']]],
-  ['getlogentries_9',['getLogEntries',['../class_nuki_opener_1_1_nuki_opener.html#aafc2f92a96c60fdec189066b3a34da6f',1,'NukiOpener::NukiOpener::getLogEntries()'],['../class_nuki_lock_1_1_nuki_lock.html#afff96e5e0cb7dac48113ada69e1aff56',1,'NukiLock::NukiLock::getLogEntries()']]],
+  ['getlogentries_9',['getLogEntries',['../class_nuki_lock_1_1_nuki_lock.html#afff96e5e0cb7dac48113ada69e1aff56',1,'NukiLock::NukiLock::getLogEntries()'],['../class_nuki_opener_1_1_nuki_opener.html#aafc2f92a96c60fdec189066b3a34da6f',1,'NukiOpener::NukiOpener::getLogEntries()']]],
   ['getlogentrycount_10',['getLogEntryCount',['../class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96',1,'Nuki::NukiBle']]],
   ['getmacaddress_11',['getMacAddress',['../class_nuki_1_1_nuki_ble.html#a492a38e70bbb90cab3cf2f712822a778',1,'Nuki::NukiBle']]],
   ['getrssi_12',['getRssi',['../class_nuki_1_1_nuki_ble.html#a9ca68095284552883993fab546d89e8a',1,'Nuki::NukiBle']]],

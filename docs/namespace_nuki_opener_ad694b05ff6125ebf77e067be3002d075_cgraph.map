@@ -1,6 +1,9 @@
 <map id="NukiOpener::logKeyturnerState" name="NukiOpener::logKeyturnerState">
-<area shape="rect" id="node1" title=" " alt="" coords="5,63,174,103"/>
-<area shape="rect" id="node2" href="$namespace_nuki_opener.html#a84631e75b3f180ead51e1a292fcee637" title=" " alt="" coords="223,5,401,46"/>
-<area shape="rect" id="node3" href="$namespace_nuki_opener.html#ab25308954cb451d83358353032200422" title=" " alt="" coords="222,70,402,96"/>
-<area shape="rect" id="node4" href="$namespace_nuki_opener.html#a9915ff097023a69e5792e791336bfcd6" title=" " alt="" coords="222,120,402,145"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,174,103"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#a84631e75b3f180ead51e1a292fcee637" title=" " alt="" coords="223,5,401,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,60,215,48,216,53,171,65"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#ab25308954cb451d83358353032200422" title=" " alt="" coords="222,70,402,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="174,80,207,80,207,86,174,86"/>
+<area shape="rect" id="Node000004" href="$namespace_nuki_opener.html#a9915ff097023a69e5792e791336bfcd6" title=" " alt="" coords="222,120,402,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,99,236,113,235,118,173,104"/>
 </map>

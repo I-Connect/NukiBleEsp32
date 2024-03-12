@@ -2,8 +2,8 @@ var searchData=
 [
   ['accepted_0',['Accepted',['../namespace_nuki.html#a6bda91e4cff6b08141b7f31f1620de80a382ab522931673c11e398ead1b7b1678',1,'Nuki']]],
   ['accumulators_1',['Accumulators',['../namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a9847344b6abc15c6a232d5255cdf65b8',1,'Nuki']]],
-  ['activatecm_2',['ActivateCM',['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8a08448c18bd4aaf2fe55320e655015497',1,'NukiOpener::ActivateCM()'],['../namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39a08448c18bd4aaf2fe55320e655015497',1,'NukiOpener::ActivateCM()']]],
-  ['activaterto_3',['ActivateRTO',['../namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39ac58648749d03d0d55828dc1cab85ed6d',1,'NukiOpener::ActivateRTO()'],['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8ac58648749d03d0d55828dc1cab85ed6d',1,'NukiOpener::ActivateRTO()']]],
+  ['activatecm_2',['ActivateCM',['../namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39a08448c18bd4aaf2fe55320e655015497',1,'NukiOpener::ActivateCM'],['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8a08448c18bd4aaf2fe55320e655015497',1,'NukiOpener::ActivateCM']]],
+  ['activaterto_3',['ActivateRTO',['../namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39ac58648749d03d0d55828dc1cab85ed6d',1,'NukiOpener::ActivateRTO'],['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8ac58648749d03d0d55828dc1cab85ed6d',1,'NukiOpener::ActivateRTO']]],
   ['addkeypadcode_4',['AddKeypadCode',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3acb68de5e8963d8b43cc5c1df001fbd60',1,'Nuki']]],
   ['addtimecontrolentry_5',['AddTimeControlEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3affd06dae1e61263bc5aedd4a6ac4180b',1,'Nuki']]],
   ['advancedconfig_6',['AdvancedConfig',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a2737280956113ab6c577c221f60cd8a6',1,'Nuki']]],
@@ -55,5 +55,5 @@ var searchData=
   ['authorizationidconfirmation_52',['AuthorizationIdConfirmation',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ab5de5c77f3b885ac685430674ae58c85',1,'Nuki']]],
   ['authorizationidinvite_53',['AuthorizationIdInvite',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7a7932b3c820cb33614417643b3e48f0',1,'Nuki']]],
   ['autolock_54',['AutoLock',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a5337798a2b8d599f0064c8df24f49166',1,'NukiLock']]],
-  ['automatic_55',['Automatic',['../namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a086247a9b57fde6eefee2a0c4752242d',1,'Nuki::Automatic()'],['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a086247a9b57fde6eefee2a0c4752242d',1,'NukiLock::Automatic()'],['../namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a086247a9b57fde6eefee2a0c4752242d',1,'NukiOpener::Automatic()']]]
+  ['automatic_55',['Automatic',['../namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a086247a9b57fde6eefee2a0c4752242d',1,'Nuki::Automatic'],['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a086247a9b57fde6eefee2a0c4752242d',1,'NukiLock::Automatic'],['../namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a086247a9b57fde6eefee2a0c4752242d',1,'NukiOpener::Automatic']]]
 ];

@@ -2,8 +2,8 @@ var searchData=
 [
   ['calculateauth_0',['CalculateAuth',['../namespace_nuki.html#af18b26b33ef86ab90c0e6e6dbafd1f61a311ebe65ba88d03d4bef8a77683a71a7',1,'Nuki']]],
   ['calibrating_1',['Calibrating',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3aa90245113e5261ee70386bd8ece941d5',1,'Nuki']]],
-  ['calibration_2',['Calibration',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798af6147c9c9b908be9b52803698be57ad2',1,'NukiLock::Calibration()'],['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af6147c9c9b908be9b52803698be57ad2',1,'NukiLock::Calibration()'],['../namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daf6147c9c9b908be9b52803698be57ad2',1,'NukiOpener::Calibration()']]],
-  ['canceled_3',['Canceled',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa0e22fe7d45f8e5632a4abf369b24e29c',1,'NukiLock::Canceled()'],['../namespace_nuki_opener.html#a4177c1ba41abd209eed76ca85cb40c88a0e22fe7d45f8e5632a4abf369b24e29c',1,'NukiOpener::Canceled()']]],
+  ['calibration_2',['Calibration',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798af6147c9c9b908be9b52803698be57ad2',1,'NukiLock::Calibration'],['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af6147c9c9b908be9b52803698be57ad2',1,'NukiLock::Calibration'],['../namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daf6147c9c9b908be9b52803698be57ad2',1,'NukiOpener::Calibration']]],
+  ['canceled_3',['Canceled',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa0e22fe7d45f8e5632a4abf369b24e29c',1,'NukiLock::Canceled'],['../namespace_nuki_opener.html#a4177c1ba41abd209eed76ca85cb40c88a0e22fe7d45f8e5632a4abf369b24e29c',1,'NukiOpener::Canceled']]],
   ['challenge_4',['Challenge',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ab5f5623b6137a89a1dadf079a5e92266',1,'Nuki']]],
   ['challengerespreceived_5',['ChallengeRespReceived',['../namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba14c3fc7448dccb9a4dc1038f9ceda77b',1,'Nuki']]],
   ['challengesent_6',['ChallengeSent',['../namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba0c136b367079197fde3f2ae97b82b5fa',1,'Nuki']]],

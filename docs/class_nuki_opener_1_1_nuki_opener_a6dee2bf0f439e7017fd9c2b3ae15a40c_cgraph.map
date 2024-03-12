@@ -1,5 +1,7 @@
 <map id="NukiOpener::NukiOpener::addTimeControlEntry" name="NukiOpener::NukiOpener::addTimeControlEntry">
-<area shape="rect" id="node1" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,35,171,75"/>
-<area shape="rect" id="node2" href="$namespace_nuki_opener.html#a2787c094621c78f690c0919692d86698" title=" " alt="" coords="219,5,429,46"/>
-<area shape="rect" id="node3" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="267,70,381,96"/>
+<area shape="rect" id="Node000001" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,35,171,75"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#a2787c094621c78f690c0919692d86698" title=" " alt="" coords="219,5,429,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,42,203,38,203,43,171,47"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="267,70,381,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,62,252,72,251,77,171,67"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="NukiOpener::NukiOpener::logErrorCode" name="NukiOpener::NukiOpener::logErrorCode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,171,46"/>
-<area shape="rect" id="node2" href="$namespace_nuki_opener.html#ac113c8306166cc9eca2b20d75abdb953" title=" " alt="" coords="219,13,431,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,171,46"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac113c8306166cc9eca2b20d75abdb953" title=" " alt="" coords="219,13,431,39"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,23,203,23,203,28,171,28"/>
 </map>

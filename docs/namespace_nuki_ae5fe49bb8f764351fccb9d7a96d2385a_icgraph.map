@@ -1,4 +1,5 @@
 <map id="Nuki::calculateCrc" name="Nuki::calculateCrc">
-<area shape="rect" id="node1" title=" " alt="" coords="155,5,281,31"/>
-<area shape="rect" id="node2" href="$namespace_nuki.html#a3a246ecee6c1228f277b473fe13b248a" title=" " alt="" coords="5,5,107,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="155,5,281,31"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki.html#a3a246ecee6c1228f277b473fe13b248a" title=" " alt="" coords="5,5,107,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,21,107,21,107,16,139,16"/>
 </map>

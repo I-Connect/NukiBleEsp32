@@ -1,9 +1,15 @@
 <map id="Nuki::NukiBle::retrieveKeypadEntries" name="Nuki::NukiBle::retrieveKeypadEntries">
-<area shape="rect" id="node1" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="5,129,198,170"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="246,108,434,133"/>
-<area shape="rect" id="node7" href="$class_nuki_1_1_nuki_ble.html#ad94d354153b8b4f779f7a7a32258ff48" title="Returns the keypad entry count. Only available after executing retreiveKeypadEntries." alt="" coords="256,157,424,198"/>
-<area shape="rect" id="node3" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="496,5,679,46"/>
-<area shape="rect" id="node4" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="492,71,683,111"/>
-<area shape="rect" id="node5" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="482,136,693,161"/>
-<area shape="rect" id="node6" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " alt="" coords="487,185,689,226"/>
+<area shape="rect" id="Node000001" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="5,129,198,170"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="246,108,434,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,135,230,131,231,136,198,140"/>
+<area shape="rect" id="Node000007" href="$class_nuki_1_1_nuki_ble.html#ad94d354153b8b4f779f7a7a32258ff48" title="Returns the keypad entry count. Only available after executing retreiveKeypadEntries." alt="" coords="256,157,424,198"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="198,158,241,163,240,169,198,164"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="496,5,679,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,105,481,57,503,49,504,54,483,61,370,109"/>
+<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="492,71,683,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="434,107,476,101,477,107,435,112"/>
+<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="482,136,693,161"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="435,128,467,132,466,137,434,134"/>
+<area shape="rect" id="Node000006" href="$class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" title=" " alt="" coords="487,185,689,226"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="400,131,435,143,459,157,483,171,498,177,496,182,481,176,457,162,433,148,399,136"/>
 </map>

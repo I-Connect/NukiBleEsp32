@@ -1,4 +1,5 @@
 <map id="NukiLock::logNewAuthorizationEntry" name="NukiLock::logNewAuthorizationEntry">
-<area shape="rect" id="node1" title=" " alt="" coords="256,5,458,46"/>
-<area shape="rect" id="node2" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="5,5,208,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="256,5,458,46"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="5,5,208,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,28,208,28,208,23,240,23"/>
 </map>

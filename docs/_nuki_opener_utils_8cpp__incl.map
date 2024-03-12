@@ -1,10 +1,20 @@
 <map id="src/NukiOpenerUtils.cpp" name="src/NukiOpenerUtils.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="117,5,281,31"/>
-<area shape="rect" id="node2" href="$_nuki_opener_utils_8h.html" title=" " alt="" coords="135,79,263,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,226,81,252"/>
-<area shape="rect" id="node4" href="$_nuki_data_types_8h.html" title=" " alt="" coords="58,153,178,178"/>
-<area shape="rect" id="node7" href="$_nuki_opener_constants_8h.html" title=" " alt="" coords="202,153,361,178"/>
-<area shape="rect" id="node8" title=" " alt="" coords="386,153,439,178"/>
-<area shape="rect" id="node5" href="$_nuki_constants_8h.html" title=" " alt="" coords="127,226,244,252"/>
-<area shape="rect" id="node6" title=" " alt="" coords="177,300,290,326"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="117,5,281,31"/>
+<area shape="rect" id="Node000002" href="$_nuki_opener_utils_8h.html" title=" " alt="" coords="135,79,263,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,31,202,63,196,63,196,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,226,81,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="136,104,87,121,65,136,48,154,41,167,38,182,39,211,34,211,33,181,36,166,43,151,62,131,85,117,134,99"/>
+<area shape="rect" id="Node000004" href="$_nuki_data_types_8h.html" title=" " alt="" coords="58,153,178,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="187,107,144,144,141,140,183,103"/>
+<area shape="rect" id="Node000007" href="$_nuki_opener_constants_8h.html" title=" " alt="" coords="202,153,361,178"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="215,103,258,140,255,144,211,107"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="386,153,439,178"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="236,103,372,148,371,153,234,108"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="107,181,68,218,64,214,103,177"/>
+<area shape="rect" id="Node000005" href="$_nuki_constants_8h.html" title=" " alt="" coords="127,226,244,252"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="131,177,166,213,162,217,127,180"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="177,300,290,326"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="196,251,219,285,215,288,191,254"/>
+<area shape="poly" id="edge9_Node000007_Node000005" title=" " alt="" coords="267,181,215,219,212,215,264,177"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="281,179,259,253,246,287,241,285,254,251,276,178"/>
 </map>

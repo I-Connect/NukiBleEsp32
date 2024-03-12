@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['enableautobatterytypedetection_0',['enableAutoBatteryTypeDetection',['../class_nuki_opener_1_1_nuki_opener.html#a4f1440923689261d6809e91081ae710b',1,'NukiOpener::NukiOpener::enableAutoBatteryTypeDetection()'],['../class_nuki_lock_1_1_nuki_lock.html#ac03f0730a8d0fadbbdf4244d8c2e2742',1,'NukiLock::NukiLock::enableAutoBatteryTypeDetection(const bool enable)']]],
+  ['enableautobatterytypedetection_0',['enableAutoBatteryTypeDetection',['../class_nuki_lock_1_1_nuki_lock.html#ac03f0730a8d0fadbbdf4244d8c2e2742',1,'NukiLock::NukiLock::enableAutoBatteryTypeDetection()'],['../class_nuki_opener_1_1_nuki_opener.html#a4f1440923689261d6809e91081ae710b',1,'NukiOpener::NukiOpener::enableAutoBatteryTypeDetection()']]],
   ['enableautolock_1',['enableAutoLock',['../class_nuki_lock_1_1_nuki_lock.html#a0c1f973e20c4a0971adcd4e1afa11da2',1,'NukiLock::NukiLock']]],
   ['enableautoupdate_2',['enableAutoUpdate',['../class_nuki_lock_1_1_nuki_lock.html#a878d1cd7ae1feec70d090710d4d2d8a6',1,'NukiLock::NukiLock']]],
   ['enablebutton_3',['enableButton',['../class_nuki_lock_1_1_nuki_lock.html#ad441de3551e792c9070ae2b60f2d5d4a',1,'NukiLock::NukiLock::enableButton()'],['../class_nuki_opener_1_1_nuki_opener.html#aed7ed4621f341dbbb6638f80caf2b821',1,'NukiOpener::NukiOpener::enableButton()']]],
