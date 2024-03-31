@@ -505,7 +505,7 @@ Nuki::CmdResult NukiLock::setAdvancedConfig(NewAdvancedConfig newAdvancedConfig)
 
 void NukiLock::createNewConfig(const Config* oldConfig, NewConfig* newConfig) {
   memcpy(newConfig->name, oldConfig->name, sizeof(newConfig->name));
-  newConfig->latitide = oldConfig->latitide;
+  newConfig->latitude = oldConfig->latitude;
   newConfig->longitude = oldConfig->longitude;
   newConfig->autoUnlatch = oldConfig->autoUnlatch;
   newConfig->pairingEnabled = oldConfig->pairingEnabled;

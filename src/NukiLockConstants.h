@@ -168,7 +168,7 @@ struct __attribute__((packed)) KeyTurnerState {
 struct __attribute__((packed)) Config {
   uint32_t nukiId;
   unsigned char name[32];
-  float latitide;
+  float latitude;
   float longitude;
   uint8_t autoUnlatch;
   uint8_t pairingEnabled;
@@ -201,7 +201,7 @@ struct __attribute__((packed)) Config {
 
 struct __attribute__((packed)) NewConfig {
   unsigned char name[32];
-  float latitide;
+  float latitude;
   float longitude;
   uint8_t autoUnlatch;
   uint8_t pairingEnabled;

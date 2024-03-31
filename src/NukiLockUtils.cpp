@@ -161,7 +161,7 @@ void logConfig(Config config) {
   #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("nukiId :%d", config.nukiId);
   log_d("name :%s", config.name);
-  log_d("latitide :%f", config.latitide);
+  log_d("latitude :%f", config.latitude);
   log_d("longitude :%f", config.longitude);
   log_d("autoUnlatch :%d", config.autoUnlatch);
   log_d("pairingEnabled :%d", config.pairingEnabled);
@@ -193,7 +193,7 @@ void logConfig(Config config) {
 void logNewConfig(NewConfig newConfig) {
   #ifdef DEBUG_NUKI_READABLE_DATA
   log_d("name :%s", newConfig.name);
-  log_d("latitide :%f", newConfig.latitide);
+  log_d("latitude :%f", newConfig.latitude);
   log_d("longitude :%f", newConfig.longitude);
   log_d("autoUnlatch :%d", newConfig.autoUnlatch);
   log_d("pairingEnabled :%d", newConfig.pairingEnabled);
