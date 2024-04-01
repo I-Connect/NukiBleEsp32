@@ -137,6 +137,7 @@ enum class CompletionStatus : uint8_t {
   ClutchFailure     = 0x06,
   MotorPowerFailure = 0x07,
   IncompleteFailure = 0x08,
+  Failure           = 0x0b,
   InvalidCode       = 0xE0,
   OtherError        = 0xFE,
   Unknown           = 0xFF
@@ -438,6 +439,9 @@ inline void completionStatusToString(const CompletionStatus status, char* str) {
     case CompletionStatus::IncompleteFailure:
       strcpy(str, "incompleteFailure");
       break;
+      case CompletionStatus::Failure:
+          strcpy(str, "failure");
+          break;
     case CompletionStatus::InvalidCode:
       strcpy(str, "invalidCode");
       break;
