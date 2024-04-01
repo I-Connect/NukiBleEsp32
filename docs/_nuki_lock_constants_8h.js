@@ -63,6 +63,17 @@ var _nuki_lock_constants_8h =
       [ "K_ERROR_VOLTAGE_TOO_LOW", "_nuki_lock_constants_8h.html#a03eef223a843766356645cc3f2b82420a4fdb01a425abc893b11804a5c3933716", null ],
       [ "K_ERROR_FIRMWARE_UPDATE_NEEDED", "_nuki_lock_constants_8h.html#a03eef223a843766356645cc3f2b82420ac9200c15d37874d29de8c4614684de73", null ]
     ] ],
+    [ "KeypadAction", "_nuki_lock_constants_8h.html#a30a82c8431626986b974aa823a1b6e25", [
+      [ "Intelligent", "_nuki_lock_constants_8h.html#a30a82c8431626986b974aa823a1b6e25a9b62305de14f24a0111b59ac6e687b80", null ],
+      [ "Unlock", "_nuki_lock_constants_8h.html#a30a82c8431626986b974aa823a1b6e25a7e7123b0d269ad5d9ec8d12c52a8ed8a", null ],
+      [ "Lock", "_nuki_lock_constants_8h.html#a30a82c8431626986b974aa823a1b6e25ab485167c5b0e59d47009a16f90fe2659", null ],
+      [ "Unlatch", "_nuki_lock_constants_8h.html#a30a82c8431626986b974aa823a1b6e25a02d2a7ceeeea3587a4cb7cd1d8f173a7", null ],
+      [ "LockNgo", "_nuki_lock_constants_8h.html#a30a82c8431626986b974aa823a1b6e25aabc770742b5a11ed8a870d034012c571", null ]
+    ] ],
+    [ "KeypadActionSource", "_nuki_lock_constants_8h.html#acf462729a7471bb4e5ce7f29c80186da", [
+      [ "ArrowKey", "_nuki_lock_constants_8h.html#acf462729a7471bb4e5ce7f29c80186daa1b7fe40e0b4c987f87b98dea9c2f5748", null ],
+      [ "Code", "_nuki_lock_constants_8h.html#acf462729a7471bb4e5ce7f29c80186daaca0dbad92a874b2f69b549293387925e", null ]
+    ] ],
     [ "LockAction", "_nuki_lock_constants_8h.html#a4176caa33e367b525ac0c1bb9c37b555", [
       [ "Unlock", "_nuki_lock_constants_8h.html#a4176caa33e367b525ac0c1bb9c37b555a7e7123b0d269ad5d9ec8d12c52a8ed8a", null ],
       [ "Lock", "_nuki_lock_constants_8h.html#a4176caa33e367b525ac0c1bb9c37b555ab485167c5b0e59d47009a16f90fe2659", null ],

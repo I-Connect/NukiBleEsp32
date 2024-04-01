@@ -6,7 +6,7 @@ var searchData=
   ['initializationrun_3',['InitializationRun',['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a3ef869fb69491527aac9612c5b039331',1,'NukiLock']]],
   ['initialize_4',['initialize',['../class_nuki_1_1_nuki_ble.html#a3e40d30549a6cbeac1072292670d07d4',1,'Nuki::NukiBle']]],
   ['initpairing_5',['InitPairing',['../namespace_nuki.html#af18b26b33ef86ab90c0e6e6dbafd1f61a026c9213afa0077afd3b4de31d7e0624',1,'Nuki']]],
-  ['intelligent_6',['Intelligent',['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea9b62305de14f24a0111b59ac6e687b80',1,'NukiLock']]],
+  ['intelligent_6',['Intelligent',['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a9b62305de14f24a0111b59ac6e687b80',1,'NukiLock::Intelligent'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea9b62305de14f24a0111b59ac6e687b80',1,'NukiLock::Intelligent']]],
   ['invalidcode_7',['InvalidCode',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02',1,'NukiLock']]],
   ['isbatterycharging_8',['isBatteryCharging',['../class_nuki_lock_1_1_nuki_lock.html#a4b2df38bb798035d59441d4503fbf820',1,'NukiLock::NukiLock']]],
   ['isbatterycritical_9',['isBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#ae8aa24e2040634ebec0ce529f8d5d125',1,'NukiLock::NukiLock::isBatteryCritical()'],['../class_nuki_opener_1_1_nuki_opener.html#a0e9d8a92ddbf41bd1c69faecd5138353',1,'NukiOpener::NukiOpener::isBatteryCritical()']]],

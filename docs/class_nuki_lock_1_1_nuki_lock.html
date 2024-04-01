@@ -176,6 +176,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ace85fa0423fe9089038cb5887e64a8a4" id="r_ace85fa0423fe9089038cb5887e64a8a4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace85fa0423fe9089038cb5887e64a8a4">isKeypadBatteryCritical</a> ()</td></tr>
 <tr class="memdesc:ace85fa0423fe9089038cb5887e64a8a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns keypad battery critical state in case this is supported.  <br /></td></tr>
 <tr class="separator:ace85fa0423fe9089038cb5887e64a8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73f888ce42f7e444e557070aa1c1fa18" id="r_a73f888ce42f7e444e557070aa1c1fa18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73f888ce42f7e444e557070aa1c1fa18">keypadAction</a> (<a class="el" href="namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186da">KeypadActionSource</a> source, uint32_t code, <a class="el" href="namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25">KeypadAction</a> keypadAction)</td></tr>
+<tr class="memdesc:a73f888ce42f7e444e557070aa1c1fa18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a keypad action entry to the lock via BLE.  <br /></td></tr>
+<tr class="separator:a73f888ce42f7e444e557070aa1c1fa18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a542fd3c88bfc43ff0b3b73afde3266f9" id="r_a542fd3c88bfc43ff0b3b73afde3266f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a542fd3c88bfc43ff0b3b73afde3266f9">lockAction</a> (const <a class="el" href="namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555">LockAction</a> lockAction, const uint32_t nukiAppId=1, const uint8_t flags=0, const char *nameSuffix=nullptr, const uint8_t nameSuffixLen=0)</td></tr>
 <tr class="memdesc:a542fd3c88bfc43ff0b3b73afde3266f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends lock action cmd via BLE to the lock.  <br /></td></tr>
 <tr class="separator:a542fd3c88bfc43ff0b3b73afde3266f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -899,6 +902,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a73f888ce42f7e444e557070aa1c1fa18" name="a73f888ce42f7e444e557070aa1c1fa18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f888ce42f7e444e557070aa1c1fa18">&#9670;&#160;</a></span>keypadAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> NukiLock::NukiLock::keypadAction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186da">KeypadActionSource</a></td>          <td class="paramname"><span class="paramname"><em>source</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>code</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25">KeypadAction</a></td>          <td class="paramname"><span class="paramname"><em>keypadAction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a keypad action entry to the lock via BLE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>0x00 = arrow key, 0x01 = code </td></tr>
+    <tr><td class="paramname">code</td><td>The code that has been entered on the keypad </td></tr>
+    <tr><td class="paramname">keypadAction</td><td>The action to be executed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a542fd3c88bfc43ff0b3b73afde3266f9" name="a542fd3c88bfc43ff0b3b73afde3266f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a542fd3c88bfc43ff0b3b73afde3266f9">&#9670;&#160;</a></span>lockAction()</h2>
 
@@ -1484,7 +1523,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_lock.html">NukiLock</a></li><li class="navelem"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html">NukiLock</a></li>
-    <li class="footer">Generated on Mon Apr 1 2024 18:16:30 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+    <li class="footer">Generated on Mon Apr 1 2024 18:23:57 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>
 </body>
