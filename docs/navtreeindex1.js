@@ -5,12 +5,13 @@ var NAVTREEINDEX1 =
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa4885b442a10936b11222cb4c87ba32d7":[3,0,0,8,2,5],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa4a0d5f3b6c2181e01e1282d03847ce4f":[3,0,0,8,2,7],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa505a83f220c02df2f85c3810cd9ceb38":[3,0,0,8,2,0],
-"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02":[3,0,0,8,2,9],
-"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa611572ba77cbd55463aeb65f1f77a052":[3,0,0,8,2,10],
+"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02":[3,0,0,8,2,10],
+"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa611572ba77cbd55463aeb65f1f77a052":[3,0,0,8,2,11],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa78d7ca911f105e3229b0ed465ebdf908":[3,0,0,8,2,3],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa87f4c9e83f2dfbf3dd301d6e522592d5":[3,0,0,8,2,1],
-"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa88183b946cc5f0e8c96b2e66e1c74a7e":[3,0,0,8,2,11],
+"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aa88183b946cc5f0e8c96b2e66e1c74a7e":[3,0,0,8,2,12],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aad8a942ef2b04672adfafef0ad817a407":[3,0,0,8,2,4],
+"_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aae139a585510a502bbf1841cf589f5086":[3,0,0,8,2,9],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aaedb425a2d5fae3e45c59541fb527cd4a":[3,0,0,8,2,8],
 "_nuki_lock_constants_8h.html#a54b34c8336455e871ee25f457a6e104aafd88faafe566ff81f88783bc9425eb3b":[3,0,0,8,2,6],
 "_nuki_lock_constants_8h.html#a5a08c6af3090841e419f5ffeec0db34b":[3,0,0,8,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "_nuki_utils_8cpp.html#af7752bab0ff47daf5e6082b7925874e5":[3,0,0,16,8],
 "_nuki_utils_8h.html":[3,0,0,17],
 "_nuki_utils_8h.html#a280e19d4682ca4b35d3fe64001da816a":[3,0,0,17,10],
-"_nuki_utils_8h.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0":[3,0,0,17,8],
-"_nuki_utils_8h.html#a359df6879f1b774782a6985a1d1e9de9":[3,0,0,17,5]
+"_nuki_utils_8h.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0":[3,0,0,17,8]
 };

@@ -21,6 +21,7 @@ var namespace_nuki_lock =
       [ "ClutchFailure", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aafd88faafe566ff81f88783bc9425eb3b", null ],
       [ "MotorPowerFailure", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa4a0d5f3b6c2181e01e1282d03847ce4f", null ],
       [ "IncompleteFailure", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aaedb425a2d5fae3e45c59541fb527cd4a", null ],
+      [ "Failure", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aae139a585510a502bbf1841cf589f5086", null ],
       [ "InvalidCode", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02", null ],
       [ "OtherError", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa611572ba77cbd55463aeb65f1f77a052", null ],
       [ "Unknown", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa88183b946cc5f0e8c96b2e66e1c74a7e", null ]
