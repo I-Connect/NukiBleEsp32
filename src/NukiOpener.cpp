@@ -124,6 +124,57 @@ Nuki::CmdResult NukiOpener::setName(const std::string& name) {
   }
 }
 
+Nuki::CmdResult NukiOpener::setLatitude(const float degrees) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.latitude = degrees;
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setLongitude(const float degrees) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.longitude = degrees;
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setFobAction(const uint8_t fobActionNr, const uint8_t fobAction) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    switch (fobActionNr) {
+      case 1:
+        oldConfig.fobAction1 = fobAction;
+        break;
+      case 2:
+        oldConfig.fobAction2 = fobAction;
+        break;
+      case 3:
+        oldConfig.fobAction3 = fobAction;
+        break;
+      default:
+        return Nuki::CmdResult::Error;
+    }
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setOperatingMode(const uint8_t opmode) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.operatingMode = opmode;
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
 
 Nuki::CmdResult NukiOpener::enableDst(const bool enable) {
   Config oldConfig;
@@ -167,6 +218,156 @@ Nuki::CmdResult NukiOpener::enableButton(const bool enable) {
 
 
 //advanced config change methods
+Nuki::CmdResult NukiOpener::setIntercomID(const uint16_t intercomID) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.intercomID = intercomID;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setBusModeSwitch(const bool busModeSwitch) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.busModeSwitch = busModeSwitch;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setShortCircuitDuration(const uint16_t duration) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.shortCircuitDuration = duration;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setElectricStrikeDelay(const uint16_t delay) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.electricStrikeDelay = delay;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::enableRandomElectricStrikeDelay(const bool enable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.randomElectricStrikeDelay = enable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setElectricStrikeDuration(const uint16_t duration) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.electricStrikeDuration = duration;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::disableRtoAfterRing(const bool disable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.disableRtoAfterRing = disable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setRtoTimeout(const uint8_t timeout) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.rtoTimeout = timeout;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setDoorbellSuppression(const uint8_t suppression) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.doorbellSuppression = suppression;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setDoorbellSuppressionDuration(const uint16_t duration) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.doorbellSuppressionDuration = duration;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setSoundRing(const uint8_t sound) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.soundRing = sound;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setSoundOpen(const uint8_t sound) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.soundOpen = sound;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setSoundRto(const uint8_t sound) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.soundRto = sound;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::setSoundCm(const uint8_t sound) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.soundCm = sound;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiOpener::enableSoundConfirmation(const bool enable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.soundConfirmation = enable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
 Nuki::CmdResult NukiOpener::setSingleButtonPressAction(const ButtonPressAction action) {
   AdvancedConfig oldConfig;
   Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
@@ -422,7 +623,7 @@ void NukiOpener::createNewConfig(const Config* oldConfig, NewConfig* newConfig) 
 void NukiOpener::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvancedConfig* newConfig) {
   newConfig->intercomID = oldConfig->intercomID;
   newConfig->busModeSwitch = oldConfig->busModeSwitch;
-  newConfig->shortCircuitDaration = oldConfig->shortCircuitDaration;
+  newConfig->shortCircuitDuration = oldConfig->shortCircuitDuration;
   newConfig->electricStrikeDelay = oldConfig->electricStrikeDelay;
   newConfig->randomElectricStrikeDelay = oldConfig->randomElectricStrikeDelay;
   newConfig->electricStrikeDuration = oldConfig->electricStrikeDuration;

@@ -79,6 +79,39 @@ class NukiLock : public Nuki::NukiBle {
     Nuki::CmdResult setName(const std::string& name);
 
     /**
+     * @brief Gets the current config from the lock, updates the latitude parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param degrees the desired latitude
+     */
+    Nuki::CmdResult setLatitude(const float degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the longitude parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param degrees the desired longitude
+     */
+    Nuki::CmdResult setLongitude(const float degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the auto unlatch parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param enable true if auto unlatch should be enabled in general.
+     */
+    Nuki::CmdResult enableAutoUnlatch(const bool enable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the given fob action parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param fobActionNr the fob action to change (1 = single press, 2 = double press, 3 = triple press)
+     * @param fobAction the desired fob action setting
+     */
+    Nuki::CmdResult setFobAction(const uint8_t fobActionNr, const uint8_t fobAction);
+
+    /**
      * @brief Gets the current config from the lock, updates the dst parameter and sends the new
      * config to the lock via BLE
      *
@@ -109,6 +142,119 @@ class NukiLock : public Nuki::NukiBle {
      * @param enable true if button enabled
      */
     Nuki::CmdResult enableButton(const bool enable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the unlocked position offset degrees parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param degrees the desired offset that alters the unlocked position
+     */
+    Nuki::CmdResult setUnlockedPositionOffsetDegrees(const int16_t degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the locked position offset degrees parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param degrees the desired offset that alters the locked position
+     */
+    Nuki::CmdResult setLockedPositionOffsetDegrees(const int16_t degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the single locked position offset degrees parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param degrees the desired offset that alters the single locked position
+     */
+    Nuki::CmdResult setSingleLockedPositionOffsetDegrees(const int16_t degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the unlocked to locked transition offset degrees parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param degrees the desired offset that alters the position where transition from unlocked to locked happens
+     */
+    Nuki::CmdResult setUnlockedToLockedTransitionOffsetDegrees(const int16_t degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the lock n go timeout parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param timeout the desired timeout for lock ‘n’ go
+     */
+    Nuki::CmdResult setLockNgoTimeout(const uint8_t timeout);
+
+    /**
+     * @brief Gets the current config from the lock, updates the detached cylinder parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param enable true if detached cylinder enabled (Flag that indicates that the inner side of the used cylinder is detached from
+     * the outer side and therefore the Smart Lock won’t recognize if someone operates the door by using a key)
+     */
+    Nuki::CmdResult enableDetachedCylinder(const bool enable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the unlatch duration parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param duration the desired duration in seconds for holding the latch in unlatched position
+     */
+    Nuki::CmdResult setUnlatchDuration(const uint8_t duration);
+
+    /**
+     * @brief Gets the current config from the lock, updates the auto lock timeout parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param timeout the desired timeout until the smart lock relocks itself after it has been unlocked
+     */
+    Nuki::CmdResult setAutoLockTimeOut(const uint8_t timeout);
+
+    /**
+     * @brief Gets the current config from the lock, updates the night mode parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param enable true if night mode enabled
+     */
+    Nuki::CmdResult enableNightMode(const bool enable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the night mode start time parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param starttime the desired night mode start time
+     */
+    Nuki::CmdResult setNightModeStartTime(unsigned char starttime[2]);
+
+    /**
+     * @brief Gets the current config from the lock, updates the night mode end time parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param endtime the desired night mode end time
+     */
+    Nuki::CmdResult setNightModeEndTime(unsigned char endtime[2]);
+
+    /**
+     * @brief Gets the current config from the lock, updates the night mode auto lock parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param enable true if night mode auto lock enabled
+     */
+    Nuki::CmdResult enableNightModeAutoLock(const bool enable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the night mode auto unlock parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param disable true if night mode auto unlock disabled
+     */
+    Nuki::CmdResult disableNightModeAutoUnlock(const bool disable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the night mode immediate lock on start parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param enable true if night mode immediate lock on start enabled
+     */
+    Nuki::CmdResult enableNightModeImmediateLockOnStart(const bool enable);
 
     /**
      * @brief Gets the current advanced config from the lock, updates the single button press action

@@ -55,6 +55,39 @@ class NukiOpener : public Nuki::NukiBle {
     Nuki::CmdResult setName(const std::string& name);
 
     /**
+     * @brief Gets the current config from the lock, updates the latitude parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param degrees the desired latitude
+     */
+    Nuki::CmdResult setLatitude(const float degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the longitude parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param degrees the desired longitude
+     */
+    Nuki::CmdResult setLongitude(const float degrees);
+
+    /**
+     * @brief Gets the current config from the lock, updates the given fob action parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param fobActionNr the fob action to change (1 = single press, 2 = double press, 3 = triple press)
+     * @param fobAction the desired fob action setting
+     */
+    Nuki::CmdResult setFobAction(const uint8_t fobActionNr, const uint8_t fobAction);
+
+    /**
+     * @brief Gets the current config from the lock, updates the operating mode parameter and sends the new
+     * config to the lock via BLE
+     *
+     * @param opmode the desired operating mode
+     */
+    Nuki::CmdResult setOperatingMode(const uint8_t opmode);
+
+    /**
      * @brief Gets the current config from the lock, updates the dst parameter and sends the new
      * config to the lock via BLE
      *
@@ -87,10 +120,130 @@ class NukiOpener : public Nuki::NukiBle {
     Nuki::CmdResult enableButton(const bool enable);
 
     /**
+     * @brief Gets the current config from the lock, updates the intercom id parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param intercomID the desired database ID of the connected intercom
+     */
+    Nuki::CmdResult setIntercomID(const uint16_t intercomID);
+
+    /**
+     * @brief Gets the current config from the lock, updates the bus mode switch parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param busModeSwitch true for analogue mode, false for data mode
+     */
+    Nuki::CmdResult setBusModeSwitch(const bool busModeSwitch);
+
+    /**
+     * @brief Gets the current config from the lock, updates the short circuit duration parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param duration the desired duration of the short circuit for BUS mode switching in ms
+     */
+    Nuki::CmdResult setShortCircuitDuration(const uint16_t duration);
+
+    /**
+     * @brief Gets the current config from the lock, updates the electric strike delay parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param delay the desired electric strike delay in ms in case of an electric strike actuation by RTO
+     */
+    Nuki::CmdResult setElectricStrikeDelay(const uint16_t delay);
+
+    /**
+     * @brief Gets the current config from the lock, updates the random electric strike delay parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param enable true if random electric strike delay enabled
+     */
+    Nuki::CmdResult enableRandomElectricStrikeDelay(const bool enable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the electric strike duration parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param duration the desired duration in ms of electric strike actuation.
+     */
+    Nuki::CmdResult setElectricStrikeDuration(const uint16_t duration);
+
+    /**
+     * @brief Gets the current config from the lock, updates the disable rto after ring parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param disable true if RTO should be disabled after ring
+     */
+    Nuki::CmdResult disableRtoAfterRing(const bool disable);
+
+    /**
+     * @brief Gets the current config from the lock, updates the rto timeout parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param timeout the desired timeout for RTO in minutes
+     */
+    Nuki::CmdResult setRtoTimeout(const uint8_t timeout);
+
+    /**
+     * @brief Gets the current config from the lock, updates the doorbell suppression parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param suppression the desired setting for doorbell suppression (0 = Off, 1 = CM, 2 = RTO, 3 = CM & RTO, 4 = Ring, 5 = CM & Ring, 6 = RTO & Ring, 7 = CM & RTO & Ring)
+     */
+    Nuki::CmdResult setDoorbellSuppression(const uint8_t suppression);
+
+    /**
+     * @brief Gets the current config from the lock, updates the doorbell suppression duration parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param duration the duration in ms of doorbell suppression (only in Operating mode 0x02,0x03,0x04,0x05,0x07,0x08 digital Intercom)
+     */
+    Nuki::CmdResult setDoorbellSuppressionDuration(const uint16_t duration);
+
+    /**
+     * @brief Gets the current config from the lock, updates the sound ring parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param sound the desired sound setting for ring (0 = No Sound, 1 = Sound1, 2 = Sound2, 3 = Sound3)
+     */
+    Nuki::CmdResult setSoundRing(const uint8_t sound);
+
+    /**
+     * @brief Gets the current config from the lock, updates the sound open parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param sound the desired sound setting for open (0 = No Sound, 1 = Sound1, 2 = Sound2, 3 = Sound3)
+     */
+    Nuki::CmdResult setSoundOpen(const uint8_t sound);
+
+    /**
+     * @brief Gets the current config from the lock, updates the sound RTO parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param sound the desired sound setting for RTO (0 = No Sound, 1 = Sound1, 2 = Sound2, 3 = Sound3)
+     */
+    Nuki::CmdResult setSoundRto(const uint8_t sound);
+
+    /**
+     * @brief Gets the current config from the lock, updates the sound continuous mode parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param sound the desired sound setting for continuous mode (0 = No Sound, 1 = Sound1, 2 = Sound2, 3 = Sound3)
+     */
+    Nuki::CmdResult setSoundCm(const uint8_t sound);
+
+    /**
+     * @brief Gets the current config from the lock, updates the enable sound confirmation parameter and sends the
+     * new config to the lock via BLE
+     *
+     * @param enable true if sound confirmation enabled
+     */
+    Nuki::CmdResult enableSoundConfirmation(const bool enable);
+
+    /**
      * @brief Gets the current advanced config from the lock, updates the single button press action
      * parameter and sends the new advanced config to the lock via BLE
      *
-     * @param action the deired action for a single button press
+     * @param action the desired action for a single button press
      */
     Nuki::CmdResult setSingleButtonPressAction(const ButtonPressAction action);
 
@@ -98,7 +251,7 @@ class NukiOpener : public Nuki::NukiBle {
      * @brief Gets the current advanced config from the lock, updates the double button press action
      * parameter and sends the new advanced config to the lock via BLE
      *
-     * @param action the deired action for a double button press
+     * @param action the desired action for a double button press
      */
     Nuki::CmdResult setDoubleButtonPressAction(const ButtonPressAction action);
 

@@ -138,6 +138,57 @@ Nuki::CmdResult NukiLock::setName(const std::string& name) {
   }
 }
 
+Nuki::CmdResult NukiLock::setLatitude(const float degrees) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.latitude = degrees;
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setLongitude(const float degrees) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.longitude = degrees;
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::enableAutoUnlatch(const bool enable) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.autoUnlatch = enable;
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setFobAction(const uint8_t fobActionNr, const uint8_t fobAction) {
+  Config oldConfig;
+  Nuki::CmdResult result = requestConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    switch (fobActionNr) {
+      case 1:
+        oldConfig.fobAction1 = fobAction;
+        break;
+      case 2:
+        oldConfig.fobAction2 = fobAction;
+        break;
+      case 3:
+        oldConfig.fobAction3 = fobAction;
+        break;
+      default:
+        return Nuki::CmdResult::Error;
+    }
+    result = setFromConfig(oldConfig);
+  }
+  return result;
+}
 
 Nuki::CmdResult NukiLock::enableDst(const bool enable) {
   Config oldConfig;
@@ -181,6 +232,148 @@ Nuki::CmdResult NukiLock::enableButton(const bool enable) {
 
 
 //advanced config change methods
+Nuki::CmdResult NukiLock::setUnlockedPositionOffsetDegrees(const int16_t degrees) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.unlockedPositionOffsetDegrees = degrees;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setLockedPositionOffsetDegrees(const int16_t degrees) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.lockedPositionOffsetDegrees = degrees;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setSingleLockedPositionOffsetDegrees(const int16_t degrees) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.singleLockedPositionOffsetDegrees = degrees;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setUnlockedToLockedTransitionOffsetDegrees(const int16_t degrees) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.unlockedToLockedTransitionOffsetDegrees = degrees;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setLockNgoTimeout(const uint8_t timeout) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.lockNgoTimeout = timeout;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::enableDetachedCylinder(const bool enable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.detachedCylinder = enable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setUnlatchDuration(const uint8_t duration) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.unlatchDuration = duration;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setAutoLockTimeOut(const uint8_t timeout) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.autoLockTimeOut = timeout;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::enableNightMode(const bool enable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.nightModeEnabled = enable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setNightModeStartTime(unsigned char starttime[2]) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.nightModeStartTime[0] = starttime[0];
+    oldConfig.nightModeStartTime[1] = starttime[1];    
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::setNightModeEndTime(unsigned char endtime[2]) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.nightModeEndTime[0] = endtime[0];
+    oldConfig.nightModeEndTime[1] = endtime[1];    
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::enableNightModeAutoLock(const bool enable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.nightModeAutoLockEnabled = enable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::disableNightModeAutoUnlock(const bool disable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.nightModeAutoUnlockDisabled = disable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
+Nuki::CmdResult NukiLock::enableNightModeImmediateLockOnStart(const bool enable) {
+  AdvancedConfig oldConfig;
+  Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
+  if (result == Nuki::CmdResult::Success) {
+    oldConfig.nightModeImmediateLockOnStart = enable;
+    result = setFromAdvancedConfig(oldConfig);
+  }
+  return result;
+}
+
 Nuki::CmdResult NukiLock::setSingleButtonPressAction(const ButtonPressAction action) {
   AdvancedConfig oldConfig;
   Nuki::CmdResult result = requestAdvancedConfig(&oldConfig);
