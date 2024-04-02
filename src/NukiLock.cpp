@@ -127,6 +127,7 @@ Nuki::CmdResult NukiLock::setName(const std::string& name) {
     Config oldConfig;
     Nuki::CmdResult result = requestConfig(&oldConfig);
     if (result == Nuki::CmdResult::Success) {
+      memset(oldConfig.name, 0, sizeof(oldConfig.name));
       memcpy(oldConfig.name, name.c_str(), name.length());
       result = setFromConfig(oldConfig);
     }
