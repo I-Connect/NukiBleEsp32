@@ -564,7 +564,6 @@ void NukiBle::saveCredentials() {
     printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
     printBuffer(currentBleAddress, 6, false, BLE_ADDRESS_STORE_NAME);
     printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
-    log_d("pincode: %d", pinCode);
     #endif
   } else {
     log_w("ERROR saving credentials");
@@ -607,7 +606,7 @@ bool NukiBle::retrieveCredentials() {
     #endif
 
     if (pinCode == 0) {
-      log_w("Pincode is 000000");
+      log_w("Pincode is 000000, probably not defined");
     }
 
   } else {

@@ -18,13 +18,20 @@ class NukiLock : public Nuki::NukiBle {
      * @param nukiAppId 0 = App, 1 = Bridge, 2 = Fob, 3 = Keypad
      * @param flags optional
      * @param nameSuffix optional
-     * @param nameSuffixLen len of nameSuffix if used
+     * @param nameSuffixLen len of nameSuffix if used ('\0' included, maximum 19)
      * @return Nuki::CmdResult
      */
     Nuki::CmdResult lockAction(const LockAction lockAction, const uint32_t nukiAppId = 1, const uint8_t flags = 0,
                                const char* nameSuffix = nullptr, const uint8_t nameSuffixLen = 0);
 
-
+    /**
+     * @brief Send a keypad action entry to the lock via BLE
+     * @param source 0x00 = arrow key, 0x01 = code
+     * @param code The code that has been entered on the keypad
+     * @param keypadAction The action to be executed
+     */
+    Nuki::CmdResult keypadAction(KeypadActionSource source, uint32_t code, KeypadAction keypadAction);
+    
     /**
      * @brief Requests keyturner state from Lock via BLE
      *

@@ -108,6 +108,19 @@ enum class LockAction : uint8_t {
   FobAction3      = 0x83
 };
 
+enum class KeypadActionSource : uint8_t {
+  ArrowKey = 0x00,
+  Code = 0x01
+};
+
+enum class KeypadAction : uint8_t {
+  Intelligent     = 0x00,
+  Unlock          = 0x01,
+  Lock            = 0x02,
+  Unlatch         = 0x03,
+  LockNgo         = 0x04
+};
+
 enum class ButtonPressAction : uint8_t {
   NoAction          = 0x00,
   Intelligent       = 0x01,
@@ -128,6 +141,7 @@ enum class CompletionStatus : uint8_t {
   ClutchFailure     = 0x06,
   MotorPowerFailure = 0x07,
   IncompleteFailure = 0x08,
+  Failure           = 0x0b,
   InvalidCode       = 0xE0,
   OtherError        = 0xFE,
   Unknown           = 0xFF
@@ -158,7 +172,7 @@ struct __attribute__((packed)) KeyTurnerState {
 struct __attribute__((packed)) Config {
   uint32_t nukiId;
   unsigned char name[32];
-  float latitide;
+  float latitude;
   float longitude;
   uint8_t autoUnlatch;
   uint8_t pairingEnabled;
@@ -191,7 +205,7 @@ struct __attribute__((packed)) Config {
 
 struct __attribute__((packed)) NewConfig {
   unsigned char name[32];
-  float latitide;
+  float latitude;
   float longitude;
   uint8_t autoUnlatch;
   uint8_t pairingEnabled;
@@ -428,6 +442,9 @@ inline void completionStatusToString(const CompletionStatus status, char* str) {
       break;
     case CompletionStatus::IncompleteFailure:
       strcpy(str, "incompleteFailure");
+      break;
+    case CompletionStatus::Failure:
+      strcpy(str, "failure");
       break;
     case CompletionStatus::InvalidCode:
       strcpy(str, "invalidCode");

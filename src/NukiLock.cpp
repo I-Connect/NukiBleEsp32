@@ -15,14 +15,17 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
 
 Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
-  unsigned char payload[5 + nameSuffixLen] = {0};
+  unsigned char payload[sizeof(LockAction) + 4 + 1 + 20] = {0};
   memcpy(payload, &lockAction, sizeof(LockAction));
   memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
   memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
   uint8_t payloadLen = 0;
   if (nameSuffix) {
-    memcpy(&payload[sizeof(LockAction) + 4 + 1], nameSuffix, nameSuffixLen);
-    payloadLen = sizeof(LockAction) + 4 + 1 + nameSuffixLen;
+    //If nameSuffixLen is between 1 & 18, use it, else use 19 (keep 1 for ending '\0')
+    uint8_t len = nameSuffixLen>0 && nameSuffixLen<19 ? nameSuffixLen : 19;
+    strncpy((char*)&payload[sizeof(LockAction) + 4 + 1], nameSuffix, len);
+    payload[sizeof(LockAction) + 4 + 1 + len] = '\0'; //In any case, add '\0' at end of string
+    payloadLen = sizeof(LockAction) + 4 + 1 + 20;
   } else {
     payloadLen = sizeof(LockAction) + 4 + 1;
   }
@@ -35,6 +38,20 @@ Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t
   return executeAction(action);
 }
 
+Nuki::CmdResult NukiLock::keypadAction(KeypadActionSource source, uint32_t code, KeypadAction keypadAction) {
+  Action action;
+  unsigned char payload[6] = {(unsigned char)source};
+  memcpy(&payload[1], &code, sizeof(code));
+  memcpy(&payload[1+sizeof(code)], &keypadAction, sizeof(KeypadAction));
+  uint8_t payloadLen = 6;
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndAccept;
+  action.command = Command::KeypadAction;
+  memcpy(action.payload, &payload, payloadLen);
+  action.payloadLen = payloadLen;
+
+  return executeAction(action);
+}
 
 Nuki::CmdResult NukiLock::requestKeyTurnerState(KeyTurnerState* retrievedKeyTurnerState) {
   Action action;
@@ -111,6 +128,7 @@ Nuki::CmdResult NukiLock::setName(const std::string& name) {
     Config oldConfig;
     Nuki::CmdResult result = requestConfig(&oldConfig);
     if (result == Nuki::CmdResult::Success) {
+      memset(oldConfig.name, 0, sizeof(oldConfig.name));
       memcpy(oldConfig.name, name.c_str(), name.length());
       result = setFromConfig(oldConfig);
     }
@@ -503,7 +521,7 @@ Nuki::CmdResult NukiLock::setAdvancedConfig(NewAdvancedConfig newAdvancedConfig)
 
 void NukiLock::createNewConfig(const Config* oldConfig, NewConfig* newConfig) {
   memcpy(newConfig->name, oldConfig->name, sizeof(newConfig->name));
-  newConfig->latitide = oldConfig->latitide;
+  newConfig->latitude = oldConfig->latitude;
   newConfig->longitude = oldConfig->longitude;
   newConfig->autoUnlatch = oldConfig->autoUnlatch;
   newConfig->pairingEnabled = oldConfig->pairingEnabled;

@@ -113,6 +113,7 @@ Nuki::CmdResult NukiOpener::setName(const std::string& name) {
     Config oldConfig;
     Nuki::CmdResult result = requestConfig(&oldConfig);
     if (result == Nuki::CmdResult::Success) {
+      memset(oldConfig.name, 0, sizeof(oldConfig.name));
       memcpy(oldConfig.name, name.c_str(), name.length());
       result = setFromConfig(oldConfig);
     }
@@ -402,7 +403,7 @@ Nuki::CmdResult NukiOpener::setAdvancedConfig(NewAdvancedConfig newAdvancedConfi
 
 void NukiOpener::createNewConfig(const Config* oldConfig, NewConfig* newConfig) {
   memcpy(newConfig->name, oldConfig->name, sizeof(newConfig->name));
-  newConfig->latitide = oldConfig->latitide;
+  newConfig->latitude = oldConfig->latitude;
   newConfig->longitude = oldConfig->longitude;
   newConfig->capabilities = oldConfig->capabilities;
   newConfig->pairingEnabled = oldConfig->pairingEnabled;
