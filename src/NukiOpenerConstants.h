@@ -202,7 +202,7 @@ struct __attribute__((packed)) NewConfig {
 struct __attribute__((packed)) AdvancedConfig {
   uint16_t intercomID;
   uint8_t busModeSwitch;
-  uint16_t shortCircuitDaration;
+  uint16_t shortCircuitDuration;
   uint16_t electricStrikeDelay;
   uint8_t randomElectricStrikeDelay;
   uint16_t electricStrikeDuration;
@@ -226,7 +226,7 @@ struct __attribute__((packed)) AdvancedConfig {
 struct __attribute__((packed)) NewAdvancedConfig {
   uint16_t intercomID;
   uint8_t busModeSwitch;
-  uint16_t shortCircuitDaration;
+  uint16_t shortCircuitDuration;
   uint16_t electricStrikeDelay;
   uint8_t randomElectricStrikeDelay;
   uint16_t electricStrikeDuration;
