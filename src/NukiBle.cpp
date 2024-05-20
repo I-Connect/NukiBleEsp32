@@ -536,7 +536,11 @@ Nuki::CmdResult NukiBle::updateTime(TimeValue time) {
 }
 
 bool NukiBle::saveSecurityPincode(const uint16_t pinCode) {
-  return (preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) == 2);
+  if (preferences.putBytes(SECURITY_PINCODE_STORE_NAME, &pinCode, 2) == 2) {
+    this->pinCode = pinCode;
+    return true;
+  }
+  return false;
 }
 
 void NukiBle::saveCredentials() {
