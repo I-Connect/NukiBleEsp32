@@ -360,6 +360,6 @@ struct __attribute__((packed)) TimeValue {
   uint8_t day;
   uint8_t hour;
   uint8_t minute;
-  uint8_t second;
+  uint16_t second;
 };
 } // namespace Nuki
