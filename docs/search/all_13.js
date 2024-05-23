@@ -18,9 +18,9 @@ var searchData=
   ['updateconnectionstate_15',['updateConnectionState',['../class_nuki_1_1_nuki_ble.html#adb7e6f9ff5c724d74ce074dc2cb7a7bf',1,'Nuki::NukiBle']]],
   ['updatekeypadcode_16',['UpdateKeypadCode',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4cb35e7aad6fd3b954f39308ec3acc21',1,'Nuki']]],
   ['updatekeypadentry_17',['updateKeypadEntry',['../class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81',1,'Nuki::NukiBle']]],
-  ['updatetime_18',['updateTime',['../class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1',1,'Nuki::NukiBle']]],
-  ['updatetime_19',['UpdateTime',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b33ee0ac8480dff8a93c383634996b7',1,'Nuki']]],
-  ['updatetimecontrolentry_20',['updateTimeControlEntry',['../class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7',1,'NukiLock::NukiLock::updateTimeControlEntry()'],['../class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed',1,'NukiOpener::NukiOpener::updateTimeControlEntry()']]],
-  ['updatetimecontrolentry_21',['UpdateTimeControlEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4ed64f95dbde67ec6bc0eff55649f616',1,'Nuki']]],
+  ['updatetime_18',['UpdateTime',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b33ee0ac8480dff8a93c383634996b7',1,'Nuki']]],
+  ['updatetime_19',['updateTime',['../class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1',1,'Nuki::NukiBle']]],
+  ['updatetimecontrolentry_20',['UpdateTimeControlEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4ed64f95dbde67ec6bc0eff55649f616',1,'Nuki']]],
+  ['updatetimecontrolentry_21',['updateTimeControlEntry',['../class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7',1,'NukiLock::NukiLock::updateTimeControlEntry()'],['../class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed',1,'NukiOpener::NukiOpener::updateTimeControlEntry()']]],
   ['use_22',['How to use',['../index.html#autotoc_md1',1,'']]]
 ];
