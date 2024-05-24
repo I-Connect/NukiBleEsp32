@@ -299,7 +299,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
   protected:
     virtual void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
     virtual void logErrorCode(uint8_t errorCode) = 0;
-    uint8_t errorCode;
+
+    // Cannot initialize to any meaningful value since error namespaces are only
+    // defined for NukeBle descendants. Using zero as a safe default, which should
+    // work better than random for a general case.
+    uint8_t errorCode = 0;
+
     Command lastMsgCodeReceived = Command::Empty;
 
   private:

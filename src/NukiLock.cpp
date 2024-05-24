@@ -10,7 +10,9 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
             keyturnerServiceUUID,
             keyturnerGdioUUID,
             keyturnerUserDataUUID,
-            deviceName) {}
+            deviceName) {
+    errorCode = (uint8_t)ErrorCode::ERROR_UNKNOWN;
+}
 
 Nuki::CmdResult NukiLock::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
