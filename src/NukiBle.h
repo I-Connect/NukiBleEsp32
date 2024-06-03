@@ -60,8 +60,10 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @brief checks the time past after last connect/communication sent, if the time past > timeout
      * it will disconnect the BLE connection with the lock so that lock will start sending advertisements.
      *
-     * This method is optional as the lock will also disconnect automaticlally after ~20 sec.
-     * If used this method should be run in loop or a task.
+     * This method is optional since the lock will automatically disconnect after approximately 20
+     * seconds. However, the lock might be unresponsive during this time if the connection is stale.
+     * For this reason, using this method is advised.
+     * If used, this method should be run in loop or a task.
      *
      */
     void updateConnectionState();

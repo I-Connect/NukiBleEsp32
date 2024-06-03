@@ -47,6 +47,8 @@ Logging can be enabled by setting the following defines (these are also availabl
         void loop() {
           scanner.update();
           delay(10);
+          // Terminate stale Bluetooth connections
+          updateConnectionState();
         }
 
 ## Nuki opener
