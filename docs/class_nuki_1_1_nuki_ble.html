@@ -1364,7 +1364,7 @@ template&lt;typename TDeviceAction &gt; </div>
 </div><div class="memdoc">
 
 <p>checks the time past after last connect/communication sent, if the time past &gt; timeout it will disconnect the BLE connection with the lock so that lock will start sending advertisements. </p>
-<p>This method is optional as the lock will also disconnect automaticlally after ~20 sec. If used this method should be run in loop or a task. </p>
+<p>This method is optional since the lock will automatically disconnect after approximately 20 seconds. However, the lock might be unresponsive during this time if the connection is stale. For this reason, using this method is advised. If used, this method should be run in loop or a task. </p>
 
 </div>
 </div>
@@ -1515,7 +1515,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li><li class="navelem"><a class="el" href="class_nuki_1_1_nuki_ble.html">NukiBle</a></li>
-    <li class="footer">Generated on Mon Jun 3 2024 19:06:38 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Mon Jun 3 2024 19:07:24 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>
