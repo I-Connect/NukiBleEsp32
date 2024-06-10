@@ -11,6 +11,7 @@ NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
             openerGdioUUID,
             openerUserDataUUID,
             deviceName + "opener") {
+  errorCode = (uint8_t)ErrorCode::ERROR_UNKNOWN;
 }
 
 Nuki::CmdResult NukiOpener::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
