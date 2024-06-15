@@ -18,6 +18,7 @@
 #include <Preferences.h>
 #include <esp_task_wdt.h>
 #include <BleInterfaces.h>
+#include <atomic>
 #include "sodium/crypto_secretbox.h"
 
 #define GENERAL_TIMEOUT 3000
@@ -363,7 +364,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Nuki::CommandState nukiCommandState = Nuki::CommandState::Idle;
 
     uint32_t timeNow = 0;
-    uint32_t lastHeartbeat = 0;
+    std::atomic_uint lastHeartbeat;
 
     BleScanner::Publisher* bleScanner = nullptr;
     bool isPaired = false;
@@ -388,8 +389,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool keypadCodeCountReceived = false;
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
-    int rssi = 0;
-    unsigned long lastReceivedBeaconTs = 0;
+    std::atomic_int rssi;
+    std::atomic_ulong lastReceivedBeaconTs;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;

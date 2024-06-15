@@ -40,7 +40,11 @@ NukiBle::NukiBle(const std::string& deviceName,
     deviceServiceUUID(deviceServiceUUID),
     gdioUUID(gdioUUID),
     userDataUUID(userDataUUID),
-    preferencesId(preferencedId) {
+    preferencesId(preferencedId)
+{
+  rssi = 0;
+  lastReceivedBeaconTs = 0;
+  lastHeartbeat = 0;
 }
 
 NukiBle::~NukiBle() {
