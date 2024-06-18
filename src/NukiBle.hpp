@@ -35,7 +35,9 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
           extendDisonnectTimeout();
           return result;
         }
+        #ifndef NUKI_NO_WDT_RESET
         esp_task_wdt_reset();
+        #endif
         delay(10);
       }
     } else if (action.cmdType == Nuki::CommandType::CommandWithChallenge) {
@@ -46,7 +48,9 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
           extendDisonnectTimeout();
           return result;
         }
+        #ifndef NUKI_NO_WDT_RESET
         esp_task_wdt_reset();
+        #endif
         delay(10);
       }
     } else if (action.cmdType == Nuki::CommandType::CommandWithChallengeAndAccept) {
@@ -57,7 +61,9 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
           extendDisonnectTimeout();
           return result;
         }
+        #ifndef NUKI_NO_WDT_RESET
         esp_task_wdt_reset();
+        #endif
         delay(10);
       }
     } else if (action.cmdType == Nuki::CommandType::CommandWithChallengeAndPin) {
@@ -68,7 +74,9 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
           extendDisonnectTimeout();
           return result;
         }
+        #ifndef NUKI_NO_WDT_RESET
         esp_task_wdt_reset();
+        #endif
         delay(10);
       }
     } else {
