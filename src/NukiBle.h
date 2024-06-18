@@ -283,7 +283,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
   protected:
     bool connectBle(const BLEAddress bleAddress);
-    void extendDisonnectTimeout();
+    void extendDisconnectTimeout();
 
     template <typename TDeviceAction>
     Nuki::CmdResult executeAction(const TDeviceAction action);
@@ -319,6 +319,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
+    unsigned long pairingLastSeen = 0;
 
     void onConnect(BLEClient*) override;
     void onDisconnect(BLEClient*) override;
