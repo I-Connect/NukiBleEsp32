@@ -1,7 +1,7 @@
 <map id="src/NukiConstants.h" name="src/NukiConstants.h">
 <area shape="rect" id="Node000001" title=" " alt="" coords="364,5,504,31"/>
 <area shape="rect" id="Node000002" href="$_nuki_ble_8h.html" title=" " alt="" coords="354,226,453,252"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="405,42,350,88,325,119,306,154,303,165,305,176,319,195,342,211,369,223,366,228,340,216,315,199,300,178,298,165,301,152,321,116,347,85,401,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="404,42,351,89,326,119,307,154,303,166,307,177,318,192,333,205,367,224,365,228,330,210,315,196,302,180,298,166,302,152,322,116,347,85,401,38"/>
 <area shape="rect" id="Node000008" href="$_nuki_ble_8hpp.html" title=" " alt="" coords="316,153,429,178"/>
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="425,46,380,153,375,151,420,44"/>
 <area shape="rect" id="Node000009" href="$_nuki_data_types_8h.html" title=" " alt="" coords="432,79,574,105"/>
@@ -26,7 +26,7 @@
 <area shape="poly" id="edge10_Node000009_Node000002" title=" " alt="" coords="505,121,500,150,488,180,461,208,431,228,428,223,458,204,484,177,495,149,500,120"/>
 <area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="469,115,396,154,394,150,467,110"/>
 <area shape="rect" id="Node000010" href="$_nuki_lock_utils_8h.html" title=" " alt="" coords="194,226,330,252"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="493,119,472,151,442,180,416,197,387,210,330,228,328,223,385,205,413,192,439,176,468,148,488,116"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="493,120,472,151,443,180,417,197,388,210,331,228,329,223,386,205,414,192,440,176,468,148,488,117"/>
 <area shape="rect" id="Node000012" href="$_nuki_opener_utils_8h.html" title=" " alt="" coords="665,153,814,178"/>
 <area shape="poly" id="edge17_Node000009_Node000012" title=" " alt="" coords="558,107,700,150,698,155,557,112"/>
 <area shape="poly" id="edge20_Node000009_Node000014" title=" " alt="" coords="523,117,539,152,542,193,537,226,532,226,537,193,534,153,518,119"/>
