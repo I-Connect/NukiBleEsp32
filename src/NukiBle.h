@@ -19,6 +19,7 @@
 #include <esp_task_wdt.h>
 #include <BleInterfaces.h>
 #include <atomic>
+#include <string>
 #include "sodium/crypto_secretbox.h"
 
 #define GENERAL_TIMEOUT 3000
@@ -329,7 +330,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     unsigned long pairingLastSeen = 0;
 
     void onConnect(BLEClient*) override;
+    #ifdef NUKI_USE_LATEST_NIMBLE
+    void onDisconnect(BLEClient*, int reason) override;
+    #else
     void onDisconnect(BLEClient*) override;
+    #endif
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();

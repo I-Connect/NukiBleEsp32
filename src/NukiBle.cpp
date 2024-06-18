@@ -62,8 +62,11 @@ void NukiBle::initialize() {
 
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
+  #ifdef NUKI_USE_LATEST_NIMBLE
+  pClient->setConnectTimeout(connectTimeoutSec * 1000);
+  #else
   pClient->setConnectTimeout(connectTimeoutSec);
-
+  #endif
   isPaired = retrieveCredentials();
 }
 
@@ -83,7 +86,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
     return PairingResult::Success;
   }
   PairingResult result = PairingResult::Pairing;
-  
+
   if (pairingLastSeen < millis() - 2000) pairingServiceAvailable = false;
 
   if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
@@ -137,11 +140,19 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
     #ifdef DEBUG_NUKI_CONNECT
+    #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
     log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+    #else
+    log_d("connecting within: %s", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+    #endif
     #endif
 
     uint8_t connectRetry = 0;
+    #ifdef NUKI_USE_LATEST_NIMBLE
+    pClient->setConnectTimeout(connectTimeoutSec * 1000);
+    #else
     pClient->setConnectTimeout(connectTimeoutSec);
+    #endif
     while (connectRetry < connectRetries) {
       #ifdef DEBUG_NUKI_CONNECT
       log_d("connection attemnpt %d", connectRetry);
@@ -159,7 +170,9 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         log_w("BLE Connect failed, %d retries left", connectRetries - connectRetry - 1);
       }
       connectRetry++;
+      #ifndef NUKI_NO_WDT_RESET
       esp_task_wdt_reset();
+      #endif
       delay(10);
     }
   } else {
@@ -1195,7 +1208,12 @@ void NukiBle::onConnect(BLEClient*) {
   #endif
 };
 
-void NukiBle::onDisconnect(BLEClient*) {
+#ifdef NUKI_USE_LATEST_NIMBLE
+void NukiBle::onDisconnect(BLEClient*, int reason)
+#else
+void NukiBle::onDisconnect(BLEClient*)
+#endif
+{
   #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE disconnected");
   #endif
