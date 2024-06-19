@@ -106,6 +106,18 @@ Nuki::CmdResult NukiOpener::requestAdvancedConfig(AdvancedConfig* retrievedAdvan
   return result;
 }
 
+Nuki::CmdResult NukiOpener::deleteAuthorizationEntry(uint32_t id) {
+  Action action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &id, 4);
+
+  action.cmdType = CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RemoveUserAuthorization;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  return executeAction(action);
+}
 
 //basic config change methods
 Nuki::CmdResult NukiOpener::setName(const std::string& name) {

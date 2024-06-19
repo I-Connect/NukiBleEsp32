@@ -377,6 +377,12 @@ class NukiOpener : public Nuki::NukiBle {
      */
     Nuki::CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
 
+    /**
+     * @brief Deletes the authorization entry from the opener
+     *
+     * @param id id to be deleted
+     */
+    Nuki::CmdResult deleteAuthorizationEntry(const uint32_t id);
 
     /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
