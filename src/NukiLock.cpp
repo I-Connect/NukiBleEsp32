@@ -758,7 +758,7 @@ void NukiLock::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdvan
 }
 
 void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
-  extendDisonnectTimeout();
+  extendDisconnectTimeout();
 
   switch (returnCode) {
     case Command::KeyturnerStates : {

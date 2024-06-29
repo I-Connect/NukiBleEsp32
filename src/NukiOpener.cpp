@@ -646,7 +646,7 @@ void NukiOpener::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdv
 
 
 void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
-  extendDisonnectTimeout();
+  extendDisconnectTimeout();
 
   switch (returnCode) {
     case Command::KeyturnerStates : {
