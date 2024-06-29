@@ -37,5 +37,5 @@ var searchData=
   ['europe_5fmoscow_34',['Europe_Moscow',['../namespace_nuki.html#a5714cd110e8452ec5d8394d92fed9f01a66af483a5aca71726615121aae90983f',1,'Nuki']]],
   ['eventtype_35',['EventType',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605e',1,'Nuki']]],
   ['executeaction_36',['executeAction',['../class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6',1,'Nuki::NukiBle']]],
-  ['extenddisonnecttimeout_37',['extendDisonnectTimeout',['../class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e',1,'Nuki::NukiBle']]]
+  ['extenddisconnecttimeout_37',['extendDisconnectTimeout',['../class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495',1,'Nuki::NukiBle']]]
 ];

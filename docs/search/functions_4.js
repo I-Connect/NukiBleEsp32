@@ -18,5 +18,5 @@ var searchData=
   ['enablesoundconfirmation_15',['enableSoundConfirmation',['../class_nuki_opener_1_1_nuki_opener.html#ada6fc979fbb54b0204add4d58d2835a3',1,'NukiOpener::NukiOpener']]],
   ['encode_16',['encode',['../namespace_nuki.html#a359df6879f1b774782a6985a1d1e9de9',1,'Nuki']]],
   ['executeaction_17',['executeAction',['../class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6',1,'Nuki::NukiBle']]],
-  ['extenddisonnecttimeout_18',['extendDisonnectTimeout',['../class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e',1,'Nuki::NukiBle']]]
+  ['extenddisconnecttimeout_18',['extendDisconnectTimeout',['../class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495',1,'Nuki::NukiBle']]]
 ];

@@ -160,9 +160,9 @@ var sectionId = 'dynsection-18';
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="512.62,-30.5 360.88,-30.5 360.88,0 512.62,0 512.62,-30.5"/>
-<text text-anchor="start" x="368.88" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::extendDisonnect</text>
+<g id="a_Node000006"><a xlink:href="class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="515.25,-30.5 358.25,-30.5 358.25,0 515.25,0 515.25,-30.5"/>
+<text text-anchor="start" x="366.25" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::extendDisconnect</text>
 <text text-anchor="middle" x="436.75" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Timeout</text>
 </a>
 </g>

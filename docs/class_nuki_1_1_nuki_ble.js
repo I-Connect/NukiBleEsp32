@@ -10,7 +10,7 @@ var class_nuki_1_1_nuki_ble =
     [ "connectBle", "class_nuki_1_1_nuki_ble.html#a9b93a592c1d9ee5a250d745f8f5381fb", null ],
     [ "deleteKeypadEntry", "class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b", null ],
     [ "executeAction", "class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6", null ],
-    [ "extendDisonnectTimeout", "class_nuki_1_1_nuki_ble.html#aed01f10d1ffa769f0f6fadc0d06d328e", null ],
+    [ "extendDisconnectTimeout", "class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495", null ],
     [ "getAuthorizationEntries", "class_nuki_1_1_nuki_ble.html#aa0efa09f2e6f191679d9f47482320639", null ],
     [ "getBleAddress", "class_nuki_1_1_nuki_ble.html#af5c530a86b19d15b54d57417e8082ee3", null ],
     [ "getKeypadEntries", "class_nuki_1_1_nuki_ble.html#a018d9c075633e04c2c415597614db5b5", null ],
