@@ -431,6 +431,19 @@ Nuki::CmdResult NukiBle::addAuthorizationEntry(NewAuthorizationEntry newAuthoriz
   return result;
 }
 
+Nuki::CmdResult NukiBle::deleteAuthorizationEntry(uint32_t id) {
+  NukiLock::Action action;
+  unsigned char payload[4] = {0};
+  memcpy(payload, &id, 4);
+
+  action.cmdType = CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RemoveUserAuthorization;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  return executeAction(action);
+}
+
 Nuki::CmdResult NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
   //TODO verify data validity
   NukiLock::Action action;
