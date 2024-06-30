@@ -173,6 +173,13 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Nuki::CmdResult addAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
 
     /**
+     * @brief Deletes the authorization entry from the lock
+     *
+     * @param id id to be deleted
+     */
+    Nuki::CmdResult deleteAuthorizationEntry(const uint32_t id);
+
+    /**
      * @brief Sends an updated authorization entry to the lock via BLE
      *
      * @param updatedAuthorizationEntry Nuki api based datatype to send

@@ -622,35 +622,6 @@ Nuki::CmdResult NukiLock::retrieveLogEntries(const uint32_t startIndex, const ui
   return executeAction(action);
 }
 
-Nuki::CmdResult NukiLock::retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count) {
-  Action action;
-  unsigned char payload[4] = {0};
-  memcpy(payload, &offset, 2);
-  memcpy(&payload[2], &count, 2);
-
-  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
-  action.command = Command::RequestAuthorizationEntries;
-  memcpy(action.payload, &payload, sizeof(payload));
-  action.payloadLen = sizeof(payload);
-
-  listOfAuthorizationEntries.clear();
-
-  return executeAction(action);
-}
-
-Nuki::CmdResult NukiLock::deleteAuthorizationEntry(uint32_t id) {
-  Action action;
-  unsigned char payload[4] = {0};
-  memcpy(payload, &id, 4);
-
-  action.cmdType = CommandType::CommandWithChallengeAndPin;
-  action.command = Command::RemoveUserAuthorization;
-  memcpy(action.payload, &payload, sizeof(payload));
-  action.payloadLen = sizeof(payload);
-
-  return executeAction(action);
-}
-
 bool NukiLock::isBatteryCritical() {
   return ((keyTurnerState.criticalBatteryState & (1 << 0)) != 0);
 }
@@ -808,14 +779,6 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       #ifdef DEBUG_NUKI_READABLE_DATA
       logLogEntry(logEntry);
       #endif
-      break;
-    }
-    case Command::AuthorizationEntry : {
-      printBuffer((byte*)data, dataLen, false, "authEntry");
-      AuthorizationEntry authEntry;
-      memcpy(&authEntry, data, sizeof(authEntry));
-      listOfAuthorizationEntries.push_back(authEntry);
-      logAuthorizationEntry(authEntry);
       break;
     }
     default:
