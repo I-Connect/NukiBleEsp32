@@ -127,9 +127,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae580874f09b745718bb40c263de51c6e" id="r_ae580874f09b745718bb40c263de51c6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae580874f09b745718bb40c263de51c6e">addTimeControlEntry</a> (NewTimeControlEntry newTimecontrolEntry)</td></tr>
 <tr class="memdesc:ae580874f09b745718bb40c263de51c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authorization entries, it will execute the defined action at the defined time in the newTimeControlEntry.  <br /></td></tr>
 <tr class="separator:ae580874f09b745718bb40c263de51c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94dc36739ce3ac99fe6d404cb22d7f72" id="r_a94dc36739ce3ac99fe6d404cb22d7f72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94dc36739ce3ac99fe6d404cb22d7f72">deleteAuthorizationEntry</a> (const uint32_t id)</td></tr>
-<tr class="memdesc:a94dc36739ce3ac99fe6d404cb22d7f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the authorization entry from the lock.  <br /></td></tr>
-<tr class="separator:a94dc36739ce3ac99fe6d404cb22d7f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7f3198fd83119c4410720add1cb15f4" id="r_ab7f3198fd83119c4410720add1cb15f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7f3198fd83119c4410720add1cb15f4">disableAutoUnlock</a> (const bool disable)</td></tr>
 <tr class="memdesc:ab7f3198fd83119c4410720add1cb15f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current advanced config from the lock, updates the disable autounlock parameter and sends the new advanced config to the lock via BLE.  <br /></td></tr>
 <tr class="separator:ab7f3198fd83119c4410720add1cb15f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,9 +222,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a28358f24ba27300e6c5098a478e0719e" id="r_a28358f24ba27300e6c5098a478e0719e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28358f24ba27300e6c5098a478e0719e">requestKeyTurnerState</a> (KeyTurnerState *retrievedKeyTurnerState)</td></tr>
 <tr class="memdesc:a28358f24ba27300e6c5098a478e0719e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests keyturner state from Lock via BLE.  <br /></td></tr>
 <tr class="separator:a28358f24ba27300e6c5098a478e0719e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96da4fe44487891a415185c5838d21a2" id="r_a96da4fe44487891a415185c5838d21a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96da4fe44487891a415185c5838d21a2">retrieveAuthorizationEntries</a> (const uint16_t offset, const uint16_t count)</td></tr>
-<tr class="memdesc:a96da4fe44487891a415185c5838d21a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the lock via BLE to send the authorization entries.  <br /></td></tr>
-<tr class="separator:a96da4fe44487891a415185c5838d21a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3370332602f667df2ee1def8342f79df" id="r_a3370332602f667df2ee1def8342f79df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3370332602f667df2ee1def8342f79df">retrieveKeyTunerState</a> (KeyTurnerState *retrievedKeyTurnerState)</td></tr>
 <tr class="memdesc:a3370332602f667df2ee1def8342f79df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the last keyturner state stored on the esp.  <br /></td></tr>
 <tr class="separator:a3370332602f667df2ee1def8342f79df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -311,6 +305,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad96ef33212df343aa1433229f58f2ff7 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ad96ef33212df343aa1433229f58f2ff7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7">addKeypadEntry</a> (NewKeypadEntry newKeypadEntry)</td></tr>
 <tr class="memdesc:ad96ef33212df343aa1433229f58f2ff7 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a new keypad entry to the lock via BLE.  <br /></td></tr>
 <tr class="separator:ad96ef33212df343aa1433229f58f2ff7 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe0f8813341d3666aae927febd4ed866 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_afe0f8813341d3666aae927febd4ed866"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866">deleteAuthorizationEntry</a> (const uint32_t id)</td></tr>
+<tr class="memdesc:afe0f8813341d3666aae927febd4ed866 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the authorization entry from the lock.  <br /></td></tr>
+<tr class="separator:afe0f8813341d3666aae927febd4ed866 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aacb6b629b0e93a6f819732ab95922b inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a1aacb6b629b0e93a6f819732ab95922b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b">deleteKeypadEntry</a> (uint16_t id)</td></tr>
 <tr class="memdesc:a1aacb6b629b0e93a6f819732ab95922b inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a Keypad Entry.  <br /></td></tr>
 <tr class="separator:a1aacb6b629b0e93a6f819732ab95922b inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -487,31 +484,6 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ae580874f09b745718bb40c263de51c6e_cgraph.svg" width="404" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-
-</div>
-</div>
-<a id="a94dc36739ce3ac99fe6d404cb22d7f72" name="a94dc36739ce3ac99fe6d404cb22d7f72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94dc36739ce3ac99fe6d404cb22d7f72">&#9670;&#160;</a></span>deleteAuthorizationEntry()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> NukiLock::NukiLock::deleteAuthorizationEntry </td>
-          <td>(</td>
-          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deletes the authorization entry from the lock. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>id to be deleted </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -1043,7 +1015,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a8d9fc4e4a1bde183754ced8b783f82d5_cgraph.svg" width="662" height="414"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a8d9fc4e4a1bde183754ced8b783f82d5_cgraph.svg" width="662" height="348"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1368,36 +1340,6 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">retrievedKeyTurnerState</td><td><a class="el" href="namespace_nuki.html">Nuki</a> api based datatype to store the retrieved keyturnerstate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a96da4fe44487891a415185c5838d21a2" name="a96da4fe44487891a415185c5838d21a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96da4fe44487891a415185c5838d21a2">&#9670;&#160;</a></span>retrieveAuthorizationEntries()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> NukiLock::NukiLock::retrieveAuthorizationEntries </td>
-          <td>(</td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Request the lock via BLE to send the authorization entries. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">offset</td><td>Startindex of first log msg to be send </td></tr>
-    <tr><td class="paramname">count</td><td>The number of log entries to be read, starting at the specified start index. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2037,7 +1979,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_lock.html">NukiLock</a></li><li class="navelem"><a class="el" href="class_nuki_lock_1_1_nuki_lock.html">NukiLock</a></li>
-    <li class="footer">Generated on Sat Jun 29 2024 09:04:26 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Sun Jun 30 2024 01:04:17 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

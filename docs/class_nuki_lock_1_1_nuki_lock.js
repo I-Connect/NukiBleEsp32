@@ -2,7 +2,6 @@ var class_nuki_lock_1_1_nuki_lock =
 [
     [ "NukiLock", "class_nuki_lock_1_1_nuki_lock.html#a98d6daa6b2e9adb789bdbfdea5106ff9", null ],
     [ "addTimeControlEntry", "class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e", null ],
-    [ "deleteAuthorizationEntry", "class_nuki_lock_1_1_nuki_lock.html#a94dc36739ce3ac99fe6d404cb22d7f72", null ],
     [ "disableAutoUnlock", "class_nuki_lock_1_1_nuki_lock.html#ab7f3198fd83119c4410720add1cb15f4", null ],
     [ "disableNightModeAutoUnlock", "class_nuki_lock_1_1_nuki_lock.html#a757a00aed3f244d2bbf94e5ee43dd37d", null ],
     [ "enableAutoBatteryTypeDetection", "class_nuki_lock_1_1_nuki_lock.html#ac03f0730a8d0fadbbdf4244d8c2e2742", null ],
@@ -36,7 +35,6 @@ var class_nuki_lock_1_1_nuki_lock =
     [ "requestBatteryReport", "class_nuki_lock_1_1_nuki_lock.html#ac7921a0633e3681d4bb62d8a5ced4446", null ],
     [ "requestConfig", "class_nuki_lock_1_1_nuki_lock.html#ada503f36c737418195f48743658ed372", null ],
     [ "requestKeyTurnerState", "class_nuki_lock_1_1_nuki_lock.html#a28358f24ba27300e6c5098a478e0719e", null ],
-    [ "retrieveAuthorizationEntries", "class_nuki_lock_1_1_nuki_lock.html#a96da4fe44487891a415185c5838d21a2", null ],
     [ "retrieveKeyTunerState", "class_nuki_lock_1_1_nuki_lock.html#a3370332602f667df2ee1def8342f79df", null ],
     [ "retrieveLogEntries", "class_nuki_lock_1_1_nuki_lock.html#ad0565f3fa1079f9ecfdd195e69c59699", null ],
     [ "retrieveTimeControlEntries", "class_nuki_lock_1_1_nuki_lock.html#ad0fe612a007b920f8e97888c1a3077da", null ],

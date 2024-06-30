@@ -6,7 +6,7 @@ var searchData=
   ['debug_5fnuki_5freadable_5fdata_3',['DEBUG_NUKI_READABLE_DATA',['../_nuki_opener_utils_8cpp.html#a7e3e8ef9be981928bb72b8814f664ae1',1,'NukiOpenerUtils.cpp']]],
   ['decode_4',['decode',['../namespace_nuki.html#ac6be6424458fa54ed81b0623d543b930',1,'Nuki']]],
   ['dectivatecm_5',['DectivateCM',['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8a0f79f1cfd11808922121a60bdc191ba4',1,'NukiOpener']]],
-  ['deleteauthorizationentry_6',['deleteAuthorizationEntry',['../class_nuki_lock_1_1_nuki_lock.html#a94dc36739ce3ac99fe6d404cb22d7f72',1,'NukiLock::NukiLock']]],
+  ['deleteauthorizationentry_6',['deleteAuthorizationEntry',['../class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866',1,'Nuki::NukiBle']]],
   ['deletekeypadentry_7',['deleteKeypadEntry',['../class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b',1,'Nuki::NukiBle']]],
   ['disableautounlock_8',['disableAutoUnlock',['../class_nuki_lock_1_1_nuki_lock.html#ab7f3198fd83119c4410720add1cb15f4',1,'NukiLock::NukiLock']]],
   ['disablenightmodeautounlock_9',['disableNightModeAutoUnlock',['../class_nuki_lock_1_1_nuki_lock.html#a757a00aed3f244d2bbf94e5ee43dd37d',1,'NukiLock::NukiLock']]],

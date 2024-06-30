@@ -25,7 +25,7 @@ var searchData=
   ['requestreboot_22',['RequestReboot',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3abc7bd023dcdbf166bf4775b0473c8f64',1,'Nuki']]],
   ['requestreboot_23',['requestReboot',['../class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a',1,'Nuki::NukiBle']]],
   ['requesttimecontrolentries_24',['RequestTimeControlEntries',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad97571786db7af83f8d178ecfe92688d',1,'Nuki']]],
-  ['retrieveauthorizationentries_25',['retrieveAuthorizationEntries',['../class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0',1,'Nuki::NukiBle::retrieveAuthorizationEntries()'],['../class_nuki_lock_1_1_nuki_lock.html#a96da4fe44487891a415185c5838d21a2',1,'NukiLock::NukiLock::retrieveAuthorizationEntries()']]],
+  ['retrieveauthorizationentries_25',['retrieveAuthorizationEntries',['../class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0',1,'Nuki::NukiBle']]],
   ['retrievekeypadentries_26',['retrieveKeypadEntries',['../class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d',1,'Nuki::NukiBle']]],
   ['retrievekeytunerstate_27',['retrieveKeyTunerState',['../class_nuki_lock_1_1_nuki_lock.html#a3370332602f667df2ee1def8342f79df',1,'NukiLock::NukiLock']]],
   ['retrievelogentries_28',['retrieveLogEntries',['../class_nuki_lock_1_1_nuki_lock.html#ad0565f3fa1079f9ecfdd195e69c59699',1,'NukiLock::NukiLock::retrieveLogEntries()'],['../class_nuki_opener_1_1_nuki_opener.html#a12ff0e23685b3acb66e6bb0b0a313dda',1,'NukiOpener::NukiOpener::retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, const bool totalCount)']]],
