@@ -1195,9 +1195,9 @@ void NukiBle::onConnect(BLEClient*) {
   #endif
 };
 
-void NukiBle::onDisconnect(BLEClient*) {
+void NukiBle::onDisconnect(BLEClient*, int reason) {
   #ifdef DEBUG_NUKI_CONNECT
-  log_d("BLE disconnected");
+  log_d("BLE disconnected, reason: %d", reason);
   #endif
 };
 

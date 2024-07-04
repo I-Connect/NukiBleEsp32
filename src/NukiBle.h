@@ -329,7 +329,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     unsigned long pairingLastSeen = 0;
 
     void onConnect(BLEClient*) override;
-    void onDisconnect(BLEClient*) override;
+    void onDisconnect(BLEClient*, int) override;
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
