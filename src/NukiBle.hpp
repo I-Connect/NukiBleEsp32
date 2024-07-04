@@ -32,7 +32,7 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
         Nuki::CmdResult result = cmdStateMachine(action);
         if (result != Nuki::CmdResult::Working) {
           giveNukiBleSemaphore();
-          extendDisonnectTimeout();
+          extendDisconnectTimeout();
           return result;
         }
         #ifndef NUKI_NO_WDT_RESET
@@ -45,7 +45,7 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
         Nuki::CmdResult result = cmdChallStateMachine(action);
         if (result != Nuki::CmdResult::Working) {
           giveNukiBleSemaphore();
-          extendDisonnectTimeout();
+          extendDisconnectTimeout();
           return result;
         }
         #ifndef NUKI_NO_WDT_RESET
@@ -58,7 +58,7 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
         Nuki::CmdResult result = cmdChallAccStateMachine(action);
         if (result != Nuki::CmdResult::Working) {
           giveNukiBleSemaphore();
-          extendDisonnectTimeout();
+          extendDisconnectTimeout();
           return result;
         }
         #ifndef NUKI_NO_WDT_RESET
@@ -71,7 +71,7 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
         Nuki::CmdResult result = cmdChallStateMachine(action, true);
         if (result != Nuki::CmdResult::Working) {
           giveNukiBleSemaphore();
-          extendDisonnectTimeout();
+          extendDisconnectTimeout();
           return result;
         }
         #ifndef NUKI_NO_WDT_RESET
