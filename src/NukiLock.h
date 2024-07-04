@@ -428,6 +428,21 @@ class NukiLock : public Nuki::NukiBle {
                                        const bool totalCount);
 
     /**
+     * @brief Request the lock via BLE to send the authorization entries
+     *
+     * @param offset Startindex of first log msg to be send
+     * @param count The number of log entries to be read, starting at the specified start index.
+     */
+    Nuki::CmdResult retrieveAuthorizationEntries(const uint16_t offset, const uint16_t count);
+
+    /**
+     * @brief Deletes the authorization entry from the lock
+     *
+     * @param id id to be deleted
+     */
+    Nuki::CmdResult deleteAuthorizationEntry(const uint32_t id);
+
+    /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
@@ -486,6 +501,7 @@ class NukiLock : public Nuki::NukiBle {
     BatteryReport batteryReport;
     std::list<TimeControlEntry> listOfTimeControlEntries;
     std::list<LogEntry> listOfLogEntries;
+    std::list<AuthorizationEntry> listOfAuthorizationEntries;
 
     Config config;
     AdvancedConfig advancedConfig;
