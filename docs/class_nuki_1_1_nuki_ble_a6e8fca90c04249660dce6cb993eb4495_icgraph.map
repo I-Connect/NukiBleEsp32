@@ -1,33 +1,39 @@
 <map id="Nuki::NukiBle::extendDisconnectTimeout" name="Nuki::NukiBle::extendDisconnectTimeout">
-<area shape="rect" id="Node000001" title=" " alt="" coords="514,391,723,431"/>
-<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="278,373,466,399"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="498,401,466,398,467,393,499,396"/>
-<area shape="rect" id="Node000016" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="295,422,449,448"/>
-<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="499,425,450,430,449,425,498,420"/>
-<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="16,5,219,46"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="364,358,351,297,326,216,308,174,286,133,260,95,228,61,210,49,213,44,231,57,264,91,291,130,313,172,331,215,356,295,369,357"/>
-<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="32,71,203,111"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="361,359,344,309,317,246,279,181,255,152,228,126,202,111,204,106,231,122,259,148,283,178,322,243,349,307,366,357"/>
-<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866" title="Deletes the authorization entry from the lock." alt="" coords="9,136,226,177"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="356,360,336,322,308,277,271,231,228,192,207,180,209,175,231,188,275,227,312,274,341,319,361,358"/>
-<area shape="rect" id="Node000006" href="$class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b" title="Delete a Keypad Entry." alt="" coords="25,201,210,242"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="348,362,297,308,264,280,228,256,205,245,208,240,231,251,267,276,301,305,352,359"/>
-<area shape="rect" id="Node000007" href="$class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b" title="Sends an calibration (mechanical) request to the lock via BLE." alt="" coords="12,266,223,292"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="339,366,288,335,229,305,195,295,197,290,231,301,291,330,341,362"/>
-<area shape="rect" id="Node000008" href="$class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a" title="Sends an reboot request to the lock via BLE." alt="" coords="22,316,213,341"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="296,371,177,344,178,339,297,366"/>
-<area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0" title="Request the lock via BLE to send the existing authorizationentries." alt="" coords="5,365,230,406"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="262,388,230,388,230,383,262,383"/>
-<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="21,431,214,471"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="304,405,278,412,200,433,199,427,277,407,303,400"/>
-<area shape="rect" id="Node000011" href="$class_nuki_1_1_nuki_ble.html#a6603fe4282fcab83f3038400e2c70207" title="Send the new pincode command to the lock via BLE (this command uses the earlier by saveSecurityPincod..." alt="" coords="22,496,213,521"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="285,408,279,412,264,429,256,447,248,467,231,485,208,497,206,493,228,481,244,464,251,446,259,426,276,408,283,403"/>
-<area shape="rect" id="Node000012" href="$class_nuki_1_1_nuki_ble.html#af47efb4e020a327687327ad82963b347" title="Sends an updated authorization entry to the lock via BLE." alt="" coords="7,545,228,586"/>
-<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="283,409,280,412,267,426,260,441,256,472,252,504,245,520,231,536,216,547,213,543,228,532,240,517,247,502,251,471,255,439,262,423,276,408,279,405"/>
-<area shape="rect" id="Node000013" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="23,611,212,651"/>
-<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="282,410,280,411,263,434,255,457,254,480,256,503,258,527,256,551,249,575,232,600,214,613,210,609,228,596,244,573,251,550,252,527,251,503,249,480,250,456,258,431,276,408,278,406"/>
-<area shape="rect" id="Node000014" href="$class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1" title="Sends the time to be set to the lock via BLE." alt="" coords="30,676,205,701"/>
-<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="281,410,280,411,259,442,251,473,252,505,257,536,262,568,262,601,254,633,232,665,206,682,203,677,228,661,249,631,257,600,256,569,251,537,246,505,246,473,254,440,276,408,277,406"/>
-<area shape="rect" id="Node000015" href="$class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233" title="Send the verify pincode command via BLE to the lock. This command uses the earlier by saveSecurityPin..." alt="" coords="16,725,219,751"/>
-<area shape="poly" id="edge14_Node000002_Node000015" title=" " alt="" coords="281,410,280,411,265,430,256,449,247,486,249,524,257,562,265,600,267,639,257,677,247,696,232,716,218,726,215,722,228,712,242,694,252,675,261,638,259,601,252,563,244,524,242,486,251,447,261,427,276,408,277,407"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="773,391,983,431"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="524,308,715,349"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="797,388,685,352,687,347,799,383"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="278,373,466,399"/>
+<area shape="poly" id="edge18_Node000001_Node000003" title=" " alt="" coords="758,408,466,393,467,388,758,402"/>
+<area shape="rect" id="Node000017" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="514,424,725,449"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="758,425,726,429,725,423,757,420"/>
+<area shape="rect" id="Node000018" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="543,473,697,499"/>
+<area shape="poly" id="edge19_Node000001_Node000018" title=" " alt="" coords="805,439,726,464,685,475,683,470,725,459,803,434"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="515,355,431,375,430,370,513,350"/>
+<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="16,5,219,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="364,358,351,297,326,216,308,174,286,133,260,95,228,61,210,49,213,44,231,57,264,91,291,130,313,172,331,215,356,295,369,357"/>
+<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="32,71,203,111"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="361,359,344,309,317,246,279,181,255,152,228,126,202,111,204,106,231,122,259,148,283,178,322,243,349,307,366,357"/>
+<area shape="rect" id="Node000006" href="$class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866" title="Deletes the authorization entry from the lock." alt="" coords="9,136,226,177"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="356,360,336,322,308,277,271,231,228,192,207,180,209,175,231,188,275,227,312,274,341,319,361,358"/>
+<area shape="rect" id="Node000007" href="$class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b" title="Delete a Keypad Entry." alt="" coords="25,201,210,242"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="348,362,297,308,264,280,228,256,205,245,208,240,231,251,267,276,301,305,352,359"/>
+<area shape="rect" id="Node000008" href="$class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b" title="Sends an calibration (mechanical) request to the lock via BLE." alt="" coords="12,266,223,292"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="339,366,288,335,229,305,195,295,197,290,231,301,291,330,341,362"/>
+<area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a" title="Sends an reboot request to the lock via BLE." alt="" coords="22,316,213,341"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="296,371,177,344,178,339,297,366"/>
+<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0" title="Request the lock via BLE to send the existing authorizationentries." alt="" coords="5,365,230,406"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="262,388,230,388,230,383,262,383"/>
+<area shape="rect" id="Node000011" href="$class_nuki_1_1_nuki_ble.html#a6f669d52198915978c51ee441aec3c6d" title="Request the lock via BLE to send the existing keypad entries." alt="" coords="21,431,214,471"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="305,405,200,433,199,427,304,400"/>
+<area shape="rect" id="Node000012" href="$class_nuki_1_1_nuki_ble.html#a6603fe4282fcab83f3038400e2c70207" title="Send the new pincode command to the lock via BLE (this command uses the earlier by saveSecurityPincod..." alt="" coords="22,496,213,521"/>
+<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="346,411,295,449,231,485,196,497,194,492,229,481,292,445,343,406"/>
+<area shape="rect" id="Node000013" href="$class_nuki_1_1_nuki_ble.html#af47efb4e020a327687327ad82963b347" title="Sends an updated authorization entry to the lock via BLE." alt="" coords="7,545,228,586"/>
+<area shape="poly" id="edge12_Node000003_Node000013" title=" " alt="" coords="355,413,304,475,270,508,231,536,208,547,206,542,228,531,266,504,300,471,351,409"/>
+<area shape="rect" id="Node000014" href="$class_nuki_1_1_nuki_ble.html#a0f1be2034e079e676a7771dfb775df81" title="Send an updated keypad entry to the lock via BLE." alt="" coords="23,611,212,651"/>
+<area shape="poly" id="edge13_Node000003_Node000014" title=" " alt="" coords="362,414,343,455,315,505,277,556,231,600,210,612,207,608,228,596,273,553,310,502,338,453,357,412"/>
+<area shape="rect" id="Node000015" href="$class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1" title="Sends the time to be set to the lock via BLE." alt="" coords="30,676,205,701"/>
+<area shape="poly" id="edge14_Node000003_Node000015" title=" " alt="" coords="367,414,352,468,326,536,286,606,261,638,231,665,207,679,204,674,228,661,257,634,282,603,321,534,347,466,362,413"/>
+<area shape="rect" id="Node000016" href="$class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233" title="Send the verify pincode command via BLE to the lock. This command uses the earlier by saveSecurityPin..." alt="" coords="16,725,219,751"/>
+<area shape="poly" id="edge15_Node000003_Node000016" title=" " alt="" coords="370,414,358,477,333,559,315,602,293,644,265,682,231,716,214,727,211,722,228,712,261,679,288,641,310,600,328,557,353,476,364,413"/>
+<area shape="poly" id="edge17_Node000017_Node000003" title=" " alt="" coords="538,422,438,402,439,396,539,417"/>
 </map>
