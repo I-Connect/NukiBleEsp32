@@ -317,7 +317,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Command lastMsgCodeReceived = Command::Empty;
 
   private:
+    #ifndef NUKI_MUTEX_RECURSIVE
     SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateMutex();
+    #else
+    SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateRecursiveMutex();
+    #endif
     bool takeNukiBleSemaphore(std::string taker);
     std::string owner = "free";
     void giveNukiBleSemaphore();
