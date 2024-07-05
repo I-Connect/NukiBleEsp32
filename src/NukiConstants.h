@@ -12,6 +12,7 @@
  *
  */
 
+#include <cstdint>
 #include "NimBLEUUID.h"
 
 namespace Nuki {
