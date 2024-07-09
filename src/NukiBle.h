@@ -407,7 +407,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
     std::atomic_int rssi;
-    std::atomic_ulong lastReceivedBeaconTs;
+    std::atomic_long lastReceivedBeaconTs;
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;
