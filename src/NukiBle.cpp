@@ -87,8 +87,12 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
   }
   PairingResult result = PairingResult::Pairing;
 
+  #ifndef NUKI_64BIT_TIME
   if (pairingLastSeen < millis() - 2000) pairingServiceAvailable = false;
-
+  #else
+  if (pairingLastSeen < (esp_timer_get_time() / 1000) - 2000) pairingServiceAvailable = false;
+  #endif
+  
   if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
     pairingServiceAvailable = false;
     #ifdef DEBUG_NUKI_CONNECT
@@ -107,7 +111,11 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
       if (nukiPairingState == PairingState::Success) {
         saveCredentials();
         result = PairingResult::Success;
+        #ifndef NUKI_64BIT_TIME
         lastHeartbeat = millis();
+        #else
+        lastHeartbeat = (esp_timer_get_time() / 1000);
+        #endif
       } else {
         result = PairingResult::Timeout;
       }
@@ -191,7 +199,11 @@ void NukiBle::updateConnectionState() {
     lastStartTimeout = 0;
   }
 
+  #ifndef NUKI_64BIT_TIME
   if (lastStartTimeout != 0 && (millis() - lastStartTimeout > timeoutDuration)) {
+  #else
+  if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
+  #endif
     if (pClient && pClient->isConnected()) {
       pClient->disconnect();
       #ifdef DEBUG_NUKI_CONNECT
@@ -214,14 +226,22 @@ void NukiBle::setConnectRetries(uint8_t retries) {
 }
 
 void NukiBle::extendDisconnectTimeout() {
+  #ifndef NUKI_64BIT_TIME
   lastStartTimeout = millis();
+  #else
+  lastStartTimeout = (esp_timer_get_time() / 1000);
+  #endif
 }
 
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
       rssi = advertisedDevice->getRSSI();
+      #ifndef NUKI_64BIT_TIME
       lastReceivedBeaconTs = millis();
+      #else
+      lastReceivedBeaconTs = (esp_timer_get_time() / 1000);
+      #endif
 
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
@@ -259,7 +279,11 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
                 ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
                 oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
           #endif
+          #ifndef NUKI_64BIT_TIME
           lastHeartbeat = millis();
+          #else
+          lastHeartbeat = (esp_timer_get_time() / 1000);
+          #endif
           if ((oBeacon.getSignalPower() & 0x01) > 0) {
             if (eventHandler) {
               eventHandler->notify(EventType::KeyTurnerStatusUpdated);
@@ -276,7 +300,11 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
         #endif
         bleAddress = advertisedDevice->getAddress();
         pairingServiceAvailable = true;
+        #ifndef NUKI_64BIT_TIME
         pairingLastSeen = millis();
+        #else
+        pairingLastSeen = (esp_timer_get_time() / 1000);
+        #endif
       }
     }
   }
@@ -297,13 +325,21 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
   nrOfReceivedKeypadCodes = 0;
   keypadCodeCountReceived = false;
 
-  uint32_t timeNow = millis();
+  #ifndef NUKI_64BIT_TIME
+  unsigned long timeNow = millis();
+  #else
+  int64_t timeNow = (esp_timer_get_time() / 1000);
+  #endif
   Nuki::CmdResult result = executeAction(action);
 
   if (result == Nuki::CmdResult::Success) {
     //wait for return of Keypad Code Count (0x0044)
     while (!keypadCodeCountReceived) {
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > GENERAL_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > GENERAL_TIMEOUT) {
+      #endif
         log_w("Receive keypad count timeout");
         return CmdResult::TimeOut;
       }
@@ -314,9 +350,17 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
     #endif
 
     //wait for return of Keypad Codes (0x0045)
+    #ifndef NUKI_64BIT_TIME
     timeNow = millis();
+    #else
+    timeNow = (esp_timer_get_time() / 1000);
+    #endif
     while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > GENERAL_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > GENERAL_TIMEOUT) {
+      #endif
         log_w("Receive keypadcodes timeout");
         return CmdResult::TimeOut;
       }
@@ -699,7 +743,11 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       memset(challengeNonceK, 0, sizeof(challengeNonceK));
       memset(remotePublicKey, 0, sizeof(remotePublicKey));
       receivedStatus = 0xff;
+      #ifndef NUKI_64BIT_TIME
       timeNow = millis();
+      #else
+      timeNow = (esp_timer_get_time() / 1000);
+      #endif
       nukiPairingResultState = PairingState::ReqRemPubKey;
     }
     case PairingState::ReqRemPubKey: {
@@ -844,7 +892,11 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
     }
   }
 
+  #ifndef NUKI_64BIT_TIME
   if (millis() - timeNow > PAIRING_TIMEOUT) {
+  #else
+  if ((esp_timer_get_time() / 1000) - timeNow > PAIRING_TIMEOUT) {
+  #endif
     log_w("Pairing timeout");
     nukiPairingResultState = PairingState::Timeout;
   }
@@ -935,8 +987,6 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
   #endif
 
-  uint32_t beforeConnectBle = millis();
-  uint32_t afterConnectBle = 0;
   if (connectBle(bleAddress)) {
     return pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   } else {
@@ -1016,7 +1066,11 @@ bool NukiBle::registerOnUsdioChar() {
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* recData, size_t length, bool isNotify) {
+  #ifndef NUKI_64BIT_TIME
   lastHeartbeat = millis();
+  #else
+  lastHeartbeat = (esp_timer_get_time() / 1000);
+  #endif
   #ifdef DEBUG_NUKI_COMMUNICATION
   log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
   #endif
@@ -1256,11 +1310,19 @@ int NukiBle::getRssi() const {
   return rssi;
 }
 
-unsigned long  NukiBle::getLastReceivedBeaconTs() const {
+#ifndef NUKI_64BIT_TIME
+unsigned long NukiBle::getLastReceivedBeaconTs() const {
+#else
+int64_t NukiBle::getLastReceivedBeaconTs() const {
+#endif
   return lastReceivedBeaconTs;
 }
 
-uint32_t NukiBle::getLastHeartbeat() {
+#ifndef NUKI_64BIT_TIME
+unsigned long NukiBle::getLastHeartbeat() {
+#else
+int64_t NukiBle::getLastHeartbeat() {
+#endif
   return lastHeartbeat;
 }
 

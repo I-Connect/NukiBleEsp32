@@ -273,7 +273,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     *
     * @return Timestamp in milliseconds
     */
+    #ifndef NUKI_64BIT_TIME
     unsigned long getLastReceivedBeaconTs() const;
+    #else
+    int64_t getLastReceivedBeaconTs() const;
+    #endif
 
     /**
     * @brief Returns the BLE address of the device if paired.
@@ -287,7 +291,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     *
     * @return Last heartbeat value
     */
-    uint32_t getLastHeartbeat();
+    #ifndef NUKI_64BIT_TIME
+    unsigned long getLastHeartbeat();
+    #else
+    int64_t getLastHeartbeat();
+    #endif
 
   protected:
     bool connectBle(const BLEAddress bleAddress);
@@ -327,11 +335,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void giveNukiBleSemaphore();
 
     bool connecting = false;
-    uint32_t lastStartTimeout = 0;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
-    unsigned long pairingLastSeen = 0;
 
     void onConnect(BLEClient*) override;
     #ifdef NUKI_USE_LATEST_NIMBLE
@@ -380,9 +386,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     Nuki::CommandState nukiCommandState = Nuki::CommandState::Idle;
 
-    uint32_t timeNow = 0;
-    std::atomic_uint lastHeartbeat;
-
     BleScanner::Publisher* bleScanner = nullptr;
     bool isPaired = false;
 
@@ -407,7 +410,20 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint16_t logEntryCount = 0;
     bool loggingEnabled = false;
     std::atomic_int rssi;
-    std::atomic_long lastReceivedBeaconTs;
+    #ifndef NUKI_64BIT_TIME
+    unsigned long timeNow = 0;
+    std::atomic_ulong lastHeartbeat;
+    unsigned long lastStartTimeout = 0;
+    unsigned long pairingLastSeen = 0;
+    std::atomic_ulong lastReceivedBeaconTs;
+    #else
+    int64_t timeNow = 0;
+    std::atomic_llong lastHeartbeat;
+    int64_t lastStartTimeout = 0;
+    int64_t pairingLastSeen = 0;
+    std::atomic_llong lastReceivedBeaconTs;
+    #endif
+
     std::list<KeypadEntry> listOfKeyPadEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;

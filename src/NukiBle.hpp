@@ -4,7 +4,11 @@
 namespace Nuki {
 template<typename TDeviceAction>
 Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
+  #ifndef NUKI_64BIT_TIME
   if (millis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
+  #else
+  if ((esp_timer_get_time() / 1000) - lastHeartbeat > HEARTBEAT_TIMEOUT) {
+  #endif
     log_e("Lock Heartbeat timeout, command failed");
     return Nuki::CmdResult::Error;
   }
@@ -98,7 +102,11 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
       lastMsgCodeReceived = Command::Empty;
 
       if (sendEncryptedMessage(Command::RequestData, action.payload, action.payloadLen)) {
+        #ifndef NUKI_64BIT_TIME
         timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
         nukiCommandState = CommandState::CmdSent;
       } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
@@ -111,7 +119,11 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
       break;
     }
     case CommandState::CmdSent: {
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      #endif
         log_w("************************ COMMAND FAILED TIMEOUT************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
@@ -160,7 +172,11 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       unsigned char payload[sizeof(Command)] = {0x04, 0x00};  //challenge
 
       if (sendEncryptedMessage(Command::RequestData, payload, sizeof(Command))) {
+        #ifndef NUKI_64BIT_TIME
         timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
         nukiCommandState = CommandState::ChallengeSent;
       } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
@@ -176,7 +192,11 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ RECEIVING CHALLENGE RESPONSE************************");
       #endif
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      #endif
         log_w("************************ COMMAND FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
@@ -205,7 +225,11 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       }
 
       if (sendEncryptedMessage(action.command, payload, payloadLen)) {
+        #ifndef NUKI_64BIT_TIME
         timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
         nukiCommandState = CommandState::CmdSent;
       } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
@@ -221,7 +245,11 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ RECEIVING DATA ************************");
       #endif
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      #endif
         log_w("************************ COMMAND FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
@@ -268,7 +296,11 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       unsigned char payload[sizeof(Command)] = {0x04, 0x00};  //challenge
 
       if (sendEncryptedMessage(Command::RequestData, payload, sizeof(Command))) {
+        #ifndef NUKI_64BIT_TIME
         timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
         nukiCommandState = CommandState::ChallengeSent;
       } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
@@ -284,7 +316,11 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ RECEIVING CHALLENGE RESPONSE************************");
       #endif
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      #endif
         log_w("************************ COMMAND FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
@@ -306,7 +342,11 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       memcpy(&payload[action.payloadLen], challengeNonceK, sizeof(challengeNonceK));
 
       if (sendEncryptedMessage(action.command, payload, action.payloadLen + sizeof(challengeNonceK))) {
+        #ifndef NUKI_64BIT_TIME
         timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
         nukiCommandState = CommandState::CmdSent;
       } else {
         #ifdef DEBUG_NUKI_COMMUNICATION
@@ -322,12 +362,20 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ RECEIVING ACCEPT ************************");
       #endif
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      #endif
         log_w("************************ ACCEPT FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Accepted) {
+        #ifndef NUKI_64BIT_TIME
         timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
         nukiCommandState = CommandState::CmdAccepted;
         lastMsgCodeReceived = Command::Empty;
       } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Complete) {
@@ -345,7 +393,11 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       #ifdef DEBUG_NUKI_COMMUNICATION
       log_d("************************ RECEIVING COMPLETE ************************");
       #endif
+      #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
+      #else
+      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      #endif
         log_w("************************ COMMAND FAILED TIMEOUT ************************");
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
