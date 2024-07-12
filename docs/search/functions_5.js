@@ -7,7 +7,7 @@ var searchData=
   ['getkeypadentries_4',['getKeypadEntries',['../class_nuki_1_1_nuki_ble.html#a018d9c075633e04c2c415597614db5b5',1,'Nuki::NukiBle']]],
   ['getkeypadentrycount_5',['getKeypadEntryCount',['../class_nuki_1_1_nuki_ble.html#ad94d354153b8b4f779f7a7a32258ff48',1,'Nuki::NukiBle']]],
   ['getlasterror_6',['getLastError',['../class_nuki_lock_1_1_nuki_lock.html#a6fe38ed0e5e9bd572875f2b19a32af04',1,'NukiLock::NukiLock::getLastError()'],['../class_nuki_opener_1_1_nuki_opener.html#abf85adf44965fd8a36712ede22ac643c',1,'NukiOpener::NukiOpener::getLastError()']]],
-  ['getlastheartbeat_7',['getLastHeartbeat',['../class_nuki_1_1_nuki_ble.html#a1b8629906aa390ae74fb9bb18d5ad7de',1,'Nuki::NukiBle']]],
+  ['getlastheartbeat_7',['getLastHeartbeat',['../class_nuki_1_1_nuki_ble.html#a766c9d12feab598187c4b1f9088147a1',1,'Nuki::NukiBle']]],
   ['getlastreceivedbeaconts_8',['getLastReceivedBeaconTs',['../class_nuki_1_1_nuki_ble.html#ab5549c3abc871476916f317762bbc0f7',1,'Nuki::NukiBle']]],
   ['getlogentries_9',['getLogEntries',['../class_nuki_lock_1_1_nuki_lock.html#afff96e5e0cb7dac48113ada69e1aff56',1,'NukiLock::NukiLock::getLogEntries()'],['../class_nuki_opener_1_1_nuki_opener.html#aafc2f92a96c60fdec189066b3a34da6f',1,'NukiOpener::NukiOpener::getLogEntries()']]],
   ['getlogentrycount_10',['getLogEntryCount',['../class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96',1,'Nuki::NukiBle']]],

@@ -16,7 +16,7 @@ var class_nuki_1_1_nuki_ble =
     [ "getBleAddress", "class_nuki_1_1_nuki_ble.html#af5c530a86b19d15b54d57417e8082ee3", null ],
     [ "getKeypadEntries", "class_nuki_1_1_nuki_ble.html#a018d9c075633e04c2c415597614db5b5", null ],
     [ "getKeypadEntryCount", "class_nuki_1_1_nuki_ble.html#ad94d354153b8b4f779f7a7a32258ff48", null ],
-    [ "getLastHeartbeat", "class_nuki_1_1_nuki_ble.html#a1b8629906aa390ae74fb9bb18d5ad7de", null ],
+    [ "getLastHeartbeat", "class_nuki_1_1_nuki_ble.html#a766c9d12feab598187c4b1f9088147a1", null ],
     [ "getLastReceivedBeaconTs", "class_nuki_1_1_nuki_ble.html#ab5549c3abc871476916f317762bbc0f7", null ],
     [ "getLogEntryCount", "class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96", null ],
     [ "getMacAddress", "class_nuki_1_1_nuki_ble.html#a492a38e70bbb90cab3cf2f712822a778", null ],
