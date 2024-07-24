@@ -56,16 +56,20 @@ NukiBle::~NukiBle() {
 
 void NukiBle::initialize() {
   preferences.begin(preferencesId.c_str(), false);
-  if (!BLEDevice::getInitialized()) {
-    BLEDevice::init(deviceName);
+  if (!NimBLEDevice::getInitialized()) {
+    NimBLEDevice::init(deviceName);
   }
 
+  NimBLEDevice::setPower(ESP_PWR_LVL_P9);
+
+  #ifdef NUKI_ALT_CONNECT
   pClient = BLEDevice::createClient();
   pClient->setClientCallbacks(this);
   #ifdef NUKI_USE_LATEST_NIMBLE
   pClient->setConnectTimeout(connectTimeoutSec * 1000);
   #else
   pClient->setConnectTimeout(connectTimeoutSec);
+  #endif
   #endif
   isPaired = retrieveCredentials();
 }
@@ -143,6 +147,7 @@ void NukiBle::unPairNuki() {
   #endif
 }
 
+#ifndef NUKI_ALT_CONNECT
 bool NukiBle::connectBle(const BLEAddress bleAddress) {
   connecting = true;
   bleScanner->enableScanning(false);
@@ -212,8 +217,175 @@ void NukiBle::updateConnectionState() {
     }
   }
 }
+#else
+bool NukiBle::connectBle(const BLEAddress bleAddress) {
+  connecting = true;
+  bleScanner->enableScanning(false);
+  pClient = nullptr;
 
-void NukiBle::setDisonnectTimeout(uint32_t timeoutMs) {
+  #ifdef DEBUG_NUKI_CONNECT
+  #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
+  log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+  #else
+  log_d("connecting within: %s", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+  #endif
+  #endif
+
+  uint8_t connectRetry = 0;
+
+  while (connectRetry < connectRetries) {
+    if(NimBLEDevice::getClientListSize()) {
+      pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
+      if(pClient){
+        if(!connected) {
+          if(!pClient->connect(bleAddress, true)) {
+            #ifdef DEBUG_NUKI_CONNECT
+            log_d("[%s] Reconnect failed", deviceName.c_str());
+            #endif
+            connectRetry++;
+            #ifndef NUKI_NO_WDT_RESET
+            esp_task_wdt_reset();
+            #endif
+            delay(10);
+            continue;
+          }
+          #ifdef DEBUG_NUKI_CONNECT
+          log_d("[%s] Reconnect success", deviceName.c_str());
+          #endif
+        }
+      }
+    }
+
+    if(!pClient) {
+      if(NimBLEDevice::getClientListSize() >= NIMBLE_MAX_CONNECTIONS) {
+        #ifdef DEBUG_NUKI_CONNECT
+        log_d("[%s] Max clients reached - no more connections available", deviceName.c_str());
+        #endif
+        connectRetry++;
+        #ifndef NUKI_NO_WDT_RESET
+        esp_task_wdt_reset();
+        #endif
+        delay(10);
+        continue;
+      }
+
+      pClient = NimBLEDevice::createClient();
+      pClient->setClientCallbacks(this);
+      pClient->setConnectionParams(6,6,0,15,64,64);
+      #ifndef NUKI_USE_LATEST_NIMBLE
+      log_d("[%s] Connect timeout %d s", deviceName.c_str(), connectTimeoutSec);
+      pClient->setConnectTimeout(connectTimeoutSec);
+      #else
+      log_d("[%s] Connect timeout %d ms", deviceName.c_str(), connectTimeoutSec * 1000);
+      pClient->setConnectTimeout(connectTimeoutSec * 1000);
+      #endif
+
+      delay(300);
+
+      int loopCreateClient = 0;
+
+      while(!pClient && loopCreateClient < 50) {
+        delay(100);
+        loopCreateClient++;
+      }
+
+      if (!pClient) {
+        #ifdef DEBUG_NUKI_CONNECT
+        log_d("[%s] Failed to create client", deviceName.c_str());
+        #endif
+        connectRetry++;
+        #ifndef NUKI_NO_WDT_RESET
+        esp_task_wdt_reset();
+        #endif
+        delay(10);
+        continue;
+      }
+    }
+
+    if(!connected) {
+      if (!pClient->connect(bleAddress, true)) {
+        #ifdef DEBUG_NUKI_CONNECT
+        log_d("[%s] Failed to connect", deviceName.c_str());
+        #endif
+        connectRetry++;
+        #ifndef NUKI_NO_WDT_RESET
+        esp_task_wdt_reset();
+        #endif
+        delay(10);
+        continue;
+      }
+    }
+
+    #ifdef DEBUG_NUKI_CONNECT
+    log_d("[%s] Connected to: %s RSSI: %d", deviceName.c_str(), pClient->getPeerAddress().toString().c_str(), pClient->getRssi());
+    #endif
+
+    pKeyturnerPairingService = pClient->getService(pairingServiceUUID);
+    if (pKeyturnerPairingService != nullptr) {
+      if (!registerOnGdioChar()) {
+        #ifdef DEBUG_NUKI_CONNECT
+        log_d("[%s] Failed to connect on registering GDIO", deviceName.c_str());
+        #endif
+        connectRetry++;
+        #ifndef NUKI_NO_WDT_RESET
+        esp_task_wdt_reset();
+        #endif
+        delay(10);
+        continue;
+      }
+    }
+
+    pKeyturnerDataService = pClient->getService(deviceServiceUUID);
+    if (pKeyturnerDataService != nullptr) {
+      if (!registerOnUsdioChar()) {
+        #ifdef DEBUG_NUKI_CONNECT
+        log_d("[%s] Failed to connect on registering USDIO", deviceName.c_str());
+        #endif
+        connectRetry++;
+        #ifndef NUKI_NO_WDT_RESET
+        esp_task_wdt_reset();
+        #endif
+        delay(10);
+        continue;
+      }
+    }
+
+    bleScanner->enableScanning(true);
+    connecting = false;
+    return true;
+  }
+
+  bleScanner->enableScanning(true);
+  connecting = false;
+  return false;
+}
+
+void NukiBle::updateConnectionState() {
+  if (connecting) return;
+
+  #ifndef NUKI_64BIT_TIME
+  if (lastStartTimeout != 0 && (millis() - lastStartTimeout > timeoutDuration)) {
+  #else
+  if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
+  #endif
+    pClient = nullptr;
+
+    if(NimBLEDevice::getClientListSize()) {
+      pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
+    }
+
+    if (pClient && connected) {
+      #ifdef DEBUG_NUKI_CONNECT
+      log_d("disconnecting BLE on timeout");
+      #endif
+      pClient->disconnect();
+      delay(200);
+    }
+  }
+}
+#endif
+
+void NukiBle::setDisconnectTimeout(uint32_t timeoutMs) {
   timeoutDuration = timeoutMs;
 }
 
@@ -1003,10 +1175,13 @@ bool NukiBle::registerOnGdioChar() {
     pGdioCharacteristic = pKeyturnerPairingService->getCharacteristic(gdioUUID);
     if (pGdioCharacteristic != nullptr) {
       if (pGdioCharacteristic->canIndicate()) {
-
         using namespace std::placeholders;
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
-        pGdioCharacteristic->subscribe(false, callback, true); //false = indication, true = notification
+        if(!pGdioCharacteristic->subscribe(false, callback, true)) {
+          log_w("Unable to subscribe to GDIO characteristic");
+          pClient->disconnect();
+          return false;
+        }
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("GDIO characteristic registered");
         #endif
@@ -1016,14 +1191,17 @@ bool NukiBle::registerOnGdioChar() {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("GDIO characteristic canIndicate false, stop connecting");
         #endif
+        pClient->disconnect();
         return false;
       }
     } else {
       log_w("Unable to get GDIO characteristic");
+      pClient->disconnect();
       return false;
     }
   } else {
     log_w("Unable to get keyturner pairing service");
+    pClient->disconnect();
     return false;
   }
   return false;
@@ -1037,11 +1215,13 @@ bool NukiBle::registerOnUsdioChar() {
     pUsdioCharacteristic = pKeyturnerDataService->getCharacteristic(userDataUUID);
     if (pUsdioCharacteristic != nullptr) {
       if (pUsdioCharacteristic->canIndicate()) {
-
         using namespace std::placeholders;
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
-
-        pUsdioCharacteristic->subscribe(false, callback, true); //false = indication, true = notification
+        if(!pUsdioCharacteristic->subscribe(false, callback, true)) {
+          log_w("Unable to subscribe to USDIO characteristic");
+          pClient->disconnect();
+          return false;
+        }
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("USDIO characteristic registered");
         #endif
@@ -1051,14 +1231,17 @@ bool NukiBle::registerOnUsdioChar() {
         #ifdef DEBUG_NUKI_COMMUNICATION
         log_d("USDIO characteristic canIndicate false, stop connecting");
         #endif
+        pClient->disconnect();
         return false;
       }
     } else {
       log_w("Unable to get USDIO characteristic");
+      pClient->disconnect();
       return false;
     }
   } else {
     log_w("Unable to get keyturner data service");
+    pClient->disconnect();
     return false;
   }
 
@@ -1257,6 +1440,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
 }
 
 void NukiBle::onConnect(BLEClient*) {
+  connected = true;
   #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE connected");
   #endif
@@ -1268,6 +1452,7 @@ void NukiBle::onDisconnect(BLEClient*, int reason)
 void NukiBle::onDisconnect(BLEClient*)
 #endif
 {
+  connected = false;
   #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE disconnected");
   #endif

@@ -385,6 +385,7 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
+        extendDisconnectTimeout();
         return Nuki::CmdResult::Success;
       }
       break;
@@ -421,6 +422,7 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
+        extendDisconnectTimeout();
         return Nuki::CmdResult::Success;
       }
       break;

@@ -71,12 +71,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void updateConnectionState();
 
     /**
-     * @brief Set the BLE Disonnect Timeout, if longer than ~20 sec the lock will disconnect by itself
+     * @brief Set the BLE Disconnect Timeout, if longer than ~20 sec the lock will disconnect by itself
      * if there is no BLE communication
      *
      * @param timeoutMs
      */
-    void setDisonnectTimeout(uint32_t timeoutMs);
+    void setDisconnectTimeout(uint32_t timeoutMs);
 
     /**
      * @brief Set the BLE Connect Timeout in seconds.
@@ -335,6 +335,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void giveNukiBleSemaphore();
 
     bool connecting = false;
+    bool connected = false;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
