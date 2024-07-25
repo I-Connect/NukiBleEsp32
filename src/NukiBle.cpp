@@ -60,10 +60,8 @@ void NukiBle::initialize() {
     NimBLEDevice::init(deviceName);
   }
 
-  NimBLEDevice::setPower(ESP_PWR_LVL_P9);
-
   #ifdef NUKI_ALT_CONNECT
-  pClient = BLEDevice::createClient();
+  pClient = NimBLEDevice::createClient();
   pClient->setClientCallbacks(this);
   #ifdef NUKI_USE_LATEST_NIMBLE
   pClient->setConnectTimeout(connectTimeoutSec * 1000);
@@ -72,6 +70,14 @@ void NukiBle::initialize() {
   #endif
   #endif
   isPaired = retrieveCredentials();
+}
+
+void NukiBle::setPower(esp_power_level_t powerLevel) {
+  if (!NimBLEDevice::getInitialized()) {
+    NimBLEDevice::init(deviceName);
+  }
+  
+  NimBLEDevice::setPower(powerLevel);
 }
 
 void NukiBle::registerBleScanner(BleScanner::Publisher* bleScanner) {
