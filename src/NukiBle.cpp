@@ -60,7 +60,7 @@ void NukiBle::initialize() {
     NimBLEDevice::init(deviceName);
   }
 
-  #ifdef NUKI_ALT_CONNECT
+  #ifndef NUKI_ALT_CONNECT
   pClient = NimBLEDevice::createClient();
   pClient->setClientCallbacks(this);
   #ifdef NUKI_USE_LATEST_NIMBLE
@@ -108,7 +108,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
     #ifdef DEBUG_NUKI_CONNECT
     log_d("Nuki in pairing mode found");
     #endif
-    if (connectBle(bleAddress)) {
+    if (connectBle(bleAddress, true)) {
       crypto_box_keypair(myPublicKey, myPrivateKey);
 
       PairingState nukiPairingState = PairingState::InitPairing;
@@ -154,7 +154,7 @@ void NukiBle::unPairNuki() {
 }
 
 #ifndef NUKI_ALT_CONNECT
-bool NukiBle::connectBle(const BLEAddress bleAddress) {
+bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
   connecting = true;
   bleScanner->enableScanning(false);
   if (!pClient->isConnected()) {
@@ -224,7 +224,7 @@ void NukiBle::updateConnectionState() {
   }
 }
 #else
-bool NukiBle::connectBle(const BLEAddress bleAddress) {
+bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
   connecting = true;
   bleScanner->enableScanning(false);
   pClient = nullptr;
@@ -243,7 +243,33 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
     if(NimBLEDevice::getClientListSize()) {
       pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
       if(pClient){
-        if(!connected) {
+        #ifdef CONFIG_IDF_TARGET_ESP32C6
+        if(connected || pClient->isConnected()) {
+          pClient->disconnect();
+        }
+        
+        int loop = 0;
+        
+        while((connected || pClient->isConnected()) && loop <=100) {
+          loop++;
+          delay(20);
+        }
+        
+        if(loop>=100)
+        {
+          #ifdef DEBUG_NUKI_CONNECT
+          log_d("[%s] Disconnect failed", deviceName.c_str());
+          #endif
+          connectRetry++;
+          #ifndef NUKI_NO_WDT_RESET
+          esp_task_wdt_reset();
+          #endif
+          delay(10);
+          continue;
+        }
+        #endif
+        
+        if(!connected || !pClient->isConnected()) {
           if(!pClient->connect(bleAddress, true)) {
             #ifdef DEBUG_NUKI_CONNECT
             log_d("[%s] Reconnect failed", deviceName.c_str());
@@ -277,7 +303,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
 
       pClient = NimBLEDevice::createClient();
       pClient->setClientCallbacks(this);
-      pClient->setConnectionParams(6,6,0,15,64,64);
+      pClient->setConnectionParams(12,12,0,600,64,64);
       #ifndef NUKI_USE_LATEST_NIMBLE
       log_d("[%s] Connect timeout %d s", deviceName.c_str(), connectTimeoutSec);
       pClient->setConnectTimeout(connectTimeoutSec);
@@ -308,7 +334,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
       }
     }
 
-    if(!connected) {
+    if(!connected || !pClient->isConnected()) {
       if (!pClient->connect(bleAddress, true)) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("[%s] Failed to connect", deviceName.c_str());
@@ -326,8 +352,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
     log_d("[%s] Connected to: %s RSSI: %d", deviceName.c_str(), pClient->getPeerAddress().toString().c_str(), pClient->getRssi());
     #endif
 
-    pKeyturnerPairingService = pClient->getService(pairingServiceUUID);
-    if (pKeyturnerPairingService != nullptr) {
+    if(pairing) {
       if (!registerOnGdioChar()) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("[%s] Failed to connect on registering GDIO", deviceName.c_str());
@@ -339,10 +364,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress) {
         delay(10);
         continue;
       }
-    }
-
-    pKeyturnerDataService = pClient->getService(deviceServiceUUID);
-    if (pKeyturnerDataService != nullptr) {
+    } else {
       if (!registerOnUsdioChar()) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("[%s] Failed to connect on registering USDIO", deviceName.c_str());
@@ -1134,7 +1156,7 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     memcpy(&dataToSend[0], additionalData, sizeof(additionalData));
     memcpy(&dataToSend[30], plainDataEncr, sizeof(plainDataEncr));
 
-    if (connectBle(bleAddress)) {
+    if (connectBle(bleAddress, false)) {
       printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
       return pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
     } else {
@@ -1165,7 +1187,7 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
   #endif
 
-  if (connectBle(bleAddress)) {
+  if (connectBle(bleAddress, true)) {
     return pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   } else {
     log_w("Send plain msg failed due to unable to connect");
