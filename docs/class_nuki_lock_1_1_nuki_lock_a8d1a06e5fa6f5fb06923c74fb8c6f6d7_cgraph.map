@@ -2,6 +2,6 @@
 <area shape="rect" id="Node000001" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,35,171,75"/>
 <area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#a2d3b067c17f394b8fad515ca3f35f03c" title=" " alt="" coords="219,5,389,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,41,203,37,203,42,172,46"/>
-<area shape="rect" id="Node000003" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="247,70,361,96"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="247,70,360,96"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,63,232,71,231,76,171,68"/>
 </map>

@@ -1,14 +1,16 @@
 <map id="Nuki::NukiBle::extendDisconnectTimeout" name="Nuki::NukiBle::extendDisconnectTimeout">
-<area shape="rect" id="Node000001" title=" " alt="" coords="773,391,983,431"/>
-<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="524,308,715,349"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="797,388,685,352,687,347,799,383"/>
-<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="278,373,466,399"/>
-<area shape="poly" id="edge18_Node000001_Node000003" title=" " alt="" coords="758,408,466,393,467,388,758,402"/>
-<area shape="rect" id="Node000017" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="514,424,725,449"/>
-<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="758,425,726,429,725,423,757,420"/>
-<area shape="rect" id="Node000018" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="543,473,697,499"/>
-<area shape="poly" id="edge19_Node000001_Node000018" title=" " alt="" coords="805,439,726,464,685,475,683,470,725,459,803,434"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="515,355,431,375,430,370,513,350"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="773,393,983,434"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="528,279,711,319"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="823,388,724,340,680,322,682,317,726,335,826,383"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="278,373,466,398"/>
+<area shape="poly" id="edge20_Node000001_Node000003" title=" " alt="" coords="777,392,725,384,590,378,467,381,466,376,590,373,726,379,778,387"/>
+<area shape="rect" id="Node000017" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="524,393,715,434"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="758,416,716,416,716,411,758,411"/>
+<area shape="rect" id="Node000018" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="514,458,725,484"/>
+<area shape="poly" id="edge18_Node000001_Node000018" title=" " alt="" coords="769,441,682,460,681,455,768,435"/>
+<area shape="rect" id="Node000019" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="542,508,697,533"/>
+<area shape="poly" id="edge21_Node000001_Node000019" title=" " alt="" coords="833,445,783,473,726,499,692,509,691,504,724,494,781,468,831,440"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="546,327,412,375,410,370,544,322"/>
 <area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#a8c69d960c9034d3ae5877285b666f09c" title="Sends a new authorization entry to the lock via BLE." alt="" coords="16,5,219,46"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="364,358,351,297,326,216,308,174,286,133,260,95,228,61,210,49,213,44,231,57,264,91,291,130,313,172,331,215,356,295,369,357"/>
 <area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE." alt="" coords="32,71,203,111"/>
@@ -33,7 +35,8 @@
 <area shape="poly" id="edge13_Node000003_Node000014" title=" " alt="" coords="362,414,343,455,315,505,277,556,231,600,210,612,207,608,228,596,273,553,310,502,338,453,357,412"/>
 <area shape="rect" id="Node000015" href="$class_nuki_1_1_nuki_ble.html#aac2e6b5ca939d23e8f590519b78df9f1" title="Sends the time to be set to the lock via BLE." alt="" coords="30,676,205,701"/>
 <area shape="poly" id="edge14_Node000003_Node000015" title=" " alt="" coords="367,414,352,468,326,536,286,606,261,638,231,665,207,679,204,674,228,661,257,634,282,603,321,534,347,466,362,413"/>
-<area shape="rect" id="Node000016" href="$class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233" title="Send the verify pincode command via BLE to the lock. This command uses the earlier by saveSecurityPin..." alt="" coords="16,725,219,751"/>
+<area shape="rect" id="Node000016" href="$class_nuki_1_1_nuki_ble.html#a2c962e2c69d9063972790109704dd233" title="Send the verify pincode command via BLE to the lock. This command uses the earlier by saveSecurityPin..." alt="" coords="16,725,219,750"/>
 <area shape="poly" id="edge15_Node000003_Node000016" title=" " alt="" coords="370,414,358,477,333,559,315,602,293,644,265,682,231,716,214,727,211,722,228,712,261,679,288,641,310,600,328,557,353,476,364,413"/>
-<area shape="poly" id="edge17_Node000017_Node000003" title=" " alt="" coords="538,422,438,402,439,396,539,417"/>
+<area shape="poly" id="edge17_Node000017_Node000003" title=" " alt="" coords="508,404,466,399,467,394,509,398"/>
+<area shape="poly" id="edge19_Node000018_Node000003" title=" " alt="" coords="540,456,513,448,452,425,400,401,402,397,454,420,515,443,542,451"/>
 </map>

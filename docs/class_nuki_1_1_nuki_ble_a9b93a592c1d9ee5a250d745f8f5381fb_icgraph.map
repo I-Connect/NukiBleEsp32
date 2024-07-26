@@ -1,5 +1,8 @@
 <map id="Nuki::NukiBle::connectBle" name="Nuki::NukiBle::connectBle">
-<area shape="rect" id="Node000001" title=" " alt="" coords="208,5,379,31"/>
-<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="5,5,160,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,21,160,21,160,16,192,16"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="264,47,435,72"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="33,5,188,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,46,188,34,189,29,257,41"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#adb7e6f9ff5c724d74ce074dc2cb7a7bf" title="checks the time past after last connect/communication sent, if the time past &gt; timeout it will discon..." alt="" coords="5,79,216,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,78,217,84,216,79,253,73"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="150,66,135,60,110,58,88,60,74,65,69,70,71,78,66,79,63,69,71,60,87,55,111,53,136,55,152,61"/>
 </map>
