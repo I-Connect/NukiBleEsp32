@@ -71,12 +71,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void updateConnectionState();
 
     /**
-     * @brief Set the BLE Disonnect Timeout, if longer than ~20 sec the lock will disconnect by itself
+     * @brief Set the BLE Disconnect Timeout, if longer than ~20 sec the lock will disconnect by itself
      * if there is no BLE communication
      *
      * @param timeoutMs
      */
-    void setDisonnectTimeout(uint32_t timeoutMs);
+    void setDisconnectTimeout(uint32_t timeoutMs);
 
     /**
      * @brief Set the BLE Connect Timeout in seconds.
@@ -254,6 +254,20 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void initialize();
 
     /**
+     * @brief the transmission power.
+     * @param [in] powerLevel The power level to set, can be one of:
+     * *   ESP_PWR_LVL_N12 = 0, Corresponding to -12dbm
+     * *   ESP_PWR_LVL_N9  = 1, Corresponding to  -9dbm
+     * *   ESP_PWR_LVL_N6  = 2, Corresponding to  -6dbm
+     * *   ESP_PWR_LVL_N3  = 3, Corresponding to  -3dbm
+     * *   ESP_PWR_LVL_N0  = 4, Corresponding to   0dbm
+     * *   ESP_PWR_LVL_P3  = 5, Corresponding to  +3dbm
+     * *   ESP_PWR_LVL_P6  = 6, Corresponding to  +6dbm
+     * *   ESP_PWR_LVL_P9  = 7, Corresponding to  +9dbm
+     */
+    void setPower(esp_power_level_t powerLevel);
+
+    /**
      * @brief Registers the BLE scanner to be used for scanning for advertisements from the lock.
      * BleScanner::Publisher is defined in dependent library https://github.com/I-Connect/BleScanner.git
      *
@@ -335,6 +349,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void giveNukiBleSemaphore();
 
     bool connecting = false;
+    bool connected = false;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
