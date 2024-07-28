@@ -312,7 +312,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     #endif
 
   protected:
-    bool connectBle(const BLEAddress bleAddress);
+    bool connectBle(const BLEAddress bleAddress, bool pairing);
     void extendDisconnectTimeout();
 
     template <typename TDeviceAction>
