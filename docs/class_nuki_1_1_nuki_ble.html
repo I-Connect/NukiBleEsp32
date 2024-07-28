@@ -244,8 +244,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad135bb1455665decfddff67772c1d411" id="r_ad135bb1455665decfddff67772c1d411"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction &gt; </td></tr>
 <tr class="memitem:ad135bb1455665decfddff67772c1d411"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ad135bb1455665decfddff67772c1d411">cmdStateMachine</a> (const TDeviceAction action)</td></tr>
 <tr class="separator:ad135bb1455665decfddff67772c1d411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b93a592c1d9ee5a250d745f8f5381fb" id="r_a9b93a592c1d9ee5a250d745f8f5381fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b93a592c1d9ee5a250d745f8f5381fb">connectBle</a> (const BLEAddress bleAddress)</td></tr>
-<tr class="separator:a9b93a592c1d9ee5a250d745f8f5381fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0924aa3772a05cbb3bff3cb44cb20de7" id="r_a0924aa3772a05cbb3bff3cb44cb20de7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0924aa3772a05cbb3bff3cb44cb20de7">connectBle</a> (const BLEAddress bleAddress, bool pairing)</td></tr>
+<tr class="separator:a0924aa3772a05cbb3bff3cb44cb20de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1f1e299e8d97e053bba80e92ba285d6" id="r_af1f1e299e8d97e053bba80e92ba285d6"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction &gt; </td></tr>
 <tr class="memitem:af1f1e299e8d97e053bba80e92ba285d6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af1f1e299e8d97e053bba80e92ba285d6">executeAction</a> (const TDeviceAction action)</td></tr>
 <tr class="separator:af1f1e299e8d97e053bba80e92ba285d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -527,8 +527,8 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
-<a id="a9b93a592c1d9ee5a250d745f8f5381fb" name="a9b93a592c1d9ee5a250d745f8f5381fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b93a592c1d9ee5a250d745f8f5381fb">&#9670;&#160;</a></span>connectBle()</h2>
+<a id="a0924aa3772a05cbb3bff3cb44cb20de7" name="a0924aa3772a05cbb3bff3cb44cb20de7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0924aa3772a05cbb3bff3cb44cb20de7">&#9670;&#160;</a></span>connectBle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -539,8 +539,12 @@ template&lt;typename TDeviceAction &gt; </div>
         <tr>
           <td class="memname">bool Nuki::NukiBle::connectBle </td>
           <td>(</td>
-          <td class="paramtype">const BLEAddress</td>          <td class="paramname"><span class="paramname"><em>bleAddress</em></span></td><td>)</td>
+          <td class="paramtype">const BLEAddress</td>          <td class="paramname"><span class="paramname"><em>bleAddress</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>pairing</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -554,7 +558,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a9b93a592c1d9ee5a250d745f8f5381fb_icgraph.svg" width="440" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0924aa3772a05cbb3bff3cb44cb20de7_icgraph.svg" width="440" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1623,7 +1627,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li><li class="navelem"><a class="el" href="class_nuki_1_1_nuki_ble.html">NukiBle</a></li>
-    <li class="footer">Generated on Fri Jul 26 2024 12:27:05 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Sun Jul 28 2024 04:10:59 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

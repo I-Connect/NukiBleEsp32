@@ -7,7 +7,7 @@ var class_nuki_1_1_nuki_ble =
     [ "cmdChallAccStateMachine", "class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886", null ],
     [ "cmdChallStateMachine", "class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07", null ],
     [ "cmdStateMachine", "class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411", null ],
-    [ "connectBle", "class_nuki_1_1_nuki_ble.html#a9b93a592c1d9ee5a250d745f8f5381fb", null ],
+    [ "connectBle", "class_nuki_1_1_nuki_ble.html#a0924aa3772a05cbb3bff3cb44cb20de7", null ],
     [ "deleteAuthorizationEntry", "class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866", null ],
     [ "deleteKeypadEntry", "class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b", null ],
     [ "executeAction", "class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6", null ],
