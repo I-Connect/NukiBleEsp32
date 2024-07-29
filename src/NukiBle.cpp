@@ -76,7 +76,7 @@ void NukiBle::setPower(esp_power_level_t powerLevel) {
   if (!NimBLEDevice::getInitialized()) {
     NimBLEDevice::init(deviceName);
   }
-  
+
   NimBLEDevice::setPower(powerLevel);
 }
 
@@ -102,7 +102,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
   #else
   if (pairingLastSeen < (esp_timer_get_time() / 1000) - 2000) pairingServiceAvailable = false;
   #endif
-  
+
   if (pairingServiceAvailable && bleAddress != BLEAddress("")) {
     pairingServiceAvailable = false;
     #ifdef DEBUG_NUKI_CONNECT
@@ -246,15 +246,16 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
         #ifdef CONFIG_IDF_TARGET_ESP32C6
         if(connected || pClient->isConnected()) {
           pClient->disconnect();
+          connected = false;
         }
-        
+
         int loop = 0;
-        
+
         while((connected || pClient->isConnected()) && loop <=100) {
           loop++;
           delay(20);
         }
-        
+
         if(loop>=100)
         {
           #ifdef DEBUG_NUKI_CONNECT
@@ -268,7 +269,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
           continue;
         }
         #endif
-        
+
         if(!connected || !pClient->isConnected()) {
           if(!pClient->connect(bleAddress, true)) {
             #ifdef DEBUG_NUKI_CONNECT
