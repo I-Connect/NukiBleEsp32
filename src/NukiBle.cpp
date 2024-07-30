@@ -1470,6 +1470,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
 
 void NukiBle::onConnect(BLEClient*) {
   connected = true;
+  extendDisconnectTimeout();
   #ifdef DEBUG_NUKI_CONNECT
   log_d("BLE connected");
   #endif
