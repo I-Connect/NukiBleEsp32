@@ -20,6 +20,7 @@
 #include <BleInterfaces.h>
 #include <atomic>
 #include <string>
+#include <list>
 #include "sodium/crypto_secretbox.h"
 
 #define GENERAL_TIMEOUT 3000
