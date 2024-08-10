@@ -240,7 +240,12 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
   uint8_t connectRetry = 0;
 
   while (connectRetry < connectRetries) {
-    if(NimBLEDevice::getClientListSize()) {
+    #ifdef NUKI_USE_LATEST_NIMBLE
+    if(NimBLEDevice::getCreatedClientCount())
+    #else
+    if(NimBLEDevice::getClientListSize())
+    #endif
+    {
       pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
       if(pClient){
         #ifdef CONFIG_IDF_TARGET_ESP32C6
@@ -290,7 +295,12 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
     }
 
     if(!pClient) {
-      if(NimBLEDevice::getClientListSize() >= NIMBLE_MAX_CONNECTIONS) {
+      #ifdef NUKI_USE_LATEST_NIMBLE
+      if(NimBLEDevice::getCreatedClientCount() >= NIMBLE_MAX_CONNECTIONS)
+      #else
+      if(NimBLEDevice::getClientListSize() >= NIMBLE_MAX_CONNECTIONS)
+      #endif
+      {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("[%s] Max clients reached - no more connections available", deviceName.c_str());
         #endif
@@ -399,7 +409,12 @@ void NukiBle::updateConnectionState() {
   #endif
     pClient = nullptr;
 
-    if(NimBLEDevice::getClientListSize()) {
+    #ifdef NUKI_USE_LATEST_NIMBLE
+    if(NimBLEDevice::getCreatedClientCount())
+    #else
+    if(NimBLEDevice::getClientListSize())
+    #endif
+    {
       pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
     }
 
@@ -825,13 +840,21 @@ void NukiBle::saveCredentials() {
   unsigned char currentBleAddress[6];
   unsigned char storedBleAddress[6];
   uint16_t defaultPincode = 0;
+  #ifdef NUKI_USE_LATEST_NIMBLE
+  currentBleAddress[0] = bleAddress.getVal()[5];
+  currentBleAddress[1] = bleAddress.getVal()[4];
+  currentBleAddress[2] = bleAddress.getVal()[3];
+  currentBleAddress[3] = bleAddress.getVal()[2];
+  currentBleAddress[4] = bleAddress.getVal()[1];
+  currentBleAddress[5] = bleAddress.getVal()[0];
+  #else
   currentBleAddress[0] = bleAddress.getNative()[5];
   currentBleAddress[1] = bleAddress.getNative()[4];
   currentBleAddress[2] = bleAddress.getNative()[3];
   currentBleAddress[3] = bleAddress.getNative()[2];
   currentBleAddress[4] = bleAddress.getNative()[1];
   currentBleAddress[5] = bleAddress.getNative()[0];
-
+  #endif
   preferences.getBytes(BLE_ADDRESS_STORE_NAME, storedBleAddress, 6);
 
   if (compareCharArray(currentBleAddress, storedBleAddress, 6)) {
@@ -1205,7 +1228,11 @@ bool NukiBle::registerOnGdioChar() {
     if (pGdioCharacteristic != nullptr) {
       if (pGdioCharacteristic->canIndicate()) {
         using namespace std::placeholders;
+        #ifdef NUKI_USE_LATEST_NIMBLE
+        NimBLERemoteCharacteristic::notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
+        #else
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
+        #endif
         if(!pGdioCharacteristic->subscribe(false, callback, true)) {
           log_w("Unable to subscribe to GDIO characteristic");
           pClient->disconnect();
@@ -1245,7 +1272,11 @@ bool NukiBle::registerOnUsdioChar() {
     if (pUsdioCharacteristic != nullptr) {
       if (pUsdioCharacteristic->canIndicate()) {
         using namespace std::placeholders;
+        #ifdef NUKI_USE_LATEST_NIMBLE
+        NimBLERemoteCharacteristic::notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
+        #else
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
+        #endif
         if(!pUsdioCharacteristic->subscribe(false, callback, true)) {
           log_w("Unable to subscribe to USDIO characteristic");
           pClient->disconnect();
