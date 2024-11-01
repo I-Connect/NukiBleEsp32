@@ -16,24 +16,42 @@ NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
 
 Nuki::CmdResult NukiOpener::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
-  unsigned char payload[5 + nameSuffixLen] = {0};
-  memcpy(payload, &lockAction, sizeof(LockAction));
-  memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
-  memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
-  uint8_t payloadLen = 0;
-  if (nameSuffix) {
-    memcpy(&payload[sizeof(LockAction) + 4 + 1], nameSuffix, nameSuffixLen);
-    payloadLen = sizeof(LockAction) + 4 + 1 + nameSuffixLen;
-  } else {
-    payloadLen = sizeof(LockAction) + 4 + 1;
+  
+  if(((int)lockAction == 4 || (int)lockAction == 5) && nukiAppId != 1)
+  {
+      ContinuousModeAction continuousModeAction;
+      continuousModeAction.enabled = ((int)lockAction == 4 ? 1 : 0);
+      unsigned char payload[sizeof(ContinuousModeAction)] = {0};
+      memcpy(payload, &continuousModeAction, sizeof(ContinuousModeAction));
+
+      action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+      action.command = Command::ContinuousModeAction;
+      memcpy(action.payload, &payload, sizeof(ContinuousModeAction));
+      action.payloadLen = sizeof(ContinuousModeAction);
+
+      return executeAction(action);    
   }
+  else
+  {
+      unsigned char payload[5 + nameSuffixLen] = {0};
+      memcpy(payload, &lockAction, sizeof(LockAction));
+      memcpy(&payload[sizeof(LockAction)], &nukiAppId, 4);
+      memcpy(&payload[sizeof(LockAction) + 4], &flags, 1);
+      uint8_t payloadLen = 0;
+      if (nameSuffix) {
+        memcpy(&payload[sizeof(LockAction) + 4 + 1], nameSuffix, nameSuffixLen);
+        payloadLen = sizeof(LockAction) + 4 + 1 + nameSuffixLen;
+      } else {
+        payloadLen = sizeof(LockAction) + 4 + 1;
+      }
 
-  action.cmdType = Nuki::CommandType::CommandWithChallengeAndAccept;
-  action.command = Command::LockAction;
-  memcpy(action.payload, &payload, payloadLen);
-  action.payloadLen = payloadLen;
+      action.cmdType = Nuki::CommandType::CommandWithChallengeAndAccept;
+      action.command = Command::LockAction;
+      memcpy(action.payload, &payload, payloadLen);
+      action.payloadLen = payloadLen;
 
-  return executeAction(action);
+      return executeAction(action);
+  }
 }
 
 
