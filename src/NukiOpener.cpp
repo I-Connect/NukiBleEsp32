@@ -17,10 +17,10 @@ NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
 Nuki::CmdResult NukiOpener::lockAction(const LockAction lockAction, const uint32_t nukiAppId, const uint8_t flags, const char* nameSuffix, const uint8_t nameSuffixLen) {
   Action action;
   
-  if((lockAction == 0x04 || lockAction == 0x05) && nukiAppId != 1)
+  if((lockAction == LockAction::ActivateCM || lockAction == LockAction::DeactivateCM) && nukiAppId != 1)
   {
       ContinuousModeAction continuousModeAction;
-      continuousModeAction.enabled = (lockAction == 0x04 ? 1 : 0);
+      continuousModeAction.enabled = (lockAction == LockAction::ActivateCM ? 1 : 0);
       unsigned char payload[sizeof(ContinuousModeAction)] = {0};
       memcpy(payload, &continuousModeAction, sizeof(ContinuousModeAction));
 
