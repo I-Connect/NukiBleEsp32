@@ -276,6 +276,11 @@ struct __attribute__((packed)) NewTimeControlEntry {
   LockAction lockAction;
 };
 
+struct __attribute__((packed)) ContinuousModeAction {
+  uint8_t enabled;
+  uint8_t timeout;
+};
+
 enum class LoggingType : uint8_t {
   LoggingEnabled            = 0x01,
   LockAction                = 0x02,
