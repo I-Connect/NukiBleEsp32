@@ -504,6 +504,16 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
             if (eventHandler) {
               eventHandler->notify(EventType::KeyTurnerStatusUpdated);
             }
+            
+            statusUpdated = true;
+          }
+          else if (statusUpdated)
+          {
+            statusUpdated = false;
+            
+            if (eventHandler) {
+              eventHandler->notify(EventType::KeyTurnerStatusReset);
+            }
           }
         }
       }

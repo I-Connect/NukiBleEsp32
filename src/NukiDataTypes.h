@@ -18,7 +18,8 @@
 namespace Nuki {
 
 enum class EventType {
-  KeyTurnerStatusUpdated
+  KeyTurnerStatusUpdated,
+  KeyTurnerStatusReset
 };
 
 class SmartlockEventHandler {
