@@ -351,6 +351,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     bool connecting = false;
     bool connected = false;
+    bool statusUpdated = false;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
