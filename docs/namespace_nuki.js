@@ -113,7 +113,8 @@ var namespace_nuki =
       [ "Calibrating", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3aa90245113e5261ee70386bd8ece941d5", null ]
     ] ],
     [ "EventType", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605e", [
-      [ "KeyTurnerStatusUpdated", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ]
+      [ "KeyTurnerStatusUpdated", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ],
+      [ "KeyTurnerStatusReset", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3", null ]
     ] ],
     [ "PairingResult", "namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632", [
       [ "Pairing", "namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632a4039036d3d20091fb6400cb1368a97fc", null ],

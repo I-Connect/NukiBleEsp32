@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"class_nuki_opener_1_1_nuki_opener.html#a12ff0e23685b3acb66e6bb0b0a313dda":[1,0,2,1,22],
 "class_nuki_opener_1_1_nuki_opener.html#a12ff0e23685b3acb66e6bb0b0a313dda":[2,0,2,1,22],
 "class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da":[1,0,2,1,13],
 "class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da":[2,0,2,1,13],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba0c136b367079197fde3f2ae97b82b5fa":[1,0,0,7,2],
 "namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba14c3fc7448dccb9a4dc1038f9ceda77b":[1,0,0,7,3],
 "namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba3e3f729f582df8e67f31b3d9ed0fdfbf":[1,0,0,7,5],
-"namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba5721cbfd37f523580cb0ddde1d5fa90c":[1,0,0,7,4],
-"namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba5c642867bcd564f28fbb79aec4501efa":[1,0,0,7,6]
+"namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba5721cbfd37f523580cb0ddde1d5fa90c":[1,0,0,7,4]
 };

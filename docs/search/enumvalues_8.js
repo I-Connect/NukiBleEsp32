@@ -35,5 +35,6 @@ var searchData=
   ['keypadcodecount_32',['KeypadCodeCount',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0af6fd3aed0138f63bf0c48f1d234485',1,'Nuki']]],
   ['keypadcodeid_33',['KeypadCodeId',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a042c5e865bdac0e54d6844e3d1ff7919',1,'Nuki']]],
   ['keyturnerstates_34',['KeyturnerStates',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6e52dafa8010a8513a025723b6fe8a91',1,'Nuki']]],
-  ['keyturnerstatusupdated_35',['KeyTurnerStatusUpdated',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2',1,'Nuki']]]
+  ['keyturnerstatusreset_35',['KeyTurnerStatusReset',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3',1,'Nuki']]],
+  ['keyturnerstatusupdated_36',['KeyTurnerStatusUpdated',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2',1,'Nuki']]]
 ];

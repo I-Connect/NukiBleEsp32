@@ -20,7 +20,8 @@ var _nuki_data_types_8h =
       [ "TimeOut", "_nuki_data_types_8h.html#a93b74dc3b051cbfa04004627d2df597ba5c642867bcd564f28fbb79aec4501efa", null ]
     ] ],
     [ "EventType", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605e", [
-      [ "KeyTurnerStatusUpdated", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ]
+      [ "KeyTurnerStatusUpdated", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ],
+      [ "KeyTurnerStatusReset", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3", null ]
     ] ],
     [ "PairingResult", "_nuki_data_types_8h.html#aa55754f0a4a54a7a7334bc38a1d82632", [
       [ "Pairing", "_nuki_data_types_8h.html#aa55754f0a4a54a7a7334bc38a1d82632a4039036d3d20091fb6400cb1368a97fc", null ],
