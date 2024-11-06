@@ -350,7 +350,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void giveNukiBleSemaphore();
 
     bool connecting = false;
-    bool connected = false;
     bool statusUpdated = false;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
@@ -362,6 +361,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     #else
     void onDisconnect(BLEClient*) override;
     #endif
+    void disconnect();
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
