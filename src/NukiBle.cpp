@@ -320,7 +320,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
         #endif
 
         if(!pClient->isConnected()) {
-          if(!pClient->connect(bleAddress, true)) {
+          if(!pClient->connect(bleAddress, false)) {
             #ifdef DEBUG_NUKI_CONNECT
             log_d("[%s] Reconnect failed", deviceName.c_str());
             #endif
@@ -390,7 +390,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
     }
 
     if(!pClient->isConnected()) {
-      if (!pClient->connect(bleAddress, true)) {
+      if (!pClient->connect(bleAddress, false)) {
         #ifdef DEBUG_NUKI_CONNECT
         log_d("[%s] Failed to connect", deviceName.c_str());
         #endif
@@ -498,7 +498,11 @@ void NukiBle::extendDisconnectTimeout() {
   #endif
 }
 
+#ifndef NUKI_USE_LATEST_NIMBLE
 void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
+#else
+void NukiBle::onResult(const BLEAdvertisedDevice* advertisedDevice) {
+#endif
   if (isPaired) {
     if (bleAddress == advertisedDevice->getAddress()) {
       rssi = advertisedDevice->getRSSI();
@@ -510,7 +514,11 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
 
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
+      #ifndef NUKI_USE_LATEST_NIMBLE
       char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
+      #else
+      const char* pHex = BLEUtils::dataToHexString(manufacturerDataPtr, manufacturerData.length()).c_str();
+      #endif
 
       bool isKeyTurnerUUID = true;
       std::string serviceUUID = deviceServiceUUID.toString();
@@ -526,7 +534,9 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
           isKeyTurnerUUID = false;
         }
       }
+      #ifndef NUKI_USE_LATEST_NIMBLE
       free(pHex);
+      #endif
 
       if (isKeyTurnerUUID) {
         #ifdef DEBUG_NUKI_CONNECT
@@ -538,7 +548,12 @@ void NukiBle::onResult(BLEAdvertisedDevice* advertisedDevice) {
 
         if (manufacturerData.length() == 25 && cManufacturerData[0] == 0x4C && cManufacturerData[1] == 0x00) {
           BLEBeacon oBeacon = BLEBeacon();
+          
+          #ifndef NUKI_USE_LATEST_NIMBLE
           oBeacon.setData(manufacturerData);
+          #else
+          oBeacon.setData((uint8_t*)manufacturerData.c_str(), (uint8_t)manufacturerData.length());
+          #endif
           #ifdef DEBUG_NUKI_CONNECT
           log_d("iBeacon ID: %04X Major: %d Minor: %d UUID: %s Power: %d\n", oBeacon.getManufacturerId(),
                 ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),

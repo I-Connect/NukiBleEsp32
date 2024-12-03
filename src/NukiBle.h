@@ -362,7 +362,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void onDisconnect(BLEClient*) override;
     #endif
     void disconnect();
+    #ifndef NUKI_USE_LATEST_NIMBLE
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
+    #else
+    void onResult(const BLEAdvertisedDevice* advertisedDevice) override;
+    #endif
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
