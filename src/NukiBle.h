@@ -362,7 +362,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void onDisconnect(BLEClient*) override;
     #endif
     void disconnect();
+    #ifndef NUKI_USE_LATEST_NIMBLE
     void onResult(BLEAdvertisedDevice* advertisedDevice) override;
+    #else
+    void onResult(const BLEAdvertisedDevice* advertisedDevice) override;
+    #endif
     bool registerOnGdioChar();
     bool registerOnUsdioChar();
 
@@ -379,7 +383,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     unsigned char authenticator[32];
     Preferences preferences;
 
-    BLEAddress bleAddress = BLEAddress("");
+    BLEAddress bleAddress = BLEAddress("", 0);
     bool pairingServiceAvailable = false;
     std::string deviceName;       //The name to be displayed for this authorization and used for storing preferences
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
