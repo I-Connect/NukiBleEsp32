@@ -49,13 +49,14 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
       else {
         log_w("Unknown cmd type");
         giveNukiBleSemaphore();
+        disconnect();
         return Nuki::CmdResult::Failed;
       }
       if (result != Nuki::CmdResult::Working) {
         giveNukiBleSemaphore();
 
         #ifdef NUKI_ALT_CONNECT
-        if (result == Nuki::CmdResult::Error)
+        if (result == Nuki::CmdResult::Error || result == Nuki::CmdResult::Failed)
         {
           disconnect();
         }
@@ -64,9 +65,9 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
           extendDisconnectTimeout();
         }
         #else
-        extendDisconnectTimeout(); 
+        extendDisconnectTimeout();
         #endif
-        
+
         return result;
       }
       #ifndef NUKI_NO_WDT_RESET
