@@ -49,13 +49,14 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
       else {
         log_w("Unknown cmd type");
         giveNukiBleSemaphore();
+        disconnect();
         return Nuki::CmdResult::Failed;
       }
       if (result != Nuki::CmdResult::Working) {
         giveNukiBleSemaphore();
 
         #ifdef NUKI_ALT_CONNECT
-        if (result == Nuki::CmdResult::Error)
+        if (result == Nuki::CmdResult::Error || Nuki::CmdResult::Failed)
         {
           disconnect();
         }
