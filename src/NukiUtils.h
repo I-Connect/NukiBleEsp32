@@ -22,16 +22,16 @@ namespace Nuki {
 
 #define ENDIAN_CHANGE_U16(x) ((((x)&0xFF00)>>8) + (((x)&0xFF)<<8))
 
-void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header);
+void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, const char* header, bool debug = false, Print* Log = nullptr);
 bool isCharArrayNotEmpty(unsigned char* array, uint16_t len);
 bool isCharArrayEmpty(unsigned char* array, uint16_t len);
 bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len);
-int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS);
-int decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS);
-void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes);
+int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS, Print* Log = nullptr);
+int decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS, Print* Log = nullptr);
+void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes, bool debug = false, Print* Log = nullptr);
 
 unsigned int calculateCrc(uint8_t data[], uint8_t start, uint16_t length);
-bool crcValid(uint8_t* pData, uint16_t length);
+bool crcValid(uint8_t* pData, uint16_t length, bool debug = false, Print* Log = nullptr);
 
 /**
  * @brief Translate a bitset<N> into Nuki weekdays int

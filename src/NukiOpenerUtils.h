@@ -32,24 +32,28 @@ void cmdResultToString(const CmdResult state, char* str);
 template<std::size_t N>
 uint8_t getWeekdaysIntFromBitset(const std::bitset<N> bits);
 
-void logOpenerErrorCode(uint8_t errorCode);
-void logConfig(Config config);
-void logNewConfig(NewConfig newConfig);
-void logNewKeypadEntry(NewKeypadEntry newKeypadEntry);
-void logKeypadEntry(KeypadEntry keypadEntry);
-void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry);
-void logAuthorizationEntry(AuthorizationEntry authorizationEntry);
-void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry);
-void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry);
-void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry);
-void logTimeControlEntry(TimeControlEntry timeControlEntry);
-void logCompletionStatus(CompletionStatus completionStatus);
-void logNukiTrigger(Trigger nukiTrigger);
-void logLockAction(LockAction lockAction);
-void logKeyturnerState(OpenerState keyTurnerState);
-void logBatteryReport(BatteryReport batteryReport);
-void logLogEntry(LogEntry logEntry);
-void logAdvancedConfig(AdvancedConfig advancedConfig);
-void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig);
+void logOpenerErrorCode(uint8_t errorCode, bool debug = false, Print* Log = nullptr);
+void logConfig(Config config, bool debug = false, Print* Log = nullptr);
+void logNewConfig(NewConfig newConfig, bool debug = false, Print* Log = nullptr);
+void logNewKeypadEntry(NewKeypadEntry newKeypadEntry, bool debug = false, Print* Log = nullptr);
+void logKeypadEntry(KeypadEntry keypadEntry, bool debug = false, Print* Log = nullptr);
+void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry, bool debug = false, Print* Log = nullptr);
+void logAuthorizationEntry(AuthorizationEntry authorizationEntry, bool debug = false, Print* Log = nullptr);
+void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry, bool debug = false, Print* Log = nullptr);
+void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry, bool debug = false, Print* Log = nullptr);
+void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry, bool debug = false, Print* Log = nullptr);
+void logTimeControlEntry(TimeControlEntry timeControlEntry, bool debug = false, Print* Log = nullptr);
+void logCompletionStatus(CompletionStatus completionStatus, bool debug = false, Print* Log = nullptr);
+void logNukiTrigger(Trigger nukiTrigger, bool debug = false, Print* Log = nullptr);
+void logLockAction(LockAction lockAction, bool debug = false, Print* Log = nullptr);
+void logKeyturnerState(OpenerState keyTurnerState, bool debug = false, Print* Log = nullptr);
+void logBatteryReport(BatteryReport batteryReport, bool debug = false, Print* Log = nullptr);
+void logLogEntry(LogEntry logEntry, bool debug = false, Print* Log = nullptr);
+void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug = false, Print* Log = nullptr);
+void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig, bool debug = false, Print* Log = nullptr);
+void logMessageVar(const char* message, unsigned int var, Print* Log = nullptr, int level = 4);
+void logMessageVar(const char* message, const char* var, Print* Log = nullptr, int level = 4);
+void logMessageVar(const char* message, const float var, Print* Log = nullptr, int level = 4);
+void logMessage(const char* message, Print* Log = nullptr, int level = 4);
 
 } // namespace Nuki

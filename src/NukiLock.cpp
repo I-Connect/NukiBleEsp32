@@ -65,7 +65,7 @@ Nuki::CmdResult NukiLock::requestKeyTurnerState(KeyTurnerState* retrievedKeyTurn
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    // printBuffer((byte*)&retrievedKeyTurnerState, sizeof(retrievedKeyTurnerState), false, "retreived Keyturner state");
+    // printBuffer((byte*)&retrievedKeyTurnerState, sizeof(retrievedKeyTurnerState), false, "retreived Keyturner state", debugNukiHexData);
     memcpy(retrievedKeyTurnerState, &keyTurnerState, sizeof(KeyTurnerState));
   }
   return result;
@@ -135,7 +135,7 @@ Nuki::CmdResult NukiLock::setName(const std::string& name) {
     }
     return result;
   } else {
-    log_w("setName, too long (max32)");
+    logMessage("setName, too long (max32)", 2);
     return Nuki::CmdResult::Failed;
   }
 }
@@ -530,11 +530,11 @@ Nuki::CmdResult NukiLock::addTimeControlEntry(NewTimeControlEntry newTimeControl
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("addTimeControlEntry, payloadlen: %d", sizeof(NewTimeControlEntry));
-    printBuffer(action.payload, sizeof(NewTimeControlEntry), false, "new time control content: ");
-    logNewTimeControlEntry(newTimeControlEntry);
-    #endif
+    if (debugNukiReadableData) {      
+      logMessageVar("addTimeControlEntry, payloadlen: %d", sizeof(NewTimeControlEntry));
+      printBuffer(action.payload, sizeof(NewTimeControlEntry), false, "new time control content: ", debugNukiHexData, logger);
+      logNewTimeControlEntry(newTimeControlEntry, true, logger);
+    }
   }
   return result;
 }
@@ -552,11 +552,11 @@ Nuki::CmdResult NukiLock::updateTimeControlEntry(TimeControlEntry TimeControlEnt
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("addTimeControlEntry, payloadlen: %d", sizeof(TimeControlEntry));
-    printBuffer(action.payload, sizeof(TimeControlEntry), false, "updated time control content: ");
-    logTimeControlEntry(TimeControlEntry);
-    #endif
+    if (debugNukiReadableData) {      
+      logMessageVar("addTimeControlEntry, payloadlen: %d", sizeof(TimeControlEntry));
+      printBuffer(action.payload, sizeof(TimeControlEntry), false, "updated time control content: ", debugNukiHexData, logger);
+      logTimeControlEntry(TimeControlEntry, true, logger);
+    }
   }
   return result;
 }
@@ -733,52 +733,52 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
 
   switch (returnCode) {
     case Command::KeyturnerStates : {
-      printBuffer((byte*)data, dataLen, false, "keyturnerStates");
+      printBuffer((byte*)data, dataLen, false, "keyturnerStates", debugNukiHexData, logger);
       memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      logKeyturnerState(keyTurnerState);
-      #endif
+      if (debugNukiReadableData) {
+        logKeyturnerState(keyTurnerState, true, logger);
+      }
       break;
     }
     case Command::BatteryReport : {
-      printBuffer((byte*)data, dataLen, false, "batteryReport");
+      printBuffer((byte*)data, dataLen, false, "batteryReport", debugNukiHexData, logger);
       memcpy(&batteryReport, data, sizeof(batteryReport));
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      logBatteryReport(batteryReport);
-      #endif
+      if (debugNukiReadableData) {
+        logBatteryReport(batteryReport, true, logger);
+      }
       break;
     }
     case Command::Config : {
       memcpy(&config, data, sizeof(config));
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      logConfig(config);
-      #endif
-      printBuffer((byte*)data, dataLen, false, "config");
+      if (debugNukiReadableData) {
+        logConfig(config, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "config", debugNukiHexData, logger);
       break;
     }
     case Command::AdvancedConfig : {
       memcpy(&advancedConfig, data, sizeof(advancedConfig));
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      logAdvancedConfig(advancedConfig);
-      #endif
-      printBuffer((byte*)data, dataLen, false, "advancedConfig");
+      if (debugNukiReadableData) {
+        logAdvancedConfig(advancedConfig, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "advancedConfig", debugNukiHexData, logger);
       break;
     }
     case Command::TimeControlEntry : {
-      printBuffer((byte*)data, dataLen, false, "timeControlEntry");
+      printBuffer((byte*)data, dataLen, false, "timeControlEntry", debugNukiHexData, logger);
       TimeControlEntry timeControlEntry;
       memcpy(&timeControlEntry, data, sizeof(timeControlEntry));
       listOfTimeControlEntries.push_back(timeControlEntry);
       break;
     }
     case Command::LogEntry : {
-      printBuffer((byte*)data, dataLen, false, "logEntry");
+      printBuffer((byte*)data, dataLen, false, "logEntry", debugNukiHexData, logger);
       LogEntry logEntry;
       memcpy(&logEntry, data, sizeof(logEntry));
       listOfLogEntries.push_back(logEntry);
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      logLogEntry(logEntry);
-      #endif
+      if (debugNukiReadableData) {
+        logLogEntry(logEntry, true, logger);
+      }
       break;
     }
     default:
@@ -788,7 +788,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
 }
 
 void NukiLock::logErrorCode(uint8_t errorCode) {
-  logLockErrorCode(errorCode);
+  logLockErrorCode(errorCode, debugNukiReadableData, logger);
 }
 
 }

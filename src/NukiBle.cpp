@@ -14,6 +14,7 @@
 #include "NukiLockUtils.h"
 #include "NukiUtils.h"
 #include "string.h"
+#include <algorithm>
 #include "sodium/crypto_scalarmult.h"
 #include "sodium/crypto_core_hsalsa20.h"
 #include "sodium/crypto_auth_hmacsha256.h"
@@ -45,6 +46,23 @@ NukiBle::NukiBle(const std::string& deviceName,
   rssi = 0;
   lastReceivedBeaconTs = 0;
   lastHeartbeat = 0;
+
+  #ifdef DEBUG_NUKI_CONNECT
+  debugNukiConnect = true;
+  #endif
+  #ifdef DEBUG_NUKI_COMMUNICATION
+  debugNukiCommunication = true;
+  #endif
+  #ifdef DEBUG_NUKI_READABLE_DATA
+  debugNukiReadableData = true;
+  #endif
+  #ifdef DEBUG_NUKI_HEX_DATA
+  debugNukiHexData = true;
+  #endif
+  #ifdef DEBUG_NUKI_COMMAND
+  debugNukiCommand = true;
+  #endif
+
 }
 
 NukiBle::~NukiBle() {
@@ -54,7 +72,7 @@ NukiBle::~NukiBle() {
   }
 }
 
-void NukiBle::initialize() {
+void NukiBle::initialize(bool initAltConnect) {
   preferences.begin(preferencesId.c_str(), false);
   #ifdef NUKI_USE_LATEST_NIMBLE
   if (!NimBLEDevice::isInitialized())
@@ -65,15 +83,19 @@ void NukiBle::initialize() {
     NimBLEDevice::init(deviceName);
   }
 
-  #ifndef NUKI_ALT_CONNECT
-  pClient = NimBLEDevice::createClient();
-  pClient->setClientCallbacks(this);
-  #ifdef NUKI_USE_LATEST_NIMBLE
-  pClient->setConnectTimeout(connectTimeoutSec * 1000);
-  #else
-  pClient->setConnectTimeout(connectTimeoutSec);
-  #endif
-  #endif
+  if (!initAltConnect) {
+    pClient = NimBLEDevice::createClient();
+    pClient->setClientCallbacks(this);
+    #ifdef NUKI_USE_LATEST_NIMBLE
+    pClient->setConnectTimeout(connectTimeoutSec * 1000);
+    #else
+    pClient->setConnectTimeout(connectTimeoutSec);
+    #endif
+  }
+  else
+  {
+    altConnect = true;
+  }
   isPaired = retrieveCredentials();
 }
 
@@ -82,9 +104,9 @@ void NukiBle::setPower(esp_power_level_t powerLevel) {
   if (!NimBLEDevice::isInitialized()) {
     NimBLEDevice::init(deviceName);
   }
-  
+
   int power = 9;
-  
+
   switch(powerLevel)
   {
     case ESP_PWR_LVL_N12:
@@ -134,9 +156,9 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
   authorizationIdType = idType;
 
   if (retrieveCredentials()) {
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("Already paired");
-    #endif
+    if (debugNukiConnect) {
+      logMessage("Already paired");
+    }
     isPaired = true;
     return PairingResult::Success;
   }
@@ -150,9 +172,9 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
 
   if (pairingServiceAvailable && bleAddress != BLEAddress("", 0)) {
     pairingServiceAvailable = false;
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("Nuki in pairing mode found");
-    #endif
+    if (debugNukiConnect) {
+      logMessage("Nuki in pairing mode found");
+    }
     if (connectBle(bleAddress, true)) {
       crypto_box_keypair(myPublicKey, myPrivateKey);
 
@@ -177,14 +199,14 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
       extendDisconnectTimeout();
     }
   } else {
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("No nuki in pairing mode found");
-    #endif
+    if (debugNukiConnect) {
+      logMessage("No nuki in pairing mode found");
+    }
   }
 
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("pairing result %d", result);
-  #endif
+  if (debugNukiConnect) {
+    logMessageVar("pairing result %d", (unsigned int)result);
+  }
 
   isPaired = (result == PairingResult::Success);
   return result;
@@ -193,65 +215,267 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
 void NukiBle::unPairNuki() {
   deleteCredentials();
   isPaired = false;
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("[%s] Credentials deleted", deviceName.c_str());
-  #endif
+  if (debugNukiConnect) {
+    logMessageVar("[%s] Credentials deleted", deviceName.c_str());
+  }
 }
 
-#ifndef NUKI_ALT_CONNECT
 bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
-  connecting = true;
-  bleScanner->enableScanning(false);
-  if (!pClient->isConnected()) {
-    #ifdef DEBUG_NUKI_CONNECT
-    #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
-    log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
-    #else
-    log_d("connecting within: %s", pcTaskGetName(xTaskGetCurrentTaskHandle()));
-    #endif
-    #endif
+  if (altConnect) {
+    connecting = true;
+    bleScanner->enableScanning(false);
+    pClient = nullptr;
+
+    if (debugNukiConnect) {
+      #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
+      logMessageVar("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+      #else
+      logMessageVar("connecting within: %s", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+      #endif
+    }
 
     uint8_t connectRetry = 0;
-    #ifdef NUKI_USE_LATEST_NIMBLE
-    pClient->setConnectTimeout(connectTimeoutSec * 1000);
-    #else
-    pClient->setConnectTimeout(connectTimeoutSec);
-    #endif
+
     while (connectRetry < connectRetries) {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("connection attemnpt %d", connectRetry);
+      #ifdef NUKI_USE_LATEST_NIMBLE
+      if(NimBLEDevice::getCreatedClientCount())
+      #else
+      if(NimBLEDevice::getClientListSize())
       #endif
-      if (pClient->connect(bleAddress, true)) {
-        if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registering gdio crashes esp
-          bleScanner->enableScanning(true);
-          connecting = false;
-          return true;
+      {
+        pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
+        if(pClient){
+          #ifdef CONFIG_IDF_TARGET_ESP32C6
+          /*
+          if(pClient->isConnected()) {
+            pClient->disconnect();
+          }
+
+          int loop = 0;
+
+          while(pClient->isConnected() && loop <=100) {
+            loop++;
+            delay(20);
+          }
+
+          if(loop>=100)
+          {
+            if (debugNukiConnect) {
+              logMessageVar("[%s] Disconnect failed", deviceName.c_str());
+            }
+            connectRetry++;
+            #ifndef NUKI_NO_WDT_RESET
+            esp_task_wdt_reset();
+            #endif
+            delay(10);
+            continue;
+          }
+          */
+          #endif
+
+          if(!pClient->isConnected()) {
+            if(!pClient->connect(bleAddress, refreshServices)) {
+              if (debugNukiConnect) {
+                logMessageVar("[%s] Reconnect failed", deviceName.c_str());
+              }
+              connectRetry++;
+              #ifndef NUKI_NO_WDT_RESET
+              esp_task_wdt_reset();
+              #endif
+              delay(10);
+              continue;
+            } else {
+              refreshServices = false;
+            }
+            if (debugNukiConnect) {
+              logMessageVar("[%s] Reconnect success", deviceName.c_str());
+            }
+          }
+        }
+      }
+
+      if(!pClient) {
+        #ifdef NUKI_USE_LATEST_NIMBLE
+        if(NimBLEDevice::getCreatedClientCount() >= NIMBLE_MAX_CONNECTIONS)
+        #else
+        if(NimBLEDevice::getClientListSize() >= NIMBLE_MAX_CONNECTIONS)
+        #endif
+        {
+          if (debugNukiConnect) {
+            logMessageVar("[%s] Max clients reached - no more connections available", deviceName.c_str());
+          }
+          connectRetry++;
+          #ifndef NUKI_NO_WDT_RESET
+          esp_task_wdt_reset();
+          #endif
+          delay(10);
+          continue;
+        }
+
+        pClient = NimBLEDevice::createClient();
+        pClient->setClientCallbacks(this);
+        pClient->setConnectionParams(12,12,0,600,64,64);
+        #ifndef NUKI_USE_LATEST_NIMBLE
+        if (logger == nullptr) {
+          log_d("[%s] Connect timeout %d s", deviceName.c_str(), connectTimeoutSec);
+        }
+        else
+        {
+          logger->printf("[%s] Connect timeout %d s\r\n", deviceName.c_str(), connectTimeoutSec);
+        }
+        pClient->setConnectTimeout(connectTimeoutSec);
+        #else
+        if (logger == nullptr) {
+          log_d("[%s] Connect timeout %d ms", deviceName.c_str(), connectTimeoutSec * 1000);
+        }
+        else
+        {
+          logger->printf("[%s] Connect timeout %d ms\r\n", deviceName.c_str(), connectTimeoutSec * 1000);
+        }
+        pClient->setConnectTimeout(connectTimeoutSec * 1000);
+        #endif
+
+        delay(300);
+
+        int loopCreateClient = 0;
+
+        while(!pClient && loopCreateClient < 50) {
+          delay(100);
+          loopCreateClient++;
+        }
+
+        if (!pClient) {
+          if (debugNukiConnect) {
+            logMessageVar("[%s] Failed to create client", deviceName.c_str());
+          }
+          connectRetry++;
+          #ifndef NUKI_NO_WDT_RESET
+          esp_task_wdt_reset();
+          #endif
+          delay(10);
+          continue;
+        }
+      }
+
+      if(!pClient->isConnected()) {
+        if (!pClient->connect(bleAddress, refreshServices)) {
+          if (debugNukiConnect) {
+            logMessageVar("[%s] Failed to connect", deviceName.c_str());
+          }
+          connectRetry++;
+          #ifndef NUKI_NO_WDT_RESET
+          esp_task_wdt_reset();
+          #endif
+          delay(10);
+          continue;
         } else {
-          log_w("BLE register on pairing or data Service/Char failed");
+          refreshServices = false;
+        }
+      }
+
+      if (debugNukiConnect) {
+        if (logger == nullptr) {
+          log_d("[%s] Connected to: %s RSSI: %d", deviceName.c_str(), pClient->getPeerAddress().toString().c_str(), pClient->getRssi());
+        }
+        else
+        {
+          logger->printf("[%s] Connected to: %s RSSI: %d\r\n", deviceName.c_str(), pClient->getPeerAddress().toString().c_str(), pClient->getRssi());
+        }
+      }
+
+      if(pairing) {
+        if (!registerOnGdioChar()) {
+          if (debugNukiConnect) {
+            logMessageVar("[%s] Failed to connect on registering GDIO", deviceName.c_str());
+          }
+          connectRetry++;
+          #ifndef NUKI_NO_WDT_RESET
+          esp_task_wdt_reset();
+          #endif
+          delay(10);
+          continue;
         }
       } else {
-        pClient->disconnect();
-        log_w("BLE Connect failed, %d retries left", connectRetries - connectRetry - 1);
+        if (!registerOnUsdioChar()) {
+          if (debugNukiConnect) {
+            logMessageVar("[%s] Failed to connect on registering USDIO", deviceName.c_str());
+          }
+          connectRetry++;
+          #ifndef NUKI_NO_WDT_RESET
+          esp_task_wdt_reset();
+          #endif
+          delay(10);
+          continue;
+        }
       }
-      connectRetry++;
-      #ifndef NUKI_NO_WDT_RESET
-      esp_task_wdt_reset();
-      #endif
-      delay(10);
+
+      bleScanner->enableScanning(true);
+      connecting = false;
+      return true;
     }
-  } else {
+
     bleScanner->enableScanning(true);
     connecting = false;
-    return true;
+    return false;
   }
-  bleScanner->enableScanning(true);
-  connecting = false;
-  log_w("BLE Connect failed");
-  return false;
+  else
+  {
+    connecting = true;
+    bleScanner->enableScanning(false);
+    if (!pClient->isConnected()) {
+      if (debugNukiConnect) {
+        #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
+        logMessageVar("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
+        #else
+        logMessageVar("connecting within: %s", pcTaskGetName(xTaskGetCurrentTaskHandle()));
+        #endif
+      }
+
+      uint8_t connectRetry = 0;
+      #ifdef NUKI_USE_LATEST_NIMBLE
+      pClient->setConnectTimeout(connectTimeoutSec * 1000);
+      #else
+      pClient->setConnectTimeout(connectTimeoutSec);
+      #endif
+      while (connectRetry < connectRetries) {
+        if (debugNukiConnect) {
+          logMessageVar("connection attempt %d", connectRetry);
+        }
+        if (pClient->connect(bleAddress, true)) {
+          if (pClient->isConnected() && registerOnGdioChar() && registerOnUsdioChar()) {  //doublecheck if is connected otherwise registering gdio crashes esp
+            bleScanner->enableScanning(true);
+            connecting = false;
+            return true;
+          } else {
+            logMessage("BLE register on pairing or data Service/Char failed", 2);
+          }
+        } else {
+          pClient->disconnect();
+          logMessageVar("BLE Connect failed, %d retries left", connectRetries - connectRetry - 1, 2);
+        }
+        connectRetry++;
+        #ifndef NUKI_NO_WDT_RESET
+        esp_task_wdt_reset();
+        #endif
+        delay(10);
+      }
+    } else {
+      bleScanner->enableScanning(true);
+      connecting = false;
+      return true;
+    }
+    bleScanner->enableScanning(true);
+    connecting = false;
+    logMessage("BLE Connect failed", 2);
+    return false;
+  }
 }
 
 void NukiBle::updateConnectionState() {
   if (connecting) {
+    if (altConnect) {
+      return;
+    }
     lastStartTimeout = 0;
   }
 
@@ -260,202 +484,18 @@ void NukiBle::updateConnectionState() {
   #else
   if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
   #endif
-    if (pClient && pClient->isConnected()) {
+    if (altConnect) {
+      disconnect();
+      delay(200);
+    }
+    else if (pClient && pClient->isConnected()) {
       pClient->disconnect();
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("disconnecting BLE on timeout");
-      #endif
+      if (debugNukiConnect) {
+        logMessage("disconnecting BLE on timeout");
+      }
     }
   }
 }
-#else
-bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
-  connecting = true;
-  bleScanner->enableScanning(false);
-  pClient = nullptr;
-
-  #ifdef DEBUG_NUKI_CONNECT
-  #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
-  log_d("connecting within: %s", pcTaskGetTaskName(xTaskGetCurrentTaskHandle()));
-  #else
-  log_d("connecting within: %s", pcTaskGetName(xTaskGetCurrentTaskHandle()));
-  #endif
-  #endif
-
-  uint8_t connectRetry = 0;
-
-  while (connectRetry < connectRetries) {
-    #ifdef NUKI_USE_LATEST_NIMBLE
-    if(NimBLEDevice::getCreatedClientCount())
-    #else
-    if(NimBLEDevice::getClientListSize())
-    #endif
-    {
-      pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
-      if(pClient){
-        #ifdef CONFIG_IDF_TARGET_ESP32C6
-        if(pClient->isConnected()) {
-          pClient->disconnect();
-        }
-
-        int loop = 0;
-
-        while(pClient->isConnected() && loop <=100) {
-          loop++;
-          delay(20);
-        }
-
-        if(loop>=100)
-        {
-          #ifdef DEBUG_NUKI_CONNECT
-          log_d("[%s] Disconnect failed", deviceName.c_str());
-          #endif
-          connectRetry++;
-          #ifndef NUKI_NO_WDT_RESET
-          esp_task_wdt_reset();
-          #endif
-          delay(10);
-          continue;
-        }
-        #endif
-
-        if(!pClient->isConnected()) {
-          if(!pClient->connect(bleAddress, false)) {
-            #ifdef DEBUG_NUKI_CONNECT
-            log_d("[%s] Reconnect failed", deviceName.c_str());
-            #endif
-            connectRetry++;
-            #ifndef NUKI_NO_WDT_RESET
-            esp_task_wdt_reset();
-            #endif
-            delay(10);
-            continue;
-          }
-          #ifdef DEBUG_NUKI_CONNECT
-          log_d("[%s] Reconnect success", deviceName.c_str());
-          #endif
-        }
-      }
-    }
-
-    if(!pClient) {
-      #ifdef NUKI_USE_LATEST_NIMBLE
-      if(NimBLEDevice::getCreatedClientCount() >= NIMBLE_MAX_CONNECTIONS)
-      #else
-      if(NimBLEDevice::getClientListSize() >= NIMBLE_MAX_CONNECTIONS)
-      #endif
-      {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("[%s] Max clients reached - no more connections available", deviceName.c_str());
-        #endif
-        connectRetry++;
-        #ifndef NUKI_NO_WDT_RESET
-        esp_task_wdt_reset();
-        #endif
-        delay(10);
-        continue;
-      }
-
-      pClient = NimBLEDevice::createClient();
-      pClient->setClientCallbacks(this);
-      pClient->setConnectionParams(12,12,0,600,64,64);
-      #ifndef NUKI_USE_LATEST_NIMBLE
-      log_d("[%s] Connect timeout %d s", deviceName.c_str(), connectTimeoutSec);
-      pClient->setConnectTimeout(connectTimeoutSec);
-      #else
-      log_d("[%s] Connect timeout %d ms", deviceName.c_str(), connectTimeoutSec * 1000);
-      pClient->setConnectTimeout(connectTimeoutSec * 1000);
-      #endif
-
-      delay(300);
-
-      int loopCreateClient = 0;
-
-      while(!pClient && loopCreateClient < 50) {
-        delay(100);
-        loopCreateClient++;
-      }
-
-      if (!pClient) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("[%s] Failed to create client", deviceName.c_str());
-        #endif
-        connectRetry++;
-        #ifndef NUKI_NO_WDT_RESET
-        esp_task_wdt_reset();
-        #endif
-        delay(10);
-        continue;
-      }
-    }
-
-    if(!pClient->isConnected()) {
-      if (!pClient->connect(bleAddress, false)) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("[%s] Failed to connect", deviceName.c_str());
-        #endif
-        connectRetry++;
-        #ifndef NUKI_NO_WDT_RESET
-        esp_task_wdt_reset();
-        #endif
-        delay(10);
-        continue;
-      }
-    }
-
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("[%s] Connected to: %s RSSI: %d", deviceName.c_str(), pClient->getPeerAddress().toString().c_str(), pClient->getRssi());
-    #endif
-
-    if(pairing) {
-      if (!registerOnGdioChar()) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("[%s] Failed to connect on registering GDIO", deviceName.c_str());
-        #endif
-        connectRetry++;
-        #ifndef NUKI_NO_WDT_RESET
-        esp_task_wdt_reset();
-        #endif
-        delay(10);
-        continue;
-      }
-    } else {
-      if (!registerOnUsdioChar()) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("[%s] Failed to connect on registering USDIO", deviceName.c_str());
-        #endif
-        connectRetry++;
-        #ifndef NUKI_NO_WDT_RESET
-        esp_task_wdt_reset();
-        #endif
-        delay(10);
-        continue;
-      }
-    }
-
-    bleScanner->enableScanning(true);
-    connecting = false;
-    return true;
-  }
-
-  bleScanner->enableScanning(true);
-  connecting = false;
-  return false;
-}
-
-void NukiBle::updateConnectionState() {
-  if (connecting) return;
-
-  #ifndef NUKI_64BIT_TIME
-  if (lastStartTimeout != 0 && (millis() - lastStartTimeout > timeoutDuration)) {
-  #else
-  if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
-  #endif
-    disconnect();
-    delay(200);
-  }
-}
-#endif
 
 void NukiBle::disconnect()
 {
@@ -469,12 +509,14 @@ void NukiBle::disconnect()
   {
     pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
   }
-  
-  if (pClient && pClient->isConnected()) {
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("Disconnecting BLE");
-    #endif
-    pClient->disconnect();    
+
+  if (pClient) {
+    if (pClient->isConnected()) {
+      if (debugNukiConnect) {
+        logMessage("Disconnecting BLE");
+      }
+      pClient->disconnect();
+    }
   }
 }
 
@@ -493,8 +535,10 @@ void NukiBle::setConnectRetries(uint8_t retries) {
 void NukiBle::extendDisconnectTimeout() {
   #ifndef NUKI_64BIT_TIME
   lastStartTimeout = millis();
+  lastHeartbeat = millis();
   #else
   lastStartTimeout = (esp_timer_get_time() / 1000);
+  lastHeartbeat = (esp_timer_get_time() / 1000);
   #endif
 }
 
@@ -514,14 +558,12 @@ void NukiBle::onResult(const BLEAdvertisedDevice* advertisedDevice) {
 
       std::string manufacturerData = advertisedDevice->getManufacturerData();
       uint8_t* manufacturerDataPtr = (uint8_t*)manufacturerData.data();
-      #ifndef NUKI_USE_LATEST_NIMBLE
-      char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
-      #else
-      const char* pHex = BLEUtils::dataToHexString(manufacturerDataPtr, manufacturerData.length()).c_str();
-      #endif
-
       bool isKeyTurnerUUID = true;
       std::string serviceUUID = deviceServiceUUID.toString();
+
+      #ifndef NUKI_USE_LATEST_NIMBLE
+      char* pHex = BLEUtils::buildHexData(nullptr, manufacturerDataPtr, manufacturerData.length());
+
       size_t len = serviceUUID.length();
       int offset = 0;
       for (int i = 0; i < len; i++) {
@@ -534,31 +576,46 @@ void NukiBle::onResult(const BLEAdvertisedDevice* advertisedDevice) {
           isKeyTurnerUUID = false;
         }
       }
-      #ifndef NUKI_USE_LATEST_NIMBLE
+
       free(pHex);
+      #else
+      std::string pHex = advertisedDevice->toString();
+      serviceUUID.erase(std::remove(serviceUUID.begin(), serviceUUID.end(), '-'), serviceUUID.end());
+
+      if (pHex.find(serviceUUID) == std::string::npos) {
+        isKeyTurnerUUID = false;
+      }
       #endif
 
       if (isKeyTurnerUUID) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("Nuki Advertising: %s", advertisedDevice->toString().c_str());
-        #endif
+        if (debugNukiConnect) {
+          logMessageVar("Nuki Advertising: %s", advertisedDevice->toString().c_str());
+        }
 
         uint8_t cManufacturerData[100];
         manufacturerData.copy((char*)cManufacturerData, manufacturerData.length(), 0);
 
         if (manufacturerData.length() == 25 && cManufacturerData[0] == 0x4C && cManufacturerData[1] == 0x00) {
           BLEBeacon oBeacon = BLEBeacon();
-          
+
           #ifndef NUKI_USE_LATEST_NIMBLE
           oBeacon.setData(manufacturerData);
           #else
           oBeacon.setData((uint8_t*)manufacturerData.c_str(), (uint8_t)manufacturerData.length());
           #endif
-          #ifdef DEBUG_NUKI_CONNECT
-          log_d("iBeacon ID: %04X Major: %d Minor: %d UUID: %s Power: %d\n", oBeacon.getManufacturerId(),
-                ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
-                oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
-          #endif
+          if (debugNukiConnect) {
+            if (logger == nullptr) {
+              log_d("iBeacon ID: %04X Major: %d Minor: %d UUID: %s Power: %d", oBeacon.getManufacturerId(),
+                  ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
+                  oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
+            }
+            else
+            {
+              logger->printf("iBeacon ID: %04X Major: %d Minor: %d UUID: %s Power: %d\r\n", oBeacon.getManufacturerId(),
+                  ENDIAN_CHANGE_U16(oBeacon.getMajor()), ENDIAN_CHANGE_U16(oBeacon.getMinor()),
+                  oBeacon.getProximityUUID().toString().c_str(), oBeacon.getSignalPower());
+            }
+          }
           #ifndef NUKI_64BIT_TIME
           lastHeartbeat = millis();
           #else
@@ -568,13 +625,13 @@ void NukiBle::onResult(const BLEAdvertisedDevice* advertisedDevice) {
             if (eventHandler) {
               eventHandler->notify(EventType::KeyTurnerStatusUpdated);
             }
-            
+
             statusUpdated = true;
           }
           else if (statusUpdated)
           {
             statusUpdated = false;
-            
+
             if (eventHandler) {
               eventHandler->notify(EventType::KeyTurnerStatusReset);
             }
@@ -585,9 +642,15 @@ void NukiBle::onResult(const BLEAdvertisedDevice* advertisedDevice) {
   } else {
     if (advertisedDevice->haveServiceData()) {
       if (advertisedDevice->getServiceData(pairingServiceUUID) != "") {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
-        #endif
+        if (debugNukiConnect) {
+          if (logger == nullptr) {
+            log_d("Found nuki in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+          }
+          else
+          {
+            logger->printf("Found nuki in pairing state: %s addr: %s\r\n", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+          }
+        }
         bleAddress = advertisedDevice->getAddress();
         pairingServiceAvailable = true;
         #ifndef NUKI_64BIT_TIME
@@ -630,14 +693,14 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > GENERAL_TIMEOUT) {
       #endif
-        log_w("Receive keypad count timeout");
+        logMessage("Receive keypad count timeout", 2);
         return CmdResult::TimeOut;
       }
       delay(10);
     }
-    #ifdef DEBUG_NUKI_COMMAND
-    log_d("Keypad code count %d", getKeypadEntryCount());
-    #endif
+    if (debugNukiCommand) {
+      logMessageVar("Keypad code count %d", getKeypadEntryCount());
+    }
 
     //wait for return of Keypad Codes (0x0045)
     #ifndef NUKI_64BIT_TIME
@@ -651,16 +714,16 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > GENERAL_TIMEOUT) {
       #endif
-        log_w("Receive keypadcodes timeout");
+        logMessage("Receive keypadcodes timeout", 2);
         return CmdResult::TimeOut;
       }
       delay(10);
     }
-    #ifdef DEBUG_NUKI_COMMAND
-    log_d("%d codes received", nrOfReceivedKeypadCodes);
-    #endif
+    if (debugNukiCommand) {
+      logMessageVar("%d codes received", nrOfReceivedKeypadCodes);
+    }
   } else {
-    log_w("Retreive keypad codes from lock failed");
+    logMessage("Retrieve keypad codes from lock failed", 2);
   }
   return result;
 }
@@ -676,11 +739,11 @@ Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("addKeyPadEntry, payloadlen: %d", sizeof(NewKeypadEntry));
-    printBuffer(action.payload, sizeof(NewKeypadEntry), false, "addKeyPadCode content: ");
-    NukiLock::logNewKeypadEntry(newKeypadEntry);
-    #endif
+    if (debugNukiReadableData) {
+      logMessageVar("addKeyPadEntry, payloadlen: %d", sizeof(NewKeypadEntry));
+      printBuffer(action.payload, sizeof(NewKeypadEntry), false, "addKeyPadCode content: ", debugNukiHexData, logger);
+      NukiLock::logNewKeypadEntry(newKeypadEntry, debugNukiReadableData, logger);
+    }
   }
   return result;
 }
@@ -696,11 +759,11 @@ Nuki::CmdResult NukiBle::updateKeypadEntry(UpdatedKeypadEntry updatedKeyPadEntry
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("addKeyPadEntry, payloadlen: %d", sizeof(UpdatedKeypadEntry));
-    printBuffer(action.payload, sizeof(UpdatedKeypadEntry), false, "updatedKeypad content: ");
-    NukiLock::logUpdatedKeypadEntry(updatedKeyPadEntry);
-    #endif
+    if (debugNukiReadableData) {
+      logMessageVar("addKeyPadEntry, payloadlen: %d", sizeof(UpdatedKeypadEntry));
+      printBuffer(action.payload, sizeof(UpdatedKeypadEntry), false, "updatedKeypad content: ", debugNukiHexData, logger);
+      NukiLock::logUpdatedKeypadEntry(updatedKeyPadEntry, debugNukiReadableData, logger);
+    }
   }
   return result;
 }
@@ -769,11 +832,11 @@ Nuki::CmdResult NukiBle::addAuthorizationEntry(NewAuthorizationEntry newAuthoriz
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("addAuthorizationEntry, payloadlen: %d", sizeof(NewAuthorizationEntry));
-    printBuffer(action.payload, sizeof(NewAuthorizationEntry), false, "addAuthorizationEntry content: ");
-    NukiLock::logNewAuthorizationEntry(newAuthorizationEntry);
-    #endif
+    if (debugNukiReadableData) {
+      logMessageVar("addAuthorizationEntry, payloadlen: %d", sizeof(NewAuthorizationEntry));
+      printBuffer(action.payload, sizeof(NewAuthorizationEntry), false, "addAuthorizationEntry content: ", debugNukiHexData, logger);
+      NukiLock::logNewAuthorizationEntry(newAuthorizationEntry, debugNukiReadableData, logger);
+    }
   }
   return result;
 }
@@ -804,11 +867,11 @@ Nuki::CmdResult NukiBle::updateAuthorizationEntry(UpdatedAuthorizationEntry upda
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("addAuthorizationEntry, payloadlen: %d", sizeof(UpdatedAuthorizationEntry));
-    printBuffer(action.payload, sizeof(UpdatedAuthorizationEntry), false, "updatedKeypad content: ");
-    NukiLock::logUpdatedAuthorizationEntry(updatedAuthorizationEntry);
-    #endif
+    if (debugNukiReadableData) {
+      logMessageVar("addAuthorizationEntry, payloadlen: %d", sizeof(UpdatedAuthorizationEntry));
+      printBuffer(action.payload, sizeof(UpdatedAuthorizationEntry), false, "updatedKeypad content: ", debugNukiHexData, logger);
+      NukiLock::logUpdatedAuthorizationEntry(updatedAuthorizationEntry, debugNukiReadableData, logger);
+    }
   }
   return result;
 }
@@ -844,9 +907,9 @@ Nuki::CmdResult NukiBle::verifySecurityPin() {
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("Verify security pin code success");
-    #endif
+    if (debugNukiReadableData) {
+      logMessage("Verify security pin code success");
+    }
   }
   return result;
 }
@@ -860,9 +923,9 @@ Nuki::CmdResult NukiBle::requestCalibration() {
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("Calibration executed");
-    #endif
+    if (debugNukiReadableData) {
+      logMessage("Calibration executed");
+    }
   }
   return result;
 }
@@ -876,9 +939,9 @@ Nuki::CmdResult NukiBle::requestReboot() {
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("Reboot executed");
-    #endif
+    if (debugNukiReadableData) {
+      logMessage("Reboot executed");
+    }
   }
   return result;
 }
@@ -895,9 +958,15 @@ Nuki::CmdResult NukiBle::updateTime(TimeValue time) {
 
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
-    #ifdef DEBUG_NUKI_READABLE_DATA
-    log_d("Time set: %d-%d-%d %d:%d:%d", time.year, time.month, time.day, time.hour, time.minute, time.second);
-    #endif
+    if (debugNukiReadableData) {
+      if (logger == nullptr) {
+        log_d("Time set: %d-%d-%d %d:%d:%d", time.year, time.month, time.day, time.hour, time.minute, time.second);
+      }
+      else
+      {
+        logger->printf("Time set: %d-%d-%d %d:%d:%d\r\n", time.year, time.month, time.day, time.hour, time.minute, time.second);
+      }
+    }
   }
   return result;
 }
@@ -943,15 +1012,15 @@ void NukiBle::saveCredentials() {
       && (preferences.putBytes(SECRET_KEY_STORE_NAME, secretKeyK, 32) == 32)
       && (preferences.putBytes(AUTH_ID_STORE_NAME, authorizationId, 4) == 4)
      ) {
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials saved:");
-    printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
-    printBuffer(currentBleAddress, 6, false, BLE_ADDRESS_STORE_NAME);
-    printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
-    log_d("pincode: %d", pinCode);
-    #endif
+    if (debugNukiConnect) {
+      logMessage("Credentials saved:");
+      printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME, debugNukiHexData, logger);
+      printBuffer(currentBleAddress, 6, false, BLE_ADDRESS_STORE_NAME, debugNukiHexData, logger);
+      printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME, debugNukiHexData, logger);
+      logMessageVar("pincode: %d", pinCode);
+    }
   } else {
-    log_w("ERROR saving credentials");
+    logMessage("ERROR saving credentials", 1);
   }
 }
 
@@ -992,25 +1061,25 @@ bool NukiBle::retrieveCredentials() {
        ) {
       bleAddress = BLEAddress(buff, 0);
 
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("[%s] Credentials retrieved :", deviceName.c_str());
-      printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME);
-      log_d("bleAddress: %s", bleAddress.toString().c_str());
-      printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME);
-      #endif
+      if (debugNukiConnect) {
+        logMessageVar("[%s] Credentials retrieved :", deviceName.c_str());
+        printBuffer(secretKeyK, sizeof(secretKeyK), false, SECRET_KEY_STORE_NAME, debugNukiHexData, logger);
+        logMessageVar("bleAddress: %s", bleAddress.toString().c_str());
+        printBuffer(authorizationId, sizeof(authorizationId), false, AUTH_ID_STORE_NAME, debugNukiHexData, logger);
+      }
 
       if (isCharArrayEmpty(secretKeyK, sizeof(secretKeyK)) || isCharArrayEmpty(authorizationId, sizeof(authorizationId))) {
-        log_w("secret key OR authorizationId is empty: not paired");
+        logMessage("secret key OR authorizationId is empty: not paired", 2);
         giveNukiBleSemaphore();
         return false;
       }
 
       if (pinCode == 0) {
-        log_w("Pincode is 000000, probably not defined");
+        logMessage("Pincode is 000000, probably not defined", 2);
       }
 
     } else {
-      log_e("Error getting data from NVS");
+      logMessage("Error getting data from NVS", 1);
       giveNukiBleSemaphore();
       return false;
     }
@@ -1030,9 +1099,9 @@ void NukiBle::deleteCredentials() {
     // preferences.remove(AUTH_ID_STORE_NAME);
     giveNukiBleSemaphore();
   }
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("Credentials deleted");
-  #endif
+  if (debugNukiConnect) {
+    logMessage("Credentials deleted");
+  }
 }
 
 PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
@@ -1050,9 +1119,9 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
     }
     case PairingState::ReqRemPubKey: {
       //Request remote public key (Sent message should be 0100030027A7)
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("##################### REQUEST REMOTE PUBLIC KEY #########################");
-      #endif
+      if (debugNukiConnect) {
+        logMessage("##################### REQUEST REMOTE PUBLIC KEY #########################");
+      }
       unsigned char buff[sizeof(Command)];
       uint16_t cmd = (uint16_t)Command::PublicKey;
       memcpy(buff, &cmd, sizeof(Command));
@@ -1066,60 +1135,60 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
       break;
     }
     case PairingState::SendPubKey: {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("##################### SEND CLIENT PUBLIC KEY #########################");
-      #endif
+      if (debugNukiConnect) {
+        logMessage("##################### SEND CLIENT PUBLIC KEY #########################");
+      }
       sendPlainMessage(Command::PublicKey, myPublicKey, sizeof(myPublicKey));
       nukiPairingResultState = PairingState::GenKeyPair;
     }
     case PairingState::GenKeyPair: {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("##################### CALCULATE DH SHARED KEY s #########################");
-      #endif
+      if (debugNukiConnect) {
+        logMessage("##################### CALCULATE DH SHARED KEY s #########################");
+      }
       unsigned char sharedKeyS[32] = {0x00};
       crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
-      printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s");
+      printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s", debugNukiHexData, logger);
 
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("##################### DERIVE LONG TERM SHARED SECRET KEY k #########################");
-      #endif
+      if (debugNukiConnect) {
+        logMessage("##################### DERIVE LONG TERM SHARED SECRET KEY k #########################");
+      }
       unsigned char in[16];
       memset(in, 0, 16);
       unsigned char sigma[] = "expand 32-byte k";
       crypto_core_hsalsa20(secretKeyK, in, sharedKeyS, sigma);
-      printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k");
+      printBuffer(secretKeyK, sizeof(secretKeyK), false, "Secret key k", debugNukiHexData, logger);
       nukiPairingResultState = PairingState::CalculateAuth;
     }
     case PairingState::CalculateAuth: {
       if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("##################### CALCULATE/VERIFY AUTHENTICATOR #########################");
-        #endif
+        if (debugNukiConnect) {
+          logMessage("##################### CALCULATE/VERIFY AUTHENTICATOR #########################");
+        }
         //concatenate local public key, remote public key and receive challenge data
         unsigned char hmacPayload[96];
         memcpy(&hmacPayload[0], myPublicKey, sizeof(myPublicKey));
         memcpy(&hmacPayload[32], remotePublicKey, sizeof(remotePublicKey));
         memcpy(&hmacPayload[64], challengeNonceK, sizeof(challengeNonceK));
-        printBuffer((byte*)hmacPayload, sizeof(hmacPayload), false, "Concatenated data r");
+        printBuffer((byte*)hmacPayload, sizeof(hmacPayload), false, "Concatenated data r", debugNukiHexData, logger);
         crypto_auth_hmacsha256(authenticator, hmacPayload, sizeof(hmacPayload), secretKeyK);
-        printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result");
+        printBuffer(authenticator, sizeof(authenticator), false, "HMAC 256 result", debugNukiHexData, logger);
         memset(challengeNonceK, 0, sizeof(challengeNonceK));
         nukiPairingResultState = PairingState::SendAuth;
       }
       break;
     }
     case PairingState::SendAuth: {
-      #ifdef DEBUG_NUKI_CONNECT
-      log_d("##################### SEND AUTHENTICATOR #########################");
-      #endif
+      if (debugNukiConnect) {
+        logMessage("##################### SEND AUTHENTICATOR #########################");
+      }
       sendPlainMessage(Command::AuthorizationAuthenticator, authenticator, sizeof(authenticator));
       nukiPairingResultState = PairingState::SendAuthData;
     }
     case PairingState::SendAuthData: {
       if (isCharArrayNotEmpty(challengeNonceK, sizeof(challengeNonceK))) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("##################### SEND AUTHORIZATION DATA #########################");
-        #endif
+        if (debugNukiConnect) {
+          logMessage("##################### SEND AUTHORIZATION DATA #########################");
+        }
         unsigned char authorizationData[101] = {};
         unsigned char authorizationDataIdType[1] = {(unsigned char)authorizationIdType };
         unsigned char authorizationDataId[4] = {};
@@ -1130,7 +1199,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         authorizationDataId[2] = (deviceId >> (8 * 2)) & 0xff;
         authorizationDataId[3] = (deviceId >> (8 * 3)) & 0xff;
         memcpy(authorizationDataName, deviceName.c_str(), deviceName.size());
-        generateNonce(authorizationDataNonce, sizeof(authorizationDataNonce));
+        generateNonce(authorizationDataNonce, sizeof(authorizationDataNonce), debugNukiHexData);
 
         //calculate authenticator of message to send
         memcpy(&authorizationData[0], authorizationDataIdType, sizeof(authorizationDataIdType));
@@ -1156,9 +1225,9 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
     }
     case PairingState::SendAuthIdConf: {
       if (isCharArrayNotEmpty(authorizationId, sizeof(authorizationId))) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("##################### SEND AUTHORIZATION ID confirmation #########################");
-        #endif
+        if (debugNukiConnect) {
+          logMessage("##################### SEND AUTHORIZATION ID confirmation #########################");
+        }
         unsigned char confirmationData[36] = {};
 
         //calculate authenticator of message to send
@@ -1177,15 +1246,15 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
     }
     case PairingState::RecStatus: {
       if (receivedStatus == 0) {
-        #ifdef DEBUG_NUKI_CONNECT
-        log_d("####################### PAIRING DONE ###############################################");
-        #endif
+        if (debugNukiConnect) {
+          logMessage("####################### PAIRING DONE ###############################################");
+        }
         nukiPairingResultState = PairingState::Success;
       }
       break;
     }
     default: {
-      log_e("Unknown pairing status");
+      logMessage("Unknown pairing status", 1);
       nukiPairingResultState = PairingState::Timeout;
     }
   }
@@ -1195,7 +1264,7 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
   #else
   if ((esp_timer_get_time() / 1000) - timeNow > PAIRING_TIMEOUT) {
   #endif
-    log_w("Pairing timeout");
+    logMessage("Pairing timeout", 2);
     nukiPairingResultState = PairingState::Timeout;
   }
 
@@ -1223,31 +1292,31 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
   memcpy(&plainDataWithCrc[0], &plainData, sizeof(plainData));
   memcpy(&plainDataWithCrc[sizeof(plainData)], &dataCrc, sizeof(dataCrc));
 
-  #ifdef DEBUG_NUKI_HEX_DATA
-  log_d("payloadlen: %d", payloadLen);
-  log_d("sizeof(plainData): %d", sizeof(plainData));
-  log_d("CRC: %0.2x", dataCrc);
-  #endif
-  printBuffer((byte*)plainDataWithCrc, sizeof(plainDataWithCrc), false, "Plain data with CRC: ");
+  if (debugNukiHexData) {
+    logMessageVar("payloadlen: %d", payloadLen);
+    logMessageVar("sizeof(plainData): %d", sizeof(plainData));
+    logMessageVar("CRC: %0.2x", dataCrc);
+  }
+  printBuffer((byte*)plainDataWithCrc, sizeof(plainDataWithCrc), false, "Plain data with CRC: ", debugNukiHexData, logger);
 
   //compose additional data
   unsigned char additionalData[30] = {};
-  generateNonce(sentNonce, sizeof(sentNonce));
+  generateNonce(sentNonce, sizeof(sentNonce), debugNukiHexData);
 
   memcpy(&additionalData[0], sentNonce, sizeof(sentNonce));
   memcpy(&additionalData[24], authorizationId, sizeof(authorizationId));
 
   //Encrypt plain data
   unsigned char plainDataEncr[ sizeof(plainDataWithCrc) + crypto_secretbox_MACBYTES] = {0};
-  int encrMsgLen = encode(plainDataEncr, plainDataWithCrc, sizeof(plainDataWithCrc), sentNonce, secretKeyK);
+  int encrMsgLen = encode(plainDataEncr, plainDataWithCrc, sizeof(plainDataWithCrc), sentNonce, secretKeyK, logger);
 
   if (encrMsgLen >= 0) {
     int16_t length = sizeof(plainDataEncr);
     memcpy(&additionalData[28], &length, 2);
 
-    printBuffer((byte*)additionalData, 30, false, "Additional data: ");
-    printBuffer((byte*)secretKeyK, sizeof(secretKeyK), false, "Encryption key (secretKey): ");
-    printBuffer((byte*)plainDataEncr, sizeof(plainDataEncr), false, "Plain data encrypted: ");
+    printBuffer((byte*)additionalData, 30, false, "Additional data: ", debugNukiHexData, logger);
+    printBuffer((byte*)secretKeyK, sizeof(secretKeyK), false, "Encryption key (secretKey): ", debugNukiHexData, logger);
+    printBuffer((byte*)plainDataEncr, sizeof(plainDataEncr), false, "Plain data encrypted: ", debugNukiHexData, logger);
 
     //compose complete message
     unsigned char dataToSend[sizeof(additionalData) + sizeof(plainDataEncr)] = {};
@@ -1255,13 +1324,13 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
     memcpy(&dataToSend[30], plainDataEncr, sizeof(plainDataEncr));
 
     if (connectBle(bleAddress, false)) {
-      printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message");
+      printBuffer((byte*)dataToSend, sizeof(dataToSend), false, "Sending encrypted message", debugNukiHexData, logger);
       return pUsdioCharacteristic->writeValue((uint8_t*)dataToSend, sizeof(dataToSend), true);
     } else {
-      log_w("Send encr msg failed due to unable to connect");
+      logMessage("Send encr msg failed due to unable to connect", 2);
     }
   } else {
-    log_w("Send msg failed due to encryption fail");
+    logMessage("Send msg failed due to encryption fail", 2);
   }
   return false;
 }
@@ -1280,15 +1349,21 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   uint16_t dataCrc = calculateCrc((uint8_t*)dataToSend, 0, payloadLen + 2);
 
   memcpy(&dataToSend[2 + payloadLen], &dataCrc, sizeof(dataCrc));
-  printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message");
-  #ifdef DEBUG_NUKI_HEX_DATA
-  log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
-  #endif
+  printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message", debugNukiHexData, logger);
+  if (debugNukiHexData) {
+    if (logger == nullptr) {
+      log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
+    }
+    else
+    {
+      logger->printf("Command identifier: %02x, CRC: %04x\r\n", (uint32_t)commandIdentifier, dataCrc);
+    }
+  }
 
   if (connectBle(bleAddress, true)) {
     return pGdioCharacteristic->writeValue((uint8_t*)dataToSend, payloadLen + 4, true);
   } else {
-    log_w("Send plain msg failed due to unable to connect");
+    logMessage("Send plain msg failed due to unable to connect", 2);
   }
   return false;
 }
@@ -1308,29 +1383,33 @@ bool NukiBle::registerOnGdioChar() {
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
         #endif
         if(!pGdioCharacteristic->subscribe(false, callback, true)) {
-          log_w("Unable to subscribe to GDIO characteristic");
+          logMessage("Unable to subscribe to GDIO characteristic", 2);
+          refreshServices = true;
           disconnect();
           return false;
         }
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("GDIO characteristic registered");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("GDIO characteristic registered");
+        }
         delay(100);
         return true;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("GDIO characteristic canIndicate false, stop connecting");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("GDIO characteristic canIndicate false, stop connecting");
+        }
+        refreshServices = true;
         disconnect();
         return false;
       }
     } else {
-      log_w("Unable to get GDIO characteristic");
+      logMessage("Unable to get GDIO characteristic", 2);
+      refreshServices = true;
       disconnect();
       return false;
     }
   } else {
-    log_w("Unable to get keyturner pairing service");
+    logMessage("Unable to get keyturner pairing service", 2);
+    refreshServices = true;
     disconnect();
     return false;
   }
@@ -1352,29 +1431,33 @@ bool NukiBle::registerOnUsdioChar() {
         notify_callback callback = std::bind(&NukiBle::notifyCallback, this, _1, _2, _3, _4);
         #endif
         if(!pUsdioCharacteristic->subscribe(false, callback, true)) {
-          log_w("Unable to subscribe to USDIO characteristic");
+          logMessage("Unable to subscribe to USDIO characteristic", 2);
+          refreshServices = true;
           disconnect();
           return false;
         }
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("USDIO characteristic registered");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("USDIO characteristic registered");
+        }
         delay(100);
         return true;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("USDIO characteristic canIndicate false, stop connecting");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("USDIO characteristic canIndicate false, stop connecting");
+        }
+        refreshServices = true;
         disconnect();
         return false;
       }
     } else {
-      log_w("Unable to get USDIO characteristic");
+      logMessage("Unable to get USDIO characteristic", 2);
+      refreshServices = true;
       disconnect();
       return false;
     }
   } else {
-    log_w("Unable to get keyturner data service");
+    logMessage("Unable to get keyturner data service", 2);
+    refreshServices = true;
     disconnect();
     return false;
   }
@@ -1388,15 +1471,21 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   #else
   lastHeartbeat = (esp_timer_get_time() / 1000);
   #endif
-  #ifdef DEBUG_NUKI_COMMUNICATION
-  log_d(" Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
-  #endif
-  printBuffer((byte*)recData, length, false, "Received data");
+  if (debugNukiCommunication) {
+    if (logger == nullptr) {
+      log_d("Notify callback for characteristic: %s of length: %d", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
+    }
+    else
+    {
+      logger->printf("Notify callback for characteristic: %s of length: %d\r\n", pBLERemoteCharacteristic->getUUID().toString().c_str(), length);
+    }
+  }
+  printBuffer((byte*)recData, length, false, "Received data", debugNukiHexData, logger);
 
   if (pBLERemoteCharacteristic->getUUID() == gdioUUID) {
     //handle not encrypted msg
     uint16_t returnCode = ((uint16_t)recData[1] << 8) | recData[0];
-    crcCheckOke = crcValid(recData, length);
+    crcCheckOke = crcValid(recData, length, debugNukiCommunication, logger);
     if (crcCheckOke) {
       unsigned char plainData[200];
       memcpy(plainData, &recData[2], length - 4);
@@ -1416,17 +1505,17 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     memcpy(&encrData, &recData[crypto_secretbox_NONCEBYTES + 6], encrMsgLen);
 
     unsigned char decrData[encrMsgLen - crypto_secretbox_MACBYTES];
-    decode(decrData, encrData, encrMsgLen, recNonce, secretKeyK);
+    decode(decrData, encrData, encrMsgLen, recNonce, secretKeyK, logger);
 
-    #ifdef DEBUG_NUKI_COMMUNICATION
-    log_d("Received encrypted msg, len: %d", encrMsgLen);
-    #endif
-    printBuffer(recNonce, sizeof(recNonce), false, "received nonce");
-    printBuffer(recAuthorizationId, sizeof(recAuthorizationId), false, "Received AuthorizationId");
-    printBuffer(encrData, sizeof(encrData), false, "Rec encrypted data");
-    printBuffer(decrData, sizeof(decrData), false, "Decrypted data");
+    if (debugNukiCommunication) {
+      logMessageVar("Received encrypted msg, len: %d", encrMsgLen);
+    }
+    printBuffer(recNonce, sizeof(recNonce), false, "received nonce", debugNukiHexData, logger);
+    printBuffer(recAuthorizationId, sizeof(recAuthorizationId), false, "Received AuthorizationId", debugNukiHexData, logger);
+    printBuffer(encrData, sizeof(encrData), false, "Rec encrypted data", debugNukiHexData, logger);
+    printBuffer(decrData, sizeof(decrData), false, "Decrypted data", debugNukiHexData, logger);
 
-    crcCheckOke = crcValid(decrData, sizeof(decrData));
+    crcCheckOke = crcValid(decrData, sizeof(decrData), debugNukiCommunication, logger);
     if (crcCheckOke) {
       uint16_t returnCode = 0;
       memcpy(&returnCode, &decrData[4], 2);
@@ -1440,32 +1529,32 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
   switch (returnCode) {
     case Command::RequestData : {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("requestData");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("requestData");
+      }
       break;
     }
     case Command::PublicKey : {
       memcpy(remotePublicKey, data, 32);
-      printBuffer(remotePublicKey, sizeof(remotePublicKey), false,  "Remote public key");
+      printBuffer(remotePublicKey, sizeof(remotePublicKey), false,  "Remote public key", debugNukiHexData, logger);
       break;
     }
     case Command::Challenge : {
       memcpy(challengeNonceK, data, 32);
-      printBuffer((byte*)data, dataLen, false, "Challenge");
+      printBuffer((byte*)data, dataLen, false, "Challenge", debugNukiHexData, logger);
       break;
     }
     case Command::AuthorizationAuthenticator : {
-      printBuffer((byte*)data, dataLen, false, "authorizationAuthenticator");
+      printBuffer((byte*)data, dataLen, false, "authorizationAuthenticator", debugNukiHexData, logger);
       break;
     }
     case Command::AuthorizationData : {
-      printBuffer((byte*)data, dataLen, false, "authorizationData");
+      printBuffer((byte*)data, dataLen, false, "authorizationData", debugNukiHexData, logger);
       break;
     }
     case Command::AuthorizationId : {
       unsigned char lockId[16];
-      printBuffer((byte*)data, dataLen, false, "authorizationId data");
+      printBuffer((byte*)data, dataLen, false, "authorizationId data", debugNukiHexData, logger);
       memcpy(authorizationId, &data[32], 4);
       memcpy(lockId, &data[36], sizeof(lockId));
       memcpy(challengeNonceK, &data[52], sizeof(challengeNonceK));
@@ -1474,81 +1563,93 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::AuthorizationEntry : {
-      printBuffer((byte*)data, dataLen, false, "authorizationEntry");
+      printBuffer((byte*)data, dataLen, false, "authorizationEntry", debugNukiHexData, logger);
       AuthorizationEntry authEntry;
       memcpy(&authEntry, data, sizeof(authEntry));
       listOfAuthorizationEntries.push_back(authEntry);
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      NukiLock::logAuthorizationEntry(authEntry);
-      #endif
+      if (debugNukiReadableData) {
+        NukiLock::logAuthorizationEntry(authEntry, true, logger);
+      }
       break;
     }
 
     case Command::Status : {
-      printBuffer((byte*)data, dataLen, false, "status");
+      printBuffer((byte*)data, dataLen, false, "status", debugNukiHexData, logger);
       receivedStatus = data[0];
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      if (receivedStatus == 0) {
-        log_d("command COMPLETE");
-      } else if (receivedStatus == 1) {
-        log_d("command ACCEPTED");
+      if (debugNukiCommunication) {
+        if (receivedStatus == 0) {
+          logMessage("command COMPLETE");
+        } else if (receivedStatus == 1) {
+          logMessage("command ACCEPTED");
+        }
       }
-      #endif
       break;
     }
     case Command::OpeningsClosingsSummary : {
-      printBuffer((byte*)data, dataLen, false, "openingsClosingsSummary");
-      log_w("NOT IMPLEMENTED ONLY FOR NUKI v1"); //command is not available on Nuki v2 (only on Nuki v1)
+      printBuffer((byte*)data, dataLen, false, "openingsClosingsSummary", debugNukiHexData, logger);
+      logMessage("NOT IMPLEMENTED ONLY FOR NUKI v1", 2); //command is not available on Nuki v2 (only on Nuki v1)
       break;
     }
 
     case Command::ErrorReport : {
-      log_e("Error: %02x for command: %02x:%02x", data[0], data[2], data[1]);
+      if (logger == nullptr) {
+        log_e("Error: %02x for command: %02x:%02x", data[0], data[2], data[1]);
+      }
+      else
+      {
+        logger->printf("Error: %02x for command: %02x:%02x\r\n", data[0], data[2], data[1]);
+      }
       memcpy(&errorCode, &data[0], sizeof(errorCode));
       logErrorCode(data[0]);
       break;
     }
     case Command::AuthorizationIdConfirmation : {
-      printBuffer((byte*)data, dataLen, false, "authorizationIdConfirmation");
+      printBuffer((byte*)data, dataLen, false, "authorizationIdConfirmation", debugNukiHexData, logger);
       break;
     }
     case Command::AuthorizationIdInvite : {
-      printBuffer((byte*)data, dataLen, false, "authorizationIdInvite");
+      printBuffer((byte*)data, dataLen, false, "authorizationIdInvite", debugNukiHexData, logger);
       break;
     }
     case Command::AuthorizationEntryCount : {
-      printBuffer((byte*)data, dataLen, false, "authorizationEntryCount");
+      printBuffer((byte*)data, dataLen, false, "authorizationEntryCount", debugNukiHexData, logger);
       uint16_t count = 0;
       memcpy(&count, data, 2);
-      log_d("authorizationEntryCount: %d", count);
+      logMessageVar("authorizationEntryCount: %d", count);
       break;
     }
     case Command::LogEntryCount : {
       memcpy(&loggingEnabled, data, sizeof(logEntryCount));
       memcpy(&logEntryCount, &data[1], sizeof(logEntryCount));
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      log_d("Logging enabled: %d, total nr of log entries: %d", loggingEnabled, logEntryCount);
-      #endif
-      printBuffer((byte*)data, dataLen, false, "logEntryCount");
+      if (debugNukiReadableData) {
+        if (logger == nullptr) {
+          log_d("Logging enabled: %d, total nr of log entries: %d", loggingEnabled, logEntryCount);
+        }
+        else
+        {
+          logger->printf("Logging enabled: %d, total nr of log entries: %d\r\n", loggingEnabled, logEntryCount);
+        }
+      }
+      printBuffer((byte*)data, dataLen, false, "logEntryCount", debugNukiHexData, logger);
       break;
     }
     case Command::TimeControlEntryCount : {
-      printBuffer((byte*)data, dataLen, false, "timeControlEntryCount");
+      printBuffer((byte*)data, dataLen, false, "timeControlEntryCount", debugNukiHexData, logger);
       break;
     }
     case Command::KeypadCodeId : {
-      printBuffer((byte*)data, dataLen, false, "keypadCodeId");
+      printBuffer((byte*)data, dataLen, false, "keypadCodeId", debugNukiHexData, logger);
       break;
     }
     case Command::KeypadCodeCount : {
       memcpy(&nrOfKeypadCodes, data, 2);
       keypadCodeCountReceived = true;
-      printBuffer((byte*)data, dataLen, false, "keypadCodeCount");
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      uint16_t count = 0;
-      memcpy(&count, data, 2);
-      log_d("keyPadCodeCount: %d", count);
-      #endif
+      printBuffer((byte*)data, dataLen, false, "keypadCodeCount", debugNukiHexData, logger);
+      if (debugNukiReadableData) {
+        uint16_t count = 0;
+        memcpy(&count, data, 2);
+        logMessageVar("keyPadCodeCount: %d", count);
+      }
 
       break;
     }
@@ -1558,26 +1659,26 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       listOfKeyPadEntries.push_back(keypadEntry);
       nrOfReceivedKeypadCodes++;
 
-      printBuffer((byte*)data, dataLen, false, "keypadCode");
-      #ifdef DEBUG_NUKI_READABLE_DATA
-      NukiLock::logKeypadEntry(keypadEntry);
-      #endif
+      printBuffer((byte*)data, dataLen, false, "keypadCode", debugNukiHexData, logger);
+      if (debugNukiReadableData) {
+        NukiLock::logKeypadEntry(keypadEntry, true, logger);
+      }
       break;
     }
     case Command::KeypadAction : {
-      printBuffer((byte*)data, dataLen, false, "keypadAction");
+      printBuffer((byte*)data, dataLen, false, "keypadAction", debugNukiHexData, logger);
       break;
     }
     default:
-      log_e("UNKNOWN RETURN COMMAND: %04x", returnCode);
+      logMessageVar("UNKNOWN RETURN COMMAND: %04x", (unsigned int)returnCode, 1);
   }
 }
 
 void NukiBle::onConnect(BLEClient*) {
   extendDisconnectTimeout();
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("BLE connected");
-  #endif
+  if (debugNukiConnect) {
+    logMessage("BLE connected");
+  }
 };
 
 #ifdef NUKI_USE_LATEST_NIMBLE
@@ -1586,9 +1687,9 @@ void NukiBle::onDisconnect(BLEClient*, int reason)
 void NukiBle::onDisconnect(BLEClient*)
 #endif
 {
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("BLE disconnected");
-  #endif
+  if (debugNukiConnect) {
+    logMessage("BLE disconnected");
+  }
 };
 
 void NukiBle::setEventHandler(SmartlockEventHandler* handler) {
@@ -1607,7 +1708,13 @@ bool NukiBle::takeNukiBleSemaphore(std::string taker) {
   #endif
 
   if (!result) {
-    log_d("%s FAILED to take Nuki semaphore. Owner %s", taker.c_str(), owner.c_str());
+    if (logger == nullptr) {
+      log_d("%s FAILED to take Nuki semaphore. Owner %s", taker.c_str(), owner.c_str());
+    }
+    else
+    {
+      logger->printf("%s FAILED to take Nuki semaphore. Owner %s\r\n", taker.c_str(), owner.c_str());
+    }
   } else {
     owner = taker;
   }
@@ -1646,6 +1753,104 @@ int64_t NukiBle::getLastHeartbeat() {
 
 const BLEAddress NukiBle::getBleAddress() const {
   return bleAddress;
+}
+
+void NukiBle::setDebugConnect(bool enable) {
+  debugNukiConnect = enable;
+}
+
+void NukiBle::setDebugCommunication(bool enable) {
+  debugNukiCommunication = enable;
+}
+
+void NukiBle::setDebugReadableData(bool enable) {
+  debugNukiReadableData = enable;
+}
+
+void NukiBle::setDebugHexData(bool enable) {
+  debugNukiHexData = enable;
+}
+
+void NukiBle::setDebugCommand(bool enable) {
+  debugNukiCommand = enable;
+}
+
+void NukiBle::registerLogger(Print* Log) {
+  logger = Log;
+}
+
+void NukiBle::logMessage(const char* message, int level) {
+  if (logger == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message);
+        break;
+    }
+  }
+  else
+  {
+    logger->println(message);
+  }
+}
+
+void NukiBle::logMessageVar(const char* message, unsigned int var, int level) {
+  if (logger == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message, var);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message, var);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message, var);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message, var);
+        break;
+    }
+  }
+  else
+  {
+    logger->printf(message, var);
+    logger->println();
+  }
+}
+
+void NukiBle::logMessageVar(const char* message, const char* var, int level) {
+  if (logger == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message, var);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message, var);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message, var);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message, var);
+        break;
+    }
+  }
+  else
+  {
+    logger->printf(message, var);
+    logger->println();
+  }
 }
 
 } // namespace Nuki
