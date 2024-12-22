@@ -515,7 +515,14 @@ void NukiBle::disconnect()
       if (debugNukiConnect) {
         logMessage("Disconnecting BLE");
       }
-      pClient->disconnect();
+      
+      int loop = 0;
+      
+      while(!pClient->disconnect() && loop < 100) {
+        logMessage(".");
+        loop++;
+        delay(100);
+      }
     }
   }
 }
@@ -1601,6 +1608,11 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       }
       memcpy(&errorCode, &data[0], sizeof(errorCode));
       logErrorCode(data[0]);
+      if ((uint8_t)data[0] == (uint8_t)0x21) {
+        if (eventHandler) {
+          eventHandler->notify(EventType::ERROR_BAD_PIN);
+        }
+      }
       break;
     }
     case Command::AuthorizationIdConfirmation : {
