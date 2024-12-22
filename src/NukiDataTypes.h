@@ -19,7 +19,8 @@ namespace Nuki {
 
 enum class EventType {
   KeyTurnerStatusUpdated,
-  KeyTurnerStatusReset
+  KeyTurnerStatusReset,
+  ERROR_BAD_PIN
 };
 
 class SmartlockEventHandler {
