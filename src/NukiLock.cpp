@@ -7,8 +7,10 @@ NukiLock::NukiLock(const std::string& deviceName, const uint32_t deviceId)
   : NukiBle(deviceName,
             deviceId,
             keyturnerPairingServiceUUID,
+            keyturnerPairingServiceUltraUUID,
             keyturnerServiceUUID,
             keyturnerGdioUUID,
+            keyturnerGdioUltraUUID,
             keyturnerUserDataUUID,
             deviceName) {
     errorCode = (uint8_t)ErrorCode::ERROR_UNKNOWN;

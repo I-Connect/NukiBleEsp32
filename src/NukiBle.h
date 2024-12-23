@@ -34,8 +34,10 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     NukiBle(const std::string& deviceName,
             const uint32_t deviceId,
             const NimBLEUUID pairingServiceUUID,
+            const NimBLEUUID pairingServiceUltraUUID,            
             const NimBLEUUID deviceServiceUUID,
             const NimBLEUUID gdioUUID,
+            const NimBLEUUID gdioUltraUUID,
             const NimBLEUUID userDataUUID,
             const std::string preferencedId);
     virtual ~NukiBle();
@@ -354,6 +356,13 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      */
     void registerLogger(Print* Log);
 
+    /**
+     * @brief Set the 6-digit pairing PIN code for the Nuki Smart Lock Ultra
+     *
+     * @param pass_key Set to the 6-digit PIN code of the Ultra lock
+     */
+    void setPairingPin(uint32_t pass_key);
+
   protected:
     bool connectBle(const BLEAddress bleAddress, bool pairing);
     void extendDisconnectTimeout();
@@ -405,13 +414,17 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool connecting = false;
     bool statusUpdated = false;
     bool refreshServices = false;
+    bool smartLockUltra = false;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
+    uint32_t pairingPinCode = 123456;
 
     void onConnect(BLEClient*) override;
     #ifdef NUKI_USE_LATEST_NIMBLE
     void onDisconnect(BLEClient*, int reason) override;
+    void onPassKeyEntry(NimBLEConnInfo& connInfo) override;
+    void onConfirmPasskey(NimBLEConnInfo& connInfo, uint32_t pass_key) override;
     #else
     void onDisconnect(BLEClient*) override;
     #endif
@@ -445,10 +458,14 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
 //Keyturner Pairing Service
     const NimBLEUUID pairingServiceUUID;
+//Keyturner Pairing Service Ultra
+    const NimBLEUUID pairingServiceUltraUUID;    
 //Keyturner Service
     const NimBLEUUID deviceServiceUUID;
 //Keyturner pairing Data Input Output characteristic
     const NimBLEUUID gdioUUID;
+//Keyturner pairing Data Input Output characteristic Ultra
+    const NimBLEUUID gdioUltraUUID;
 //User-Specific Data Input Output characteristic
     const NimBLEUUID userDataUUID;
 

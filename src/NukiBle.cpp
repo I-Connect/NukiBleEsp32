@@ -31,15 +31,19 @@ const char* NUKI_SEMAPHORE_OWNER = "Nuki";
 NukiBle::NukiBle(const std::string& deviceName,
                  const uint32_t deviceId,
                  const NimBLEUUID pairingServiceUUID,
+                 const NimBLEUUID pairingServiceUltraUUID,
                  const NimBLEUUID deviceServiceUUID,
                  const NimBLEUUID gdioUUID,
+                 const NimBLEUUID gdioUltraUUID,
                  const NimBLEUUID userDataUUID,
                  const std::string preferencedId)
   : deviceName(deviceName),
     deviceId(deviceId),
     pairingServiceUUID(pairingServiceUUID),
+    pairingServiceUltraUUID(pairingServiceUltraUUID),
     deviceServiceUUID(deviceServiceUUID),
     gdioUUID(gdioUUID),
+    gdioUltraUUID(gdioUltraUUID),
     userDataUUID(userDataUUID),
     preferencesId(preferencedId)
 {
@@ -245,34 +249,6 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
       {
         pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
         if(pClient){
-          #ifdef CONFIG_IDF_TARGET_ESP32C6
-          /*
-          if(pClient->isConnected()) {
-            pClient->disconnect();
-          }
-
-          int loop = 0;
-
-          while(pClient->isConnected() && loop <=100) {
-            loop++;
-            delay(20);
-          }
-
-          if(loop>=100)
-          {
-            if (debugNukiConnect) {
-              logMessageVar("[%s] Disconnect failed", deviceName.c_str());
-            }
-            connectRetry++;
-            #ifndef NUKI_NO_WDT_RESET
-            esp_task_wdt_reset();
-            #endif
-            delay(10);
-            continue;
-          }
-          */
-          #endif
-
           if(!pClient->isConnected()) {
             if(!pClient->connect(bleAddress, refreshServices)) {
               if (debugNukiConnect) {
@@ -384,6 +360,11 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
       }
 
       if(pairing) {
+        if (smartLockUltra) {
+          logMessage("Securing Connection", 4);
+          pClient->secureConnection();
+          logMessage("Done securing Connection", 4);
+        }
         if (!registerOnGdioChar()) {
           if (debugNukiConnect) {
             logMessageVar("[%s] Failed to connect on registering GDIO", deviceName.c_str());
@@ -515,9 +496,9 @@ void NukiBle::disconnect()
       if (debugNukiConnect) {
         logMessage("Disconnecting BLE");
       }
-      
+
       int loop = 0;
-      
+
       while(!pClient->disconnect() && loop < 100) {
         logMessage(".");
         loop++;
@@ -660,11 +641,41 @@ void NukiBle::onResult(const BLEAdvertisedDevice* advertisedDevice) {
         }
         bleAddress = advertisedDevice->getAddress();
         pairingServiceAvailable = true;
+        smartLockUltra = false;
         #ifndef NUKI_64BIT_TIME
         pairingLastSeen = millis();
         #else
         pairingLastSeen = (esp_timer_get_time() / 1000);
         #endif
+      } else if (advertisedDevice->getServiceData(pairingServiceUltraUUID) != "") {
+        if (debugNukiConnect) {
+          if (logger == nullptr) {
+            log_d("Found nuki ultra in pairing state: %s addr: %s", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+          }
+          else
+          {
+            logger->printf("Found nuki ultra in pairing state: %s addr: %s\r\n", std::string(advertisedDevice->getName()).c_str(), std::string(advertisedDevice->getAddress()).c_str());
+          }
+        }
+
+        if (pairingPinCode == 123456) {
+          logMessage("No pairing PIN code set, not pairing with Nuki SmartLock Ultra");
+        } else {
+          bleAddress = advertisedDevice->getAddress();
+          pairingServiceAvailable = true;
+          smartLockUltra = true;
+          if (NimBLEDevice::isBonded(bleAddress)) {
+            NimBLEDevice::deleteBond(bleAddress);
+          }
+          NimBLEDevice::setSecurityIOCap(BLE_HS_IO_KEYBOARD_ONLY);
+          NimBLEDevice::setSecurityAuth(true, false, true);
+          NimBLEDevice::setSecurityPasskey(pairingPinCode);
+          #ifndef NUKI_64BIT_TIME
+          pairingLastSeen = millis();
+          #else
+          pairingLastSeen = (esp_timer_get_time() / 1000);
+          #endif
+        }
       }
     }
   }
@@ -1683,6 +1694,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     }
     default:
       logMessageVar("UNKNOWN RETURN COMMAND: %04x", (unsigned int)returnCode, 1);
+      printBuffer((byte*)data, dataLen, false, "Unknown command", debugNukiHexData, logger);
   }
 }
 
@@ -1692,6 +1704,24 @@ void NukiBle::onConnect(BLEClient*) {
     logMessage("BLE connected");
   }
 };
+
+void NukiBle::onPassKeyEntry(NimBLEConnInfo& connInfo){
+  if (debugNukiConnect) {
+    logMessage("Passkey Entry");
+  }
+  NimBLEDevice::injectPassKey(connInfo, pairingPinCode);
+};
+
+void NukiBle::onConfirmPasskey(NimBLEConnInfo& connInfo, uint32_t pass_key){
+  if (debugNukiConnect) {
+    logMessage("Confirm passkey");
+  }
+  NimBLEDevice::injectConfirmPasskey(connInfo, true);
+};
+
+void NukiBle::setPairingPin(uint32_t pass_key){
+  pairingPinCode = pass_key;
+}
 
 #ifdef NUKI_USE_LATEST_NIMBLE
 void NukiBle::onDisconnect(BLEClient*, int reason)
