@@ -220,6 +220,14 @@ void NukiBle::unPairNuki() {
   }
 }
 
+void NukiBle::resetHost() {
+  if (debugNukiConnect) {
+    logMessageVar("[%s] Resetting BLE host", deviceName.c_str());
+  }
+  
+  ble_hs_sched_reset(0);
+}
+
 bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
   if (altConnect) {
     connecting = true;
@@ -245,34 +253,6 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
       {
         pClient = NimBLEDevice::getClientByPeerAddress(bleAddress);
         if(pClient){
-          #ifdef CONFIG_IDF_TARGET_ESP32C6
-          /*
-          if(pClient->isConnected()) {
-            pClient->disconnect();
-          }
-
-          int loop = 0;
-
-          while(pClient->isConnected() && loop <=100) {
-            loop++;
-            delay(20);
-          }
-
-          if(loop>=100)
-          {
-            if (debugNukiConnect) {
-              logMessageVar("[%s] Disconnect failed", deviceName.c_str());
-            }
-            connectRetry++;
-            #ifndef NUKI_NO_WDT_RESET
-            esp_task_wdt_reset();
-            #endif
-            delay(10);
-            continue;
-          }
-          */
-          #endif
-
           if(!pClient->isConnected()) {
             if(!pClient->connect(bleAddress, refreshServices)) {
               if (debugNukiConnect) {
@@ -515,13 +495,23 @@ void NukiBle::disconnect()
       if (debugNukiConnect) {
         logMessage("Disconnecting BLE");
       }
-      
+
+      countDisconnects++;
+      pClient->disconnect();
       int loop = 0;
-      
-      while(!pClient->disconnect() && loop < 100) {
+
+      while ((countDisconnects > 0 || pClient->isConnected()) && loop < 50) {
         logMessage(".");
         loop++;
         delay(100);
+      }
+
+      if (countDisconnects > 0 || pClient->isConnected())
+      {
+        if (debugNukiConnect) {
+          logMessage("Error while disconnecting BLE client");
+        }
+        eventHandler->notify(EventType::BLE_ERROR_ON_DISCONNECT);
       }
     }
   }
@@ -1702,6 +1692,7 @@ void NukiBle::onDisconnect(BLEClient*)
   if (debugNukiConnect) {
     logMessage("BLE disconnected");
   }
+  countDisconnects = 0;
 };
 
 void NukiBle::setEventHandler(SmartlockEventHandler* handler) {
