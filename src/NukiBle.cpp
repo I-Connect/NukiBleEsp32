@@ -224,6 +224,14 @@ void NukiBle::unPairNuki() {
   }
 }
 
+void NukiBle::resetHost() {
+  if (debugNukiConnect) {
+    logMessageVar("[%s] Resetting BLE host", deviceName.c_str());
+  }
+  
+  ble_hs_sched_reset(0);
+}
+
 bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
   if (altConnect) {
     connecting = true;
@@ -497,12 +505,20 @@ void NukiBle::disconnect()
         logMessage("Disconnecting BLE");
       }
 
+      countDisconnects++;
+      pClient->disconnect();
       int loop = 0;
 
-      while(!pClient->disconnect() && loop < 100) {
+      while ((countDisconnects > 0 || pClient->isConnected()) && loop < 50) {
         logMessage(".");
         loop++;
         delay(100);
+      }
+
+      if (countDisconnects > 0 || pClient->isConnected())
+      {
+        logMessage("Disconnecting BLE failed, resetting host");
+        resetHost();
       }
     }
   }
@@ -1732,6 +1748,7 @@ void NukiBle::onDisconnect(BLEClient*)
   if (debugNukiConnect) {
     logMessage("BLE disconnected");
   }
+  countDisconnects = 0;
 };
 
 void NukiBle::setEventHandler(SmartlockEventHandler* handler) {

@@ -60,6 +60,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @brief Delete stored credentials
      */
     void unPairNuki();
+    
+    /**
+     * @brief Reset BLE host
+     */
+    void resetHost();
 
     /**
      * @brief checks the time past after last connect/communication sent, if the time past > timeout
@@ -419,6 +424,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
     uint32_t pairingPinCode = 123456;
+    uint32_t countDisconnects = 0;
 
     void onConnect(BLEClient*) override;
     #ifdef NUKI_USE_LATEST_NIMBLE
