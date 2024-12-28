@@ -4,35 +4,38 @@
 namespace Nuki {
 template<typename TDeviceAction>
 Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
-  #ifndef NUKI_64BIT_TIME
-  if (millis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
-  #else
-  if ((esp_timer_get_time() / 1000) - lastHeartbeat > HEARTBEAT_TIMEOUT) {
-  #endif
-    log_e("Lock Heartbeat timeout, command failed");
-    return Nuki::CmdResult::Error;
+  if (!altConnect) {
+    #ifndef NUKI_64BIT_TIME
+    if (millis() - lastHeartbeat > HEARTBEAT_TIMEOUT) {
+    #else
+    if ((esp_timer_get_time() / 1000) - lastHeartbeat > HEARTBEAT_TIMEOUT) {
+    #endif
+      logMessage("Lock Heartbeat timeout, command failed", 1);
+      return Nuki::CmdResult::Error;
+    }
   }
-
-  #ifdef DEBUG_NUKI_CONNECT
-  log_d("************************ CHECK PAIRED ************************");
-  #endif
+  if (debugNukiConnect) {
+    logMessage("************************ CHECK PAIRED ************************");
+  }
   if (retrieveCredentials()) {
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials retrieved from preferences, ready for commands");
-    #endif
+    if (debugNukiConnect) {
+      logMessage("Credentials retrieved from preferences, ready for commands");
+    }
   } else {
-    #ifdef DEBUG_NUKI_CONNECT
-    log_d("Credentials NOT retrieved from preferences, first pair with the lock");
-    #endif
+    if (debugNukiConnect) {
+      logMessage("Credentials NOT retrieved from preferences, first pair with the lock");
+    }
     return Nuki::CmdResult::NotPaired;
   }
 
   if (takeNukiBleSemaphore("exec Action")) {
-    #ifdef DEBUG_NUKI_COMMUNICATION
-    log_d("Start executing: %02x ", action.command);
-    #endif
+    if (debugNukiCommunication) {
+      logMessageVar("Start executing: %02x ", (unsigned int)action.command);
+    }
 
     while (1) {
+      extendDisconnectTimeout();
+      
       Nuki::CmdResult result;
       if (action.cmdType == Nuki::CommandType::Command) {
         result = cmdStateMachine(action);
@@ -47,26 +50,17 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
         result = cmdChallStateMachine(action, true);
       }
       else {
-        log_w("Unknown cmd type");
+        logMessage("Unknown cmd type", 2);
         giveNukiBleSemaphore();
+        disconnect();
         return Nuki::CmdResult::Failed;
       }
       if (result != Nuki::CmdResult::Working) {
         giveNukiBleSemaphore();
 
-        #ifdef NUKI_ALT_CONNECT
-        if (result == Nuki::CmdResult::Error)
-        {
+        if (altConnect && (result == Nuki::CmdResult::Error || result == Nuki::CmdResult::Failed)) {
           disconnect();
         }
-        else
-        {
-          extendDisconnectTimeout();
-        }
-        #else
-        extendDisconnectTimeout(); 
-        #endif
-        
         return result;
       }
       #ifndef NUKI_NO_WDT_RESET
@@ -80,11 +74,12 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
 
 template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
+  extendDisconnectTimeout();  
   switch (nukiCommandState) {
     case CommandState::Idle: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING COMMAND [%d] ************************", action.command);
-      #endif
+      if (debugNukiCommunication) {
+        logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
+      }
       lastMsgCodeReceived = Command::Empty;
 
       if (sendEncryptedMessage(Command::RequestData, action.payload, action.payloadLen)) {
@@ -95,12 +90,12 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::CmdSent;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ SENDING COMMAND FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ SENDING COMMAND FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
@@ -113,37 +108,36 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
       #endif
-        log_w("************************ COMMAND FAILED TIMEOUT************************");
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        logMessage("************************ COMMAND FAILED TIMEOUT************************", 2);
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND DONE ************************");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND DONE ************************");
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        extendDisconnectTimeout();
         return Nuki::CmdResult::Success;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND FAILED LOCK BUSY ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
@@ -151,10 +145,10 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
     }
     break;
     default: {
-      log_w("Unknown request command state");
-      #ifdef NUKI_ALT_CONNECT
-      disconnect();
-      #endif
+      logMessage("Unknown request command state", 2);
+      if (altConnect) {
+        disconnect();
+      }
       return Nuki::CmdResult::Failed;
       break;
     }
@@ -164,11 +158,12 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
 
 template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const bool sendPinCode) {
+  extendDisconnectTimeout();
   switch (nukiCommandState) {
     case CommandState::Idle: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING CHALLENGE ************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ SENDING CHALLENGE ************************");
+      }
       lastMsgCodeReceived = Command::Empty;
       unsigned char payload[sizeof(Command)] = {0x04, 0x00};  //challenge
 
@@ -180,12 +175,12 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         #endif
         nukiCommandState = CommandState::ChallengeSent;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ SENDING CHALLENGE FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ SENDING CHALLENGE FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
@@ -193,18 +188,18 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       break;
     }
     case CommandState::ChallengeSent: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING CHALLENGE RESPONSE************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ RECEIVING CHALLENGE RESPONSE************************");
+      }
       #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
       #endif
-        log_w("************************ COMMAND FAILED TIMEOUT ************************");
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::Challenge) {
@@ -214,9 +209,9 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       break;
     }
     case CommandState::ChallengeRespReceived: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING COMMAND [%d] ************************", action.command);
-      #endif
+      if (debugNukiCommunication) {
+        logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
+      }
       lastMsgCodeReceived = Command::Empty;
       crcCheckOke = false;
       //add received challenge nonce to payload
@@ -239,12 +234,12 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         #endif
         nukiCommandState = CommandState::CmdSent;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ SENDING COMMAND FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ SENDING COMMAND FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
@@ -252,55 +247,54 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       break;
     }
     case CommandState::CmdSent: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING DATA ************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ RECEIVING DATA ************************");
+      }
       #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
       #endif
-        log_w("************************ COMMAND FAILED TIMEOUT ************************");
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND FAILED LOCK BUSY ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
       } else if (crcCheckOke) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ DATA RECEIVED ************************");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ DATA RECEIVED ************************");
+        }
         nukiCommandState = CommandState::Idle;
-        extendDisconnectTimeout();
         return Nuki::CmdResult::Success;
       }
       break;
     }
     default:
-      log_w("Unknown request command state");
-      #ifdef NUKI_ALT_CONNECT
-      disconnect();
-      #endif
+      logMessage("Unknown request command state", 2);
+      if (altConnect) {
+        disconnect();
+      }
       return Nuki::CmdResult::Failed;
       break;
   }
@@ -309,11 +303,12 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
 
 template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
+  extendDisconnectTimeout();
   switch (nukiCommandState) {
     case CommandState::Idle: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING CHALLENGE ************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ SENDING CHALLENGE ************************");
+      }
       lastMsgCodeReceived = Command::Empty;
       unsigned char payload[sizeof(Command)] = {0x04, 0x00};  //challenge
 
@@ -325,12 +320,12 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::ChallengeSent;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ SENDING CHALLENGE FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ SENDING CHALLENGE FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
@@ -338,18 +333,18 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       break;
     }
     case CommandState::ChallengeSent: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING CHALLENGE RESPONSE************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ RECEIVING CHALLENGE RESPONSE************************");
+      }
       #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
       #endif
-        log_w("************************ COMMAND FAILED TIMEOUT ************************");
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::Challenge) {
@@ -359,9 +354,9 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       break;
     }
     case CommandState::ChallengeRespReceived: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ SENDING COMMAND [%d] ************************", action.command);
-      #endif
+      if (debugNukiCommunication) {
+        logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
+      }
       lastMsgCodeReceived = Command::Empty;
       //add received challenge nonce to payload
       uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
@@ -377,12 +372,12 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         #endif
         nukiCommandState = CommandState::CmdSent;
       } else {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ SENDING COMMAND FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ SENDING COMMAND FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
@@ -390,18 +385,18 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
       break;
     }
     case CommandState::CmdSent: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING ACCEPT ************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ RECEIVING ACCEPT ************************");
+      }
       #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
       #endif
-        log_w("************************ ACCEPT FAILED TIMEOUT ************************");
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        logMessage("************************ ACCEPT FAILED TIMEOUT ************************", 2);
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Accepted) {
@@ -414,67 +409,65 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         lastMsgCodeReceived = Command::Empty;
       } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Complete) {
         //accept was skipped on lock because ie unlock command when lock allready unlocked?
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND SUCCESS (SKIPPED) ************************");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND SUCCESS (SKIPPED) ************************");
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        extendDisconnectTimeout();
         return Nuki::CmdResult::Success;
       }
       break;
     }
     case CommandState::CmdAccepted: {
-      #ifdef DEBUG_NUKI_COMMUNICATION
-      log_d("************************ RECEIVING COMPLETE ************************");
-      #endif
+      if (debugNukiCommunication) {
+        logMessage("************************ RECEIVING COMPLETE ************************");
+      }
       #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > CMD_TIMEOUT) {
       #else
       if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
       #endif
-        log_w("************************ COMMAND FAILED TIMEOUT ************************");
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND FAILED ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND FAILED ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND FAILED LOCK BUSY ************************");
-        #endif
-        #ifdef NUKI_ALT_CONNECT
-        disconnect();
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND FAILED LOCK BUSY ************************");
+        }
+        if (altConnect) {
+          disconnect();
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
       } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::Complete) {
-        #ifdef DEBUG_NUKI_COMMUNICATION
-        log_d("************************ COMMAND SUCCESS ************************");
-        #endif
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND SUCCESS ************************");
+        }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        extendDisconnectTimeout();
         return Nuki::CmdResult::Success;
       }
       break;
     }
     default:
-      log_w("Unknown request command state");
-      #ifdef NUKI_ALT_CONNECT
-      disconnect();
-      #endif
+      logMessage("Unknown request command state", 2);
+      if (altConnect) {
+        disconnect();
+      }
       return Nuki::CmdResult::Failed;
       break;
   }

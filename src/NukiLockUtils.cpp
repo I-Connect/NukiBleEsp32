@@ -42,623 +42,752 @@ void cmdResultToString(const CmdResult state, char* str) {
   }
 }
 
-void logLockErrorCode(uint8_t errorCode) {
+void logLockErrorCode(uint8_t errorCode, bool debug, Print* Log) {
   switch (errorCode) {
     case (uint8_t)ErrorCode::ERROR_BAD_CRC :
-      log_e("ERROR_BAD_CRC");
+      logMessage("ERROR_BAD_CRC", Log, 1);
       break;
     case (uint8_t)ErrorCode::ERROR_BAD_LENGTH :
-      log_e("ERROR_BAD_LENGTH");
+      logMessage("ERROR_BAD_LENGTH", Log, 1);
       break;
     case (uint8_t)ErrorCode::ERROR_UNKNOWN :
-      log_e("ERROR_UNKNOWN");
+      logMessage("ERROR_UNKNOWN", Log, 1);
       break;
     case (uint8_t)ErrorCode::P_ERROR_NOT_PAIRING :
-      log_e("P_ERROR_NOT_PAIRING");
+      logMessage("P_ERROR_NOT_PAIRING", Log, 1);
       break;
     case (uint8_t)ErrorCode::P_ERROR_BAD_AUTHENTICATOR :
-      log_e("P_ERROR_BAD_AUTHENTICATOR");
+      logMessage("P_ERROR_BAD_AUTHENTICATOR", Log, 1);
       break;
     case (uint8_t)ErrorCode::P_ERROR_BAD_PARAMETER :
-      log_e("P_ERROR_BAD_PARAMETER");
+      logMessage("P_ERROR_BAD_PARAMETER", Log, 1);
       break;
     case (uint8_t)ErrorCode::P_ERROR_MAX_USER :
-      log_e("P_ERROR_MAX_USER");
+      logMessage("P_ERROR_MAX_USER", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_AUTO_UNLOCK_TOO_RECENT :
-      log_e("K_ERROR_AUTO_UNLOCK_TOO_RECENT");
+      logMessage("K_ERROR_AUTO_UNLOCK_TOO_RECENT", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_BAD_NONCE :
-      log_e("K_ERROR_BAD_NONCE");
+      logMessage("K_ERROR_BAD_NONCE", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_BAD_PARAMETER :
-      log_e("K_ERROR_BAD_PARAMETER");
+      logMessage("K_ERROR_BAD_PARAMETER", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_BAD_PIN :
-      log_e("K_ERROR_BAD_PIN");
+      logMessage("K_ERROR_BAD_PIN", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_BUSY :
-      log_e("K_ERROR_BUSY");
+      logMessage("K_ERROR_BUSY", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CANCELED :
-      log_e("K_ERROR_CANCELED");
+      logMessage("K_ERROR_CANCELED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CLUTCH_FAILURE :
-      log_e("K_ERROR_CLUTCH_FAILURE");
+      logMessage("K_ERROR_CLUTCH_FAILURE", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CLUTCH_POWER_FAILURE :
-      log_e("K_ERROR_CLUTCH_POWER_FAILURE");
+      logMessage("K_ERROR_CLUTCH_POWER_FAILURE", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CODE_ALREADY_EXISTS :
-      log_e("K_ERROR_CODE_ALREADY_EXISTS");
+      logMessage("K_ERROR_CODE_ALREADY_EXISTS", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID :
-      log_e("K_ERROR_CODE_INVALID");
+      logMessage("K_ERROR_CODE_INVALID", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_1 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_1");
+      logMessage("K_ERROR_CODE_INVALID_TIMEOUT_1", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_2 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_2");
+      logMessage("K_ERROR_CODE_INVALID_TIMEOUT_2", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_CODE_INVALID_TIMEOUT_3 :
-      log_e("K_ERROR_CODE_INVALID_TIMEOUT_3");
+      logMessage("K_ERROR_CODE_INVALID_TIMEOUT_3", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_DISABLED :
-      log_e("K_ERROR_DISABLED");
+      logMessage("K_ERROR_DISABLED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_FIRMWARE_UPDATE_NEEDED :
-      log_e("K_ERROR_FIRMWARE_UPDATE_NEEDED");
+      logMessage("K_ERROR_FIRMWARE_UPDATE_NEEDED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_INVALID_AUTH_ID :
-      log_e("K_ERROR_INVALID_AUTH_ID");
+      logMessage("K_ERROR_INVALID_AUTH_ID", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_MOTOR_BLOCKED :
-      log_e("K_ERROR_MOTOR_BLOCKED");
+      logMessage("K_ERROR_MOTOR_BLOCKED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_MOTOR_LOW_VOLTAGE :
-      log_e("K_ERROR_MOTOR_LOW_VOLTAGE");
+      logMessage("K_ERROR_MOTOR_LOW_VOLTAGE", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_MOTOR_POSITION_LIMIT :
-      log_e("K_ERROR_MOTOR_POSITION_LIMIT");
+      logMessage("K_ERROR_MOTOR_POSITION_LIMIT", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_MOTOR_POWER_FAILURE :
-      log_e("K_ERROR_MOTOR_POWER_FAILURE");
+      logMessage("K_ERROR_MOTOR_POWER_FAILURE", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_MOTOR_TIMEOUT :
-      log_e("K_ERROR_MOTOR_TIMEOUT");
+      logMessage("K_ERROR_MOTOR_TIMEOUT", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_NOT_AUTHORIZED :
-      log_e("K_ERROR_NOT_AUTHORIZED");
+      logMessage("K_ERROR_NOT_AUTHORIZED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_NOT_CALIBRATED :
-      log_e("K_ERROR_NOT_CALIBRATED");
+      logMessage("K_ERROR_NOT_CALIBRATED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_POSITION_UNKNOWN :
-      log_e("K_ERROR_POSITION_UNKNOWN");
+      logMessage("K_ERROR_POSITION_UNKNOWN", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_REMOTE_NOT_ALLOWED :
-      log_e("K_ERROR_REMOTE_NOT_ALLOWED");
+      logMessage("K_ERROR_REMOTE_NOT_ALLOWED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_TIME_NOT_ALLOWED :
-      log_e("K_ERROR_TIME_NOT_ALLOWED");
+      logMessage("K_ERROR_TIME_NOT_ALLOWED", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_ENTRIES :
-      log_e("K_ERROR_TOO_MANY_ENTRIES");
+      logMessage("K_ERROR_TOO_MANY_ENTRIES", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_TOO_MANY_PIN_ATTEMPTS :
-      log_e("K_ERROR_TOO_MANY_PIN_ATTEMPTS");
+      logMessage("K_ERROR_TOO_MANY_PIN_ATTEMPTS", Log, 1);
       break;
     case (uint8_t)ErrorCode::K_ERROR_VOLTAGE_TOO_LOW :
-      log_e("K_ERROR_VOLTAGE_TOO_LOW");
+      logMessage("K_ERROR_VOLTAGE_TOO_LOW", Log, 1);
       break;
     default:
-      log_e("UNDEFINED ERROR");
+      logMessage("UNDEFINED ERROR", Log, 1);
   }
 }
 
-void logConfig(Config config) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("nukiId :%d", config.nukiId);
-  log_d("name :%s", config.name);
-  log_d("latitude :%f", config.latitude);
-  log_d("longitude :%f", config.longitude);
-  log_d("autoUnlatch :%d", config.autoUnlatch);
-  log_d("pairingEnabled :%d", config.pairingEnabled);
-  log_d("buttonEnabled :%d", config.buttonEnabled);
-  log_d("ledEnabled :%d", config.ledEnabled);
-  log_d("ledBrightness :%d", config.ledBrightness);
-  log_d("currentTime Year :%d", config.currentTimeYear);
-  log_d("currentTime Month :%d", config.currentTimeMonth);
-  log_d("currentTime Day :%d", config.currentTimeDay);
-  log_d("currentTime Hour :%d", config.currentTimeHour);
-  log_d("currentTime Minute :%d", config.currentTimeMinute);
-  log_d("currentTime Second :%d", config.currentTimeSecond);
-  log_d("timeZoneOffset :%d", config.timeZoneOffset);
-  log_d("dstMode :%d", config.dstMode);
-  log_d("hasFob :%d", config.hasFob);
-  log_d("fobAction1 :%d", config.fobAction1);
-  log_d("fobAction2 :%d", config.fobAction2);
-  log_d("fobAction3 :%d", config.fobAction3);
-  log_d("singleLock :%d", config.singleLock);
-  log_d("advertisingMode :%d", config.advertisingMode);
-  log_d("hasKeypad :%d", config.hasKeypad);
-  log_d("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
-  log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
-  log_d("homeKitStatus :%d", config.homeKitStatus);
-  log_d("timeZoneId :%d", config.timeZoneId);
-  #endif
+void logConfig(Config config, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("nukiId :%d", (unsigned int)config.nukiId, Log, 4);
+    logMessageVar("name :%s", (const char*)config.name, Log, 4);
+    logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
+    logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
+    logMessageVar("autoUnlatch :%d", (unsigned int)config.autoUnlatch, Log, 4);
+    logMessageVar("pairingEnabled :%d", (unsigned int)config.pairingEnabled, Log, 4);
+    logMessageVar("buttonEnabled :%d", (unsigned int)config.buttonEnabled, Log, 4);
+    logMessageVar("ledEnabled :%d", (unsigned int)config.ledEnabled, Log, 4);
+    logMessageVar("ledBrightness :%d", (unsigned int)config.ledBrightness, Log, 4);
+    logMessageVar("currentTime Year :%d", (unsigned int)config.currentTimeYear, Log, 4);
+    logMessageVar("currentTime Month :%d", (unsigned int)config.currentTimeMonth, Log, 4);
+    logMessageVar("currentTime Day :%d", (unsigned int)config.currentTimeDay, Log, 4);
+    logMessageVar("currentTime Hour :%d", (unsigned int)config.currentTimeHour, Log, 4);
+    logMessageVar("currentTime Minute :%d", (unsigned int)config.currentTimeMinute, Log, 4);
+    logMessageVar("currentTime Second :%d", (unsigned int)config.currentTimeSecond, Log, 4);
+    logMessageVar("timeZoneOffset :%d", (unsigned int)config.timeZoneOffset, Log, 4);
+    logMessageVar("dstMode :%d", (unsigned int)config.dstMode, Log, 4);
+    logMessageVar("hasFob :%d", (unsigned int)config.hasFob, Log, 4);
+    logMessageVar("fobAction1 :%d", (unsigned int)config.fobAction1, Log, 4);
+    logMessageVar("fobAction2 :%d", (unsigned int)config.fobAction2, Log, 4);
+    logMessageVar("fobAction3 :%d", (unsigned int)config.fobAction3, Log, 4);
+    logMessageVar("singleLock :%d", (unsigned int)config.singleLock, Log, 4);
+    logMessageVar("advertisingMode :%d", (unsigned int)config.advertisingMode, Log, 4);
+    logMessageVar("hasKeypad :%d", (unsigned int)config.hasKeypad, Log, 4);
+    if (Log == nullptr) {
+      log_d("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
+      log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
+    }
+    else
+    {
+      Log->printf("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
+      Log->println();
+      Log->printf("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
+      Log->println();
+    }
+    logMessageVar("homeKitStatus :%d", (unsigned int)config.homeKitStatus, Log, 4);
+    logMessageVar("timeZoneId :%d", (unsigned int)config.timeZoneId, Log, 4);
+  }
 }
 
-void logNewConfig(NewConfig newConfig) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("name :%s", newConfig.name);
-  log_d("latitude :%f", newConfig.latitude);
-  log_d("longitude :%f", newConfig.longitude);
-  log_d("autoUnlatch :%d", newConfig.autoUnlatch);
-  log_d("pairingEnabled :%d", newConfig.pairingEnabled);
-  log_d("buttonEnabled :%d", newConfig.buttonEnabled);
-  log_d("ledEnabled :%d", newConfig.ledEnabled);
-  log_d("ledBrightness :%d", newConfig.ledBrightness);
-  log_d("timeZoneOffset :%d", newConfig.timeZoneOffset);
-  log_d("dstMode :%d", newConfig.dstMode);
-  log_d("fobAction1 :%d", newConfig.fobAction1);
-  log_d("fobAction2 :%d", newConfig.fobAction2);
-  log_d("fobAction3 :%d", newConfig.fobAction3);
-  log_d("singleLock :%d", newConfig.singleLock);
-  log_d("advertisingMode :%d", newConfig.advertisingMode);
-  log_d("timeZoneId :%d", newConfig.timeZoneId);
-  #endif
+void logNewConfig(NewConfig newConfig, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("name :%s", (const char*)newConfig.name, Log, 4);
+    logMessageVar("latitude :%f", (const float)newConfig.latitude, Log, 4);
+    logMessageVar("longitude :%f", (const float)newConfig.longitude, Log, 4);
+    logMessageVar("autoUnlatch :%d", (unsigned int)newConfig.autoUnlatch, Log, 4);
+    logMessageVar("pairingEnabled :%d", (unsigned int)newConfig.pairingEnabled, Log, 4);
+    logMessageVar("buttonEnabled :%d", (unsigned int)newConfig.buttonEnabled, Log, 4);
+    logMessageVar("ledEnabled :%d", (unsigned int)newConfig.ledEnabled, Log, 4);
+    logMessageVar("ledBrightness :%d", (unsigned int)newConfig.ledBrightness, Log, 4);
+    logMessageVar("timeZoneOffset :%d", (unsigned int)newConfig.timeZoneOffset, Log, 4);
+    logMessageVar("dstMode :%d", (unsigned int)newConfig.dstMode, Log, 4);
+    logMessageVar("fobAction1 :%d", (unsigned int)newConfig.fobAction1, Log, 4);
+    logMessageVar("fobAction2 :%d", (unsigned int)newConfig.fobAction2, Log, 4);
+    logMessageVar("fobAction3 :%d", (unsigned int)newConfig.fobAction3, Log, 4);
+    logMessageVar("singleLock :%d", (unsigned int)newConfig.singleLock, Log, 4);
+    logMessageVar("advertisingMode :%d", (unsigned int)newConfig.advertisingMode, Log, 4);
+    logMessageVar("timeZoneId :%d", (unsigned int)newConfig.timeZoneId, Log, 4);
+  }
 }
 
-void logNewKeypadEntry(NewKeypadEntry newKeypadEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("code:%d", newKeypadEntry.code);
-  log_d("name:%s", newKeypadEntry.name);
-  log_d("timeLimited:%d", newKeypadEntry.timeLimited);
-  log_d("allowedFromYear:%d", newKeypadEntry.allowedFromYear);
-  log_d("allowedFromMonth:%d", newKeypadEntry.allowedFromMonth);
-  log_d("allowedFromDay:%d", newKeypadEntry.allowedFromDay);
-  log_d("allowedFromHour:%d", newKeypadEntry.allowedFromHour);
-  log_d("allowedFromMin:%d", newKeypadEntry.allowedFromMin);
-  log_d("allowedFromSec:%d", newKeypadEntry.allowedFromSec);
-  log_d("allowedUntilYear:%d", newKeypadEntry.allowedUntilYear);
-  log_d("allowedUntilMonth:%d", newKeypadEntry.allowedUntilMonth);
-  log_d("allowedUntilDay:%d", newKeypadEntry.allowedUntilDay);
-  log_d("allowedUntilHour:%d", newKeypadEntry.allowedUntilHour);
-  log_d("allowedUntilMin:%d", newKeypadEntry.allowedUntilMin);
-  log_d("allowedUntilSec:%d", newKeypadEntry.allowedUntilSec);
-  log_d("allowedWeekdays:%d", newKeypadEntry.allowedWeekdays);
-  log_d("allowedFromTimeHour:%d", newKeypadEntry.allowedFromTimeHour);
-  log_d("allowedFromTimeMin:%d", newKeypadEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", newKeypadEntry.allowedUntilTimeHour);
-  log_d("allowedUntilTimeMin:%d", newKeypadEntry.allowedUntilTimeMin);
-  #endif
+void logNewKeypadEntry(NewKeypadEntry newKeypadEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("code:%d", (unsigned int)newKeypadEntry.code, Log, 4);
+    logMessageVar("name:%s", (const char*)newKeypadEntry.name, Log, 4);
+    logMessageVar("timeLimited:%d", (unsigned int)newKeypadEntry.timeLimited, Log, 4);
+    logMessageVar("allowedFromYear:%d", (unsigned int)newKeypadEntry.allowedFromYear, Log, 4);
+    logMessageVar("allowedFromMonth:%d", (unsigned int)newKeypadEntry.allowedFromMonth, Log, 4);
+    logMessageVar("allowedFromDay:%d", (unsigned int)newKeypadEntry.allowedFromDay, Log, 4);
+    logMessageVar("allowedFromHour:%d", (unsigned int)newKeypadEntry.allowedFromHour, Log, 4);
+    logMessageVar("allowedFromMin:%d", (unsigned int)newKeypadEntry.allowedFromMin, Log, 4);
+    logMessageVar("allowedFromSec:%d", (unsigned int)newKeypadEntry.allowedFromSec, Log, 4);
+    logMessageVar("allowedUntilYear:%d", (unsigned int)newKeypadEntry.allowedUntilYear, Log, 4);
+    logMessageVar("allowedUntilMonth:%d", (unsigned int)newKeypadEntry.allowedUntilMonth, Log, 4);
+    logMessageVar("allowedUntilDay:%d", (unsigned int)newKeypadEntry.allowedUntilDay, Log, 4);
+    logMessageVar("allowedUntilHour:%d", (unsigned int)newKeypadEntry.allowedUntilHour, Log, 4);
+    logMessageVar("allowedUntilMin:%d", (unsigned int)newKeypadEntry.allowedUntilMin, Log, 4);
+    logMessageVar("allowedUntilSec:%d", (unsigned int)newKeypadEntry.allowedUntilSec, Log, 4);
+    logMessageVar("allowedWeekdays:%d", (unsigned int)newKeypadEntry.allowedWeekdays, Log, 4);
+    logMessageVar("allowedFromTimeHour:%d", (unsigned int)newKeypadEntry.allowedFromTimeHour, Log, 4);
+    logMessageVar("allowedFromTimeMin:%d", (unsigned int)newKeypadEntry.allowedFromTimeMin, Log, 4);
+    logMessageVar("allowedUntilTimeHour:%d", (unsigned int)newKeypadEntry.allowedUntilTimeHour, Log, 4);
+    logMessageVar("allowedUntilTimeMin:%d", (unsigned int)newKeypadEntry.allowedUntilTimeMin, Log, 4);
+  }
 }
 
-void logKeypadEntry(KeypadEntry keypadEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("codeId:%d", keypadEntry.codeId);
-  log_d("code:%d", keypadEntry.code);
-  log_d("name:%s", keypadEntry.name);
-  log_d("enabled:%d", keypadEntry.enabled);
-  log_d("dateCreatedYear:%d", keypadEntry.dateCreatedYear);
-  log_d("dateCreatedMonth:%d", keypadEntry.dateCreatedMonth);
-  log_d("dateCreatedDay:%d", keypadEntry.dateCreatedDay);
-  log_d("dateCreatedHour:%d", keypadEntry.dateCreatedHour);
-  log_d("dateCreatedMin:%d", keypadEntry.dateCreatedMin);
-  log_d("dateCreatedSec:%d", keypadEntry.dateCreatedSec);
-  log_d("dateLastActiveYear:%d", keypadEntry.dateLastActiveYear);
-  log_d("dateLastActiveMonth:%d", keypadEntry.dateLastActiveMonth);
-  log_d("dateLastActiveDay:%d", keypadEntry.dateLastActiveDay);
-  log_d("dateLastActiveHour:%d", keypadEntry.dateLastActiveHour);
-  log_d("dateLastActiveMin:%d", keypadEntry.dateLastActiveMin);
-  log_d("dateLastActiveSec:%d", keypadEntry.dateLastActiveSec);
-  log_d("lockCount:%d", keypadEntry.lockCount);
-  log_d("timeLimited:%d", keypadEntry.timeLimited);
-  log_d("allowedFromYear:%d", keypadEntry.allowedFromYear);
-  log_d("allowedFromMonth:%d", keypadEntry.allowedFromMonth);
-  log_d("allowedFromDay:%d", keypadEntry.allowedFromDay);
-  log_d("allowedFromHour:%d", keypadEntry.allowedFromHour);
-  log_d("allowedFromMin:%d", keypadEntry.allowedFromMin);
-  log_d("allowedFromSec:%d", keypadEntry.allowedFromSec);
-  log_d("allowedUntilYear:%d", keypadEntry.allowedUntilYear);
-  log_d("allowedUntilMonth:%d", keypadEntry.allowedUntilMonth);
-  log_d("allowedUntilDay:%d", keypadEntry.allowedUntilDay);
-  log_d("allowedUntilHour:%d", keypadEntry.allowedUntilHour);
-  log_d("allowedUntilMin:%d", keypadEntry.allowedUntilMin);
-  log_d("allowedUntilSec:%d", keypadEntry.allowedUntilSec);
-  log_d("allowedWeekdays:%d", keypadEntry.allowedWeekdays);
-  log_d("allowedFromTimeHour:%d", keypadEntry.allowedFromTimeHour);
-  log_d("allowedFromTimeMin:%d", keypadEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", keypadEntry.allowedUntilTimeHour);
-  log_d("allowedUntilTimeMin:%d", keypadEntry.allowedUntilTimeMin);
-  #endif
+void logKeypadEntry(KeypadEntry keypadEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("codeId:%d", (unsigned int)keypadEntry.codeId, Log, 4);
+    logMessageVar("code:%d", (unsigned int)keypadEntry.code, Log, 4);
+    logMessageVar("name:%s", (const char*)keypadEntry.name, Log, 4);
+    logMessageVar("enabled:%d", (unsigned int)keypadEntry.enabled, Log, 4);
+    logMessageVar("dateCreatedYear:%d", (unsigned int)keypadEntry.dateCreatedYear, Log, 4);
+    logMessageVar("dateCreatedMonth:%d", (unsigned int)keypadEntry.dateCreatedMonth, Log, 4);
+    logMessageVar("dateCreatedDay:%d", (unsigned int)keypadEntry.dateCreatedDay, Log, 4);
+    logMessageVar("dateCreatedHour:%d", (unsigned int)keypadEntry.dateCreatedHour, Log, 4);
+    logMessageVar("dateCreatedMin:%d", (unsigned int)keypadEntry.dateCreatedMin, Log, 4);
+    logMessageVar("dateCreatedSec:%d", (unsigned int)keypadEntry.dateCreatedSec, Log, 4);
+    logMessageVar("dateLastActiveYear:%d", (unsigned int)keypadEntry.dateLastActiveYear, Log, 4);
+    logMessageVar("dateLastActiveMonth:%d", (unsigned int)keypadEntry.dateLastActiveMonth, Log, 4);
+    logMessageVar("dateLastActiveDay:%d", (unsigned int)keypadEntry.dateLastActiveDay, Log, 4);
+    logMessageVar("dateLastActiveHour:%d", (unsigned int)keypadEntry.dateLastActiveHour, Log, 4);
+    logMessageVar("dateLastActiveMin:%d", (unsigned int)keypadEntry.dateLastActiveMin, Log, 4);
+    logMessageVar("dateLastActiveSec:%d", (unsigned int)keypadEntry.dateLastActiveSec, Log, 4);
+    logMessageVar("lockCount:%d", (unsigned int)keypadEntry.lockCount, Log, 4);
+    logMessageVar("timeLimited:%d", (unsigned int)keypadEntry.timeLimited, Log, 4);
+    logMessageVar("allowedFromYear:%d", (unsigned int)keypadEntry.allowedFromYear, Log, 4);
+    logMessageVar("allowedFromMonth:%d", (unsigned int)keypadEntry.allowedFromMonth, Log, 4);
+    logMessageVar("allowedFromDay:%d", (unsigned int)keypadEntry.allowedFromDay, Log, 4);
+    logMessageVar("allowedFromHour:%d", (unsigned int)keypadEntry.allowedFromHour, Log, 4);
+    logMessageVar("allowedFromMin:%d", (unsigned int)keypadEntry.allowedFromMin, Log, 4);
+    logMessageVar("allowedFromSec:%d", (unsigned int)keypadEntry.allowedFromSec, Log, 4);
+    logMessageVar("allowedUntilYear:%d", (unsigned int)keypadEntry.allowedUntilYear, Log, 4);
+    logMessageVar("allowedUntilMonth:%d", (unsigned int)keypadEntry.allowedUntilMonth, Log, 4);
+    logMessageVar("allowedUntilDay:%d", (unsigned int)keypadEntry.allowedUntilDay, Log, 4);
+    logMessageVar("allowedUntilHour:%d", (unsigned int)keypadEntry.allowedUntilHour, Log, 4);
+    logMessageVar("allowedUntilMin:%d", (unsigned int)keypadEntry.allowedUntilMin, Log, 4);
+    logMessageVar("allowedUntilSec:%d", (unsigned int)keypadEntry.allowedUntilSec, Log, 4);
+    logMessageVar("allowedWeekdays:%d", (unsigned int)keypadEntry.allowedWeekdays, Log, 4);
+    logMessageVar("allowedFromTimeHour:%d", (unsigned int)keypadEntry.allowedFromTimeHour, Log, 4);
+    logMessageVar("allowedFromTimeMin:%d", (unsigned int)keypadEntry.allowedFromTimeMin, Log, 4);
+    logMessageVar("allowedUntilTimeHour:%d", (unsigned int)keypadEntry.allowedUntilTimeHour, Log, 4);
+    logMessageVar("allowedUntilTimeMin:%d", (unsigned int)keypadEntry.allowedUntilTimeMin, Log, 4);
+  }
 }
 
-void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("codeId:%d", updatedKeypadEntry.codeId);
-  log_d("code:%d", updatedKeypadEntry.code);
-  log_d("name:%s", updatedKeypadEntry.name);
-  log_d("enabled:%d", updatedKeypadEntry.enabled);
-  log_d("timeLimited:%d", updatedKeypadEntry.timeLimited);
-  log_d("allowedFromYear:%d", updatedKeypadEntry.allowedFromYear);
-  log_d("allowedFromMonth:%d", updatedKeypadEntry.allowedFromMonth);
-  log_d("allowedFromDay:%d", updatedKeypadEntry.allowedFromDay);
-  log_d("allowedFromHour:%d", updatedKeypadEntry.allowedFromHour);
-  log_d("allowedFromMin:%d", updatedKeypadEntry.allowedFromMin);
-  log_d("allowedFromSec:%d", updatedKeypadEntry.allowedFromSec);
-  log_d("allowedUntilYear:%d", updatedKeypadEntry.allowedUntilYear);
-  log_d("allowedUntilMonth:%d", updatedKeypadEntry.allowedUntilMonth);
-  log_d("allowedUntilDay:%d", updatedKeypadEntry.allowedUntilDay);
-  log_d("allowedUntilHour:%d", updatedKeypadEntry.allowedUntilHour);
-  log_d("allowedUntilMin:%d", updatedKeypadEntry.allowedUntilMin);
-  log_d("allowedUntilSec:%d", updatedKeypadEntry.allowedUntilSec);
-  log_d("allowedWeekdays:%d", updatedKeypadEntry.allowedWeekdays);
-  log_d("allowedFromTimeHour:%d", updatedKeypadEntry.allowedFromTimeHour);
-  log_d("allowedFromTimeMin:%d", updatedKeypadEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", updatedKeypadEntry.allowedUntilTimeHour);
-  log_d("allowedUntilTimeMin:%d", updatedKeypadEntry.allowedUntilTimeMin);
-  #endif
+void logUpdatedKeypadEntry(UpdatedKeypadEntry updatedKeypadEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("codeId:%d", (unsigned int)updatedKeypadEntry.codeId, Log, 4);
+    logMessageVar("code:%d", (unsigned int)updatedKeypadEntry.code, Log, 4);
+    logMessageVar("name:%s", (const char*)updatedKeypadEntry.name, Log, 4);
+    logMessageVar("enabled:%d", (unsigned int)updatedKeypadEntry.enabled, Log, 4);
+    logMessageVar("timeLimited:%d", (unsigned int)updatedKeypadEntry.timeLimited, Log, 4);
+    logMessageVar("allowedFromYear:%d", (unsigned int)updatedKeypadEntry.allowedFromYear, Log, 4);
+    logMessageVar("allowedFromMonth:%d", (unsigned int)updatedKeypadEntry.allowedFromMonth, Log, 4);
+    logMessageVar("allowedFromDay:%d", (unsigned int)updatedKeypadEntry.allowedFromDay, Log, 4);
+    logMessageVar("allowedFromHour:%d", (unsigned int)updatedKeypadEntry.allowedFromHour, Log, 4);
+    logMessageVar("allowedFromMin:%d", (unsigned int)updatedKeypadEntry.allowedFromMin, Log, 4);
+    logMessageVar("allowedFromSec:%d", (unsigned int)updatedKeypadEntry.allowedFromSec, Log, 4);
+    logMessageVar("allowedUntilYear:%d", (unsigned int)updatedKeypadEntry.allowedUntilYear, Log, 4);
+    logMessageVar("allowedUntilMonth:%d", (unsigned int)updatedKeypadEntry.allowedUntilMonth, Log, 4);
+    logMessageVar("allowedUntilDay:%d", (unsigned int)updatedKeypadEntry.allowedUntilDay, Log, 4);
+    logMessageVar("allowedUntilHour:%d", (unsigned int)updatedKeypadEntry.allowedUntilHour, Log, 4);
+    logMessageVar("allowedUntilMin:%d", (unsigned int)updatedKeypadEntry.allowedUntilMin, Log, 4);
+    logMessageVar("allowedUntilSec:%d", (unsigned int)updatedKeypadEntry.allowedUntilSec, Log, 4);
+    logMessageVar("allowedWeekdays:%d", (unsigned int)updatedKeypadEntry.allowedWeekdays, Log, 4);
+    logMessageVar("allowedFromTimeHour:%d", (unsigned int)updatedKeypadEntry.allowedFromTimeHour, Log, 4);
+    logMessageVar("allowedFromTimeMin:%d", (unsigned int)updatedKeypadEntry.allowedFromTimeMin, Log, 4);
+    logMessageVar("allowedUntilTimeHour:%d", (unsigned int)updatedKeypadEntry.allowedUntilTimeHour, Log, 4);
+    logMessageVar("allowedUntilTimeMin:%d", (unsigned int)updatedKeypadEntry.allowedUntilTimeMin, Log, 4);
+  }
 }
 
-void logAuthorizationEntry(AuthorizationEntry authorizationEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("id:%d", authorizationEntry.authId);
-  log_d("idType:%d", authorizationEntry.idType);
-  log_d("name:%s", authorizationEntry.name);
-  log_d("enabled:%d", authorizationEntry.enabled);
-  log_d("remoteAllowed:%d", authorizationEntry.remoteAllowed);
-  log_d("createdYear:%d", authorizationEntry.createdYear);
-  log_d("createdMonth:%d", authorizationEntry.createdMonth);
-  log_d("createdDay:%d", authorizationEntry.createdDay);
-  log_d("createdHour:%d", authorizationEntry.createdHour);
-  log_d("createdMin:%d", authorizationEntry.createdMinute);
-  log_d("createdSec:%d", authorizationEntry.createdSecond);
-  log_d("lastactYear:%d", authorizationEntry.lastActYear);
-  log_d("lastactMonth:%d", authorizationEntry.lastActMonth);
-  log_d("lastactDay:%d", authorizationEntry.lastActDay);
-  log_d("lastactHour:%d", authorizationEntry.lastActHour);
-  log_d("lastactMin:%d", authorizationEntry.lastActMinute);
-  log_d("lastactSec:%d", authorizationEntry.lastActSecond);
-  log_d("lockCount:%d", authorizationEntry.lockCount);
-  log_d("timeLimited:%d", authorizationEntry.timeLimited);
-  log_d("allowedFromYear:%d", authorizationEntry.allowedFromYear);
-  log_d("allowedFromMonth:%d", authorizationEntry.allowedFromMonth);
-  log_d("allowedFromDay:%d", authorizationEntry.allowedFromDay);
-  log_d("allowedFromHour:%d", authorizationEntry.allowedFromHour);
-  log_d("allowedFromMin:%d", authorizationEntry.allowedFromMinute);
-  log_d("allowedFromSec:%d", authorizationEntry.allowedFromSecond);
-  log_d("allowedUntilYear:%d", authorizationEntry.allowedUntilYear);
-  log_d("allowedUntilMonth:%d", authorizationEntry.allowedUntilMonth);
-  log_d("allowedUntilDay:%d", authorizationEntry.allowedUntilDay);
-  log_d("allowedUntilHour:%d", authorizationEntry.allowedUntilHour);
-  log_d("allowedUntilMin:%d", authorizationEntry.allowedUntilMinute);
-  log_d("allowedUntilSec:%d", authorizationEntry.allowedUntilSecond);
-  log_d("allowedWeekdays:%d", authorizationEntry.allowedWeekdays);
-  log_d("allowedFromTimeHour:%d", authorizationEntry.allowedFromTimeHour);
-  log_d("allowedFromTimeMin:%d", authorizationEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", authorizationEntry.allowedUntilTimeHour);
-  log_d("allowedUntilTimeMin:%d", authorizationEntry.allowedUntilTimeMin);
-  #endif
+void logAuthorizationEntry(AuthorizationEntry authorizationEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("id:%d", (unsigned int)authorizationEntry.authId, Log, 4);
+    logMessageVar("idType:%d", (unsigned int)authorizationEntry.idType, Log, 4);
+    logMessageVar("name:%s", (const char*)authorizationEntry.name, Log, 4);
+    logMessageVar("enabled:%d", (unsigned int)authorizationEntry.enabled, Log, 4);
+    logMessageVar("remoteAllowed:%d", (unsigned int)authorizationEntry.remoteAllowed, Log, 4);
+    logMessageVar("createdYear:%d", (unsigned int)authorizationEntry.createdYear, Log, 4);
+    logMessageVar("createdMonth:%d", (unsigned int)authorizationEntry.createdMonth, Log, 4);
+    logMessageVar("createdDay:%d", (unsigned int)authorizationEntry.createdDay, Log, 4);
+    logMessageVar("createdHour:%d", (unsigned int)authorizationEntry.createdHour, Log, 4);
+    logMessageVar("createdMin:%d", (unsigned int)authorizationEntry.createdMinute, Log, 4);
+    logMessageVar("createdSec:%d", (unsigned int)authorizationEntry.createdSecond, Log, 4);
+    logMessageVar("lastactYear:%d", (unsigned int)authorizationEntry.lastActYear, Log, 4);
+    logMessageVar("lastactMonth:%d", (unsigned int)authorizationEntry.lastActMonth, Log, 4);
+    logMessageVar("lastactDay:%d", (unsigned int)authorizationEntry.lastActDay, Log, 4);
+    logMessageVar("lastactHour:%d", (unsigned int)authorizationEntry.lastActHour, Log, 4);
+    logMessageVar("lastactMin:%d", (unsigned int)authorizationEntry.lastActMinute, Log, 4);
+    logMessageVar("lastactSec:%d", (unsigned int)authorizationEntry.lastActSecond, Log, 4);
+    logMessageVar("lockCount:%d", (unsigned int)authorizationEntry.lockCount, Log, 4);
+    logMessageVar("timeLimited:%d", (unsigned int)authorizationEntry.timeLimited, Log, 4);
+    logMessageVar("allowedFromYear:%d", (unsigned int)authorizationEntry.allowedFromYear, Log, 4);
+    logMessageVar("allowedFromMonth:%d", (unsigned int)authorizationEntry.allowedFromMonth, Log, 4);
+    logMessageVar("allowedFromDay:%d", (unsigned int)authorizationEntry.allowedFromDay, Log, 4);
+    logMessageVar("allowedFromHour:%d", (unsigned int)authorizationEntry.allowedFromHour, Log, 4);
+    logMessageVar("allowedFromMin:%d", (unsigned int)authorizationEntry.allowedFromMinute, Log, 4);
+    logMessageVar("allowedFromSec:%d", (unsigned int)authorizationEntry.allowedFromSecond, Log, 4);
+    logMessageVar("allowedUntilYear:%d", (unsigned int)authorizationEntry.allowedUntilYear, Log, 4);
+    logMessageVar("allowedUntilMonth:%d", (unsigned int)authorizationEntry.allowedUntilMonth, Log, 4);
+    logMessageVar("allowedUntilDay:%d", (unsigned int)authorizationEntry.allowedUntilDay, Log, 4);
+    logMessageVar("allowedUntilHour:%d", (unsigned int)authorizationEntry.allowedUntilHour, Log, 4);
+    logMessageVar("allowedUntilMin:%d", (unsigned int)authorizationEntry.allowedUntilMinute, Log, 4);
+    logMessageVar("allowedUntilSec:%d", (unsigned int)authorizationEntry.allowedUntilSecond, Log, 4);
+    logMessageVar("allowedWeekdays:%d", (unsigned int)authorizationEntry.allowedWeekdays, Log, 4);
+    logMessageVar("allowedFromTimeHour:%d", (unsigned int)authorizationEntry.allowedFromTimeHour, Log, 4);
+    logMessageVar("allowedFromTimeMin:%d", (unsigned int)authorizationEntry.allowedFromTimeMin, Log, 4);
+    logMessageVar("allowedUntilTimeHour:%d", (unsigned int)authorizationEntry.allowedUntilTimeHour, Log, 4);
+    logMessageVar("allowedUntilTimeMin:%d", (unsigned int)authorizationEntry.allowedUntilTimeMin, Log, 4);
+  }
 }
 
-void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("name:%s", newAuthorizationEntry.name);
-  log_d("idType:%d", newAuthorizationEntry.idType);
-  log_d("remoteAllowed:%d", newAuthorizationEntry.remoteAllowed);
-  log_d("timeLimited:%d", newAuthorizationEntry.timeLimited);
-  log_d("allowedFromYear:%d", newAuthorizationEntry.allowedFromYear);
-  log_d("allowedFromMonth:%d", newAuthorizationEntry.allowedFromMonth);
-  log_d("allowedFromDay:%d", newAuthorizationEntry.allowedFromDay);
-  log_d("allowedFromHour:%d", newAuthorizationEntry.allowedFromHour);
-  log_d("allowedFromMin:%d", newAuthorizationEntry.allowedFromMinute);
-  log_d("allowedFromSec:%d", newAuthorizationEntry.allowedFromSecond);
-  log_d("allowedUntilYear:%d", newAuthorizationEntry.allowedUntilYear);
-  log_d("allowedUntilMonth:%d", newAuthorizationEntry.allowedUntilMonth);
-  log_d("allowedUntilDay:%d", newAuthorizationEntry.allowedUntilDay);
-  log_d("allowedUntilHour:%d", newAuthorizationEntry.allowedUntilHour);
-  log_d("allowedUntilMin:%d", newAuthorizationEntry.allowedUntilMinute);
-  log_d("allowedUntilSec:%d", newAuthorizationEntry.allowedUntilSecond);
-  log_d("allowedWeekdays:%d", newAuthorizationEntry.allowedWeekdays);
-  log_d("allowedFromTimeHour:%d", newAuthorizationEntry.allowedFromTimeHour);
-  log_d("allowedFromTimeMin:%d", newAuthorizationEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", newAuthorizationEntry.allowedUntilTimeHour);
-  log_d("allowedUntilTimeMin:%d", newAuthorizationEntry.allowedUntilTimeMin);
-  #endif
+void logNewAuthorizationEntry(NewAuthorizationEntry newAuthorizationEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("name:%s", (const char*)newAuthorizationEntry.name, Log, 4);
+    logMessageVar("idType:%d", (unsigned int)newAuthorizationEntry.idType, Log, 4);
+    logMessageVar("remoteAllowed:%d", (unsigned int)newAuthorizationEntry.remoteAllowed, Log, 4);
+    logMessageVar("timeLimited:%d", (unsigned int)newAuthorizationEntry.timeLimited, Log, 4);
+    logMessageVar("allowedFromYear:%d", (unsigned int)newAuthorizationEntry.allowedFromYear, Log, 4);
+    logMessageVar("allowedFromMonth:%d", (unsigned int)newAuthorizationEntry.allowedFromMonth, Log, 4);
+    logMessageVar("allowedFromDay:%d", (unsigned int)newAuthorizationEntry.allowedFromDay, Log, 4);
+    logMessageVar("allowedFromHour:%d", (unsigned int)newAuthorizationEntry.allowedFromHour, Log, 4);
+    logMessageVar("allowedFromMin:%d", (unsigned int)newAuthorizationEntry.allowedFromMinute, Log, 4);
+    logMessageVar("allowedFromSec:%d", (unsigned int)newAuthorizationEntry.allowedFromSecond, Log, 4);
+    logMessageVar("allowedUntilYear:%d", (unsigned int)newAuthorizationEntry.allowedUntilYear, Log, 4);
+    logMessageVar("allowedUntilMonth:%d", (unsigned int)newAuthorizationEntry.allowedUntilMonth, Log, 4);
+    logMessageVar("allowedUntilDay:%d", (unsigned int)newAuthorizationEntry.allowedUntilDay, Log, 4);
+    logMessageVar("allowedUntilHour:%d", (unsigned int)newAuthorizationEntry.allowedUntilHour, Log, 4);
+    logMessageVar("allowedUntilMin:%d", (unsigned int)newAuthorizationEntry.allowedUntilMinute, Log, 4);
+    logMessageVar("allowedUntilSec:%d", (unsigned int)newAuthorizationEntry.allowedUntilSecond, Log, 4);
+    logMessageVar("allowedWeekdays:%d", (unsigned int)newAuthorizationEntry.allowedWeekdays, Log, 4);
+    logMessageVar("allowedFromTimeHour:%d", (unsigned int)newAuthorizationEntry.allowedFromTimeHour, Log, 4);
+    logMessageVar("allowedFromTimeMin:%d", (unsigned int)newAuthorizationEntry.allowedFromTimeMin, Log, 4);
+    logMessageVar("allowedUntilTimeHour:%d", (unsigned int)newAuthorizationEntry.allowedUntilTimeHour, Log, 4);
+    logMessageVar("allowedUntilTimeMin:%d", (unsigned int)newAuthorizationEntry.allowedUntilTimeMin, Log, 4);
+  }
 }
 
-void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("id:%d", updatedAuthorizationEntry.authId);
-  log_d("name:%s", updatedAuthorizationEntry.name);
-  log_d("enabled:%d", updatedAuthorizationEntry.enabled);
-  log_d("remoteAllowed:%d", updatedAuthorizationEntry.remoteAllowed);
-  log_d("timeLimited:%d", updatedAuthorizationEntry.timeLimited);
-  log_d("allowedFromYear:%d", updatedAuthorizationEntry.allowedFromYear);
-  log_d("allowedFromMonth:%d", updatedAuthorizationEntry.allowedFromMonth);
-  log_d("allowedFromDay:%d", updatedAuthorizationEntry.allowedFromDay);
-  log_d("allowedFromHour:%d", updatedAuthorizationEntry.allowedFromHour);
-  log_d("allowedFromMin:%d", updatedAuthorizationEntry.allowedFromMinute);
-  log_d("allowedFromSec:%d", updatedAuthorizationEntry.allowedFromSecond);
-  log_d("allowedUntilYear:%d", updatedAuthorizationEntry.allowedUntilYear);
-  log_d("allowedUntilMonth:%d", updatedAuthorizationEntry.allowedUntilMonth);
-  log_d("allowedUntilDay:%d", updatedAuthorizationEntry.allowedUntilDay);
-  log_d("allowedUntilHour:%d", updatedAuthorizationEntry.allowedUntilHour);
-  log_d("allowedUntilMin:%d", updatedAuthorizationEntry.allowedUntilMinute);
-  log_d("allowedUntilSec:%d", updatedAuthorizationEntry.allowedUntilSecond);
-  log_d("allowedWeekdays:%d", updatedAuthorizationEntry.allowedWeekdays);
-  log_d("allowedFromTimeHour:%d", updatedAuthorizationEntry.allowedFromTimeHour);
-  log_d("allowedFromTimeMin:%d", updatedAuthorizationEntry.allowedFromTimeMin);
-  log_d("allowedUntilTimeHour:%d", updatedAuthorizationEntry.allowedUntilTimeHour);
-  log_d("allowedUntilTimeMin:%d", updatedAuthorizationEntry.allowedUntilTimeMin);
-  #endif
+void logUpdatedAuthorizationEntry(UpdatedAuthorizationEntry updatedAuthorizationEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("id:%d", (unsigned int)updatedAuthorizationEntry.authId, Log, 4);
+    logMessageVar("name:%s", (const char*)updatedAuthorizationEntry.name, Log, 4);
+    logMessageVar("enabled:%d", (unsigned int)updatedAuthorizationEntry.enabled, Log, 4);
+    logMessageVar("remoteAllowed:%d", (unsigned int)updatedAuthorizationEntry.remoteAllowed, Log, 4);
+    logMessageVar("timeLimited:%d", (unsigned int)updatedAuthorizationEntry.timeLimited, Log, 4);
+    logMessageVar("allowedFromYear:%d", (unsigned int)updatedAuthorizationEntry.allowedFromYear, Log, 4);
+    logMessageVar("allowedFromMonth:%d", (unsigned int)updatedAuthorizationEntry.allowedFromMonth, Log, 4);
+    logMessageVar("allowedFromDay:%d", (unsigned int)updatedAuthorizationEntry.allowedFromDay, Log, 4);
+    logMessageVar("allowedFromHour:%d", (unsigned int)updatedAuthorizationEntry.allowedFromHour, Log, 4);
+    logMessageVar("allowedFromMin:%d", (unsigned int)updatedAuthorizationEntry.allowedFromMinute, Log, 4);
+    logMessageVar("allowedFromSec:%d", (unsigned int)updatedAuthorizationEntry.allowedFromSecond, Log, 4);
+    logMessageVar("allowedUntilYear:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilYear, Log, 4);
+    logMessageVar("allowedUntilMonth:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilMonth, Log, 4);
+    logMessageVar("allowedUntilDay:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilDay, Log, 4);
+    logMessageVar("allowedUntilHour:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilHour, Log, 4);
+    logMessageVar("allowedUntilMin:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilMinute, Log, 4);
+    logMessageVar("allowedUntilSec:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilSecond, Log, 4);
+    logMessageVar("allowedWeekdays:%d", (unsigned int)updatedAuthorizationEntry.allowedWeekdays, Log, 4);
+    logMessageVar("allowedFromTimeHour:%d", (unsigned int)updatedAuthorizationEntry.allowedFromTimeHour, Log, 4);
+    logMessageVar("allowedFromTimeMin:%d", (unsigned int)updatedAuthorizationEntry.allowedFromTimeMin, Log, 4);
+    logMessageVar("allowedUntilTimeHour:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilTimeHour, Log, 4);
+    logMessageVar("allowedUntilTimeMin:%d", (unsigned int)updatedAuthorizationEntry.allowedUntilTimeMin, Log, 4);
+  }
 }
 
-void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("weekdays:%d", newTimeControlEntry.weekdays);
-  log_d("time:%d:%d", newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
-  log_d("lockAction:%d", newTimeControlEntry.lockAction);
-  #endif
+void logNewTimeControlEntry(NewTimeControlEntry newTimeControlEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("weekdays:%d", (unsigned int)newTimeControlEntry.weekdays, Log, 4);
+    if (Log == nullptr) {
+      log_d("time:%d:%d", (unsigned int)newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
+    }
+    else
+    {
+      Log->printf("time:%d:%d", (unsigned int)newTimeControlEntry.timeHour, newTimeControlEntry.timeMin);
+      Log->println();
+    }
+    logMessageVar("lockAction:%d", (unsigned int)newTimeControlEntry.lockAction, Log, 4);
+  }
 }
 
-void logTimeControlEntry(TimeControlEntry timeControlEntry) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("entryId:%d", timeControlEntry.entryId);
-  log_d("enabled:%d", timeControlEntry.enabled);
-  log_d("weekdays:%d", timeControlEntry.weekdays);
-  log_d("time:%d:%d", timeControlEntry.timeHour, timeControlEntry.timeMin);
-  log_d("lockAction:%d", timeControlEntry.lockAction);
-  #endif
+void logTimeControlEntry(TimeControlEntry timeControlEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("entryId:%d", (unsigned int)timeControlEntry.entryId, Log, 4);
+    logMessageVar("enabled:%d", (unsigned int)timeControlEntry.enabled, Log, 4);
+    logMessageVar("weekdays:%d", (unsigned int)timeControlEntry.weekdays, Log, 4);
+    if (Log == nullptr) {
+      log_d("time:%d:%d", (unsigned int)timeControlEntry.timeHour, timeControlEntry.timeMin);
+    }
+    else
+    {
+      Log->printf("time:%d:%d", (unsigned int)timeControlEntry.timeHour, timeControlEntry.timeMin);
+      Log->println();
+    }
+    logMessageVar("lockAction:%d", (unsigned int)timeControlEntry.lockAction, Log, 4);
+  }
 }
 
-void logCompletionStatus(CompletionStatus completionStatus) {
+void logCompletionStatus(CompletionStatus completionStatus, bool debug, Print* Log) {
   switch (completionStatus) {
     case CompletionStatus::Busy :
-      log_d("Completion status: busy");
+      logMessage("Completion status: busy", Log, 4);
       break;
     case CompletionStatus::Canceled :
-      log_d("Completion status: canceled");
+      logMessage("Completion status: canceled", Log, 4);
       break;
     case CompletionStatus::ClutchFailure :
-      log_d("Completion status: clutchFailure");
+      logMessage("Completion status: clutchFailure", Log, 4);
       break;
     case CompletionStatus::IncompleteFailure :
-      log_d("Completion status: incompleteFailure");
+      logMessage("Completion status: incompleteFailure", Log, 4);
       break;
     case CompletionStatus::LowMotorVoltage :
-      log_d("Completion status: lowMotorVoltage");
+      logMessage("Completion status: lowMotorVoltage", Log, 4);
       break;
     case CompletionStatus::MotorBlocked :
-      log_d("Completion status: motorBlocked");
+      logMessage("Completion status: motorBlocked", Log, 4);
       break;
     case CompletionStatus::MotorPowerFailure :
-      log_d("Completion status: motorPowerFailure");
+      logMessage("Completion status: motorPowerFailure", Log, 4);
       break;
     case CompletionStatus::OtherError :
-      log_d("Completion status: otherError");
+      logMessage("Completion status: otherError", Log, 4);
       break;
     case CompletionStatus::Success :
-      log_d("Completion status: success");
+      logMessage("Completion status: success", Log, 4);
       break;
     case CompletionStatus::TooRecent :
-      log_d("Completion status: tooRecent");
+      logMessage("Completion status: tooRecent", Log, 4);
       break;
     case CompletionStatus::InvalidCode :
-      log_d("Completion status: invalid code");
+      logMessage("Completion status: invalid code", Log, 4);
       break;
     default:
-      log_w("Completion status: unknown");
+      logMessage("Completion status: unknown", Log, 2);
       break;
   }
 }
 
-void logNukiTrigger(Trigger nukiTrigger) {
+void logNukiTrigger(Trigger nukiTrigger, bool debug, Print* Log) {
   switch (nukiTrigger) {
     case Trigger::AutoLock :
-      log_d("Trigger: autoLock");
+      logMessage("Trigger: autoLock", Log, 4);
       break;
     case Trigger::Automatic :
-      log_d("Trigger: automatic");
+      logMessage("Trigger: automatic", Log, 4);
       break;
     case Trigger::Button :
-      log_d("Trigger: button");
+      logMessage("Trigger: button", Log, 4);
       break;
     case Trigger::Manual :
-      log_d("Trigger: manual");
+      logMessage("Trigger: manual", Log, 4);
       break;
     case Trigger::System :
-      log_d("Trigger: system");
+      logMessage("Trigger: system", Log, 4);
       break;
     default:
-      log_w("Trigger: unknown");
+      logMessage("Trigger: unknown", Log, 2);
       break;
   }
 }
 
-void logLockAction(LockAction lockAction) {
+void logLockAction(LockAction lockAction, bool debug, Print* Log) {
   switch (lockAction) {
     case LockAction::FobAction1 :
-      log_d("action: autoLock");
+      logMessage("action: autoLock", Log, 4);
       break;
     case LockAction::FobAction2 :
-      log_d("action: automatic");
+      logMessage("action: automatic", Log, 4);
       break;
     case LockAction::FobAction3 :
-      log_d("action: button");
+      logMessage("action: button", Log, 4);
       break;
     case LockAction::FullLock :
-      log_d("action: manual");
+      logMessage("action: manual", Log, 4);
       break;
     case LockAction::Lock :
-      log_d("action: system");
+      logMessage("action: system", Log, 4);
       break;
     case LockAction::LockNgo :
-      log_d("action: system");
+      logMessage("action: system", Log, 4);
       break;
     case LockAction::LockNgoUnlatch :
-      log_d("action: system");
+      logMessage("action: system", Log, 4);
       break;
     case LockAction::Unlatch :
-      log_d("action: system");
+      logMessage("action: system", Log, 4);
       break;
     case LockAction::Unlock :
-      log_d("action: system");
+      logMessage("action: system", Log, 4);
       break;
     default:
-      log_w("action: unknown");
+      logMessage("action: unknown", Log, 2);
       break;
   }
 }
 
-void logKeyturnerState(KeyTurnerState keyTurnerState) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("nukiState: %02x", keyTurnerState.nukiState);
-  log_d("lockState: %d", keyTurnerState.lockState);
-  logNukiTrigger(keyTurnerState.trigger);
-  log_d("currentTimeYear: %d", keyTurnerState.currentTimeYear);
-  log_d("currentTimeMonth: %d", keyTurnerState.currentTimeMonth);
-  log_d("currentTimeDay: %d", keyTurnerState.currentTimeDay);
-  log_d("currentTimeHour: %d", keyTurnerState.currentTimeHour);
-  log_d("currentTimeMinute: %d", keyTurnerState.currentTimeMinute);
-  log_d("currentTimeSecond: %d", keyTurnerState.currentTimeSecond);
-  log_d("timeZoneOffset: %d", keyTurnerState.timeZoneOffset);
-  log_d("criticalBatteryState composed value: %d", keyTurnerState.criticalBatteryState);
-  log_d("configUpdateCount: %d", keyTurnerState.configUpdateCount);
-  log_d("lockNgoTimer: %d", keyTurnerState.lockNgoTimer);
-  logLockAction((LockAction)keyTurnerState.lastLockAction);
-  log_d("lastLockActionTrigger: %d", keyTurnerState.lastLockActionTrigger);
-  logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus);
-  log_d("doorSensorState: %d", keyTurnerState.doorSensorState);
-  log_d("nightModeActive: %d", keyTurnerState.nightModeActive);
-  log_d("Keypad bat critical feature supported: %d", keyTurnerState.accessoryBatteryState & 1);
-  log_d("Keypad Battery Critical: %d", keyTurnerState.accessoryBatteryState & 2);
-  #endif
+void logKeyturnerState(KeyTurnerState keyTurnerState, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("nukiState: %02x", (unsigned int)keyTurnerState.nukiState, Log, 4);
+    logMessageVar("lockState: %d", (unsigned int)keyTurnerState.lockState, Log, 4);
+    logNukiTrigger(keyTurnerState.trigger, debug, Log);
+    logMessageVar("currentTimeYear: %d", (unsigned int)keyTurnerState.currentTimeYear, Log, 4);
+    logMessageVar("currentTimeMonth: %d", (unsigned int)keyTurnerState.currentTimeMonth, Log, 4);
+    logMessageVar("currentTimeDay: %d", (unsigned int)keyTurnerState.currentTimeDay, Log, 4);
+    logMessageVar("currentTimeHour: %d", (unsigned int)keyTurnerState.currentTimeHour, Log, 4);
+    logMessageVar("currentTimeMinute: %d", (unsigned int)keyTurnerState.currentTimeMinute, Log, 4);
+    logMessageVar("currentTimeSecond: %d", (unsigned int)keyTurnerState.currentTimeSecond, Log, 4);
+    logMessageVar("timeZoneOffset: %d", (unsigned int)keyTurnerState.timeZoneOffset, Log, 4);
+    logMessageVar("criticalBatteryState composed value: %d", (unsigned int)keyTurnerState.criticalBatteryState, Log, 4);
+    logMessageVar("configUpdateCount: %d", (unsigned int)keyTurnerState.configUpdateCount, Log, 4);
+    logMessageVar("lockNgoTimer: %d", (unsigned int)keyTurnerState.lockNgoTimer, Log, 4);
+    logLockAction((LockAction)keyTurnerState.lastLockAction, debug, Log);
+    logMessageVar("lastLockActionTrigger: %d", (unsigned int)keyTurnerState.lastLockActionTrigger, Log, 4);
+    logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus, debug, Log);
+    logMessageVar("doorSensorState: %d", (unsigned int)keyTurnerState.doorSensorState, Log, 4);
+    logMessageVar("nightModeActive: %d", (unsigned int)keyTurnerState.nightModeActive, Log, 4);
+    logMessageVar("Keypad bat critical feature supported: %d", (unsigned int)keyTurnerState.accessoryBatteryState & 1, Log, 4);
+    logMessageVar("Keypad Battery Critical: %d", (unsigned int)keyTurnerState.accessoryBatteryState & 2, Log, 4);
+  }
 }
 
-void logBatteryReport(BatteryReport batteryReport) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("batteryDrain:%d", batteryReport.batteryDrain);
-  log_d("batteryVoltage:%d", batteryReport.batteryVoltage);
-  log_d("criticalBatteryState:%d", batteryReport.criticalBatteryState);
-  log_d("lockAction:%d", batteryReport.lockAction);
-  log_d("startVoltage:%d", batteryReport.startVoltage);
-  log_d("lowestVoltage:%d", batteryReport.lowestVoltage);
-  log_d("lockDistance:%d", batteryReport.lockDistance);
-  log_d("startTemperature:%d", batteryReport.startTemperature);
-  log_d("maxTurnCurrent:%d", batteryReport.maxTurnCurrent);
-  log_d("batteryResistance:%d", batteryReport.batteryResistance);
-  #endif
+void logBatteryReport(BatteryReport batteryReport, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("batteryDrain:%d", (unsigned int)batteryReport.batteryDrain, Log, 4);
+    logMessageVar("batteryVoltage:%d", (unsigned int)batteryReport.batteryVoltage, Log, 4);
+    logMessageVar("criticalBatteryState:%d", (unsigned int)batteryReport.criticalBatteryState, Log, 4);
+    logMessageVar("lockAction:%d", (unsigned int)batteryReport.lockAction, Log, 4);
+    logMessageVar("startVoltage:%d", (unsigned int)batteryReport.startVoltage, Log, 4);
+    logMessageVar("lowestVoltage:%d", (unsigned int)batteryReport.lowestVoltage, Log, 4);
+    logMessageVar("lockDistance:%d", (unsigned int)batteryReport.lockDistance, Log, 4);
+    logMessageVar("startTemperature:%d", (unsigned int)batteryReport.startTemperature, Log, 4);
+    logMessageVar("maxTurnCurrent:%d", (unsigned int)batteryReport.maxTurnCurrent, Log, 4);
+    logMessageVar("batteryResistance:%d", (unsigned int)batteryReport.batteryResistance, Log, 4);
+  }
 }
 
-void logLogEntry(LogEntry logEntry) {
-  log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
+void logLogEntry(LogEntry logEntry, bool debug, Print* Log) {
+  if (Log == nullptr) {
+    log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
+  }
+  else
+  {
+    Log->printf("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);;
+    Log->println();
+  }
 
   switch (logEntry.loggingType) {
     case LoggingType::LoggingEnabled: {
-      log_d("Logging enabled: %d", logEntry.data[0]);
+      logMessageVar("Logging enabled: %d", (unsigned int)logEntry.data[0], Log, 4);
       break;
     }
     case LoggingType::LockAction:
     case LoggingType::Calibration:
     case LoggingType::InitializationRun: {
-      logLockAction((LockAction)logEntry.data[0]);
-      logNukiTrigger((Trigger)logEntry.data[1]);
-      log_d("Flags: %d", logEntry.data[2]);
-      logCompletionStatus((CompletionStatus)logEntry.data[3]);
+      logLockAction((LockAction)logEntry.data[0], debug, Log);
+      logNukiTrigger((Trigger)logEntry.data[1], debug, Log);
+      logMessageVar("Flags: %d", (unsigned int)logEntry.data[2], Log, 4);
+      logCompletionStatus((CompletionStatus)logEntry.data[3], debug, Log);
       break;
     }
     case LoggingType::KeypadAction: {
-      logLockAction((LockAction)logEntry.data[0]);
-      log_d("Source: %d", logEntry.data[1]);
-      logCompletionStatus((CompletionStatus)logEntry.data[2]);
+      logLockAction((LockAction)logEntry.data[0], debug, Log);
+      logMessageVar("Source: %d", (unsigned int)logEntry.data[1], Log, 4);
+      logCompletionStatus((CompletionStatus)logEntry.data[2], debug, Log);
       uint16_t codeId = 0;
       memcpy(&codeId, &logEntry.data[3], 2);
-      log_d("Code id: %d", codeId);
+      logMessageVar("Code id: %d", (unsigned int)codeId, Log, 4);
       break;
     }
     case LoggingType::DoorSensor: {
       if (logEntry.data[0] == 0x00) {
-        log_d("Door opened") ;
+        logMessage("Door opened", Log, 4) ;
       }
       if (logEntry.data[0] == 0x01) {
-        log_d("Door closed") ;
+        logMessage("Door closed", Log, 4) ;
       }
       if (logEntry.data[0] == 0x02) {
-        log_d("Door sensor jammed") ;
+        logMessage("Door sensor jammed", Log, 4) ;
       }
       break;
     }
     case LoggingType::DoorSensorLoggingEnabled: {
-      log_d("Logging enabled: %d", logEntry.data[0]);
+      logMessageVar("Logging enabled: %d", (unsigned int)logEntry.data[0], Log, 4);
       break;
     }
     default:
-      log_w("Unknown logging type");
+      logMessage("Unknown logging type", Log, 2);
       break;
   }
 }
 
-void logAdvancedConfig(AdvancedConfig advancedConfig) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("totalDegrees :%d", advancedConfig.totalDegrees);
-  log_d("unlockedPositionOffsetDegrees :%d", advancedConfig.unlockedPositionOffsetDegrees);
-  log_d("lockedPositionOffsetDegrees :%f", advancedConfig.lockedPositionOffsetDegrees);
-  log_d("singleLockedPositionOffsetDegrees :%f", advancedConfig.singleLockedPositionOffsetDegrees);
-  log_d("unlockedToLockedTransitionOffsetDegrees :%d", advancedConfig.unlockedToLockedTransitionOffsetDegrees);
-  log_d("lockNgoTimeout :%d", advancedConfig.lockNgoTimeout);
-  log_d("singleButtonPressAction :%d", advancedConfig.singleButtonPressAction);
-  log_d("doubleButtonPressAction :%d", advancedConfig.doubleButtonPressAction);
-  log_d("detachedCylinder :%d", advancedConfig.detachedCylinder);
-  log_d("batteryType :%d", advancedConfig.batteryType);
-  log_d("automaticBatteryTypeDetection :%d", advancedConfig.automaticBatteryTypeDetection);
-  log_d("unlatchDuration :%d", advancedConfig.unlatchDuration);
-  log_d("autoLockTimeOut :%d", advancedConfig.autoLockTimeOut);
-  log_d("autoUnLockDisabled :%d", advancedConfig.autoUnLockDisabled);
-  log_d("nightModeEnabled :%d", advancedConfig.nightModeEnabled);
-  log_d("nightModeStartTime Hour :%d", advancedConfig.nightModeStartTime[0]);
-  log_d("nightModeStartTime Minute :%d", advancedConfig.nightModeStartTime[1]);
-  log_d("nightModeEndTime Hour :%d", advancedConfig.nightModeEndTime[0]);
-  log_d("nightModeEndTime Minute :%d", advancedConfig.nightModeEndTime[1]);
-  log_d("nightModeAutoLockEnabled :%d", advancedConfig.nightModeAutoLockEnabled);
-  log_d("nightModeAutoUnlockDisabled :%d", advancedConfig.nightModeAutoUnlockDisabled);
-  log_d("nightModeImmediateLockOnStart :%d", advancedConfig.nightModeImmediateLockOnStart);
-  log_d("autoLockEnabled :%d", advancedConfig.autoLockEnabled);
-  log_d("immediateAutoLockEnabled :%d", advancedConfig.immediateAutoLockEnabled);
-  log_d("autoUpdateEnabled :%d", advancedConfig.autoUpdateEnabled);
-  #endif
+void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("totalDegrees :%d", (unsigned int)advancedConfig.totalDegrees, Log, 4);
+    logMessageVar("unlockedPositionOffsetDegrees :%d", (unsigned int)advancedConfig.unlockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("lockedPositionOffsetDegrees :%f", (const float)advancedConfig.lockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("singleLockedPositionOffsetDegrees :%f", (const float)advancedConfig.singleLockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("unlockedToLockedTransitionOffsetDegrees :%d", (unsigned int)advancedConfig.unlockedToLockedTransitionOffsetDegrees, Log, 4);
+    logMessageVar("lockNgoTimeout :%d", (unsigned int)advancedConfig.lockNgoTimeout, Log, 4);
+    logMessageVar("singleButtonPressAction :%d", (unsigned int)advancedConfig.singleButtonPressAction, Log, 4);
+    logMessageVar("doubleButtonPressAction :%d", (unsigned int)advancedConfig.doubleButtonPressAction, Log, 4);
+    logMessageVar("detachedCylinder :%d", (unsigned int)advancedConfig.detachedCylinder, Log, 4);
+    logMessageVar("batteryType :%d", (unsigned int)advancedConfig.batteryType, Log, 4);
+    logMessageVar("automaticBatteryTypeDetection :%d", (unsigned int)advancedConfig.automaticBatteryTypeDetection, Log, 4);
+    logMessageVar("unlatchDuration :%d", (unsigned int)advancedConfig.unlatchDuration, Log, 4);
+    logMessageVar("autoLockTimeOut :%d", (unsigned int)advancedConfig.autoLockTimeOut, Log, 4);
+    logMessageVar("autoUnLockDisabled :%d", (unsigned int)advancedConfig.autoUnLockDisabled, Log, 4);
+    logMessageVar("nightModeEnabled :%d", (unsigned int)advancedConfig.nightModeEnabled, Log, 4);
+    logMessageVar("nightModeStartTime Hour :%d", (unsigned int)advancedConfig.nightModeStartTime[0], Log, 4);
+    logMessageVar("nightModeStartTime Minute :%d", (unsigned int)advancedConfig.nightModeStartTime[1], Log, 4);
+    logMessageVar("nightModeEndTime Hour :%d", (unsigned int)advancedConfig.nightModeEndTime[0], Log, 4);
+    logMessageVar("nightModeEndTime Minute :%d", (unsigned int)advancedConfig.nightModeEndTime[1], Log, 4);
+    logMessageVar("nightModeAutoLockEnabled :%d", (unsigned int)advancedConfig.nightModeAutoLockEnabled, Log, 4);
+    logMessageVar("nightModeAutoUnlockDisabled :%d", (unsigned int)advancedConfig.nightModeAutoUnlockDisabled, Log, 4);
+    logMessageVar("nightModeImmediateLockOnStart :%d", (unsigned int)advancedConfig.nightModeImmediateLockOnStart, Log, 4);
+    logMessageVar("autoLockEnabled :%d", (unsigned int)advancedConfig.autoLockEnabled, Log, 4);
+    logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)advancedConfig.immediateAutoLockEnabled, Log, 4);
+    logMessageVar("autoUpdateEnabled :%d", (unsigned int)advancedConfig.autoUpdateEnabled, Log, 4);
+  }
 }
 
-void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig) {
-  #ifdef DEBUG_NUKI_READABLE_DATA
-  log_d("unlockedPositionOffsetDegrees :%d", newAdvancedConfig.unlockedPositionOffsetDegrees);
-  log_d("lockedPositionOffsetDegrees :%f", newAdvancedConfig.lockedPositionOffsetDegrees);
-  log_d("singleLockedPositionOffsetDegrees :%f", newAdvancedConfig.singleLockedPositionOffsetDegrees);
-  log_d("unlockedToLockedTransitionOffsetDegrees :%d", newAdvancedConfig.unlockedToLockedTransitionOffsetDegrees);
-  log_d("lockNgoTimeout :%d", newAdvancedConfig.lockNgoTimeout);
-  log_d("singleButtonPressAction :%d", newAdvancedConfig.singleButtonPressAction);
-  log_d("doubleButtonPressAction :%d", newAdvancedConfig.doubleButtonPressAction);
-  log_d("detachedCylinder :%d", newAdvancedConfig.detachedCylinder);
-  log_d("batteryType :%d", newAdvancedConfig.batteryType);
-  log_d("automaticBatteryTypeDetection :%d", newAdvancedConfig.automaticBatteryTypeDetection);
-  log_d("unlatchDuration :%d", newAdvancedConfig.unlatchDuration);
-  log_d("autoUnLockTimeOut :%d", newAdvancedConfig.autoLockTimeOut);
-  log_d("autoUnLockDisabled :%d", newAdvancedConfig.autoUnLockDisabled);
-  log_d("nightModeEnabled :%d", newAdvancedConfig.nightModeEnabled);
-  log_d("nightModeStartTime Hour :%d", newAdvancedConfig.nightModeStartTime[0]);
-  log_d("nightModeStartTime Minute :%d", newAdvancedConfig.nightModeStartTime[1]);
-  log_d("nightModeEndTime Hour :%d", newAdvancedConfig.nightModeEndTime[0]);
-  log_d("nightModeEndTime Minute :%d", newAdvancedConfig.nightModeEndTime[1]);
-  log_d("nightModeAutoLockEnabled :%d", newAdvancedConfig.nightModeAutoLockEnabled);
-  log_d("nightModeAutoUnlockDisabled :%d", newAdvancedConfig.nightModeAutoUnlockDisabled);
-  log_d("nightModeImmediateLockOnStart :%d", newAdvancedConfig.nightModeImmediateLockOnStart);
-  log_d("autoLockEnabled :%d", newAdvancedConfig.autoLockEnabled);
-  log_d("immediateAutoLockEnabled :%d", newAdvancedConfig.immediateAutoLockEnabled);
-  log_d("autoUpdateEnabled :%d", newAdvancedConfig.autoUpdateEnabled);
-  #endif
+void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("unlockedPositionOffsetDegrees :%d", (unsigned int)newAdvancedConfig.unlockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("lockedPositionOffsetDegrees :%f", (const float)newAdvancedConfig.lockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("singleLockedPositionOffsetDegrees :%f", (const float)newAdvancedConfig.singleLockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("unlockedToLockedTransitionOffsetDegrees :%d", (unsigned int)newAdvancedConfig.unlockedToLockedTransitionOffsetDegrees, Log, 4);
+    logMessageVar("lockNgoTimeout :%d", (unsigned int)newAdvancedConfig.lockNgoTimeout, Log, 4);
+    logMessageVar("singleButtonPressAction :%d", (unsigned int)newAdvancedConfig.singleButtonPressAction, Log, 4);
+    logMessageVar("doubleButtonPressAction :%d", (unsigned int)newAdvancedConfig.doubleButtonPressAction, Log, 4);
+    logMessageVar("detachedCylinder :%d", (unsigned int)newAdvancedConfig.detachedCylinder, Log, 4);
+    logMessageVar("batteryType :%d", (unsigned int)newAdvancedConfig.batteryType, Log, 4);
+    logMessageVar("automaticBatteryTypeDetection :%d", (unsigned int)newAdvancedConfig.automaticBatteryTypeDetection, Log, 4);
+    logMessageVar("unlatchDuration :%d", (unsigned int)newAdvancedConfig.unlatchDuration, Log, 4);
+    logMessageVar("autoUnLockTimeOut :%d", (unsigned int)newAdvancedConfig.autoLockTimeOut, Log, 4);
+    logMessageVar("autoUnLockDisabled :%d", (unsigned int)newAdvancedConfig.autoUnLockDisabled, Log, 4);
+    logMessageVar("nightModeEnabled :%d", (unsigned int)newAdvancedConfig.nightModeEnabled, Log, 4);
+    logMessageVar("nightModeStartTime Hour :%d", (unsigned int)newAdvancedConfig.nightModeStartTime[0], Log, 4);
+    logMessageVar("nightModeStartTime Minute :%d", (unsigned int)newAdvancedConfig.nightModeStartTime[1], Log, 4);
+    logMessageVar("nightModeEndTime Hour :%d", (unsigned int)newAdvancedConfig.nightModeEndTime[0], Log, 4);
+    logMessageVar("nightModeEndTime Minute :%d", (unsigned int)newAdvancedConfig.nightModeEndTime[1], Log, 4);
+    logMessageVar("nightModeAutoLockEnabled :%d", (unsigned int)newAdvancedConfig.nightModeAutoLockEnabled, Log, 4);
+    logMessageVar("nightModeAutoUnlockDisabled :%d", (unsigned int)newAdvancedConfig.nightModeAutoUnlockDisabled, Log, 4);
+    logMessageVar("nightModeImmediateLockOnStart :%d", (unsigned int)newAdvancedConfig.nightModeImmediateLockOnStart, Log, 4);
+    logMessageVar("autoLockEnabled :%d", (unsigned int)newAdvancedConfig.autoLockEnabled, Log, 4);
+    logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)newAdvancedConfig.immediateAutoLockEnabled, Log, 4);
+    logMessageVar("autoUpdateEnabled :%d", (unsigned int)newAdvancedConfig.autoUpdateEnabled, Log, 4);
+  }
+}
+
+void logMessage(const char* message, Print* Log, int level) {
+  if (Log == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message);
+        break;;
+    }
+  }
+  else
+  {
+    Log->println(message);
+  }
+}
+
+void logMessageVar(const char* message, unsigned int var, Print* Log, int level) {
+  if (Log == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message, var);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message, var);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message, var);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message, var);
+        break;
+    }
+  }
+  else
+  {
+    Log->printf(message, var);
+    Log->println();
+  }
+}
+
+void logMessageVar(const char* message, const char* var, Print* Log, int level) {
+  if (Log == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message, var);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message, var);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message, var);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message, var);
+        break;
+    }
+  }
+  else
+  {
+    Log->printf(message, var);
+    Log->println();
+  }
+}
+
+void logMessageVar(const char* message, const float var, Print* Log, int level) {
+  if (Log == nullptr) {
+    switch (level) {
+      case 1:
+        esp_log_write(ESP_LOG_ERROR, "NukiBle", message, var);
+        break;
+      case 2:
+        esp_log_write(ESP_LOG_WARN, "NukiBle", message, var);
+        break;
+      case 3:
+        esp_log_write(ESP_LOG_INFO, "NukiBle", message, var);
+        break;
+      case 4:
+      default:
+        esp_log_write(ESP_LOG_DEBUG, "NukiBle", message, var);
+        break;
+    }
+  }
+  else
+  {
+    Log->printf(message, var);
+    Log->println();
+  }
 }
 
 } // namespace Nuki
