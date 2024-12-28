@@ -36,5 +36,5 @@ var searchData=
   ['connectble_33',['connectBle',['../class_nuki_1_1_nuki_ble.html#a0924aa3772a05cbb3bff3cb44cb20de7',1,'Nuki::NukiBle']]],
   ['continuousmode_34',['ContinuousMode',['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa9a186789c704a614d2f5b01d13d5b0ba',1,'NukiOpener']]],
   ['continuousmodeaction_35',['ContinuousModeAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf',1,'Nuki']]],
-  ['crcvalid_36',['crcValid',['../namespace_nuki.html#a3a246ecee6c1228f277b473fe13b248a',1,'Nuki']]]
+  ['crcvalid_36',['crcValid',['../namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816',1,'Nuki']]]
 ];

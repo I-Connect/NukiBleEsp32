@@ -1,7 +1,10 @@
 <map id="NukiLock::NukiLock::addTimeControlEntry" name="NukiLock::NukiLock::addTimeControlEntry">
-<area shape="rect" id="Node000001" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,35,153,75"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#aacbba5cd838f4046ccecea8412b1c0aa" title=" " alt="" coords="201,5,398,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,43,185,38,186,44,153,48"/>
-<area shape="rect" id="Node000003" href="$namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a" title=" " alt="" coords="243,70,356,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,62,227,71,227,76,152,67"/>
+<area shape="rect" id="Node000001" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,26,153,66"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="446,5,619,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,23,200,12,320,4,431,7,431,12,320,9,201,17,147,28"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki_lock.html#a765365aab0b5b13b9bab3076326b877e" title=" " alt="" coords="201,26,398,66"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,44,185,44,185,49,153,49"/>
+<area shape="rect" id="Node000004" href="$namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b" title=" " alt="" coords="243,91,356,116"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="154,63,201,76,232,84,231,89,200,81,152,68"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="398,32,430,28,431,33,399,37"/>
 </map>

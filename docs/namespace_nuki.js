@@ -114,7 +114,9 @@ var namespace_nuki =
     ] ],
     [ "EventType", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605e", [
       [ "KeyTurnerStatusUpdated", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ],
-      [ "KeyTurnerStatusReset", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3", null ]
+      [ "KeyTurnerStatusReset", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3", null ],
+      [ "ERROR_BAD_PIN", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea901aab17f5cf63ecf97ac5643a283f4f", null ],
+      [ "BLE_ERROR_ON_DISCONNECT", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea7ea140964da3ba3f1a5f51f57e7234a1", null ]
     ] ],
     [ "PairingResult", "namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632", [
       [ "Pairing", "namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632a4039036d3d20091fb6400cb1368a97fc", null ],
@@ -188,14 +190,14 @@ var namespace_nuki =
     [ "calculateCrc", "namespace_nuki.html#ae5fe49bb8f764351fccb9d7a96d2385a", null ],
     [ "calculateCrc", "namespace_nuki.html#aa7e9e9ff38eb673d2da28d041a2a9bd9", null ],
     [ "compareCharArray", "namespace_nuki.html#af082938ae230246f2df656549bc23761", null ],
-    [ "crcValid", "namespace_nuki.html#a3a246ecee6c1228f277b473fe13b248a", null ],
-    [ "decode", "namespace_nuki.html#ac6be6424458fa54ed81b0623d543b930", null ],
-    [ "encode", "namespace_nuki.html#a359df6879f1b774782a6985a1d1e9de9", null ],
-    [ "generateNonce", "namespace_nuki.html#acef61520e1f6e537552b14ca4b519f44", null ],
+    [ "crcValid", "namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816", null ],
+    [ "decode", "namespace_nuki.html#a61ac87a5fa1c207a1daed8609a3cd4c9", null ],
+    [ "encode", "namespace_nuki.html#a270a536c493ffabac22fb47fc5dff00a", null ],
+    [ "generateNonce", "namespace_nuki.html#a547c975779e6d3b980a202106f805f48", null ],
     [ "getWeekdaysIntFromBitset", "namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05", null ],
     [ "isCharArrayEmpty", "namespace_nuki.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0", null ],
     [ "isCharArrayNotEmpty", "namespace_nuki.html#af7752bab0ff47daf5e6082b7925874e5", null ],
-    [ "printBuffer", "namespace_nuki.html#a280e19d4682ca4b35d3fe64001da816a", null ],
+    [ "printBuffer", "namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b", null ],
     [ "AUTH_ID_STORE_NAME", "namespace_nuki.html#a553724683ab9b1ec83eb60a61a8c8060", null ],
     [ "BLE_ADDRESS_STORE_NAME", "namespace_nuki.html#a358fdf7fe23a073a17891c5067ebc830", null ],
     [ "NUKI_SEMAPHORE_OWNER", "namespace_nuki.html#aa8efad679f0092f3b4604484fcc78b3e", null ],

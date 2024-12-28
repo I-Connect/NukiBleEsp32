@@ -169,9 +169,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8dfa35d43232706a75c6d14f35ae88e" id="r_ae8dfa35d43232706a75c6d14f35ae88e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8dfa35d43232706a75c6d14f35ae88e">getSecurityPincode</a> ()</td></tr>
 <tr class="memdesc:ae8dfa35d43232706a75c6d14f35ae88e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the pincode stored on the esp. This pincode is used for sending/setting config via BLE to the lock by other methods and needs to be the same pincode as stored in the lock.  <br /></td></tr>
 <tr class="separator:ae8dfa35d43232706a75c6d14f35ae88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e40d30549a6cbeac1072292670d07d4" id="r_a3e40d30549a6cbeac1072292670d07d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e40d30549a6cbeac1072292670d07d4">initialize</a> ()</td></tr>
-<tr class="memdesc:a3e40d30549a6cbeac1072292670d07d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes stored preferences based on the devicename passed in the constructor, creates the BLE client, sets the BLE callback and checks if the lock is paired (if credentials are stored in preferences)  <br /></td></tr>
-<tr class="separator:a3e40d30549a6cbeac1072292670d07d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232073e29e23ad1249b866449c16bcb1" id="r_a232073e29e23ad1249b866449c16bcb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a232073e29e23ad1249b866449c16bcb1">initialize</a> (bool initAltConnect=false)</td></tr>
+<tr class="memdesc:a232073e29e23ad1249b866449c16bcb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes stored preferences based on the devicename passed in the constructor, creates the BLE client, sets the BLE callback and checks if the lock is paired (if credentials are stored in preferences)  <br /></td></tr>
+<tr class="separator:a232073e29e23ad1249b866449c16bcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a050f54fbfcea03dc5238e8c66a7e89ca" id="r_a050f54fbfcea03dc5238e8c66a7e89ca"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a050f54fbfcea03dc5238e8c66a7e89ca">isPairedWithLock</a> () const</td></tr>
 <tr class="memdesc:a050f54fbfcea03dc5238e8c66a7e89ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pairing state (if credentials are stored or not)  <br /></td></tr>
 <tr class="separator:a050f54fbfcea03dc5238e8c66a7e89ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,12 +181,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c239070e553f07971d2ccd05406d343" id="r_a5c239070e553f07971d2ccd05406d343"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c239070e553f07971d2ccd05406d343">registerBleScanner</a> (BleScanner::Publisher *bleScanner)</td></tr>
 <tr class="memdesc:a5c239070e553f07971d2ccd05406d343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the BLE scanner to be used for scanning for advertisements from the lock. BleScanner::Publisher is defined in dependent library <a href="https://github.com/I-Connect/BleScanner.git">https://github.com/I-Connect/BleScanner.git</a>.  <br /></td></tr>
 <tr class="separator:a5c239070e553f07971d2ccd05406d343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f6919c051fc4952471f8ba3dde16390" id="r_a1f6919c051fc4952471f8ba3dde16390"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f6919c051fc4952471f8ba3dde16390">registerLogger</a> (Print *Log)</td></tr>
+<tr class="memdesc:a1f6919c051fc4952471f8ba3dde16390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a Logger to be used for printing debug logs.  <br /></td></tr>
+<tr class="separator:a1f6919c051fc4952471f8ba3dde16390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c80321a4355c9394be7a7de29133c7b" id="r_a5c80321a4355c9394be7a7de29133c7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c80321a4355c9394be7a7de29133c7b">requestCalibration</a> ()</td></tr>
 <tr class="memdesc:a5c80321a4355c9394be7a7de29133c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an calibration (mechanical) request to the lock via BLE.  <br /></td></tr>
 <tr class="separator:a5c80321a4355c9394be7a7de29133c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80e616a2f3d29be9d96d5233b9fefa1a" id="r_a80e616a2f3d29be9d96d5233b9fefa1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80e616a2f3d29be9d96d5233b9fefa1a">requestReboot</a> ()</td></tr>
 <tr class="memdesc:a80e616a2f3d29be9d96d5233b9fefa1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an reboot request to the lock via BLE.  <br /></td></tr>
 <tr class="separator:a80e616a2f3d29be9d96d5233b9fefa1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa2410c94c76bb2624b4f4c62740da3" id="r_afaa2410c94c76bb2624b4f4c62740da3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afaa2410c94c76bb2624b4f4c62740da3">resetHost</a> ()</td></tr>
+<tr class="memdesc:afaa2410c94c76bb2624b4f4c62740da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset BLE host.  <br /></td></tr>
+<tr class="separator:afaa2410c94c76bb2624b4f4c62740da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fb824539f7166cc53162e94267f0db0" id="r_a0fb824539f7166cc53162e94267f0db0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fb824539f7166cc53162e94267f0db0">retrieveAuthorizationEntries</a> (const uint16_t offset, const uint16_t count)</td></tr>
 <tr class="memdesc:a0fb824539f7166cc53162e94267f0db0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the lock via BLE to send the existing authorizationentries.  <br /></td></tr>
 <tr class="separator:a0fb824539f7166cc53162e94267f0db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -202,6 +208,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99f182c0317e073ed51b49c6c35a8230" id="r_a99f182c0317e073ed51b49c6c35a8230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99f182c0317e073ed51b49c6c35a8230">setConnectTimeout</a> (uint8_t timeout)</td></tr>
 <tr class="memdesc:a99f182c0317e073ed51b49c6c35a8230"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Connect Timeout in seconds.  <br /></td></tr>
 <tr class="separator:a99f182c0317e073ed51b49c6c35a8230"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a008a49a9c6c45608ceb06bd5bec7f88a" id="r_a008a49a9c6c45608ceb06bd5bec7f88a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a008a49a9c6c45608ceb06bd5bec7f88a">setDebugCommand</a> (bool enable)</td></tr>
+<tr class="memdesc:a008a49a9c6c45608ceb06bd5bec7f88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable command debug logging.  <br /></td></tr>
+<tr class="separator:a008a49a9c6c45608ceb06bd5bec7f88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675024573ae2e4ae0f46679cc97bf63e" id="r_a675024573ae2e4ae0f46679cc97bf63e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a675024573ae2e4ae0f46679cc97bf63e">setDebugCommunication</a> (bool enable)</td></tr>
+<tr class="memdesc:a675024573ae2e4ae0f46679cc97bf63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable communication debug logging.  <br /></td></tr>
+<tr class="separator:a675024573ae2e4ae0f46679cc97bf63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f7217a0d75cdf58edc568a7b097d240" id="r_a7f7217a0d75cdf58edc568a7b097d240"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f7217a0d75cdf58edc568a7b097d240">setDebugConnect</a> (bool enable)</td></tr>
+<tr class="memdesc:a7f7217a0d75cdf58edc568a7b097d240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable connect debug logging.  <br /></td></tr>
+<tr class="separator:a7f7217a0d75cdf58edc568a7b097d240"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ae09d09360ef282335425be98dac3a8" id="r_a6ae09d09360ef282335425be98dac3a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ae09d09360ef282335425be98dac3a8">setDebugHexData</a> (bool enable)</td></tr>
+<tr class="memdesc:a6ae09d09360ef282335425be98dac3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable hex data debug logging.  <br /></td></tr>
+<tr class="separator:a6ae09d09360ef282335425be98dac3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9346bc1f50e5bd4ffe645c02feff826f" id="r_a9346bc1f50e5bd4ffe645c02feff826f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9346bc1f50e5bd4ffe645c02feff826f">setDebugReadableData</a> (bool enable)</td></tr>
+<tr class="memdesc:a9346bc1f50e5bd4ffe645c02feff826f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable readable data debug logging.  <br /></td></tr>
+<tr class="separator:a9346bc1f50e5bd4ffe645c02feff826f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83f3806bb6a233ee072b1a0864ff6024" id="r_a83f3806bb6a233ee072b1a0864ff6024"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83f3806bb6a233ee072b1a0864ff6024">setDisconnectTimeout</a> (uint32_t timeoutMs)</td></tr>
 <tr class="memdesc:a83f3806bb6a233ee072b1a0864ff6024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Disconnect Timeout, if longer than ~20 sec the lock will disconnect by itself if there is no BLE communication.  <br /></td></tr>
 <tr class="separator:a83f3806bb6a233ee072b1a0864ff6024"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -255,13 +276,31 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:ac2e28f07ed0a738f73c5f77b46cdb1bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b0321c949c20375fbd58a017c4323cf" id="r_a4b0321c949c20375fbd58a017c4323cf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b0321c949c20375fbd58a017c4323cf">logErrorCode</a> (uint8_t <a class="el" href="#a448a1cd276fb8643bc983c447d21c231">errorCode</a>)=0</td></tr>
 <tr class="separator:a4b0321c949c20375fbd58a017c4323cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ce691d9c3e586474655d1663eb2e20" id="r_ac7ce691d9c3e586474655d1663eb2e20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7ce691d9c3e586474655d1663eb2e20">logMessage</a> (const char *message, int level=4)</td></tr>
+<tr class="separator:ac7ce691d9c3e586474655d1663eb2e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b061bee9a6eec159673921f5127dd47" id="r_a6b061bee9a6eec159673921f5127dd47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b061bee9a6eec159673921f5127dd47">logMessageVar</a> (const char *message, const char *var, int level=4)</td></tr>
+<tr class="separator:a6b061bee9a6eec159673921f5127dd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3650133f46aeca48a5f01b95d23ab71" id="r_af3650133f46aeca48a5f01b95d23ab71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3650133f46aeca48a5f01b95d23ab71">logMessageVar</a> (const char *message, unsigned int var, int level=4)</td></tr>
+<tr class="separator:af3650133f46aeca48a5f01b95d23ab71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a2ef4cd9d592ccfd0f79d0a5fddbc4769" id="r_a2ef4cd9d592ccfd0f79d0a5fddbc4769"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ef4cd9d592ccfd0f79d0a5fddbc4769">debugNukiCommand</a> = false</td></tr>
+<tr class="separator:a2ef4cd9d592ccfd0f79d0a5fddbc4769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7900728075918c1b3175e1af45af2c" id="r_afd7900728075918c1b3175e1af45af2c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd7900728075918c1b3175e1af45af2c">debugNukiCommunication</a> = false</td></tr>
+<tr class="separator:afd7900728075918c1b3175e1af45af2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2d78074edff5e6c2e32facabad95e95" id="r_ab2d78074edff5e6c2e32facabad95e95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2d78074edff5e6c2e32facabad95e95">debugNukiConnect</a> = false</td></tr>
+<tr class="separator:ab2d78074edff5e6c2e32facabad95e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca947b0b8bbb7288b9bf71160bdc8ee1" id="r_aca947b0b8bbb7288b9bf71160bdc8ee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca947b0b8bbb7288b9bf71160bdc8ee1">debugNukiHexData</a> = false</td></tr>
+<tr class="separator:aca947b0b8bbb7288b9bf71160bdc8ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c22a93795806fb121334b9de4259597" id="r_a5c22a93795806fb121334b9de4259597"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c22a93795806fb121334b9de4259597">debugNukiReadableData</a> = false</td></tr>
+<tr class="separator:a5c22a93795806fb121334b9de4259597"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a448a1cd276fb8643bc983c447d21c231" id="r_a448a1cd276fb8643bc983c447d21c231"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a448a1cd276fb8643bc983c447d21c231">errorCode</a> = 0</td></tr>
 <tr class="separator:a448a1cd276fb8643bc983c447d21c231"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5afb32ec14d3be623a5cf4995352cf6" id="r_ae5afb32ec14d3be623a5cf4995352cf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5afb32ec14d3be623a5cf4995352cf6">lastMsgCodeReceived</a> = <a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ace2c8aed9c2fa0cfbed56cbda4d8bf07">Command::Empty</a></td></tr>
 <tr class="separator:ae5afb32ec14d3be623a5cf4995352cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d8374699e2a457b74f6ff0d9fe8af2" id="r_a79d8374699e2a457b74f6ff0d9fe8af2"><td class="memItemLeft" align="right" valign="top">Print *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79d8374699e2a457b74f6ff0d9fe8af2">logger</a> = nullptr</td></tr>
+<tr class="separator:a79d8374699e2a457b74f6ff0d9fe8af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5b85e847d1108e5829884a66f4f069de" name="a5b85e847d1108e5829884a66f4f069de"></a>
@@ -363,7 +402,7 @@ Protected Attributes</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a8c69d960c9034d3ae5877285b666f09c_cgraph.svg" width="100%" height="483"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a8c69d960c9034d3ae5877285b666f09c_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -395,7 +434,7 @@ Protected Attributes</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ad96ef33212df343aa1433229f58f2ff7_cgraph.svg" width="100%" height="471"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ad96ef33212df343aa1433229f58f2ff7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -429,7 +468,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ada0f3beebd95d35c122e25dd3f9eb886_cgraph.svg" width="452" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ada0f3beebd95d35c122e25dd3f9eb886_cgraph.svg" width="452" height="151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -474,7 +513,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-6-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a59169a9f492793762e3c6ba39b611b07_cgraph.svg" width="460" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a59169a9f492793762e3c6ba39b611b07_cgraph.svg" width="460" height="151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div id="dynsection-7" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-7-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -515,7 +554,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="dynsection-8-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-8-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ad135bb1455665decfddff67772c1d411_cgraph.svg" width="480" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ad135bb1455665decfddff67772c1d411_cgraph.svg" width="480" height="151"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div id="dynsection-9" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-9-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
@@ -554,11 +593,18 @@ template&lt;typename TDeviceAction &gt; </div>
 </table>
 </div><div class="memdoc">
 <div id="dynsection-10" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+  <img id="dynsection-10-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-10-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-10-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0924aa3772a05cbb3bff3cb44cb20de7_icgraph.svg" width="440" height="126"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0924aa3772a05cbb3bff3cb44cb20de7_cgraph.svg" width="427" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-11-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0924aa3772a05cbb3bff3cb44cb20de7_icgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -585,12 +631,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-11" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-11-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-11-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_afe0f8813341d3666aae927febd4ed866_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-12-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_afe0f8813341d3666aae927febd4ed866_cgraph.svg" width="100%" height="505"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -617,12 +663,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-12" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-12-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-12-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a1aacb6b629b0e93a6f819732ab95922b_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-13-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a1aacb6b629b0e93a6f819732ab95922b_cgraph.svg" width="100%" height="505"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -651,18 +697,18 @@ template&lt;typename TDeviceAction &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div id="dynsection-13" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-13-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-13-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_af1f1e299e8d97e053bba80e92ba285d6_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
 <div id="dynsection-14" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+  <img id="dynsection-14-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
 <div id="dynsection-14-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-14-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_af1f1e299e8d97e053bba80e92ba285d6_cgraph.svg" width="100%" height="505"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-15-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_af1f1e299e8d97e053bba80e92ba285d6_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -690,11 +736,11 @@ template&lt;typename TDeviceAction &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div id="dynsection-15" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-15-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-15-content" class="dyncontent" style="display:none;">
+<div id="dynsection-16-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a6e8fca90c04249660dce6cb993eb4495_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -786,11 +832,11 @@ template&lt;typename TDeviceAction &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the keypad entry count. Only available after executing retreiveKeypadEntries. </p>
-<div id="dynsection-16" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-16-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-16-content" class="dyncontent" style="display:none;">
+<div id="dynsection-17-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ad94d354153b8b4f779f7a7a32258ff48_icgraph.svg" width="419" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -948,18 +994,18 @@ template&lt;typename TDeviceAction &gt; </div>
 </div><div class="memdoc">
 
 <p>Reimplemented in <a class="el" href="class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5">NukiLock::NukiLock</a>, and <a class="el" href="class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da">NukiOpener::NukiOpener</a>.</p>
-<div id="dynsection-17" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-17-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-17-content" class="dyncontent" style="display:none;">
+<div id="dynsection-18-content" class="dyncontent" style="display:none;">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ac2e28f07ed0a738f73c5f77b46cdb1bb_icgraph.svg" width="407" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a3e40d30549a6cbeac1072292670d07d4" name="a3e40d30549a6cbeac1072292670d07d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e40d30549a6cbeac1072292670d07d4">&#9670;&#160;</a></span>initialize()</h2>
+<a id="a232073e29e23ad1249b866449c16bcb1" name="a232073e29e23ad1249b866449c16bcb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a232073e29e23ad1249b866449c16bcb1">&#9670;&#160;</a></span>initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -967,7 +1013,7 @@ template&lt;typename TDeviceAction &gt; </div>
         <tr>
           <td class="memname">void Nuki::NukiBle::initialize </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>initAltConnect</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1023,6 +1069,117 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
+<a id="ac7ce691d9c3e586474655d1663eb2e20" name="ac7ce691d9c3e586474655d1663eb2e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7ce691d9c3e586474655d1663eb2e20">&#9670;&#160;</a></span>logMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::logMessage </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span><span class="paramdefsep"> = </span><span class="paramdefval">4</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-19-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ac7ce691d9c3e586474655d1663eb2e20_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a6b061bee9a6eec159673921f5127dd47" name="a6b061bee9a6eec159673921f5127dd47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b061bee9a6eec159673921f5127dd47">&#9670;&#160;</a></span>logMessageVar() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::logMessageVar </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>var</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span><span class="paramdefsep"> = </span><span class="paramdefval">4</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af3650133f46aeca48a5f01b95d23ab71" name="af3650133f46aeca48a5f01b95d23ab71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3650133f46aeca48a5f01b95d23ab71">&#9670;&#160;</a></span>logMessageVar() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::logMessageVar </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int</td>          <td class="paramname"><span class="paramname"><em>var</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span><span class="paramdefsep"> = </span><span class="paramdefval">4</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-20-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_af3650133f46aeca48a5f01b95d23ab71_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
 <a id="a787125bfc92266571d95e94da6756700" name="a787125bfc92266571d95e94da6756700"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a787125bfc92266571d95e94da6756700">&#9670;&#160;</a></span>pairNuki()</h2>
 
@@ -1040,12 +1197,12 @@ template&lt;typename TDeviceAction &gt; </div>
 
 <p>Checks if credentials are stored in preferences, if not initiate pairing. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
-<div id="dynsection-18" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-18-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-18-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a787125bfc92266571d95e94da6756700_cgraph.svg" width="423" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-21-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a787125bfc92266571d95e94da6756700_cgraph.svg" width="667" height="179"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1075,6 +1232,31 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
+<a id="a1f6919c051fc4952471f8ba3dde16390" name="a1f6919c051fc4952471f8ba3dde16390"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f6919c051fc4952471f8ba3dde16390">&#9670;&#160;</a></span>registerLogger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::registerLogger </td>
+          <td>(</td>
+          <td class="paramtype">Print *</td>          <td class="paramname"><span class="paramname"><em>Log</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registers a Logger to be used for printing debug logs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Log</td><td>the logger </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a5c80321a4355c9394be7a7de29133c7b" name="a5c80321a4355c9394be7a7de29133c7b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c80321a4355c9394be7a7de29133c7b">&#9670;&#160;</a></span>requestCalibration()</h2>
 
@@ -1091,12 +1273,12 @@ template&lt;typename TDeviceAction &gt; </div>
 </div><div class="memdoc">
 
 <p>Sends an calibration (mechanical) request to the lock via BLE. </p>
-<div id="dynsection-19" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-19-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-22" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-19-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a5c80321a4355c9394be7a7de29133c7b_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-22-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a5c80321a4355c9394be7a7de29133c7b_cgraph.svg" width="100%" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1117,12 +1299,38 @@ template&lt;typename TDeviceAction &gt; </div>
 </div><div class="memdoc">
 
 <p>Sends an reboot request to the lock via BLE. </p>
-<div id="dynsection-20" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-20-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-23" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-20-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a80e616a2f3d29be9d96d5233b9fefa1a_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-23-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a80e616a2f3d29be9d96d5233b9fefa1a_cgraph.svg" width="100%" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="afaa2410c94c76bb2624b4f4c62740da3" name="afaa2410c94c76bb2624b4f4c62740da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa2410c94c76bb2624b4f4c62740da3">&#9670;&#160;</a></span>resetHost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::resetHost </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset BLE host. </p>
+<div id="dynsection-24" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-24-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_afaa2410c94c76bb2624b4f4c62740da3_cgraph.svg" width="419" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1154,12 +1362,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-21" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-21-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-21-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-25" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-21-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0fb824539f7166cc53162e94267f0db0_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-25-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0fb824539f7166cc53162e94267f0db0_cgraph.svg" width="100%" height="505"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1191,12 +1399,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-22" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-22-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-22-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-26" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-22-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a6f669d52198915978c51ee441aec3c6d_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-26-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a6f669d52198915978c51ee441aec3c6d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1277,6 +1485,131 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
+<a id="a008a49a9c6c45608ceb06bd5bec7f88a" name="a008a49a9c6c45608ceb06bd5bec7f88a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a008a49a9c6c45608ceb06bd5bec7f88a">&#9670;&#160;</a></span>setDebugCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setDebugCommand </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to enable or disable command debug logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>Set to true to enable command debug logging </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a675024573ae2e4ae0f46679cc97bf63e" name="a675024573ae2e4ae0f46679cc97bf63e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675024573ae2e4ae0f46679cc97bf63e">&#9670;&#160;</a></span>setDebugCommunication()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setDebugCommunication </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to enable or disable communication debug logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>Set to true to enable communication debug logging </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f7217a0d75cdf58edc568a7b097d240" name="a7f7217a0d75cdf58edc568a7b097d240"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f7217a0d75cdf58edc568a7b097d240">&#9670;&#160;</a></span>setDebugConnect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setDebugConnect </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to enable or disable connect debug logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>Set to true to enable connect debug logging </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6ae09d09360ef282335425be98dac3a8" name="a6ae09d09360ef282335425be98dac3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ae09d09360ef282335425be98dac3a8">&#9670;&#160;</a></span>setDebugHexData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setDebugHexData </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to enable or disable hex data debug logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>Set to true to enable hex data debug logging </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9346bc1f50e5bd4ffe645c02feff826f" name="a9346bc1f50e5bd4ffe645c02feff826f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9346bc1f50e5bd4ffe645c02feff826f">&#9670;&#160;</a></span>setDebugReadableData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::setDebugReadableData </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether to enable or disable readable data debug logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>Set to true to enable readable data debug logging </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a83f3806bb6a233ee072b1a0864ff6024" name="a83f3806bb6a233ee072b1a0864ff6024"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83f3806bb6a233ee072b1a0864ff6024">&#9670;&#160;</a></span>setDisconnectTimeout()</h2>
 
@@ -1324,6 +1657,13 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
+<div id="dynsection-27" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-27-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a99b0da8b11159f56ca3ab029b90610ae_cgraph.svg" width="438" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -1385,12 +1725,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> </dd></dl>
-<div id="dynsection-23" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-23-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-23-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-28" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-28-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-23-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a6603fe4282fcab83f3038400e2c70207_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-28-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a6603fe4282fcab83f3038400e2c70207_cgraph.svg" width="100%" height="505"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1411,6 +1751,13 @@ template&lt;typename TDeviceAction &gt; </div>
 </div><div class="memdoc">
 
 <p>Delete stored credentials. </p>
+<div id="dynsection-29" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-29-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-29-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_ae3380f2d856dc4bd5c414736eb26d61e_cgraph.svg" width="426" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -1436,12 +1783,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-24" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-24-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-24-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-30" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-30-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-30-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-24-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_af47efb4e020a327687327ad82963b347_cgraph.svg" width="100%" height="483"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-30-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_af47efb4e020a327687327ad82963b347_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1463,19 +1810,12 @@ template&lt;typename TDeviceAction &gt; </div>
 
 <p>checks the time past after last connect/communication sent, if the time past &gt; timeout it will disconnect the BLE connection with the lock so that lock will start sending advertisements. </p>
 <p>This method is optional since the lock will automatically disconnect after approximately 20 seconds. However, the lock might be unresponsive during this time if the connection is stale. For this reason, using this method is advised. If used, this method should be run in loop or a task. </p>
-<div id="dynsection-25" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-25-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-25-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-31" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-31-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-31-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-25-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_adb7e6f9ff5c724d74ce074dc2cb7a7bf_cgraph.svg" width="440" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div id="dynsection-26" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-26-trigger" src="closed.png" alt="+"/> Here is the caller graph for this function:</div>
-<div id="dynsection-26-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-26-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_adb7e6f9ff5c724d74ce074dc2cb7a7bf_icgraph.svg" width="222" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-31-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_adb7e6f9ff5c724d74ce074dc2cb7a7bf_cgraph.svg" width="460" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1502,12 +1842,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-27" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-27-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-27-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-32" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-32-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-32-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-27-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0f1be2034e079e676a7771dfb775df81_cgraph.svg" width="100%" height="483"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-32-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a0f1be2034e079e676a7771dfb775df81_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1534,12 +1874,12 @@ template&lt;typename TDeviceAction &gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-28" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-28-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-28-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-33" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-33-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-33-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-28-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_aac2e6b5ca939d23e8f590519b78df9f1_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-33-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_aac2e6b5ca939d23e8f590519b78df9f1_cgraph.svg" width="100%" height="505"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1561,17 +1901,127 @@ template&lt;typename TDeviceAction &gt; </div>
 
 <p>Send the verify pincode command via BLE to the lock. This command uses the earlier by <a class="el" href="#ad636dbf0bbe9d6f58b4775b2fddaf64e" title="Saves the pincode on the esp. This pincode is used for sending/setting config via BLE to the lock by ...">saveSecurityPincode()</a> stored pincode. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> returns success when the pin code is correct (same as stored in the lock) </dd></dl>
-<div id="dynsection-29" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-29-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-29-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-34" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-34-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-34-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-29-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a2c962e2c69d9063972790109704dd233_cgraph.svg" width="100%" height="462"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div id="dynsection-34-content" class="dyncontent" style="display:none;">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_1_1_nuki_ble_a2c962e2c69d9063972790109704dd233_cgraph.svg" width="100%" height="523"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2ef4cd9d592ccfd0f79d0a5fddbc4769" name="a2ef4cd9d592ccfd0f79d0a5fddbc4769"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef4cd9d592ccfd0f79d0a5fddbc4769">&#9670;&#160;</a></span>debugNukiCommand</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::debugNukiCommand = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd7900728075918c1b3175e1af45af2c" name="afd7900728075918c1b3175e1af45af2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd7900728075918c1b3175e1af45af2c">&#9670;&#160;</a></span>debugNukiCommunication</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::debugNukiCommunication = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2d78074edff5e6c2e32facabad95e95" name="ab2d78074edff5e6c2e32facabad95e95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2d78074edff5e6c2e32facabad95e95">&#9670;&#160;</a></span>debugNukiConnect</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::debugNukiConnect = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aca947b0b8bbb7288b9bf71160bdc8ee1" name="aca947b0b8bbb7288b9bf71160bdc8ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca947b0b8bbb7288b9bf71160bdc8ee1">&#9670;&#160;</a></span>debugNukiHexData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::debugNukiHexData = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c22a93795806fb121334b9de4259597" name="a5c22a93795806fb121334b9de4259597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c22a93795806fb121334b9de4259597">&#9670;&#160;</a></span>debugNukiReadableData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::debugNukiReadableData = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a448a1cd276fb8643bc983c447d21c231" name="a448a1cd276fb8643bc983c447d21c231"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a448a1cd276fb8643bc983c447d21c231">&#9670;&#160;</a></span>errorCode</h2>
 
@@ -1616,6 +2066,28 @@ template&lt;typename TDeviceAction &gt; </div>
 
 </div>
 </div>
+<a id="a79d8374699e2a457b74f6ff0d9fe8af2" name="a79d8374699e2a457b74f6ff0d9fe8af2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79d8374699e2a457b74f6ff0d9fe8af2">&#9670;&#160;</a></span>logger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Print* Nuki::NukiBle::logger = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="_nuki_ble_8h.html">NukiBle.h</a></li>
 <li>src/<a class="el" href="_nuki_ble_8cpp.html">NukiBle.cpp</a></li>
@@ -1627,7 +2099,7 @@ template&lt;typename TDeviceAction &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li><li class="navelem"><a class="el" href="class_nuki_1_1_nuki_ble.html">NukiBle</a></li>
-    <li class="footer">Generated on Mon Nov 11 2024 02:42:35 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sat Dec 28 2024 04:50:52 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

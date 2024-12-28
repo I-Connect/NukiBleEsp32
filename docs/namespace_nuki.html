@@ -250,6 +250,8 @@ Enumerations</h2></td></tr>
 <tr class="separator:af435580dd93257235a1cf360358fa0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaaa89e1894bdf75271c6d443eb9605e" id="r_aaaaa89e1894bdf75271c6d443eb9605e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaaa89e1894bdf75271c6d443eb9605e">EventType</a> { <a class="el" href="#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2">KeyTurnerStatusUpdated</a>
 , <a class="el" href="#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3">KeyTurnerStatusReset</a>
+, <a class="el" href="#aaaaa89e1894bdf75271c6d443eb9605ea901aab17f5cf63ecf97ac5643a283f4f">ERROR_BAD_PIN</a>
+, <a class="el" href="#aaaaa89e1894bdf75271c6d443eb9605ea7ea140964da3ba3f1a5f51f57e7234a1">BLE_ERROR_ON_DISCONNECT</a>
  }</td></tr>
 <tr class="separator:aaaaa89e1894bdf75271c6d443eb9605e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa55754f0a4a54a7a7334bc38a1d82632" id="r_aa55754f0a4a54a7a7334bc38a1d82632"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa55754f0a4a54a7a7334bc38a1d82632">PairingResult</a> : uint8_t { <a class="el" href="#aa55754f0a4a54a7a7334bc38a1d82632a4039036d3d20091fb6400cb1368a97fc">Pairing</a>
@@ -348,14 +350,14 @@ Functions</h2></td></tr>
 <tr class="separator:aa7e9e9ff38eb673d2da28d041a2a9bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af082938ae230246f2df656549bc23761" id="r_af082938ae230246f2df656549bc23761"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af082938ae230246f2df656549bc23761">compareCharArray</a> (unsigned char *a, unsigned char *b, uint8_t len)</td></tr>
 <tr class="separator:af082938ae230246f2df656549bc23761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a246ecee6c1228f277b473fe13b248a" id="r_a3a246ecee6c1228f277b473fe13b248a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a246ecee6c1228f277b473fe13b248a">crcValid</a> (uint8_t *pData, uint16_t length)</td></tr>
-<tr class="separator:a3a246ecee6c1228f277b473fe13b248a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6be6424458fa54ed81b0623d543b930" id="r_ac6be6424458fa54ed81b0623d543b930"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6be6424458fa54ed81b0623d543b930">decode</a> (unsigned char *output, unsigned char *input, unsigned long long len, unsigned char *nonce, unsigned char *keyS)</td></tr>
-<tr class="separator:ac6be6424458fa54ed81b0623d543b930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a359df6879f1b774782a6985a1d1e9de9" id="r_a359df6879f1b774782a6985a1d1e9de9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a359df6879f1b774782a6985a1d1e9de9">encode</a> (unsigned char *output, unsigned char *input, unsigned long long len, unsigned char *nonce, unsigned char *keyS)</td></tr>
-<tr class="separator:a359df6879f1b774782a6985a1d1e9de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acef61520e1f6e537552b14ca4b519f44" id="r_acef61520e1f6e537552b14ca4b519f44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acef61520e1f6e537552b14ca4b519f44">generateNonce</a> (unsigned char *hexArray, uint8_t nrOfBytes)</td></tr>
-<tr class="separator:acef61520e1f6e537552b14ca4b519f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57eb68caa0d15ba3a57abfb79e377816" id="r_a57eb68caa0d15ba3a57abfb79e377816"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57eb68caa0d15ba3a57abfb79e377816">crcValid</a> (uint8_t *pData, uint16_t length, bool debug, Print *Log)</td></tr>
+<tr class="separator:a57eb68caa0d15ba3a57abfb79e377816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ac87a5fa1c207a1daed8609a3cd4c9" id="r_a61ac87a5fa1c207a1daed8609a3cd4c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61ac87a5fa1c207a1daed8609a3cd4c9">decode</a> (unsigned char *output, unsigned char *input, unsigned long long len, unsigned char *nonce, unsigned char *keyS, Print *Log)</td></tr>
+<tr class="separator:a61ac87a5fa1c207a1daed8609a3cd4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a270a536c493ffabac22fb47fc5dff00a" id="r_a270a536c493ffabac22fb47fc5dff00a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a270a536c493ffabac22fb47fc5dff00a">encode</a> (unsigned char *output, unsigned char *input, unsigned long long len, unsigned char *nonce, unsigned char *keyS, Print *Log)</td></tr>
+<tr class="separator:a270a536c493ffabac22fb47fc5dff00a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a547c975779e6d3b980a202106f805f48" id="r_a547c975779e6d3b980a202106f805f48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a547c975779e6d3b980a202106f805f48">generateNonce</a> (unsigned char *hexArray, uint8_t nrOfBytes, bool debug, Print *Log)</td></tr>
+<tr class="separator:a547c975779e6d3b980a202106f805f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacbd1098adadb8b3b929e83c6de37c05" id="r_aacbd1098adadb8b3b929e83c6de37c05"><td class="memTemplParams" colspan="2">template&lt;std::size_t N&gt; </td></tr>
 <tr class="memitem:aacbd1098adadb8b3b929e83c6de37c05"><td class="memTemplItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aacbd1098adadb8b3b929e83c6de37c05">getWeekdaysIntFromBitset</a> (const std::bitset&lt; N &gt; bits)</td></tr>
 <tr class="memdesc:aacbd1098adadb8b3b929e83c6de37c05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate a bitset&lt;N&gt; into <a class="el" href="namespace_nuki.html">Nuki</a> weekdays int.  <br /></td></tr>
@@ -364,8 +366,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2b85ffdf8eae3b1bc9f8784b51bda1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7752bab0ff47daf5e6082b7925874e5" id="r_af7752bab0ff47daf5e6082b7925874e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7752bab0ff47daf5e6082b7925874e5">isCharArrayNotEmpty</a> (unsigned char *array, uint16_t len)</td></tr>
 <tr class="separator:af7752bab0ff47daf5e6082b7925874e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a280e19d4682ca4b35d3fe64001da816a" id="r_a280e19d4682ca4b35d3fe64001da816a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a280e19d4682ca4b35d3fe64001da816a">printBuffer</a> (const byte *buff, const uint8_t size, const boolean asChars, const char *header)</td></tr>
-<tr class="separator:a280e19d4682ca4b35d3fe64001da816a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438fdfcef9f81eb0a3e493631b71ca5b" id="r_a438fdfcef9f81eb0a3e493631b71ca5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a438fdfcef9f81eb0a3e493631b71ca5b">printBuffer</a> (const byte *buff, const uint8_t size, const boolean asChars, const char *header, bool debug, Print *Log)</td></tr>
+<tr class="separator:a438fdfcef9f81eb0a3e493631b71ca5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -703,6 +705,8 @@ Variables</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2" name="aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2"></a>KeyTurnerStatusUpdated&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3" name="aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3"></a>KeyTurnerStatusReset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaaaa89e1894bdf75271c6d443eb9605ea901aab17f5cf63ecf97ac5643a283f4f" name="aaaaa89e1894bdf75271c6d443eb9605ea901aab17f5cf63ecf97ac5643a283f4f"></a>ERROR_BAD_PIN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaaaa89e1894bdf75271c6d443eb9605ea7ea140964da3ba3f1a5f51f57e7234a1" name="aaaaa89e1894bdf75271c6d443eb9605ea7ea140964da3ba3f1a5f51f57e7234a1"></a>BLE_ERROR_ON_DISCONNECT&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -944,8 +948,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3a246ecee6c1228f277b473fe13b248a" name="a3a246ecee6c1228f277b473fe13b248a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a246ecee6c1228f277b473fe13b248a">&#9670;&#160;</a></span>crcValid()</h2>
+<a id="a57eb68caa0d15ba3a57abfb79e377816" name="a57eb68caa0d15ba3a57abfb79e377816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57eb68caa0d15ba3a57abfb79e377816">&#9670;&#160;</a></span>crcValid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -958,7 +962,17 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;)</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>debug</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Print *</td>          <td class="paramname"><span class="paramname"><em>Log</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -967,13 +981,13 @@ Variables</h2></td></tr>
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespace_nuki_a3a246ecee6c1228f277b473fe13b248a_cgraph.svg" width="287" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespace_nuki_a57eb68caa0d15ba3a57abfb79e377816_cgraph.svg" width="287" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="ac6be6424458fa54ed81b0623d543b930" name="ac6be6424458fa54ed81b0623d543b930"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6be6424458fa54ed81b0623d543b930">&#9670;&#160;</a></span>decode()</h2>
+<a id="a61ac87a5fa1c207a1daed8609a3cd4c9" name="a61ac87a5fa1c207a1daed8609a3cd4c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61ac87a5fa1c207a1daed8609a3cd4c9">&#9670;&#160;</a></span>decode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1001,15 +1015,20 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>keyS</em></span>&#160;)</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>keyS</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Print *</td>          <td class="paramname"><span class="paramname"><em>Log</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a359df6879f1b774782a6985a1d1e9de9" name="a359df6879f1b774782a6985a1d1e9de9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a359df6879f1b774782a6985a1d1e9de9">&#9670;&#160;</a></span>encode()</h2>
+<a id="a270a536c493ffabac22fb47fc5dff00a" name="a270a536c493ffabac22fb47fc5dff00a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a270a536c493ffabac22fb47fc5dff00a">&#9670;&#160;</a></span>encode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1037,15 +1056,20 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>keyS</em></span>&#160;)</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>keyS</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Print *</td>          <td class="paramname"><span class="paramname"><em>Log</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="acef61520e1f6e537552b14ca4b519f44" name="acef61520e1f6e537552b14ca4b519f44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acef61520e1f6e537552b14ca4b519f44">&#9670;&#160;</a></span>generateNonce()</h2>
+<a id="a547c975779e6d3b980a202106f805f48" name="a547c975779e6d3b980a202106f805f48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547c975779e6d3b980a202106f805f48">&#9670;&#160;</a></span>generateNonce()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1058,7 +1082,17 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>nrOfBytes</em></span>&#160;)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>nrOfBytes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>debug</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Print *</td>          <td class="paramname"><span class="paramname"><em>Log</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1067,7 +1101,7 @@ Variables</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespace_nuki_acef61520e1f6e537552b14ca4b519f44_cgraph.svg" width="315" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespace_nuki_a547c975779e6d3b980a202106f805f48_cgraph.svg" width="315" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1148,8 +1182,8 @@ template&lt;std::size_t N&gt; </div>
 
 </div>
 </div>
-<a id="a280e19d4682ca4b35d3fe64001da816a" name="a280e19d4682ca4b35d3fe64001da816a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a280e19d4682ca4b35d3fe64001da816a">&#9670;&#160;</a></span>printBuffer()</h2>
+<a id="a438fdfcef9f81eb0a3e493631b71ca5b" name="a438fdfcef9f81eb0a3e493631b71ca5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438fdfcef9f81eb0a3e493631b71ca5b">&#9670;&#160;</a></span>printBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1172,7 +1206,17 @@ template&lt;std::size_t N&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>header</em></span>&#160;)</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>header</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>debug</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Print *</td>          <td class="paramname"><span class="paramname"><em>Log</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1181,7 +1225,7 @@ template&lt;std::size_t N&gt; </div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespace_nuki_a280e19d4682ca4b35d3fe64001da816a_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespace_nuki_a438fdfcef9f81eb0a3e493631b71ca5b_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1263,7 +1307,7 @@ template&lt;std::size_t N&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li>
-    <li class="footer">Generated on Mon Nov 11 2024 02:42:35 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sat Dec 28 2024 04:50:52 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

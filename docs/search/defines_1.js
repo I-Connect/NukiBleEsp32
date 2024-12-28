@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['debug_5fnuki_5freadable_5fdata_0',['DEBUG_NUKI_READABLE_DATA',['../_nuki_opener_utils_8cpp.html#a7e3e8ef9be981928bb72b8814f664ae1',1,'NukiOpenerUtils.cpp']]]
+  ['endian_5fchange_5fu16_0',['ENDIAN_CHANGE_U16',['../_nuki_utils_8h.html#aed8c4eaac7d0cae5422c08bcda136600',1,'NukiUtils.h']]]
 ];

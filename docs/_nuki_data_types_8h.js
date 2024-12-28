@@ -21,7 +21,9 @@ var _nuki_data_types_8h =
     ] ],
     [ "EventType", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605e", [
       [ "KeyTurnerStatusUpdated", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ],
-      [ "KeyTurnerStatusReset", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3", null ]
+      [ "KeyTurnerStatusReset", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3", null ],
+      [ "ERROR_BAD_PIN", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605ea901aab17f5cf63ecf97ac5643a283f4f", null ],
+      [ "BLE_ERROR_ON_DISCONNECT", "_nuki_data_types_8h.html#aaaaa89e1894bdf75271c6d443eb9605ea7ea140964da3ba3f1a5f51f57e7234a1", null ]
     ] ],
     [ "PairingResult", "_nuki_data_types_8h.html#aa55754f0a4a54a7a7334bc38a1d82632", [
       [ "Pairing", "_nuki_data_types_8h.html#aa55754f0a4a54a7a7334bc38a1d82632a4039036d3d20091fb6400cb1368a97fc", null ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['general_5ftimeout_0',['GENERAL_TIMEOUT',['../_nuki_ble_8h.html#a65f439f37fb225e2d6731df6a0513d17',1,'NukiBle.h']]]
+  ['heartbeat_5ftimeout_0',['HEARTBEAT_TIMEOUT',['../_nuki_ble_8h.html#abd1e24640abcadec19ebb45ce2f73c10',1,'NukiBle.h']]]
 ];

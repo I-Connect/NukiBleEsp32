@@ -1,0 +1,5 @@
+<map id="Nuki::SmartlockEventHandler::notify" name="Nuki::SmartlockEventHandler::notify">
+<area shape="rect" id="Node000001" title=" " alt="" coords="264,5,455,46"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#adb7e6f9ff5c724d74ce074dc2cb7a7bf" title="checks the time past after last connect/communication sent, if the time past &gt; timeout it will discon..." alt="" coords="5,5,216,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,28,216,28,216,23,248,23"/>
+</map>

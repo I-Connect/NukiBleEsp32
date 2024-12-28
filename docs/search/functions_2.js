@@ -8,5 +8,5 @@ var searchData=
   ['comparechararray_5',['compareCharArray',['../namespace_nuki.html#af082938ae230246f2df656549bc23761',1,'Nuki']]],
   ['completionstatustostring_6',['completionStatusToString',['../namespace_nuki_lock.html#a5a08c6af3090841e419f5ffeec0db34b',1,'NukiLock::completionStatusToString()'],['../namespace_nuki_opener.html#a0a2d135ae3ef54e3226280e1efa73c2a',1,'NukiOpener::completionStatusToString()']]],
   ['connectble_7',['connectBle',['../class_nuki_1_1_nuki_ble.html#a0924aa3772a05cbb3bff3cb44cb20de7',1,'Nuki::NukiBle']]],
-  ['crcvalid_8',['crcValid',['../namespace_nuki.html#a3a246ecee6c1228f277b473fe13b248a',1,'Nuki']]]
+  ['crcvalid_8',['crcValid',['../namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816',1,'Nuki']]]
 ];

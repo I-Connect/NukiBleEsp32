@@ -1,0 +1,5 @@
+<map id="Nuki::NukiBle::resetHost" name="Nuki::NukiBle::resetHost">
+<area shape="rect" id="Node000001" title="Reset BLE host." alt="" coords="5,5,169,31"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="217,5,413,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,16,201,16,201,21,169,21"/>
+</map>

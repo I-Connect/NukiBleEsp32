@@ -314,9 +314,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8dfa35d43232706a75c6d14f35ae88e inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ae8dfa35d43232706a75c6d14f35ae88e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ae8dfa35d43232706a75c6d14f35ae88e">getSecurityPincode</a> ()</td></tr>
 <tr class="memdesc:ae8dfa35d43232706a75c6d14f35ae88e inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the pincode stored on the esp. This pincode is used for sending/setting config via BLE to the lock by other methods and needs to be the same pincode as stored in the lock.  <br /></td></tr>
 <tr class="separator:ae8dfa35d43232706a75c6d14f35ae88e inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e40d30549a6cbeac1072292670d07d4 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a3e40d30549a6cbeac1072292670d07d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a3e40d30549a6cbeac1072292670d07d4">initialize</a> ()</td></tr>
-<tr class="memdesc:a3e40d30549a6cbeac1072292670d07d4 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes stored preferences based on the devicename passed in the constructor, creates the BLE client, sets the BLE callback and checks if the lock is paired (if credentials are stored in preferences)  <br /></td></tr>
-<tr class="separator:a3e40d30549a6cbeac1072292670d07d4 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a232073e29e23ad1249b866449c16bcb1 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a232073e29e23ad1249b866449c16bcb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a232073e29e23ad1249b866449c16bcb1">initialize</a> (bool initAltConnect=false)</td></tr>
+<tr class="memdesc:a232073e29e23ad1249b866449c16bcb1 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes stored preferences based on the devicename passed in the constructor, creates the BLE client, sets the BLE callback and checks if the lock is paired (if credentials are stored in preferences)  <br /></td></tr>
+<tr class="separator:a232073e29e23ad1249b866449c16bcb1 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a050f54fbfcea03dc5238e8c66a7e89ca inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a050f54fbfcea03dc5238e8c66a7e89ca"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca">isPairedWithLock</a> () const</td></tr>
 <tr class="memdesc:a050f54fbfcea03dc5238e8c66a7e89ca inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pairing state (if credentials are stored or not)  <br /></td></tr>
 <tr class="separator:a050f54fbfcea03dc5238e8c66a7e89ca inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -326,12 +326,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c239070e553f07971d2ccd05406d343 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a5c239070e553f07971d2ccd05406d343"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5c239070e553f07971d2ccd05406d343">registerBleScanner</a> (BleScanner::Publisher *bleScanner)</td></tr>
 <tr class="memdesc:a5c239070e553f07971d2ccd05406d343 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the BLE scanner to be used for scanning for advertisements from the lock. BleScanner::Publisher is defined in dependent library <a href="https://github.com/I-Connect/BleScanner.git">https://github.com/I-Connect/BleScanner.git</a>.  <br /></td></tr>
 <tr class="separator:a5c239070e553f07971d2ccd05406d343 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f6919c051fc4952471f8ba3dde16390 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a1f6919c051fc4952471f8ba3dde16390"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1f6919c051fc4952471f8ba3dde16390">registerLogger</a> (Print *Log)</td></tr>
+<tr class="memdesc:a1f6919c051fc4952471f8ba3dde16390 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a Logger to be used for printing debug logs.  <br /></td></tr>
+<tr class="separator:a1f6919c051fc4952471f8ba3dde16390 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c80321a4355c9394be7a7de29133c7b inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a5c80321a4355c9394be7a7de29133c7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b">requestCalibration</a> ()</td></tr>
 <tr class="memdesc:a5c80321a4355c9394be7a7de29133c7b inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an calibration (mechanical) request to the lock via BLE.  <br /></td></tr>
 <tr class="separator:a5c80321a4355c9394be7a7de29133c7b inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80e616a2f3d29be9d96d5233b9fefa1a inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a80e616a2f3d29be9d96d5233b9fefa1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a80e616a2f3d29be9d96d5233b9fefa1a">requestReboot</a> ()</td></tr>
 <tr class="memdesc:a80e616a2f3d29be9d96d5233b9fefa1a inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an reboot request to the lock via BLE.  <br /></td></tr>
 <tr class="separator:a80e616a2f3d29be9d96d5233b9fefa1a inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa2410c94c76bb2624b4f4c62740da3 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_afaa2410c94c76bb2624b4f4c62740da3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#afaa2410c94c76bb2624b4f4c62740da3">resetHost</a> ()</td></tr>
+<tr class="memdesc:afaa2410c94c76bb2624b4f4c62740da3 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset BLE host.  <br /></td></tr>
+<tr class="separator:afaa2410c94c76bb2624b4f4c62740da3 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fb824539f7166cc53162e94267f0db0 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a0fb824539f7166cc53162e94267f0db0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a0fb824539f7166cc53162e94267f0db0">retrieveAuthorizationEntries</a> (const uint16_t offset, const uint16_t count)</td></tr>
 <tr class="memdesc:a0fb824539f7166cc53162e94267f0db0 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request the lock via BLE to send the existing authorizationentries.  <br /></td></tr>
 <tr class="separator:a0fb824539f7166cc53162e94267f0db0 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -347,6 +353,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a99f182c0317e073ed51b49c6c35a8230 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a99f182c0317e073ed51b49c6c35a8230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a99f182c0317e073ed51b49c6c35a8230">setConnectTimeout</a> (uint8_t timeout)</td></tr>
 <tr class="memdesc:a99f182c0317e073ed51b49c6c35a8230 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Connect Timeout in seconds.  <br /></td></tr>
 <tr class="separator:a99f182c0317e073ed51b49c6c35a8230 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a008a49a9c6c45608ceb06bd5bec7f88a inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a008a49a9c6c45608ceb06bd5bec7f88a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a008a49a9c6c45608ceb06bd5bec7f88a">setDebugCommand</a> (bool enable)</td></tr>
+<tr class="memdesc:a008a49a9c6c45608ceb06bd5bec7f88a inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable command debug logging.  <br /></td></tr>
+<tr class="separator:a008a49a9c6c45608ceb06bd5bec7f88a inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675024573ae2e4ae0f46679cc97bf63e inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a675024573ae2e4ae0f46679cc97bf63e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a675024573ae2e4ae0f46679cc97bf63e">setDebugCommunication</a> (bool enable)</td></tr>
+<tr class="memdesc:a675024573ae2e4ae0f46679cc97bf63e inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable communication debug logging.  <br /></td></tr>
+<tr class="separator:a675024573ae2e4ae0f46679cc97bf63e inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f7217a0d75cdf58edc568a7b097d240 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a7f7217a0d75cdf58edc568a7b097d240"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a7f7217a0d75cdf58edc568a7b097d240">setDebugConnect</a> (bool enable)</td></tr>
+<tr class="memdesc:a7f7217a0d75cdf58edc568a7b097d240 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable connect debug logging.  <br /></td></tr>
+<tr class="separator:a7f7217a0d75cdf58edc568a7b097d240 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ae09d09360ef282335425be98dac3a8 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a6ae09d09360ef282335425be98dac3a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a6ae09d09360ef282335425be98dac3a8">setDebugHexData</a> (bool enable)</td></tr>
+<tr class="memdesc:a6ae09d09360ef282335425be98dac3a8 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable hex data debug logging.  <br /></td></tr>
+<tr class="separator:a6ae09d09360ef282335425be98dac3a8 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9346bc1f50e5bd4ffe645c02feff826f inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a9346bc1f50e5bd4ffe645c02feff826f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a9346bc1f50e5bd4ffe645c02feff826f">setDebugReadableData</a> (bool enable)</td></tr>
+<tr class="memdesc:a9346bc1f50e5bd4ffe645c02feff826f inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to enable or disable readable data debug logging.  <br /></td></tr>
+<tr class="separator:a9346bc1f50e5bd4ffe645c02feff826f inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83f3806bb6a233ee072b1a0864ff6024 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a83f3806bb6a233ee072b1a0864ff6024"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a83f3806bb6a233ee072b1a0864ff6024">setDisconnectTimeout</a> (uint32_t timeoutMs)</td></tr>
 <tr class="memdesc:a83f3806bb6a233ee072b1a0864ff6024 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE Disconnect Timeout, if longer than ~20 sec the lock will disconnect by itself if there is no BLE communication.  <br /></td></tr>
 <tr class="separator:a83f3806bb6a233ee072b1a0864ff6024 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -399,14 +420,32 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:af1f1e299e8d97e053bba80e92ba285d6 inherit pro_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e8fca90c04249660dce6cb993eb4495 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a6e8fca90c04249660dce6cb993eb4495"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495">extendDisconnectTimeout</a> ()</td></tr>
 <tr class="separator:a6e8fca90c04249660dce6cb993eb4495 inherit pro_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7ce691d9c3e586474655d1663eb2e20 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_ac7ce691d9c3e586474655d1663eb2e20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20">logMessage</a> (const char *message, int level=4)</td></tr>
+<tr class="separator:ac7ce691d9c3e586474655d1663eb2e20 inherit pro_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b061bee9a6eec159673921f5127dd47 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a6b061bee9a6eec159673921f5127dd47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a6b061bee9a6eec159673921f5127dd47">logMessageVar</a> (const char *message, const char *var, int level=4)</td></tr>
+<tr class="separator:a6b061bee9a6eec159673921f5127dd47 inherit pro_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3650133f46aeca48a5f01b95d23ab71 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_af3650133f46aeca48a5f01b95d23ab71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71">logMessageVar</a> (const char *message, unsigned int var, int level=4)</td></tr>
+<tr class="separator:af3650133f46aeca48a5f01b95d23ab71 inherit pro_methods_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_class_nuki_1_1_nuki_ble"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_class_nuki_1_1_nuki_ble')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_nuki_1_1_nuki_ble.html">Nuki::NukiBle</a></td></tr>
+<tr class="memitem:a2ef4cd9d592ccfd0f79d0a5fddbc4769 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a2ef4cd9d592ccfd0f79d0a5fddbc4769"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a2ef4cd9d592ccfd0f79d0a5fddbc4769">debugNukiCommand</a> = false</td></tr>
+<tr class="separator:a2ef4cd9d592ccfd0f79d0a5fddbc4769 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7900728075918c1b3175e1af45af2c inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_afd7900728075918c1b3175e1af45af2c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#afd7900728075918c1b3175e1af45af2c">debugNukiCommunication</a> = false</td></tr>
+<tr class="separator:afd7900728075918c1b3175e1af45af2c inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2d78074edff5e6c2e32facabad95e95 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ab2d78074edff5e6c2e32facabad95e95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ab2d78074edff5e6c2e32facabad95e95">debugNukiConnect</a> = false</td></tr>
+<tr class="separator:ab2d78074edff5e6c2e32facabad95e95 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca947b0b8bbb7288b9bf71160bdc8ee1 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_aca947b0b8bbb7288b9bf71160bdc8ee1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#aca947b0b8bbb7288b9bf71160bdc8ee1">debugNukiHexData</a> = false</td></tr>
+<tr class="separator:aca947b0b8bbb7288b9bf71160bdc8ee1 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c22a93795806fb121334b9de4259597 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a5c22a93795806fb121334b9de4259597"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5c22a93795806fb121334b9de4259597">debugNukiReadableData</a> = false</td></tr>
+<tr class="separator:a5c22a93795806fb121334b9de4259597 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a448a1cd276fb8643bc983c447d21c231 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a448a1cd276fb8643bc983c447d21c231"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a448a1cd276fb8643bc983c447d21c231">errorCode</a> = 0</td></tr>
 <tr class="separator:a448a1cd276fb8643bc983c447d21c231 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5afb32ec14d3be623a5cf4995352cf6 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ae5afb32ec14d3be623a5cf4995352cf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#ae5afb32ec14d3be623a5cf4995352cf6">lastMsgCodeReceived</a> = <a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ace2c8aed9c2fa0cfbed56cbda4d8bf07">Command::Empty</a></td></tr>
 <tr class="separator:ae5afb32ec14d3be623a5cf4995352cf6 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d8374699e2a457b74f6ff0d9fe8af2 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a79d8374699e2a457b74f6ff0d9fe8af2"><td class="memItemLeft" align="right" valign="top">Print *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_nuki_1_1_nuki_ble.html#a79d8374699e2a457b74f6ff0d9fe8af2">logger</a> = nullptr</td></tr>
+<tr class="separator:a79d8374699e2a457b74f6ff0d9fe8af2 inherit pro_attribs_class_nuki_1_1_nuki_ble"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9d431a0561e1ed660025fb1176c2dfb2" name="a9d431a0561e1ed660025fb1176c2dfb2"></a>
@@ -458,7 +497,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-2-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-2-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_a6dee2bf0f439e7017fd9c2b3ae15a40c_cgraph.svg" width="435" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_a6dee2bf0f439e7017fd9c2b3ae15a40c_cgraph.svg" width="100%" height="391"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -770,7 +809,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_a19ad4317e201ebe5e43ad55b6ea906da_cgraph.svg" width="660" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_a19ad4317e201ebe5e43ad55b6ea906da_cgraph.svg" width="100%" height="575"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -874,7 +913,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-4-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-4-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_a7dc6d5feb760fba6bff83fe8d3ca9a5d_cgraph.svg" width="436" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_a7dc6d5feb760fba6bff83fe8d3ca9a5d_cgraph.svg" width="651" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1417,6 +1456,13 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-5-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_ae43af00023df78b352c61c98730c1aa9_cgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -1717,12 +1763,12 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<div id="dynsection-5" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-5-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
-<div id="dynsection-5-summary" class="dynsummary" style="display:block;">
+<div id="dynsection-6" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-6-trigger" src="closed.png" alt="+"/> Here is the call graph for this function:</div>
+<div id="dynsection-6-summary" class="dynsummary" style="display:block;">
 </div>
-<div id="dynsection-5-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_ad896a195b57a3961a10497c432bc55ed_cgraph.svg" width="408" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div id="dynsection-6-content" class="dyncontent" style="display:none;">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_nuki_opener_1_1_nuki_opener_ad896a195b57a3961a10497c432bc55ed_cgraph.svg" width="642" height="122"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1737,7 +1783,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki_opener.html">NukiOpener</a></li><li class="navelem"><a class="el" href="class_nuki_opener_1_1_nuki_opener.html">NukiOpener</a></li>
-    <li class="footer">Generated on Mon Nov 11 2024 02:42:36 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
+    <li class="footer">Generated on Sat Dec 28 2024 04:50:52 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0 </li>
   </ul>
 </div>
 </body>

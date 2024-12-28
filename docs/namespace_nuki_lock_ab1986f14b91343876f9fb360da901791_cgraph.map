@@ -1,0 +1,15 @@
+<map id="NukiLock::logKeyturnerState" name="NukiLock::logKeyturnerState">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,192,106"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#ac4d82a0f8f0d3ae3fe2a00c9d442cab0" title=" " alt="" coords="240,5,443,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,77,239,40,264,33,266,38,240,45,134,82"/>
+<area shape="rect" id="Node000004" href="$namespace_nuki_lock.html#a031da7ab93a6a69e0e16dd7f5426ffaf" title=" " alt="" coords="258,55,424,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="192,80,242,75,243,80,192,86"/>
+<area shape="rect" id="Node000005" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="255,104,428,130"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="192,99,240,104,239,109,192,105"/>
+<area shape="rect" id="Node000006" href="$namespace_nuki_lock.html#a7d68c58293514d39207ee29f239b897c" title=" " alt="" coords="258,153,425,179"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="135,104,240,140,266,147,264,152,239,145,134,109"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki_lock.html#a1c4b22e22d81b2258bb6f2ce1e1f7d6f" title=" " alt="" coords="491,55,644,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="404,29,491,48,490,53,403,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="425,65,475,65,475,70,425,70"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="411,150,442,140,492,115,535,87,537,92,494,119,444,145,412,155"/>
+</map>
