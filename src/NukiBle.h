@@ -34,7 +34,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     NukiBle(const std::string& deviceName,
             const uint32_t deviceId,
             const NimBLEUUID pairingServiceUUID,
-            const NimBLEUUID pairingServiceUltraUUID,            
+            const NimBLEUUID pairingServiceUltraUUID,
             const NimBLEUUID deviceServiceUUID,
             const NimBLEUUID gdioUUID,
             const NimBLEUUID gdioUltraUUID,
@@ -60,7 +60,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @brief Delete stored credentials
      */
     void unPairNuki();
-    
+
     /**
      * @brief Reset BLE host
      */
@@ -465,7 +465,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 //Keyturner Pairing Service
     const NimBLEUUID pairingServiceUUID;
 //Keyturner Pairing Service Ultra
-    const NimBLEUUID pairingServiceUltraUUID;    
+    const NimBLEUUID pairingServiceUltraUUID;
 //Keyturner Service
     const NimBLEUUID deviceServiceUUID;
 //Keyturner pairing Data Input Output characteristic

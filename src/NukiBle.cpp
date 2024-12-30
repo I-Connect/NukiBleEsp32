@@ -510,15 +510,19 @@ void NukiBle::disconnect()
       int loop = 0;
 
       while ((countDisconnects > 0 || pClient->isConnected()) && loop < 50) {
-        logMessage(".");
+        if (debugNukiConnect) {
+          logMessage(".");
+        }
         loop++;
         delay(100);
       }
 
       if (countDisconnects > 0 || pClient->isConnected())
       {
-        logMessage("Disconnecting BLE failed, resetting host");
-        resetHost();
+        if (debugNukiConnect) {
+          logMessage("Error while disconnecting BLE client");
+        }
+        eventHandler->notify(EventType::BLE_ERROR_ON_DISCONNECT);
       }
     }
   }
