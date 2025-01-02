@@ -182,7 +182,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
       do {
         nukiPairingState = pairStateMachine(nukiPairingState);
         extendDisconnectTimeout();
-        delay(50);
+        delay(10);
       } while ((nukiPairingState != PairingState::Success) && (nukiPairingState != PairingState::Timeout));
 
       if (nukiPairingState == PairingState::Success) {
@@ -197,6 +197,7 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
         result = PairingResult::Timeout;
       }
       extendDisconnectTimeout();
+      delay(10);
     }
   } else {
     if (debugNukiConnect) {
@@ -224,8 +225,9 @@ void NukiBle::resetHost() {
   if (debugNukiConnect) {
     logMessageVar("[%s] Resetting BLE host", deviceName.c_str());
   }
-  
+
   ble_hs_sched_reset(0);
+  delay(10);
 }
 
 bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
@@ -233,6 +235,7 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
     connecting = true;
     bleScanner->enableScanning(false);
     pClient = nullptr;
+    delay(10);
 
     if (debugNukiConnect) {
       #if (ESP_IDF_VERSION < ESP_IDF_VERSION_VAL(5, 0, 0))
@@ -315,11 +318,12 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
         pClient->setConnectTimeout(connectTimeoutSec * 1000);
         #endif
 
-        delay(300);
-
         int loopCreateClient = 0;
 
         while(!pClient && loopCreateClient < 50) {
+          if (debugNukiConnect) {
+            logMessage(".");
+          }
           delay(100);
           loopCreateClient++;
         }
@@ -464,15 +468,17 @@ void NukiBle::updateConnectionState() {
   #else
   if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
   #endif
+    if (debugNukiConnect) {
+      logMessage("disconnecting BLE on timeout");
+    }
+
     if (altConnect) {
+      delay(100);
       disconnect();
-      delay(200);
+      delay(100);
     }
     else if (pClient && pClient->isConnected()) {
       pClient->disconnect();
-      if (debugNukiConnect) {
-        logMessage("disconnecting BLE on timeout");
-      }
     }
   }
 }
@@ -501,7 +507,9 @@ void NukiBle::disconnect()
       int loop = 0;
 
       while ((countDisconnects > 0 || pClient->isConnected()) && loop < 50) {
-        logMessage(".");
+        if (debugNukiConnect) {
+          logMessage(".");
+        }
         loop++;
         delay(100);
       }
@@ -1524,6 +1532,8 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 }
 
 void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
+  delay(10);
+
   switch (returnCode) {
     case Command::RequestData : {
       if (debugNukiCommunication) {

@@ -35,7 +35,7 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
 
     while (1) {
       extendDisconnectTimeout();
-      
+
       Nuki::CmdResult result;
       if (action.cmdType == Nuki::CommandType::Command) {
         result = cmdStateMachine(action);
@@ -74,7 +74,9 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
 
 template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
-  extendDisconnectTimeout();  
+  extendDisconnectTimeout();
+  delay(10);
+
   switch (nukiCommandState) {
     case CommandState::Idle: {
       if (debugNukiCommunication) {
@@ -159,6 +161,8 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
 template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const bool sendPinCode) {
   extendDisconnectTimeout();
+  delay(10);
+
   switch (nukiCommandState) {
     case CommandState::Idle: {
       if (debugNukiCommunication) {
@@ -304,6 +308,8 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
 template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
   extendDisconnectTimeout();
+  delay(10);
+
   switch (nukiCommandState) {
     case CommandState::Idle: {
       if (debugNukiCommunication) {
