@@ -196,6 +196,7 @@ void logConfig(Config config, bool debug, Print* Log) {
     }
     logMessageVar("homeKitStatus :%d", (unsigned int)config.homeKitStatus, Log, 4);
     logMessageVar("timeZoneId :%d", (unsigned int)config.timeZoneId, Log, 4);
+    logMessageVar("hasKeypadV2 :%d", (unsigned int)config.hasKeypadV2, Log, 4);
   }
 }
 
