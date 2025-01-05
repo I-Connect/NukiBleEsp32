@@ -429,6 +429,15 @@ inline void doorSensorStateToString(const DoorSensorState state, char* str) {
     case DoorSensorState::Calibrating:
       strcpy(str, "calibrating");
       break;
+    case DoorSensorState::Uncalibrated:
+      strcpy(str, "uncalibrated");
+      break;
+    case DoorSensorState::Tampered:
+      strcpy(str, "tampered");
+      break;
+    case DoorSensorState::Unknown:
+      strcpy(str, "unknown");
+      break;
     default:
       strcpy(str, "undefined");
       break;

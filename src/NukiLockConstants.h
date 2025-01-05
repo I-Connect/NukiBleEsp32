@@ -101,7 +101,9 @@ enum class Trigger : uint8_t {
   Manual          = 0x01,
   Button          = 0x02,
   Automatic       = 0x03,
-  AutoLock        = 0x06
+  AutoLock        = 0x06,
+  HomeKit         = 0xAB,
+  MQTT            = 0xAC
 };
 
 
@@ -112,6 +114,8 @@ enum class LockAction : uint8_t {
   LockNgo         = 0x04,
   LockNgoUnlatch  = 0x05,
   FullLock        = 0x06,
+  FobNoAction     = 0x50,
+  ButtonNoAction  = 0x5A,
   FobAction1      = 0x81,
   FobAction2      = 0x82,
   FobAction3      = 0x83
@@ -356,6 +360,12 @@ inline void lockactionToString(const LockAction action, char* str) {
     case LockAction::FullLock:
       strcpy(str, "FullLock");
       break;
+    case LockAction::FobNoAction:
+      strcpy(str, "FobNoAction");
+      break;
+    case LockAction::ButtonNoAction:
+      strcpy(str, "ButtonNoAction");
+      break;
     case LockAction::FobAction1:
       strcpy(str, "FobAction1");
       break;
@@ -428,6 +438,12 @@ inline void triggerToString(const Trigger trigger, char* str) {
       break;
     case Trigger::System:
       strcpy(str, "system");
+      break;
+    case Trigger::HomeKit:
+      strcpy(str, "homekit");
+      break;
+    case Trigger::MQTT:
+      strcpy(str, "mqtt");
       break;
     default:
       strcpy(str, "undefined");
@@ -502,6 +518,15 @@ inline void doorSensorStateToString(const DoorSensorState state, char* str) {
       break;
     case DoorSensorState::Calibrating:
       strcpy(str, "calibrating");
+      break;
+    case DoorSensorState::Uncalibrated:
+      strcpy(str, "uncalibrated");
+      break;
+    case DoorSensorState::Tampered:
+      strcpy(str, "tampered");
+      break;
+    case DoorSensorState::Unknown:
+      strcpy(str, "unknown");
       break;
     default:
       strcpy(str, "undefined");
