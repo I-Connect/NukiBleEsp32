@@ -211,9 +211,11 @@ struct __attribute__((packed)) Config {
   unsigned char hardwareRevision[2];
   uint8_t homeKitStatus;
   TimeZoneId timeZoneId;
-  uint8_t undocumented1;
-  uint8_t undocumented2;
+  uint8_t deviceType;
+  uint8_t network;
   uint8_t hasKeypadV2;
+  uint8_t matterStatus;
+  uint8_t productVariant;
 };
 
 struct __attribute__((packed)) NewConfig {

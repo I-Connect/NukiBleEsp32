@@ -176,8 +176,6 @@ struct __attribute__((packed)) Config {
   unsigned char firmwareVersion[3];
   unsigned char hardwareRevision[2];
   TimeZoneId timeZoneId;
-  uint8_t undocumented1;
-  uint8_t undocumented2;
   uint8_t hasKeypadV2;
 };
 

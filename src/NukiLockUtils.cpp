@@ -196,7 +196,13 @@ void logConfig(Config config, bool debug, Print* Log) {
     }
     logMessageVar("homeKitStatus :%d", (unsigned int)config.homeKitStatus, Log, 4);
     logMessageVar("timeZoneId :%d", (unsigned int)config.timeZoneId, Log, 4);
+    logMessageVar("deviceType :%d", (unsigned int)config.deviceType, Log, 4);
+    logMessageVar("channel :%d", (unsigned int)config.network, Log, 4);
+    logMessageVar("wifiCapable :%d", (unsigned int)config.network & 1, Log, 4);
+    logMessageVar("threadCapable :%d", (unsigned int)(((unsigned int)config.network & 2) != 0 ? 1 : 0), Log, 4);
     logMessageVar("hasKeypadV2 :%d", (unsigned int)config.hasKeypadV2, Log, 4);
+    logMessageVar("matterStatus :%d", (unsigned int)config.matterStatus, Log, 4);
+    logMessageVar("productVariant :%d", (unsigned int)config.productVariant, Log, 4);
   }
 }
 
