@@ -1572,7 +1572,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     case Command::AuthorizationEntry : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntry", debugNukiHexData, logger);
       AuthorizationEntry authEntry;
-      memcpy(&authEntry, data, sizeof(authEntry));
+      memcpy(&authEntry, data, dataLen);
       listOfAuthorizationEntries.push_back(authEntry);
       if (debugNukiReadableData) {
         NukiLock::logAuthorizationEntry(authEntry, true, logger);
@@ -1667,7 +1667,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     }
     case Command::KeypadCode : {
       KeypadEntry keypadEntry;
-      memcpy(&keypadEntry, data, sizeof(KeypadEntry));
+      memcpy(&keypadEntry, data, dataLen);
       listOfKeyPadEntries.push_back(keypadEntry);
       nrOfReceivedKeypadCodes++;
 

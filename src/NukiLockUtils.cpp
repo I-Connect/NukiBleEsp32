@@ -557,6 +557,9 @@ void logKeyturnerState(KeyTurnerState keyTurnerState, bool debug, Print* Log) {
     logMessageVar("currentTimeSecond: %d", (unsigned int)keyTurnerState.currentTimeSecond, Log, 4);
     logMessageVar("timeZoneOffset: %d", (unsigned int)keyTurnerState.timeZoneOffset, Log, 4);
     logMessageVar("criticalBatteryState composed value: %d", (unsigned int)keyTurnerState.criticalBatteryState, Log, 4);
+    logMessageVar("criticalBatteryState: %d", (unsigned int)(((unsigned int)keyTurnerState.criticalBatteryState) == 1 ? 1 : 0), Log, 4);
+    logMessageVar("batteryCharging: %d", (unsigned int)(((unsigned int)keyTurnerState.criticalBatteryState & 2) == 2 ? 1 : 0), Log, 4);
+    logMessageVar("batteryPercent: %d", (unsigned int)((keyTurnerState.criticalBatteryState & 0b11111100) >> 1), Log, 4);
     logMessageVar("configUpdateCount: %d", (unsigned int)keyTurnerState.configUpdateCount, Log, 4);
     logMessageVar("lockNgoTimer: %d", (unsigned int)keyTurnerState.lockNgoTimer, Log, 4);
     logLockAction((LockAction)keyTurnerState.lastLockAction, debug, Log);
@@ -564,8 +567,33 @@ void logKeyturnerState(KeyTurnerState keyTurnerState, bool debug, Print* Log) {
     logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus, debug, Log);
     logMessageVar("doorSensorState: %d", (unsigned int)keyTurnerState.doorSensorState, Log, 4);
     logMessageVar("nightModeActive: %d", (unsigned int)keyTurnerState.nightModeActive, Log, 4);
-    logMessageVar("Keypad bat critical feature supported: %d", (unsigned int)keyTurnerState.accessoryBatteryState & 1, Log, 4);
-    logMessageVar("Keypad Battery Critical: %d", (unsigned int)keyTurnerState.accessoryBatteryState & 2, Log, 4);
+    logMessageVar("accessoryBatteryState composed value: %d", (unsigned int)keyTurnerState.accessoryBatteryState, Log, 4);
+    logMessageVar("Keypad bat critical feature supported: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 1) == 1 ? 1 : 0), Log, 4);
+    logMessageVar("Keypad Battery Critical: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 3) == 3 ? 1 : 0), Log, 4);
+    logMessageVar("Doorsensor bat critical feature supported: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 4) == 4 ? 1 : 0), Log, 4);
+    logMessageVar("Doorsensor Battery Critical: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 12) == 12 ? 1 : 0), Log, 4);
+    logMessageVar("network composed value: %d", (unsigned int)keyTurnerState.network, Log, 4);
+    logMessageVar("remoteAccessEnabled: %d", (unsigned int)(((keyTurnerState.network & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("bridgePaired: %d", (unsigned int)((((keyTurnerState.network >> 1) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("sseConnectedViaWifi: %d", (unsigned int)((((keyTurnerState.network >> 2) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("sseConnectionEstablished: %d", (unsigned int)((((keyTurnerState.network >> 3) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("isSseConnectedViaThread: %d", (unsigned int)((((keyTurnerState.network >> 4) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("threadSseUplinkEnabledByUser: %d", (unsigned int)((((keyTurnerState.network >> 5) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("nat64AvailableViaThread: %d", (unsigned int)((((keyTurnerState.network >> 6) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("bleConnectionStrength: %d", (unsigned int)keyTurnerState.bleConnectionStrength, Log, 4);
+    logMessageVar("wifiConnectionStrength: %d", (unsigned int)keyTurnerState.wifiConnectionStrength, Log, 4);
+    logMessageVar("wifi composed value: %d", (unsigned int)keyTurnerState.wifi, Log, 4);
+    logMessageVar("wifiStatus: %d", (unsigned int)(keyTurnerState.wifi & 3), Log, 4);
+    logMessageVar("sseStatus: %d", (unsigned int)((keyTurnerState.wifi >> 2) & 3), Log, 4);
+    logMessageVar("wifiQuality: %d", (unsigned int)((keyTurnerState.wifi >> 4) & 15), Log, 4);
+    logMessageVar("mqtt composed value: %d", (unsigned int)keyTurnerState.mqtt, Log, 4);
+    logMessageVar("mqttStatus: %d", (unsigned int)(keyTurnerState.mqtt & 3), Log, 4);
+    logMessageVar("mqttConnectionChannel: %d", (unsigned int)((keyTurnerState.mqtt >> 2) & 1), Log, 4);
+    logMessageVar("thread composed value: %d", (unsigned int)keyTurnerState.thread, Log, 4);
+    logMessageVar("threadConnectionStatus: %d", (unsigned int)(keyTurnerState.thread & 3), Log, 4);
+    logMessageVar("threadSseStatus: %d", (unsigned int)((keyTurnerState.thread >> 2) & 3), Log, 4);
+    logMessageVar("isCommissioningModeActive: %d", (unsigned int)(((unsigned int)keyTurnerState.thread & 16) != 0 ? 1 : 0), Log, 4);
+    logMessageVar("isWifiDisabledBecauseOfThread: %d", (unsigned int)(((unsigned int)keyTurnerState.thread & 32) != 0 ? 1 : 0), Log, 4);
   }
 }
 
@@ -666,6 +694,8 @@ void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug, Print* Log) {
     logMessageVar("autoLockEnabled :%d", (unsigned int)advancedConfig.autoLockEnabled, Log, 4);
     logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)advancedConfig.immediateAutoLockEnabled, Log, 4);
     logMessageVar("autoUpdateEnabled :%d", (unsigned int)advancedConfig.autoUpdateEnabled, Log, 4);
+    logMessageVar("speedMode :%d", (unsigned int)advancedConfig.speedMode, Log, 4);
+    logMessageVar("slowSpeedDuringNightMode :%d", (unsigned int)advancedConfig.slowSpeedDuringNightMode, Log, 4);
   }
 }
 

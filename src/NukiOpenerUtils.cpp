@@ -160,6 +160,7 @@ void logConfig(Config config, bool debug, Print* Log) {
   if (debug) {
     logMessageVar("nukiId :%d", (unsigned int)config.nukiId, Log, 4);
     logMessageVar("name :%s", (const char*)config.name, Log, 4);
+    logMessageVar("capabilities :%s", (unsigned int)config.capabilities, Log, 4);
     logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
     logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
     logMessageVar("pairingEnabled :%d", (unsigned int)config.pairingEnabled, Log, 4);
@@ -176,6 +177,7 @@ void logConfig(Config config, bool debug, Print* Log) {
     logMessageVar("fobAction1 :%d", (unsigned int)config.fobAction1, Log, 4);
     logMessageVar("fobAction2 :%d", (unsigned int)config.fobAction2, Log, 4);
     logMessageVar("fobAction3 :%d", (unsigned int)config.fobAction3, Log, 4);
+    logMessageVar("operatingMode :%d", (unsigned int)config.operatingMode, Log, 4);    
     logMessageVar("advertisingMode :%d", (unsigned int)config.advertisingMode, Log, 4);
     logMessageVar("hasKeypad :%d", (unsigned int)config.hasKeypad, Log, 4);
     if (Log == nullptr) {
@@ -525,8 +527,9 @@ void logKeyturnerState(OpenerState keyTurnerState, bool debug, Print* Log) {
     logLockAction((LockAction)keyTurnerState.lastLockAction, debug, Log);
     logMessageVar("lastLockActionTrigger: %d", (unsigned int)keyTurnerState.lastLockActionTrigger, Log, 4);
     logCompletionStatus(keyTurnerState.lastLockActionCompletionStatus, debug, Log);
-    logMessageVar("doorSensorState: %d", (unsigned int)keyTurnerState.doorSensorState, Log, 4);
-  }
+    logMessageVar("Keypad bat critical feature supported: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 1) == 1 ? 1 : 0), Log, 4);
+    logMessageVar("Keypad Battery Critical: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 3) == 3 ? 1 : 0), Log, 4);  
+    }
 }
 
 void logBatteryReport(BatteryReport batteryReport, bool debug, Print* Log) {
