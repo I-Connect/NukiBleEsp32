@@ -105,7 +105,10 @@ enum class Trigger : uint8_t {
   Manual          = 0x01,
   Button          = 0x02,
   Automatic       = 0x03,
-  AutoLock        = 0x06
+  AutoLock        = 0x06,
+  HomeKit         = 0xAB,
+  MQTT            = 0xAC,
+  Undefined       = 0xFF
 };
 
 
@@ -116,14 +119,18 @@ enum class LockAction : uint8_t {
   LockNgo         = 0x04,
   LockNgoUnlatch  = 0x05,
   FullLock        = 0x06,
+  FobNoAction     = 0x50,
+  ButtonNoAction  = 0x5A,
   FobAction1      = 0x81,
   FobAction2      = 0x82,
-  FobAction3      = 0x83
+  FobAction3      = 0x83,
+  Undefined       = 0xFF
 };
 
 enum class KeypadActionSource : uint8_t {
-  ArrowKey = 0x00,
-  Code = 0x01
+  ArrowKey    = 0x00,
+  Code        = 0x01,
+  Fingerprint = 0x02
 };
 
 enum class KeypadAction : uint8_t {
@@ -141,7 +148,8 @@ enum class ButtonPressAction : uint8_t {
   Lock              = 0x03,
   Unlatch           = 0x04,
   LockNgo           = 0x05,
-  ShowStatus        = 0x06
+  ShowStatus        = 0x06,
+  Unknown           = 0xFF
 };
 
 enum class CompletionStatus : uint8_t {
@@ -172,14 +180,20 @@ struct __attribute__((packed)) KeyTurnerState {
   uint8_t currentTimeSecond;
   int16_t timeZoneOffset;
   uint8_t criticalBatteryState;
-  uint8_t configUpdateCount;
-  bool lockNgoTimer;
-  LockAction lastLockAction;
-  Trigger lastLockActionTrigger;
-  CompletionStatus lastLockActionCompletionStatus;
+  uint8_t configUpdateCount = 255;
+  uint8_t lockNgoTimer = 255;
+  LockAction lastLockAction = LockAction::Undefined;
+  Trigger lastLockActionTrigger = Trigger::Undefined;
+  CompletionStatus lastLockActionCompletionStatus = CompletionStatus::Unknown;
   DoorSensorState doorSensorState = DoorSensorState::Unavailable;
-  uint16_t nightModeActive;
-  uint8_t accessoryBatteryState;
+  uint8_t nightModeActive = 255;
+  uint8_t accessoryBatteryState = 255;
+  uint8_t network = 255;
+  uint8_t bleConnectionStrength = 255;
+  uint8_t wifiConnectionStrength = 255;
+  uint8_t wifi = 255;
+  uint8_t mqtt = 255;
+  uint8_t thread = 255;
 };
 
 struct __attribute__((packed)) Config {
@@ -204,16 +218,18 @@ struct __attribute__((packed)) Config {
   uint8_t  fobAction1;
   uint8_t  fobAction2;
   uint8_t  fobAction3;
-  uint8_t  singleLock;
-  AdvertisingMode advertisingMode;
-  uint8_t hasKeypad;
-  unsigned char firmwareVersion[3];
-  unsigned char hardwareRevision[2];
-  uint8_t homeKitStatus;
-  TimeZoneId timeZoneId;
-  uint8_t undocumented1;
-  uint8_t undocumented2;
-  uint8_t hasKeypadV2;
+  uint8_t  singleLock = 255;
+  AdvertisingMode advertisingMode = AdvertisingMode::Unknown;
+  uint8_t hasKeypad = 255;
+  unsigned char firmwareVersion[3] = {0, 0 , 0};
+  unsigned char hardwareRevision[2] = {0, 0};
+  uint8_t homeKitStatus = 255;
+  TimeZoneId timeZoneId = TimeZoneId::None;
+  uint8_t deviceType = 255;
+  uint8_t network = 255;
+  uint8_t hasKeypadV2 = 255;
+  uint8_t matterStatus = 255;
+  uint8_t productVariant = 255;
 };
 
 struct __attribute__((packed)) NewConfig {
@@ -241,24 +257,26 @@ struct __attribute__((packed)) AdvancedConfig {
   int16_t lockedPositionOffsetDegrees;
   int16_t singleLockedPositionOffsetDegrees;
   int16_t unlockedToLockedTransitionOffsetDegrees;
-  uint8_t lockNgoTimeout;
-  ButtonPressAction singleButtonPressAction;
-  ButtonPressAction doubleButtonPressAction;
-  uint8_t detachedCylinder;
-  BatteryType batteryType;
-  uint8_t automaticBatteryTypeDetection;
-  uint8_t unlatchDuration;
-  uint16_t autoLockTimeOut;
-  uint8_t autoUnLockDisabled;
-  uint8_t nightModeEnabled;
-  unsigned char nightModeStartTime[2];
-  unsigned char nightModeEndTime[2];
-  uint8_t nightModeAutoLockEnabled;
-  uint8_t nightModeAutoUnlockDisabled;
-  uint8_t  nightModeImmediateLockOnStart;
-  uint8_t autoLockEnabled;
-  uint8_t immediateAutoLockEnabled;
-  uint8_t autoUpdateEnabled;
+  uint8_t lockNgoTimeout = 255;
+  ButtonPressAction singleButtonPressAction = ButtonPressAction::Unknown;
+  ButtonPressAction doubleButtonPressAction = ButtonPressAction::Unknown;
+  uint8_t detachedCylinder = 255;
+  BatteryType batteryType = BatteryType::Unknown;
+  uint8_t automaticBatteryTypeDetection = 255;
+  uint8_t unlatchDuration = 255;
+  uint16_t autoLockTimeOut = -1;
+  uint8_t autoUnLockDisabled = 255;
+  uint8_t nightModeEnabled = 255;
+  unsigned char nightModeStartTime[2] = {0, 0};
+  unsigned char nightModeEndTime[2] = {0, 0};
+  uint8_t nightModeAutoLockEnabled = 255;
+  uint8_t nightModeAutoUnlockDisabled = 255;
+  uint8_t  nightModeImmediateLockOnStart = 255;
+  uint8_t autoLockEnabled = 255;
+  uint8_t immediateAutoLockEnabled = 255;
+  uint8_t autoUpdateEnabled = 255;
+  uint8_t speedMode = 255;
+  uint8_t slowSpeedDuringNightMode = 255;
 };
 
 struct __attribute__((packed)) NewAdvancedConfig {
@@ -360,6 +378,12 @@ inline void lockactionToString(const LockAction action, char* str) {
     case LockAction::FullLock:
       strcpy(str, "FullLock");
       break;
+    case LockAction::FobNoAction:
+      strcpy(str, "FobNoAction");
+      break;
+    case LockAction::ButtonNoAction:
+      strcpy(str, "ButtonNoAction");
+      break;
     case LockAction::FobAction1:
       strcpy(str, "FobAction1");
       break;
@@ -432,6 +456,12 @@ inline void triggerToString(const Trigger trigger, char* str) {
       break;
     case Trigger::System:
       strcpy(str, "system");
+      break;
+    case Trigger::HomeKit:
+      strcpy(str, "homekit");
+      break;
+    case Trigger::MQTT:
+      strcpy(str, "mqtt");
       break;
     default:
       strcpy(str, "undefined");
@@ -506,6 +536,15 @@ inline void doorSensorStateToString(const DoorSensorState state, char* str) {
       break;
     case DoorSensorState::Calibrating:
       strcpy(str, "calibrating");
+      break;
+    case DoorSensorState::Uncalibrated:
+      strcpy(str, "uncalibrated");
+      break;
+    case DoorSensorState::Tampered:
+      strcpy(str, "tampered");
+      break;
+    case DoorSensorState::Unknown:
+      strcpy(str, "unknown");
       break;
     default:
       strcpy(str, "undefined");

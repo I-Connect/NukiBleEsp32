@@ -625,18 +625,35 @@ Nuki::CmdResult NukiLock::retrieveLogEntries(const uint32_t startIndex, const ui
 }
 
 bool NukiLock::isBatteryCritical() {
-  return ((keyTurnerState.criticalBatteryState & (1 << 0)) != 0);
+  if(keyTurnerState.criticalBatteryState != 255) {
+    return ((keyTurnerState.criticalBatteryState & 1) == 1);
+  }
+  return false;
 }
 
 bool NukiLock::isKeypadBatteryCritical() {
-  if ((keyTurnerState.accessoryBatteryState & (1 << 7)) != 0) {
-    return ((keyTurnerState.accessoryBatteryState & (1 << 6)) != 0);
+  if(keyTurnerState.accessoryBatteryState != 255) {
+    if ((keyTurnerState.accessoryBatteryState & 1) == 1) {
+      return ((keyTurnerState.accessoryBatteryState & 3) == 3);
+    }
+  }
+  return false;
+}
+
+bool NukiLock::isDoorSensorBatteryCritical() {
+  if(keyTurnerState.accessoryBatteryState != 255) {
+    if ((keyTurnerState.accessoryBatteryState & 4) == 4) {
+      return ((keyTurnerState.accessoryBatteryState & 12) == 12);
+    }
   }
   return false;
 }
 
 bool NukiLock::isBatteryCharging() {
-  return ((keyTurnerState.criticalBatteryState & (1 << 1)) != 0);
+  if(keyTurnerState.criticalBatteryState != 255) {
+    return ((keyTurnerState.criticalBatteryState & 2) == 2);
+  }
+  return false;
 }
 
 uint8_t NukiLock::getBatteryPerc() {
@@ -736,7 +753,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
   switch (returnCode) {
     case Command::KeyturnerStates : {
       printBuffer((byte*)data, dataLen, false, "keyturnerStates", debugNukiHexData, logger);
-      memcpy(&keyTurnerState, data, sizeof(keyTurnerState));
+      memcpy(&keyTurnerState, data, dataLen);
       if (debugNukiReadableData) {
         logKeyturnerState(keyTurnerState, true, logger);
       }
@@ -744,14 +761,14 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     }
     case Command::BatteryReport : {
       printBuffer((byte*)data, dataLen, false, "batteryReport", debugNukiHexData, logger);
-      memcpy(&batteryReport, data, sizeof(batteryReport));
+      memcpy(&batteryReport, data, dataLen);
       if (debugNukiReadableData) {
         logBatteryReport(batteryReport, true, logger);
       }
       break;
     }
     case Command::Config : {
-      memcpy(&config, data, sizeof(config));
+      memcpy(&config, data, dataLen);
       if (debugNukiReadableData) {
         logConfig(config, true, logger);
       }
@@ -759,7 +776,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::AdvancedConfig : {
-      memcpy(&advancedConfig, data, sizeof(advancedConfig));
+      memcpy(&advancedConfig, data, dataLen);
       if (debugNukiReadableData) {
         logAdvancedConfig(advancedConfig, true, logger);
       }
@@ -769,14 +786,14 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::TimeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "timeControlEntry", debugNukiHexData, logger);
       TimeControlEntry timeControlEntry;
-      memcpy(&timeControlEntry, data, sizeof(timeControlEntry));
+      memcpy(&timeControlEntry, data, dataLen);
       listOfTimeControlEntries.push_back(timeControlEntry);
       break;
     }
     case Command::LogEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry", debugNukiHexData, logger);
       LogEntry logEntry;
-      memcpy(&logEntry, data, sizeof(logEntry));
+      memcpy(&logEntry, data, dataLen);
       listOfLogEntries.push_back(logEntry);
       if (debugNukiReadableData) {
         logLogEntry(logEntry, true, logger);

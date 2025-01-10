@@ -28,6 +28,29 @@
 #define PAIRING_TIMEOUT 30000
 #define HEARTBEAT_TIMEOUT 30000
 
+#ifdef CONFIG_IDF_TARGET_ESP32P4
+typedef enum {
+    ESP_PWR_LVL_N24 = 0,              /*!< Corresponding to -24 dBm */
+    ESP_PWR_LVL_N21 = 1,              /*!< Corresponding to -21 dBm */
+    ESP_PWR_LVL_N18 = 2,              /*!< Corresponding to -18 dBm */
+    ESP_PWR_LVL_N15 = 3,              /*!< Corresponding to -15 dBm */
+    ESP_PWR_LVL_N12 = 4,              /*!< Corresponding to -12 dBm */
+    ESP_PWR_LVL_N9  = 5,              /*!< Corresponding to  -9 dBm */
+    ESP_PWR_LVL_N6  = 6,              /*!< Corresponding to  -6 dBm */
+    ESP_PWR_LVL_N3  = 7,              /*!< Corresponding to  -3 dBm */
+    ESP_PWR_LVL_N0  = 8,              /*!< Corresponding to   0 dBm */
+    ESP_PWR_LVL_P3  = 9,             /*!< Corresponding to  +3 dBm */
+    ESP_PWR_LVL_P6  = 10,             /*!< Corresponding to  +6 dBm */
+    ESP_PWR_LVL_P9  = 11,             /*!< Corresponding to  +9 dBm */
+    ESP_PWR_LVL_P12 = 12,             /*!< Corresponding to  +12 dBm */
+    ESP_PWR_LVL_P15 = 13,             /*!< Corresponding to  +15 dBm */
+    ESP_PWR_LVL_P18 = 14,             /*!< Corresponding to  +18 dBm */
+    ESP_PWR_LVL_P20 = 15,              /*!< Corresponding to  +20 dBm */
+    ESP_PWR_LVL_P21 = 15,              /*!< Corresponding to  +20 dBm, this enum variable has been deprecated */
+    ESP_PWR_LVL_INVALID = 0xFF,         /*!< Indicates an invalid value */
+} esp_power_level_t;
+#endif
+
 namespace Nuki {
 class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
   public:
