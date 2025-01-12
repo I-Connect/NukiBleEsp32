@@ -60,6 +60,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
             const NimBLEUUID pairingServiceUltraUUID,
             const NimBLEUUID deviceServiceUUID,
             const NimBLEUUID gdioUUID,
+            const NimBLEUUID gdioUltraUUID,
             const NimBLEUUID userDataUUID,
             const std::string preferencedId);
     virtual ~NukiBle();
@@ -443,6 +444,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool statusUpdated = false;
     bool refreshServices = false;
     bool smartLockUltra = false;
+    bool ultraAuthInfoCommandReceived = false;
+    bool encryptPairing = false;
+    bool recieveEncrypted = false;
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
@@ -490,6 +494,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     const NimBLEUUID deviceServiceUUID;
 //Keyturner pairing Data Input Output characteristic
     const NimBLEUUID gdioUUID;
+//Keyturner pairing Data Input Output characteristic Ultra
+    const NimBLEUUID gdioUltraUUID;
 //User-Specific Data Input Output characteristic
     const NimBLEUUID userDataUUID;
 

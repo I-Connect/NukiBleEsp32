@@ -27,6 +27,8 @@ const NimBLEUUID keyturnerPairingServiceUltraUUID  = NimBLEUUID("a92ee300-5501-1
 const NimBLEUUID keyturnerServiceUUID  = NimBLEUUID("a92ee200-5501-11e4-916c-0800200c9a66");
 //Keyturner pairing Data Input Output characteristic
 const NimBLEUUID keyturnerGdioUUID  = NimBLEUUID("a92ee101-5501-11e4-916c-0800200c9a66");
+//Keyturner pairing Data Input Output characteristic Ultra
+const NimBLEUUID keyturnerGdioUltraUUID  = NimBLEUUID("a92ee301-5501-11e4-916c-0800200c9a66");
 //User-Specific Data Input Output characteristic
 const NimBLEUUID keyturnerUserDataUUID  = NimBLEUUID("a92ee202-5501-11e4-916c-0800200c9a66");
 
@@ -193,12 +195,12 @@ struct __attribute__((packed)) KeyTurnerState {
   DoorSensorState doorSensorState = DoorSensorState::Unavailable;
   uint8_t nightModeActive = 255;
   uint8_t accessoryBatteryState = 255;
-  uint8_t network = 255;
-  int8_t bleConnectionStrength = 127;
-  int8_t wifiConnectionStrength = 127;
-  uint8_t wifi = 255;
-  uint8_t mqtt = 255;
-  uint8_t thread = 255;
+  uint8_t remoteAccessStatus = 255;
+  int8_t bleConnectionStrength = 1;
+  int8_t wifiConnectionStrength = 1;
+  uint8_t wifiConnectionStatus = 255;
+  uint8_t mqttConnectionStatus = 255;
+  uint8_t threadConnectionStatus = 255;
 };
 
 struct __attribute__((packed)) Config {
@@ -231,7 +233,7 @@ struct __attribute__((packed)) Config {
   uint8_t homeKitStatus = 255;
   TimeZoneId timeZoneId = TimeZoneId::None;
   uint8_t deviceType = 255;
-  uint8_t network = 255;
+  uint8_t capabilities = 255;
   uint8_t hasKeypadV2 = 255;
   uint8_t matterStatus = 255;
   uint8_t productVariant = 255;

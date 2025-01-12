@@ -9,7 +9,8 @@ NukiOpener::NukiOpener(const std::string& deviceName, const uint32_t deviceId)
             openerPairingServiceUUID,
             openerPairingServiceUUID,            
             openerServiceUUID,
-            openerGdioUUID,      
+            openerGdioUUID,
+            openerGdioUUID,            
             openerUserDataUUID,
             deviceName + "opener") {
   errorCode = (uint8_t)ErrorCode::ERROR_UNKNOWN;

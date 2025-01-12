@@ -462,15 +462,6 @@ class NukiLock : public Nuki::NukiBle {
     bool isDoorSensorBatteryCritical();
 
     /**
-     * @brief Returns door sensor battery critical state in case this is supported
-     *
-     * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
-     *
-     * @return true if critical
-     */
-    bool isDoorSensorBatteryCritical();
-
-    /**
      * @brief Returns keypad battery critical state in case this is supported
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
