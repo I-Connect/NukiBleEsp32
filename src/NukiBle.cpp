@@ -464,15 +464,16 @@ void NukiBle::updateConnectionState() {
   #else
   if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
   #endif
+    if (debugNukiConnect) {
+      logMessage("disconnecting BLE on timeout");
+    }
+  
     if (altConnect) {
       disconnect();
       delay(200);
     }
     else if (pClient && pClient->isConnected()) {
-      pClient->disconnect();
-      if (debugNukiConnect) {
-        logMessage("disconnecting BLE on timeout");
-      }
+      pClient->disconnect();      
     }
   }
 }
@@ -501,7 +502,9 @@ void NukiBle::disconnect()
       int loop = 0;
 
       while ((countDisconnects > 0 || pClient->isConnected()) && loop < 50) {
-        logMessage(".");
+        if (debugNukiConnect) {
+          logMessage(".");
+        }
         loop++;
         delay(100);
       }
@@ -1562,7 +1565,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     case Command::AuthorizationEntry : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntry", debugNukiHexData, logger);
       AuthorizationEntry authEntry;
-      memcpy(&authEntry, data, sizeof(authEntry));
+      memcpy(&authEntry, data, dataLen);
       listOfAuthorizationEntries.push_back(authEntry);
       if (debugNukiReadableData) {
         NukiLock::logAuthorizationEntry(authEntry, true, logger);
@@ -1657,7 +1660,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     }
     case Command::KeypadCode : {
       KeypadEntry keypadEntry;
-      memcpy(&keypadEntry, data, sizeof(KeypadEntry));
+      memcpy(&keypadEntry, data, dataLen);
       listOfKeyPadEntries.push_back(keypadEntry);
       nrOfReceivedKeypadCodes++;
 

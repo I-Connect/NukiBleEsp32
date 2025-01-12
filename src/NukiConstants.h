@@ -28,20 +28,25 @@ enum class DoorSensorState : uint8_t {
   DoorClosed        = 0x02,
   DoorOpened        = 0x03,
   DoorStateUnknown  = 0x04,
-  Calibrating       = 0x05
+  Calibrating       = 0x05,
+  Uncalibrated      = 0x10,
+  Tampered          = 0xF0,
+  Unknown           = 0xFF
 };
 
 enum class BatteryType : uint8_t {
   Alkali            = 0x00,
   Accumulators      = 0x01,
-  Lithium           = 0x02
+  Lithium           = 0x02,
+  Unknown           = 0xFF
 };
 
 enum class AdvertisingMode : uint8_t {
   Automatic                 = 0x00,
   Normal                    = 0x01,
   Slow                      = 0x02,
-  Slowest                   = 0x03
+  Slowest                   = 0x03,
+  Unknown                   = 0xFF
 };
 
 enum class CommandType {
