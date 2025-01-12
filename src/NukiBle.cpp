@@ -469,7 +469,6 @@ void NukiBle::updateConnectionState() {
     if (debugNukiConnect) {
       logMessage("disconnecting BLE on timeout");
     }
-
     if (altConnect) {
       disconnect();
       delay(200);
