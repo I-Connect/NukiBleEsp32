@@ -1,7 +1,5 @@
 <map id="Nuki::NukiBle::updateConnectionState" name="Nuki::NukiBle::updateConnectionState">
-<area shape="rect" id="Node000001" title="checks the time past after last connect/communication sent, if the time past &gt; timeout it will discon..." alt="" coords="5,27,216,68"/>
-<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="271,5,448,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,32,255,28,256,33,217,38"/>
-<area shape="rect" id="Node000003" href="$class_nuki_1_1_smartlock_event_handler.html#af5cebe7eda52707bd70beb8e76779f35" title=" " alt="" coords="264,55,455,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,57,249,60,248,66,216,62"/>
+<area shape="rect" id="Node000001" title="checks the time past after last connect/communication sent, if the time past &gt; timeout it will discon..." alt="" coords="5,5,216,46"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="264,13,440,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,23,248,23,248,28,216,28"/>
 </map>

@@ -67,7 +67,7 @@ var sectionId = 'dynsection-17';
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" target="_top" xlink:title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori...">
+<g id="a_Node000002"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" target="_top" xlink:title="Sends a new time(d) control entry via BLE to the opener. This entry is independant of keypad or autho...">
 <polygon fill="white" stroke="#666666" points="124,-222.5 0,-222.5 0,-192 124,-192 124,-222.5"/>
 <text text-anchor="start" x="8" y="-209" font-family="Helvetica,sans-Serif" font-size="10.00">NukiOpener::NukiOpener</text>
 <text text-anchor="middle" x="62" y="-197.75" font-family="Helvetica,sans-Serif" font-size="10.00">::addTimeControlEntry</text>
@@ -327,7 +327,7 @@ var sectionId = 'dynsection-17';
 <!-- Node17 -->
 <g id="Node000017" class="node">
 <title>Node17</title>
-<g id="a_Node000017"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())">
+<g id="a_Node000017"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry())">
 <polygon fill="white" stroke="#666666" points="124,-157.5 0,-157.5 0,-127 124,-127 124,-157.5"/>
 <text text-anchor="start" x="8" y="-144" font-family="Helvetica,sans-Serif" font-size="10.00">NukiOpener::NukiOpener</text>
 <text text-anchor="middle" x="62" y="-132.75" font-family="Helvetica,sans-Serif" font-size="10.00">::updateTimeControlEntry</text>

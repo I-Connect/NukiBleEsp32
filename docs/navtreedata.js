@@ -67,12 +67,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_nuki_ble_8cpp.html",
-"_nuki_lock_constants_8h.html#a4176caa33e367b525ac0c1bb9c37b555a02d2a7ceeeea3587a4cb7cd1d8f173a7",
-"_nuki_opener_utils_8h.html#a638bfcc18f6f52df16f58eec971242a9",
-"class_nuki_lock_1_1_nuki_lock.html#aad63ea6dc121cc0745fc6355bf2c8f26",
-"namespace_nuki.html#a5714cd110e8452ec5d8394d92fed9f01a2d8ecfbda4b25a3c632048787b9f68c3",
-"namespace_nuki_opener.html#a0a734c84a0fcb8e58a4fe1162747db98"
+"class_nuki_lock_1_1_nuki_lock.html#ac6457349ae032efb2d299681ac1ad21c",
+"namespace_nuki.html#a5714cd110e8452ec5d8394d92fed9f01a526bd89bca7caf788d8695298a7d2f8d",
+"namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3aec0fc0100c4fc1ce4eea230c3dc10360"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';

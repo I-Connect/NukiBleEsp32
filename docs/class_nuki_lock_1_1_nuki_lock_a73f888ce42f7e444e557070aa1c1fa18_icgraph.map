@@ -1,0 +1,4 @@
+<map id="NukiLock::NukiLock::keypadAction" name="NukiLock::NukiLock::keypadAction">
+<area shape="rect" id="Node000001" title="Send a keypad action entry to the lock via BLE." alt="" coords="5,29,145,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="97,16,89,10,75,8,62,10,55,14,52,20,53,28,48,29,46,20,51,11,60,5,75,3,91,5,100,12"/>
+</map>

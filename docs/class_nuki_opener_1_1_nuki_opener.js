@@ -15,6 +15,7 @@ var class_nuki_opener_1_1_nuki_opener =
     [ "getTimeControlEntries", "class_nuki_opener_1_1_nuki_opener.html#a410947eb5c2922039dbd82fe10c824ef", null ],
     [ "handleReturnMessage", "class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da", null ],
     [ "isBatteryCritical", "class_nuki_opener_1_1_nuki_opener.html#a0e9d8a92ddbf41bd1c69faecd5138353", null ],
+    [ "isKeypadBatteryCritical", "class_nuki_opener_1_1_nuki_opener.html#a99426e312104a6d9e7ee048b996dd073", null ],
     [ "lockAction", "class_nuki_opener_1_1_nuki_opener.html#af7bf0184f8d1996da0660950c9147c5d", null ],
     [ "logErrorCode", "class_nuki_opener_1_1_nuki_opener.html#a7dc6d5feb760fba6bff83fe8d3ca9a5d", null ],
     [ "removeTimeControlEntry", "class_nuki_opener_1_1_nuki_opener.html#a581e5d1842eaa23096f70f52425ad30d", null ],

@@ -11,5 +11,6 @@ var searchData=
   ['bt_20processes_8',['BT processes',['../index.html#autotoc_md4',1,'']]],
   ['busy_9',['Busy',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aad8a942ef2b04672adfafef0ad817a407',1,'NukiLock::Busy'],['../namespace_nuki_opener.html#a4177c1ba41abd209eed76ca85cb40c88ad8a942ef2b04672adfafef0ad817a407',1,'NukiOpener::Busy']]],
   ['button_10',['Button',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a87b7760f14fbff78d8819291f36ab9a0',1,'NukiLock::Button'],['../namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a87b7760f14fbff78d8819291f36ab9a0',1,'NukiOpener::Button']]],
-  ['buttonpressaction_11',['ButtonPressAction',['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3ee',1,'NukiLock::ButtonPressAction'],['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8',1,'NukiOpener::ButtonPressAction']]]
+  ['buttonnoaction_11',['ButtonNoAction',['../namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a76cdbc29a8b8949b85b453fa985fb83e',1,'NukiLock']]],
+  ['buttonpressaction_12',['ButtonPressAction',['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3ee',1,'NukiLock::ButtonPressAction'],['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8',1,'NukiOpener::ButtonPressAction']]]
 ];

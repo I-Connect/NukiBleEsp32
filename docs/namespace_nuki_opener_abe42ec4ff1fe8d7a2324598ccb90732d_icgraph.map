@@ -10,7 +10,7 @@
 <area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="680,151,632,157,631,152,680,146"/>
 <area shape="rect" id="Node000008" href="$namespace_nuki_opener.html#a6083f441acdf873afa151b034ab6531f" title=" " alt="" coords="435,201,647,227"/>
 <area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="735,159,648,193,610,203,608,198,646,188,734,154"/>
-<area shape="rect" id="Node000010" href="$class_nuki_opener_1_1_nuki_opener.html#ae43af00023df78b352c61c98730c1aa9" title="Gets the current config from the lock, updates the name parameter and sends the new config to the loc..." alt="" coords="458,251,624,292"/>
+<area shape="rect" id="Node000010" href="$class_nuki_opener_1_1_nuki_opener.html#ae43af00023df78b352c61c98730c1aa9" title="Gets the current config from the opener, updates the name parameter and sends the new config to the o..." alt="" coords="458,251,624,292"/>
 <area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="755,162,708,203,649,242,623,253,621,248,646,237,705,198,751,158"/>
 <area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#a510454c0171d807a1eebd77045481ba0" title=" " alt="" coords="219,87,387,128"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="437,110,388,110,388,105,437,105"/>

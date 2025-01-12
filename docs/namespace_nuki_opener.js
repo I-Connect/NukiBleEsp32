@@ -67,7 +67,8 @@ var namespace_nuki_opener =
       [ "DeactivateCM", "namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39a4fecc2b363fa42e158cdb3c24a79e926", null ],
       [ "FobAction1", "namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39a06c7dbc24df6f12a62609defae01495b", null ],
       [ "FobAction2", "namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39a67b54505a5a3c64673bdd2bf36e4976a", null ],
-      [ "FobAction3", "namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39af05497b6325e433ff3cc947193cde8b3", null ]
+      [ "FobAction3", "namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39af05497b6325e433ff3cc947193cde8b3", null ],
+      [ "Undefined", "namespace_nuki_opener.html#a639ee897419a4acc4076c92ae4a32a39aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "LockState", "namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7", [
       [ "Uncalibrated", "namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7a9ebd1ce633af953bfdb15a87432bb702", null ],
@@ -95,12 +96,12 @@ var namespace_nuki_opener =
       [ "System", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2aa45da96d0bf6575970f2d27af22be28a", null ],
       [ "Manual", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2ae1ba155a9f2e8c3be94020eef32a0301", null ],
       [ "Button", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a87b7760f14fbff78d8819291f36ab9a0", null ],
-      [ "Automatic", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a086247a9b57fde6eefee2a0c4752242d", null ]
+      [ "Automatic", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a086247a9b57fde6eefee2a0c4752242d", null ],
+      [ "Undefined", "namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "__attribute__", "namespace_nuki_opener.html#aad7d6b0194a17c63e1016ede4a5db454", null ],
     [ "cmdResultToString", "namespace_nuki_opener.html#a638bfcc18f6f52df16f58eec971242a9", null ],
     [ "completionStatusToString", "namespace_nuki_opener.html#a0a2d135ae3ef54e3226280e1efa73c2a", null ],
-    [ "doorSensorStateToString", "namespace_nuki_opener.html#a0047e07ce2159fd4bc80769a06fbf1b7", null ],
     [ "getWeekdaysIntFromBitset", "namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3", null ],
     [ "lockactionToString", "namespace_nuki_opener.html#a3eb4b4e6b42f9dfca328d0e63a8cf7a8", null ],
     [ "lockstateToString", "namespace_nuki_opener.html#afa92b28fac24866d93b619b4bbbd24bd", null ],

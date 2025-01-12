@@ -1,0 +1,27 @@
+<map id="NukiOpener::NukiOpener::requestConfig" name="NukiOpener::NukiOpener::requestConfig">
+<area shape="rect" id="Node000001" title="Requests config from Opener via BLE." alt="" coords="219,365,384,406"/>
+<area shape="rect" id="Node000002" href="$class_nuki_opener_1_1_nuki_opener.html#aed7ed4621f341dbbb6638f80caf2b821" title="Gets the current config from the opener, updates the enable button parameter and sends the new config..." alt="" coords="5,5,171,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="293,351,280,289,257,212,241,171,221,132,197,94,169,61,153,49,156,44,173,57,201,91,226,129,246,169,262,210,285,288,298,349"/>
+<area shape="rect" id="Node000003" href="$class_nuki_opener_1_1_nuki_opener.html#adec9646f1ab2554c30e48ca921027c27" title="Gets the current config from the opener, updates the dst parameter and sends the new config to the op..." alt="" coords="5,71,171,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,351,273,301,248,241,214,180,193,152,169,126,152,114,155,110,172,122,197,148,218,177,253,239,278,300,294,349"/>
+<area shape="rect" id="Node000004" href="$class_nuki_opener_1_1_nuki_opener.html#a394f423aacea614075b4f75efcaa7ade" title="Gets the current config from the opener, updates the whether or not the flashing LED should be enable..." alt="" coords="5,136,171,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="283,352,238,272,207,229,169,192,150,179,153,175,172,188,211,226,243,270,287,350"/>
+<area shape="rect" id="Node000005" href="$class_nuki_opener_1_1_nuki_opener.html#ac4f34c593d6f10ac2c20b916fb95189a" title="Sets the opener ability to pair with other devices (can be used to prevent unauthorized pairing) Gets..." alt="" coords="5,201,171,242"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="273,355,227,306,169,257,147,245,150,240,172,253,231,302,277,352"/>
+<area shape="rect" id="Node000006" href="$class_nuki_opener_1_1_nuki_opener.html#aeda4cb90d96951662969b5a77560e7f0" title="Gets the current config from the opener, updates the advertising frequency parameter and sends the ne..." alt="" coords="5,267,171,307"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="246,360,170,323,141,310,143,305,172,318,249,356"/>
+<area shape="rect" id="Node000007" href="$class_nuki_opener_1_1_nuki_opener.html#ad77022352f265372617097e22954a21a" title="Gets the current config from the opener, updates the given fob action parameter and sends the new con..." alt="" coords="5,332,171,373"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="203,373,171,368,172,363,204,368"/>
+<area shape="rect" id="Node000008" href="$class_nuki_opener_1_1_nuki_opener.html#a0bdd923d50e748afe15244920193c4cd" title="Gets the current config from the opener, updates the latitude parameter and sends the new config to t..." alt="" coords="5,397,171,438"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="204,403,172,408,171,403,203,398"/>
+<area shape="rect" id="Node000009" href="$class_nuki_opener_1_1_nuki_opener.html#a01c5c371a31a08b6fe6395bbcd780841" title="Gets the current config from the opener, updates the longitude parameter and sends the new config to ..." alt="" coords="5,463,171,503"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="248,416,172,452,143,464,141,460,170,447,245,411"/>
+<area shape="rect" id="Node000010" href="$class_nuki_opener_1_1_nuki_opener.html#ae43af00023df78b352c61c98730c1aa9" title="Gets the current config from the opener, updates the name parameter and sends the new config to the o..." alt="" coords="5,528,171,569"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="276,420,230,469,172,517,150,530,147,525,169,513,227,465,272,417"/>
+<area shape="rect" id="Node000011" href="$class_nuki_opener_1_1_nuki_opener.html#a33030ce3d8aaf1d23aee03d56cdc909d" title="Gets the current config from the opener, updates the operating mode parameter and sends the new confi..." alt="" coords="5,593,171,634"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="287,421,243,501,211,544,172,582,153,595,150,591,169,578,207,541,238,498,283,419"/>
+<area shape="rect" id="Node000012" href="$class_nuki_opener_1_1_nuki_opener.html#a9b11d1e7e08826a1a218adc3439618d4" title="Gets the current config from the opener, updates the timezone id parameter and sends the new config t..." alt="" coords="5,659,171,699"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="294,422,278,472,253,532,218,593,197,622,172,648,155,660,152,656,169,644,193,618,214,590,248,529,273,470,288,421"/>
+<area shape="rect" id="Node000013" href="$class_nuki_opener_1_1_nuki_opener.html#aeff91361728c22170ffcdce86c1de701" title="Gets the current config from the opener, updates the timezone offset parameter and sends the new conf..." alt="" coords="5,724,171,765"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="298,422,285,484,262,561,225,641,201,679,173,713,156,726,153,721,169,709,197,676,221,639,257,559,280,482,292,421"/>
+</map>

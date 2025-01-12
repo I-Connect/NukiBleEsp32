@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())">
+<g id="a_Node000002"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry())">
 <polygon fill="white" stroke="#666666" points="124,-30.5 0,-30.5 0,0 124,0 124,-30.5"/>
 <text text-anchor="start" x="8" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">NukiOpener::NukiOpener</text>
 <text text-anchor="middle" x="62" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">::updateTimeControlEntry</text>

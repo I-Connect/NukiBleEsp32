@@ -1,6 +1,6 @@
 <map id="NukiOpener::logMessageVar" name="NukiOpener::logMessageVar">
 <area shape="rect" id="Node000001" title=" " alt="" coords="504,456,690,481"/>
-<area shape="rect" id="Node000002" href="$class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,668,171,709"/>
+<area shape="rect" id="Node000002" href="$class_nuki_opener_1_1_nuki_opener.html#a6dee2bf0f439e7017fd9c2b3ae15a40c" title="Sends a new time(d) control entry via BLE to the opener. This entry is independant of keypad or autho..." alt="" coords="5,668,171,709"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="590,497,572,540,545,592,507,643,484,665,457,683,423,698,386,710,310,720,236,718,171,710,171,705,236,713,310,714,385,704,421,693,455,678,480,661,503,639,541,589,568,538,585,495"/>
 <area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#a0a734c84a0fcb8e58a4fe1162747db98" title=" " alt="" coords="234,185,441,210"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="586,441,569,393,543,334,505,274,481,247,454,224,436,213,439,209,458,219,485,243,509,270,547,331,574,391,591,440"/>
@@ -28,7 +28,7 @@
 <area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="528,454,420,427,422,421,529,449"/>
 <area shape="rect" id="Node000016" href="$namespace_nuki_opener.html#af823ab673287af9ea23f8c4a30c7d053" title=" " alt="" coords="246,793,429,834"/>
 <area shape="poly" id="edge20_Node000001_Node000016" title=" " alt="" coords="593,497,579,555,554,630,536,670,514,709,488,745,458,777,430,795,427,791,454,773,484,742,510,706,531,668,549,628,574,554,588,496"/>
-<area shape="rect" id="Node000017" href="$class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,755,171,795"/>
+<area shape="rect" id="Node000017" href="$class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry())" alt="" coords="5,755,171,795"/>
 <area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="592,497,576,548,550,610,511,673,486,701,457,725,436,736,406,746,332,760,249,769,171,774,171,769,249,764,332,754,405,740,434,731,455,721,482,698,507,670,545,608,571,546,587,496"/>
 <area shape="rect" id="Node000018" href="$namespace_nuki_opener.html#adc9a3af005e643dd463762f63c0cb74f" title=" " alt="" coords="219,859,456,899"/>
 <area shape="poly" id="edge22_Node000001_Node000018" title=" " alt="" coords="596,497,587,567,564,662,546,712,523,761,494,807,458,848,440,860,437,856,454,844,490,804,518,759,541,710,559,660,582,566,591,496"/>

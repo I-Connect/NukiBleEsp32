@@ -1,19 +1,12 @@
 var searchData=
 [
-  ['unavailable_0',['Unavailable',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3a453e6aa38d87b28ccae545967c53004f',1,'Nuki']]],
-  ['uncalibrated_1',['Uncalibrated',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a9ebd1ce633af953bfdb15a87432bb702',1,'NukiLock::Uncalibrated'],['../namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7a9ebd1ce633af953bfdb15a87432bb702',1,'NukiOpener::Uncalibrated']]],
-  ['undefined_2',['Undefined',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798aec0fc0100c4fc1ce4eea230c3dc10360',1,'NukiLock::Undefined'],['../namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7aec0fc0100c4fc1ce4eea230c3dc10360',1,'NukiOpener::Undefined']]],
-  ['uninitialized_3',['Uninitialized',['../namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baaf704f57ea420275ad51bf55b7dec2c96',1,'NukiLock::Uninitialized'],['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aaf704f57ea420275ad51bf55b7dec2c96',1,'NukiOpener::Uninitialized']]],
-  ['unknown_4',['Unknown',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa88183b946cc5f0e8c96b2e66e1c74a7e',1,'NukiLock::Unknown'],['../namespace_nuki_opener.html#a4177c1ba41abd209eed76ca85cb40c88a88183b946cc5f0e8c96b2e66e1c74a7e',1,'NukiOpener::Unknown']]],
-  ['unlatch_5',['Unlatch',['../namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a02d2a7ceeeea3587a4cb7cd1d8f173a7',1,'NukiLock::Unlatch'],['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a02d2a7ceeeea3587a4cb7cd1d8f173a7',1,'NukiLock::Unlatch'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea02d2a7ceeeea3587a4cb7cd1d8f173a7',1,'NukiLock::Unlatch']]],
-  ['unlatched_6',['Unlatched',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798ae53c6c0705fb3cc776583b2f0c2b5d67',1,'NukiLock']]],
-  ['unlatching_7',['Unlatching',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a2620d966469bc4050fac716b2b2298d1',1,'NukiLock']]],
-  ['unlock_8',['Unlock',['../namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a7e7123b0d269ad5d9ec8d12c52a8ed8a',1,'NukiLock::Unlock'],['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a7e7123b0d269ad5d9ec8d12c52a8ed8a',1,'NukiLock::Unlock'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea7e7123b0d269ad5d9ec8d12c52a8ed8a',1,'NukiLock::Unlock']]],
-  ['unlocked_9',['Unlocked',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798ac76fd517e45cc95709f4ac106efa4a94',1,'NukiLock']]],
-  ['unlockedlnga_10',['UnlockedLnga',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a71070ad051e2fda8cba5a623f2061dcd',1,'NukiLock']]],
-  ['unlocking_11',['Unlocking',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798ae09230fbf406d201b5e434081af16c3d',1,'NukiLock']]],
-  ['updateauthorization_12',['UpdateAuthorization',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a973252b3afd23b62da33c09092e2f950',1,'Nuki']]],
-  ['updatekeypadcode_13',['UpdateKeypadCode',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4cb35e7aad6fd3b954f39308ec3acc21',1,'Nuki']]],
-  ['updatetime_14',['UpdateTime',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b33ee0ac8480dff8a93c383634996b7',1,'Nuki']]],
-  ['updatetimecontrolentry_15',['UpdateTimeControlEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4ed64f95dbde67ec6bc0eff55649f616',1,'Nuki']]]
+  ['tampered_0',['Tampered',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3a692bc1cf4340ebe99b02477daa920f39',1,'Nuki']]],
+  ['timecontrolentry_1',['TimeControlEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3b348e6ffdbc14464309f43002649c3f',1,'Nuki']]],
+  ['timecontrolentrycount_2',['TimeControlEntryCount',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6802c76a560fd1fa44214441d51179e4',1,'Nuki']]],
+  ['timecontrolentryid_3',['TimeControlEntryId',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac2961811c1e93653a90c1d628916d7f4',1,'Nuki']]],
+  ['timeout_4',['TimeOut',['../namespace_nuki.html#a486931322cf764426f77d97d8c4a5918acd18224efcf9c31cb112fe0d2305a4c5',1,'Nuki::TimeOut'],['../namespace_nuki.html#a93b74dc3b051cbfa04004627d2df597ba5c642867bcd564f28fbb79aec4501efa',1,'Nuki::TimeOut']]],
+  ['timeout_5',['Timeout',['../namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632ac85a251cc457840f1e032f1b733e9398',1,'Nuki::Timeout'],['../namespace_nuki.html#af18b26b33ef86ab90c0e6e6dbafd1f61ac85a251cc457840f1e032f1b733e9398',1,'Nuki::Timeout']]],
+  ['togglecm_6',['ToggleCM',['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8af0e8551a7bbf58b385dab28062cea9fd',1,'NukiOpener']]],
+  ['togglerto_7',['ToggleRTO',['../namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8a30e49d9f1bfb07b777afb2ead9a35caa',1,'NukiOpener']]],
+  ['toorecent_8',['TooRecent',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa78d7ca911f105e3229b0ed465ebdf908',1,'NukiLock::TooRecent'],['../namespace_nuki_opener.html#a4177c1ba41abd209eed76ca85cb40c88a78d7ca911f105e3229b0ed465ebdf908',1,'NukiOpener::TooRecent']]]
 ];

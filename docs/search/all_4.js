@@ -22,6 +22,6 @@ var searchData=
   ['doorsensor_19',['DoorSensor',['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a9272dbb9cfef10ff6cda9beff4335f06',1,'NukiLock']]],
   ['doorsensorloggingenabled_20',['DoorSensorLoggingEnabled',['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af2995020d68d07ec411ecd7b6c9f9366',1,'NukiLock']]],
   ['doorsensorstate_21',['DoorSensorState',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3',1,'Nuki']]],
-  ['doorsensorstatetostring_22',['doorSensorStateToString',['../namespace_nuki_lock.html#abafc6bffb3f0bc0e15762d2c736c1ca9',1,'NukiLock::doorSensorStateToString()'],['../namespace_nuki_opener.html#a0047e07ce2159fd4bc80769a06fbf1b7',1,'NukiOpener::doorSensorStateToString()']]],
+  ['doorsensorstatetostring_22',['doorSensorStateToString',['../namespace_nuki_lock.html#abafc6bffb3f0bc0e15762d2c736c1ca9',1,'NukiLock']]],
   ['doorstateunknown_23',['DoorStateUnknown',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3adaf9513f16b00b4c39854f6faafc9395',1,'Nuki']]]
 ];

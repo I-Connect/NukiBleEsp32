@@ -6,7 +6,8 @@ var namespace_nuki =
       [ "Automatic", "namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a086247a9b57fde6eefee2a0c4752242d", null ],
       [ "Normal", "namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a960b44c579bc2f6818d2daaf9e4c16f0", null ],
       [ "Slow", "namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62aefa5397985b8609a5dbeb430a4bcadd3", null ],
-      [ "Slowest", "namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a53ad658aa3b68ee6f8ac34262f27efc5", null ]
+      [ "Slowest", "namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a53ad658aa3b68ee6f8ac34262f27efc5", null ],
+      [ "Unknown", "namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "AuthorizationIdType", "namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18", [
       [ "App", "namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18aac863f346e618f9a959b5c95d5d28941", null ],
@@ -17,7 +18,8 @@ var namespace_nuki =
     [ "BatteryType", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6", [
       [ "Alkali", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a098e792157e1beadc3ed73cb00cd42b0", null ],
       [ "Accumulators", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a9847344b6abc15c6a232d5255cdf65b8", null ],
-      [ "Lithium", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6aa0a569e51b6942b08a4a72a5dbfabcb6", null ]
+      [ "Lithium", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6aa0a569e51b6942b08a4a72a5dbfabcb6", null ],
+      [ "Unknown", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "CmdResult", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918", [
       [ "Success", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a9e7fc40dd55809a6a0fc117755a9d351", null ],
@@ -110,7 +112,10 @@ var namespace_nuki =
       [ "DoorClosed", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3acff69fd788d6616924dfbb25559ce338", null ],
       [ "DoorOpened", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3ae1491bc2cd0348e5a6c5ba7ed811895d", null ],
       [ "DoorStateUnknown", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3adaf9513f16b00b4c39854f6faafc9395", null ],
-      [ "Calibrating", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3aa90245113e5261ee70386bd8ece941d5", null ]
+      [ "Calibrating", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3aa90245113e5261ee70386bd8ece941d5", null ],
+      [ "Uncalibrated", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3a9ebd1ce633af953bfdb15a87432bb702", null ],
+      [ "Tampered", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3a692bc1cf4340ebe99b02477daa920f39", null ],
+      [ "Unknown", "namespace_nuki.html#af435580dd93257235a1cf360358fa0c3a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "EventType", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605e", [
       [ "KeyTurnerStatusUpdated", "namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2", null ],

@@ -25,6 +25,7 @@ var class_nuki_lock_1_1_nuki_lock =
     [ "handleReturnMessage", "class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5", null ],
     [ "isBatteryCharging", "class_nuki_lock_1_1_nuki_lock.html#a4b2df38bb798035d59441d4503fbf820", null ],
     [ "isBatteryCritical", "class_nuki_lock_1_1_nuki_lock.html#ae8aa24e2040634ebec0ce529f8d5d125", null ],
+    [ "isDoorSensorBatteryCritical", "class_nuki_lock_1_1_nuki_lock.html#a72e2b231cbd57fd6025b82335211af1c", null ],
     [ "isKeypadBatteryCritical", "class_nuki_lock_1_1_nuki_lock.html#ace85fa0423fe9089038cb5887e64a8a4", null ],
     [ "keypadAction", "class_nuki_lock_1_1_nuki_lock.html#a73f888ce42f7e444e557070aa1c1fa18", null ],
     [ "lockAction", "class_nuki_lock_1_1_nuki_lock.html#a542fd3c88bfc43ff0b3b73afde3266f9", null ],

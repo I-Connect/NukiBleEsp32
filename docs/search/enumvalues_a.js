@@ -1,8 +1,15 @@
 var searchData=
 [
-  ['maintenancemode_0',['MaintenanceMode',['../namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baa56df076289c5d964a2d55f155a9e3ee9',1,'NukiLock::MaintenanceMode'],['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa56df076289c5d964a2d55f155a9e3ee9',1,'NukiOpener::MaintenanceMode']]],
-  ['manual_1',['Manual',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3ae1ba155a9f2e8c3be94020eef32a0301',1,'NukiLock::Manual'],['../namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2ae1ba155a9f2e8c3be94020eef32a0301',1,'NukiOpener::Manual']]],
-  ['mostrecentcommand_2',['MostRecentCommand',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a1f411bcaf3bf4b56a0a9c337b8ef7c03',1,'Nuki']]],
-  ['motorblocked_3',['MotorBlocked',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a87f4c9e83f2dfbf3dd301d6e522592d5',1,'NukiLock::MotorBlocked'],['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa87f4c9e83f2dfbf3dd301d6e522592d5',1,'NukiLock::MotorBlocked']]],
-  ['motorpowerfailure_4',['MotorPowerFailure',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa4a0d5f3b6c2181e01e1282d03847ce4f',1,'NukiLock']]]
+  ['lithium_0',['Lithium',['../namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6aa0a569e51b6942b08a4a72a5dbfabcb6',1,'Nuki']]],
+  ['lock_1',['Lock',['../namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555ab485167c5b0e59d47009a16f90fe2659',1,'NukiLock::Lock'],['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25ab485167c5b0e59d47009a16f90fe2659',1,'NukiLock::Lock'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eeab485167c5b0e59d47009a16f90fe2659',1,'NukiLock::Lock']]],
+  ['lock_5fbusy_2',['Lock_Busy',['../namespace_nuki.html#a486931322cf764426f77d97d8c4a5918a31eb07da4469c1940f3c1de2c98312a6',1,'Nuki']]],
+  ['lockaction_3',['LockAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a13052aceaadac2d27d26269dededc2e9',1,'Nuki::LockAction'],['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a13052aceaadac2d27d26269dededc2e9',1,'NukiLock::LockAction'],['../namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667da13052aceaadac2d27d26269dededc2e9',1,'NukiOpener::LockAction']]],
+  ['locked_4',['Locked',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798ad0f2e5376298c880665077b565ffd7dd',1,'NukiLock::Locked'],['../namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7ad0f2e5376298c880665077b565ffd7dd',1,'NukiOpener::Locked']]],
+  ['locking_5',['Locking',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a195c2a909a6d9349f9009aa40c09ed98',1,'NukiLock']]],
+  ['lockngo_6',['LockNgo',['../namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555aabc770742b5a11ed8a870d034012c571',1,'NukiLock::LockNgo'],['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25aabc770742b5a11ed8a870d034012c571',1,'NukiLock::LockNgo'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eeaabc770742b5a11ed8a870d034012c571',1,'NukiLock::LockNgo']]],
+  ['lockngounlatch_7',['LockNgoUnlatch',['../namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555ac2827b93ca95a883b1f7c32e4ebcf467',1,'NukiLock']]],
+  ['logentry_8',['LogEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac824eb6c6ab575c0af9d67fb1d9671fe',1,'Nuki']]],
+  ['logentrycount_9',['LogEntryCount',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a635161173f7391fe9647b7dae397c8b1',1,'Nuki']]],
+  ['loggingenabled_10',['LoggingEnabled',['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87accce994b3a8efcddcc0ea8ebf2677c95',1,'NukiLock::LoggingEnabled'],['../namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daccce994b3a8efcddcc0ea8ebf2677c95',1,'NukiOpener::LoggingEnabled']]],
+  ['lowmotorvoltage_11',['LowMotorVoltage',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa4885b442a10936b11222cb4c87ba32d7',1,'NukiLock']]]
 ];

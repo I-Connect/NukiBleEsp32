@@ -9,7 +9,8 @@ var namespace_nuki_lock =
       [ "Lock", "namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eeab485167c5b0e59d47009a16f90fe2659", null ],
       [ "Unlatch", "namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea02d2a7ceeeea3587a4cb7cd1d8f173a7", null ],
       [ "LockNgo", "namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eeaabc770742b5a11ed8a870d034012c571", null ],
-      [ "ShowStatus", "namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eeac627d1f1edb810463a9aa838f576ee12", null ]
+      [ "ShowStatus", "namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eeac627d1f1edb810463a9aa838f576ee12", null ],
+      [ "Unknown", "namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "CompletionStatus", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104a", [
       [ "Success", "namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa505a83f220c02df2f85c3810cd9ceb38", null ],
@@ -73,7 +74,8 @@ var namespace_nuki_lock =
     ] ],
     [ "KeypadActionSource", "namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186da", [
       [ "ArrowKey", "namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186daa1b7fe40e0b4c987f87b98dea9c2f5748", null ],
-      [ "Code", "namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186daaca0dbad92a874b2f69b549293387925e", null ]
+      [ "Code", "namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186daaca0dbad92a874b2f69b549293387925e", null ],
+      [ "Fingerprint", "namespace_nuki_lock.html#acf462729a7471bb4e5ce7f29c80186daa536c0c9bcd09855d120989eee2aed942", null ]
     ] ],
     [ "LockAction", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555", [
       [ "Unlock", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a7e7123b0d269ad5d9ec8d12c52a8ed8a", null ],
@@ -82,9 +84,12 @@ var namespace_nuki_lock =
       [ "LockNgo", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555aabc770742b5a11ed8a870d034012c571", null ],
       [ "LockNgoUnlatch", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555ac2827b93ca95a883b1f7c32e4ebcf467", null ],
       [ "FullLock", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a6f12f833f6c5125364df1e4d1b3d5fa4", null ],
+      [ "FobNoAction", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a5b19f04b4a3256fd86b043c37acd1f9f", null ],
+      [ "ButtonNoAction", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a76cdbc29a8b8949b85b453fa985fb83e", null ],
       [ "FobAction1", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a06c7dbc24df6f12a62609defae01495b", null ],
       [ "FobAction2", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555a67b54505a5a3c64673bdd2bf36e4976a", null ],
-      [ "FobAction3", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555af05497b6325e433ff3cc947193cde8b3", null ]
+      [ "FobAction3", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555af05497b6325e433ff3cc947193cde8b3", null ],
+      [ "Undefined", "namespace_nuki_lock.html#a4176caa33e367b525ac0c1bb9c37b555aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "LockState", "namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798", [
       [ "Uncalibrated", "namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a9ebd1ce633af953bfdb15a87432bb702", null ],
@@ -120,7 +125,10 @@ var namespace_nuki_lock =
       [ "Manual", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3ae1ba155a9f2e8c3be94020eef32a0301", null ],
       [ "Button", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a87b7760f14fbff78d8819291f36ab9a0", null ],
       [ "Automatic", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a086247a9b57fde6eefee2a0c4752242d", null ],
-      [ "AutoLock", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a5337798a2b8d599f0064c8df24f49166", null ]
+      [ "AutoLock", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a5337798a2b8d599f0064c8df24f49166", null ],
+      [ "HomeKit", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3ad98b75258e3580d3f48a9c385502ded0", null ],
+      [ "MQTT", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3aab0a7cf5deeda86b66467df64c3b6122", null ],
+      [ "Undefined", "namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
     [ "__attribute__", "namespace_nuki_lock.html#ac3ab5c8b16cd100bbc01e1b3629cf9cd", null ],
     [ "cmdResultToString", "namespace_nuki_lock.html#a32c97560239db2a59f75190e4c7684bd", null ],
