@@ -694,8 +694,8 @@ void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug, Print* Log) {
     logMessageVar("autoLockEnabled :%d", (unsigned int)advancedConfig.autoLockEnabled, Log, 4);
     logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)advancedConfig.immediateAutoLockEnabled, Log, 4);
     logMessageVar("autoUpdateEnabled :%d", (unsigned int)advancedConfig.autoUpdateEnabled, Log, 4);
-    logMessageVar("speedMode :%d", (unsigned int)advancedConfig.speedMode, Log, 4);
-    logMessageVar("slowSpeedDuringNightMode :%d", (unsigned int)advancedConfig.slowSpeedDuringNightMode, Log, 4);
+    logMessageVar("motorSpeed :%d", (unsigned int)advancedConfig.motorSpeed, Log, 4);
+    logMessageVar("enableSlowSpeedDuringNightMode :%d", (unsigned int)advancedConfig.enableSlowSpeedDuringNightMode, Log, 4);
   }
 }
 

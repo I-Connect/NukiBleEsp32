@@ -60,7 +60,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
             const NimBLEUUID pairingServiceUltraUUID,
             const NimBLEUUID deviceServiceUUID,
             const NimBLEUUID gdioUUID,
-            const NimBLEUUID gdioUltraUUID,
             const NimBLEUUID userDataUUID,
             const std::string preferencedId);
     virtual ~NukiBle();
@@ -127,6 +126,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @brief Returns pairing state (if credentials are stored or not)
      */
     const bool isPairedWithLock() const;
+    
+    /**
+     * @brief Returns if BLE is pairing/paired/connected with a Smart Lock Ultra
+     */
+    const bool isLockUltra() const;
 
     /**
      * @brief Returns the log entry count. Only available after executing retreiveLogEntries.
@@ -243,6 +247,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @return true if stored successfully
      */
     bool saveSecurityPincode(const uint16_t pinCode);
+    bool saveUltraPincode(const uint32_t pinCode, bool save = true);
 
     /**
      * @brief Gets the pincode stored on the esp. This pincode is used for sending/setting config via BLE to the lock
@@ -251,6 +256,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @return pincode
      */
     uint16_t getSecurityPincode();
+    uint32_t getUltraPincode();
 
     /**
      * @brief Send the new pincode command to the lock via BLE
@@ -261,6 +267,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @return Nuki::CmdResult
      */
     Nuki::CmdResult setSecurityPin(const uint16_t newSecurityPin);
+    Nuki::CmdResult setUltraPin(const uint32_t newSecurityPin);
 
     /**
      * @brief Send the verify pincode command via BLE to the lock.
@@ -383,14 +390,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param Log the logger
      */
     void registerLogger(Print* Log);
-
-    /**
-     * @brief Set the 6-digit pairing PIN code for the Nuki Smart Lock Ultra
-     *
-     * @param pass_key Set to the 6-digit PIN code of the Ultra lock
-     */
-    void setPairingPin(uint32_t pass_key);
-
+    
   protected:
     bool connectBle(const BLEAddress bleAddress, bool pairing);
     void extendDisconnectTimeout();
@@ -446,14 +446,11 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint16_t timeoutDuration = 1000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
-    uint32_t pairingPinCode = 123456;
     uint32_t countDisconnects = 0;
 
     void onConnect(BLEClient*) override;
     #ifdef NUKI_USE_LATEST_NIMBLE
     void onDisconnect(BLEClient*, int reason) override;
-    void onPassKeyEntry(NimBLEConnInfo& connInfo) override;
-    void onConfirmPasskey(NimBLEConnInfo& connInfo, uint32_t pass_key) override;
     #else
     void onDisconnect(BLEClient*) override;
     #endif
@@ -493,8 +490,6 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     const NimBLEUUID deviceServiceUUID;
 //Keyturner pairing Data Input Output characteristic
     const NimBLEUUID gdioUUID;
-//Keyturner pairing Data Input Output characteristic Ultra
-    const NimBLEUUID gdioUltraUUID;
 //User-Specific Data Input Output characteristic
     const NimBLEUUID userDataUUID;
 
@@ -521,6 +516,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     unsigned char myPublicKey[32] = {0x00};
     unsigned char myPrivateKey[32] = {0x00};
     uint16_t pinCode = 0000;
+    uint32_t ultraPinCode = 000000;
     unsigned char secretKeyK[32] = {0x00};
 
     unsigned char sentNonce[crypto_secretbox_NONCEBYTES] = {};
