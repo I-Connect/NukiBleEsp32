@@ -468,16 +468,21 @@ void NukiBle::updateConnectionState() {
   #else
   if (lastStartTimeout != 0 && ((esp_timer_get_time() / 1000) - lastStartTimeout > timeoutDuration)) {
   #endif
-    if (debugNukiConnect) {
-      logMessage("disconnecting BLE on timeout");
+    if (pClient) {
+      if (pClient->isConnected()) {
+        if (debugNukiConnect) {
+          logMessage("disconnecting BLE on timeout");
+        }
+            
+        if (altConnect) {
+          disconnect();
+        } else {
+          pClient->disconnect(); 
+        }
+      }        
     }
-    if (altConnect) {
-      disconnect();
-      delay(200);
-    }
-    else if (pClient && pClient->isConnected()) {
-      pClient->disconnect();
-    }
+    
+    lastStartTimeout = 0;
   }
 }
 
