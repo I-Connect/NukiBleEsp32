@@ -161,8 +161,10 @@ void logConfig(Config config, bool debug, Print* Log) {
   if (debug) {
     logMessageVar("nukiId :%d", (unsigned int)config.nukiId, Log, 4);
     logMessageVar("name :%s", (const char*)config.name, Log, 4);
-    logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
-    logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
+    logMessage("latitude : Not reported for privacy", Log, 4);
+    logMessage("longitude : Not reported for privacy", Log, 4);
+    //logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
+    //logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
     logMessageVar("autoUnlatch :%d", (unsigned int)config.autoUnlatch, Log, 4);
     logMessageVar("pairingEnabled :%d", (unsigned int)config.pairingEnabled, Log, 4);
     logMessageVar("buttonEnabled :%d", (unsigned int)config.buttonEnabled, Log, 4);
