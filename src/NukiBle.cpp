@@ -726,6 +726,9 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
       if ((esp_timer_get_time() / 1000) - timeNow > GENERAL_TIMEOUT) {
       #endif
         logMessage("Receive keypad count timeout", 2);
+        if (altConnect) {
+          disconnect();
+        }
         return CmdResult::TimeOut;
       }
       delay(10);
@@ -747,6 +750,9 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
       if ((esp_timer_get_time() / 1000) - timeNow > GENERAL_TIMEOUT) {
       #endif
         logMessage("Receive keypadcodes timeout", 2);
+        if (altConnect) {
+          disconnect();
+        }
         return CmdResult::TimeOut;
       }
       delay(10);
