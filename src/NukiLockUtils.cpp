@@ -161,8 +161,10 @@ void logConfig(Config config, bool debug, Print* Log) {
   if (debug) {
     logMessageVar("nukiId :%d", (unsigned int)config.nukiId, Log, 4);
     logMessageVar("name :%s", (const char*)config.name, Log, 4);
-    logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
-    logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
+    logMessage("latitude : Not reported for privacy", Log, 4);
+    logMessage("longitude : Not reported for privacy", Log, 4);
+    //logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
+    //logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
     logMessageVar("autoUnlatch :%d", (unsigned int)config.autoUnlatch, Log, 4);
     logMessageVar("pairingEnabled :%d", (unsigned int)config.pairingEnabled, Log, 4);
     logMessageVar("buttonEnabled :%d", (unsigned int)config.buttonEnabled, Log, 4);
@@ -197,9 +199,8 @@ void logConfig(Config config, bool debug, Print* Log) {
     logMessageVar("homeKitStatus :%d", (unsigned int)config.homeKitStatus, Log, 4);
     logMessageVar("timeZoneId :%d", (unsigned int)config.timeZoneId, Log, 4);
     logMessageVar("deviceType :%d", (unsigned int)config.deviceType, Log, 4);
-    logMessageVar("channel :%d", (unsigned int)config.network, Log, 4);
-    logMessageVar("wifiCapable :%d", (unsigned int)config.network & 1, Log, 4);
-    logMessageVar("threadCapable :%d", (unsigned int)(((unsigned int)config.network & 2) != 0 ? 1 : 0), Log, 4);
+    logMessageVar("wifiCapable :%d", (unsigned int)config.capabilities & 1, Log, 4);
+    logMessageVar("threadCapable :%d", (unsigned int)(((unsigned int)config.capabilities & 2) != 0 ? 1 : 0), Log, 4);
     logMessageVar("hasKeypadV2 :%d", (unsigned int)config.hasKeypadV2, Log, 4);
     logMessageVar("matterStatus :%d", (unsigned int)config.matterStatus, Log, 4);
     logMessageVar("productVariant :%d", (unsigned int)config.productVariant, Log, 4);
@@ -572,28 +573,28 @@ void logKeyturnerState(KeyTurnerState keyTurnerState, bool debug, Print* Log) {
     logMessageVar("Keypad Battery Critical: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 3) == 3 ? 1 : 0), Log, 4);
     logMessageVar("Doorsensor bat critical feature supported: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 4) == 4 ? 1 : 0), Log, 4);
     logMessageVar("Doorsensor Battery Critical: %d", (unsigned int)(((unsigned int)keyTurnerState.accessoryBatteryState & 12) == 12 ? 1 : 0), Log, 4);
-    logMessageVar("network composed value: %d", (unsigned int)keyTurnerState.network, Log, 4);
-    logMessageVar("remoteAccessEnabled: %d", (unsigned int)(((keyTurnerState.network & 1) == 1) ? 1 : 0), Log, 4);
-    logMessageVar("bridgePaired: %d", (unsigned int)((((keyTurnerState.network >> 1) & 1) == 1) ? 1 : 0), Log, 4);
-    logMessageVar("sseConnectedViaWifi: %d", (unsigned int)((((keyTurnerState.network >> 2) & 1) == 1) ? 1 : 0), Log, 4);
-    logMessageVar("sseConnectionEstablished: %d", (unsigned int)((((keyTurnerState.network >> 3) & 1) == 1) ? 1 : 0), Log, 4);
-    logMessageVar("isSseConnectedViaThread: %d", (unsigned int)((((keyTurnerState.network >> 4) & 1) == 1) ? 1 : 0), Log, 4);
-    logMessageVar("threadSseUplinkEnabledByUser: %d", (unsigned int)((((keyTurnerState.network >> 5) & 1) == 1) ? 1 : 0), Log, 4);
-    logMessageVar("nat64AvailableViaThread: %d", (unsigned int)((((keyTurnerState.network >> 6) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("remoteAccessStatus composed value: %d", (unsigned int)keyTurnerState.remoteAccessStatus, Log, 4);
+    logMessageVar("remoteAccessEnabled: %d", (unsigned int)(((keyTurnerState.remoteAccessStatus & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("bridgePaired: %d", (unsigned int)((((keyTurnerState.remoteAccessStatus >> 1) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("sseConnectedViaWifi: %d", (unsigned int)((((keyTurnerState.remoteAccessStatus >> 2) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("sseConnectionEstablished: %d", (unsigned int)((((keyTurnerState.remoteAccessStatus >> 3) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("isSseConnectedViaThread: %d", (unsigned int)((((keyTurnerState.remoteAccessStatus >> 4) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("threadSseUplinkEnabledByUser: %d", (unsigned int)((((keyTurnerState.remoteAccessStatus >> 5) & 1) == 1) ? 1 : 0), Log, 4);
+    logMessageVar("nat64AvailableViaThread: %d", (unsigned int)((((keyTurnerState.remoteAccessStatus >> 6) & 1) == 1) ? 1 : 0), Log, 4);
     logMessageVar("bleConnectionStrength: %d", (unsigned int)keyTurnerState.bleConnectionStrength, Log, 4);
     logMessageVar("wifiConnectionStrength: %d", (unsigned int)keyTurnerState.wifiConnectionStrength, Log, 4);
-    logMessageVar("wifi composed value: %d", (unsigned int)keyTurnerState.wifi, Log, 4);
-    logMessageVar("wifiStatus: %d", (unsigned int)(keyTurnerState.wifi & 3), Log, 4);
-    logMessageVar("sseStatus: %d", (unsigned int)((keyTurnerState.wifi >> 2) & 3), Log, 4);
-    logMessageVar("wifiQuality: %d", (unsigned int)((keyTurnerState.wifi >> 4) & 15), Log, 4);
-    logMessageVar("mqtt composed value: %d", (unsigned int)keyTurnerState.mqtt, Log, 4);
-    logMessageVar("mqttStatus: %d", (unsigned int)(keyTurnerState.mqtt & 3), Log, 4);
-    logMessageVar("mqttConnectionChannel: %d", (unsigned int)((keyTurnerState.mqtt >> 2) & 1), Log, 4);
-    logMessageVar("thread composed value: %d", (unsigned int)keyTurnerState.thread, Log, 4);
-    logMessageVar("threadConnectionStatus: %d", (unsigned int)(keyTurnerState.thread & 3), Log, 4);
-    logMessageVar("threadSseStatus: %d", (unsigned int)((keyTurnerState.thread >> 2) & 3), Log, 4);
-    logMessageVar("isCommissioningModeActive: %d", (unsigned int)(((unsigned int)keyTurnerState.thread & 16) != 0 ? 1 : 0), Log, 4);
-    logMessageVar("isWifiDisabledBecauseOfThread: %d", (unsigned int)(((unsigned int)keyTurnerState.thread & 32) != 0 ? 1 : 0), Log, 4);
+    logMessageVar("wifiConnectionStatus composed value: %d", (unsigned int)keyTurnerState.wifiConnectionStatus, Log, 4);
+    logMessageVar("wifiStatus: %d", (unsigned int)(keyTurnerState.wifiConnectionStatus & 3), Log, 4);
+    logMessageVar("sseStatus: %d", (unsigned int)((keyTurnerState.wifiConnectionStatus >> 2) & 3), Log, 4);
+    logMessageVar("wifiQuality: %d", (unsigned int)((keyTurnerState.wifiConnectionStatus >> 4) & 15), Log, 4);
+    logMessageVar("mqttConnectionStatus composed value: %d", (unsigned int)keyTurnerState.mqttConnectionStatus, Log, 4);
+    logMessageVar("mqttStatus: %d", (unsigned int)(keyTurnerState.mqttConnectionStatus & 3), Log, 4);
+    logMessageVar("mqttConnectionChannel: %d", (unsigned int)((keyTurnerState.mqttConnectionStatus >> 2) & 1), Log, 4);
+    logMessageVar("threadConnectionStatus composed value: %d", (unsigned int)keyTurnerState.threadConnectionStatus, Log, 4);
+    logMessageVar("threadConnectionStatus: %d", (unsigned int)(keyTurnerState.threadConnectionStatus & 3), Log, 4);
+    logMessageVar("threadSseStatus: %d", (unsigned int)((keyTurnerState.threadConnectionStatus >> 2) & 3), Log, 4);
+    logMessageVar("isCommissioningModeActive: %d", (unsigned int)(((unsigned int)keyTurnerState.threadConnectionStatus & 16) != 0 ? 1 : 0), Log, 4);
+    logMessageVar("isWifiDisabledBecauseOfThread: %d", (unsigned int)(((unsigned int)keyTurnerState.threadConnectionStatus & 32) != 0 ? 1 : 0), Log, 4);
   }
 }
 
@@ -694,8 +695,8 @@ void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug, Print* Log) {
     logMessageVar("autoLockEnabled :%d", (unsigned int)advancedConfig.autoLockEnabled, Log, 4);
     logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)advancedConfig.immediateAutoLockEnabled, Log, 4);
     logMessageVar("autoUpdateEnabled :%d", (unsigned int)advancedConfig.autoUpdateEnabled, Log, 4);
-    logMessageVar("speedMode :%d", (unsigned int)advancedConfig.speedMode, Log, 4);
-    logMessageVar("slowSpeedDuringNightMode :%d", (unsigned int)advancedConfig.slowSpeedDuringNightMode, Log, 4);
+    logMessageVar("motorSpeed :%d", (unsigned int)advancedConfig.motorSpeed, Log, 4);
+    logMessageVar("enableSlowSpeedDuringNightMode :%d", (unsigned int)advancedConfig.enableSlowSpeedDuringNightMode, Log, 4);
   }
 }
 

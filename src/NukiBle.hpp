@@ -217,13 +217,21 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       //add received challenge nonce to payload
       uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
       if (sendPinCode) {
-        payloadLen = payloadLen + 2;
+        if (isLockUltra()) {
+          payloadLen = payloadLen + 4;  
+        } else {
+          payloadLen = payloadLen + 2;
+        }
       }
       unsigned char payload[payloadLen];
       memcpy(payload, action.payload, action.payloadLen);
       memcpy(&payload[action.payloadLen], challengeNonceK, sizeof(challengeNonceK));
       if (sendPinCode) {
-        memcpy(&payload[action.payloadLen + sizeof(challengeNonceK)], &pinCode, 2);
+        if (isLockUltra()) {
+          memcpy(&payload[action.payloadLen + sizeof(challengeNonceK)], &ultraPinCode, 4);
+        } else {
+          memcpy(&payload[action.payloadLen + sizeof(challengeNonceK)], &pinCode, 2);
+        }        
       }
 
       if (sendEncryptedMessage(action.command, payload, payloadLen)) {

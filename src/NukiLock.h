@@ -46,7 +46,7 @@ class NukiLock : public Nuki::NukiBle {
      */
     void retrieveKeyTunerState(KeyTurnerState* retrievedKeyTurnerState);
 
-    
+
     /**
      * @brief Requests battery status from Lock via BLE
      *
@@ -321,6 +321,22 @@ class NukiLock : public Nuki::NukiBle {
      * @param enable true if automatic firmware updates should be enabled
      */
     Nuki::CmdResult enableAutoUpdate(const bool enable);
+
+    /**
+     * @brief Gets the current advanced config from the lock, updates the motor speed
+     * parameter and sends the new advanced config to the lock via BLE
+     *
+     * @param action the deired action for a single button press
+     */
+    Nuki::CmdResult setMotorSpeed(const MotorSpeed speed);
+
+    /**
+     * @brief Gets the current advanced config from the lock, updates the enable slow speed during NightMode
+     * parameter and sends the new advanced config to the lock via BLE
+     *
+     * @param action the deired action for a single button press
+     */
+    Nuki::CmdResult enableSlowSpeedDuringNightMode(const bool enable);
 
     /**
      * @brief Sets the lock ability to pair with other devices (can be used to prevent unauthorized pairing)
