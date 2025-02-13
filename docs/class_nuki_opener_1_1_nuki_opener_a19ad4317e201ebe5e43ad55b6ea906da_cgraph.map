@@ -4,35 +4,36 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,201,144,130,178,91,217,57,226,51,229,56,220,61,181,95,148,134,103,204"/>
 <area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#ac2e28f07ed0a738f73c5f77b46cdb1bb" title=" " alt="" coords="232,71,414,111"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="109,200,157,160,217,121,229,115,231,120,220,125,160,164,113,204"/>
-<area shape="rect" id="Node000004" href="$namespace_nuki_opener.html#a0a734c84a0fcb8e58a4fe1162747db98" title=" " alt="" coords="220,136,427,161"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,200,218,170,242,163,244,168,219,175,139,205"/>
-<area shape="rect" id="Node000006" href="$namespace_nuki_opener.html#addd007828c6aae2767c95081958d60dd" title=" " alt="" coords="227,185,420,210"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="170,211,211,207,212,212,171,217"/>
-<area shape="rect" id="Node000007" href="$namespace_nuki_opener.html#a2e6270c8700b5a83a853b534ce59a08f" title=" " alt="" coords="249,234,398,260"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="171,229,234,235,233,241,170,234"/>
-<area shape="rect" id="Node000008" href="$namespace_nuki_opener.html#a510454c0171d807a1eebd77045481ba0" title=" " alt="" coords="239,333,408,374"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="113,242,160,281,220,319,231,325,229,329,217,324,157,285,110,246"/>
+<area shape="rect" id="Node000004" href="$namespace_nuki_opener.html#a0a734c84a0fcb8e58a4fe1162747db98" title=" " alt="" coords="220,185,427,210"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,211,204,208,205,213,171,217"/>
+<area shape="rect" id="Node000006" href="$namespace_nuki_opener.html#addd007828c6aae2767c95081958d60dd" title=" " alt="" coords="227,234,420,260"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="171,229,212,233,212,238,170,234"/>
+<area shape="rect" id="Node000007" href="$namespace_nuki_opener.html#a2e6270c8700b5a83a853b534ce59a08f" title=" " alt="" coords="249,136,398,161"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="137,200,218,170,242,163,244,168,219,175,139,205"/>
+<area shape="rect" id="Node000009" href="$namespace_nuki_opener.html#a510454c0171d807a1eebd77045481ba0" title=" " alt="" coords="239,333,408,374"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="113,242,160,281,220,319,231,325,229,329,217,324,157,285,110,246"/>
 <area shape="rect" id="Node000013" href="$namespace_nuki_opener.html#ad5810b4aac856a27473aedd0fe8f433e" title=" " alt="" coords="241,284,406,309"/>
-<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="140,241,219,270,245,277,243,282,218,275,138,246"/>
+<area shape="poly" id="edge18_Node000001_Node000013" title=" " alt="" coords="140,241,219,270,245,277,243,282,218,275,138,246"/>
 <area shape="rect" id="Node000014" href="$namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b" title=" " alt="" coords="267,398,380,424"/>
-<area shape="poly" id="edge22_Node000001_Node000014" title=" " alt="" coords="102,242,121,274,147,312,180,351,220,383,253,398,251,403,217,388,177,355,143,316,116,277,97,245"/>
+<area shape="poly" id="edge23_Node000001_Node000014" title=" " alt="" coords="102,242,121,274,147,312,180,351,220,383,253,398,251,403,217,388,177,355,143,316,116,277,97,245"/>
 <area shape="rect" id="Node000005" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="476,185,662,210"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="392,159,487,179,486,184,391,164"/>
-<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="420,195,460,195,460,200,420,200"/>
-<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="391,231,486,212,487,217,392,236"/>
-<area shape="poly" id="edge14_Node000008_Node000005" title=" " alt="" coords="405,330,427,319,451,298,474,272,537,218,541,222,478,276,455,301,429,324,407,335"/>
-<area shape="rect" id="Node000009" href="$namespace_nuki_opener.html#a6bf8f7b28ff29642c9206fe6fc3e0070" title=" " alt="" coords="480,336,658,377"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="408,352,465,353,465,358,408,357"/>
-<area shape="rect" id="Node000011" href="$namespace_nuki_opener.html#a3e96f2a12b591da08c015e0ea11fb890" title=" " alt="" coords="480,286,659,312"/>
-<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="407,332,492,313,494,318,409,338"/>
-<area shape="rect" id="Node000012" href="$namespace_nuki_opener.html#a447a699b1fa6e98b086dd250d8db7825" title=" " alt="" coords="479,401,659,426"/>
-<area shape="poly" id="edge15_Node000008_Node000012" title=" " alt="" coords="409,372,499,394,498,399,407,377"/>
-<area shape="rect" id="Node000010" href="$namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d" title=" " alt="" coords="710,316,877,341"/>
-<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="658,343,695,338,695,343,659,348"/>
-<area shape="poly" id="edge13_Node000011_Node000010" title=" " alt="" coords="660,308,695,313,694,318,659,313"/>
-<area shape="poly" id="edge16_Node000012_Node000010" title=" " alt="" coords="624,398,661,386,752,346,754,351,663,391,626,403"/>
-<area shape="poly" id="edge21_Node000013_Node000005" title=" " alt="" coords="401,280,427,270,441,260,450,250,460,239,475,227,503,214,505,219,477,232,464,243,454,253,444,264,429,275,403,285"/>
-<area shape="poly" id="edge18_Node000013_Node000009" title=" " alt="" coords="380,307,429,319,469,329,468,334,427,324,379,312"/>
-<area shape="poly" id="edge20_Node000013_Node000010" title=" " alt="" coords="384,280,443,271,513,263,588,262,663,271,713,286,756,306,754,311,711,291,662,276,588,268,513,269,443,276,385,285"/>
-<area shape="poly" id="edge19_Node000013_Node000011" title=" " alt="" coords="406,295,464,295,464,301,406,300"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="427,195,460,195,460,200,427,200"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="391,231,486,212,487,217,392,236"/>
+<area shape="poly" id="edge9_Node000007_Node000005" title=" " alt="" coords="392,159,487,179,486,184,391,164"/>
+<area shape="rect" id="Node000008" href="$namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d" title=" " alt="" coords="710,293,877,318"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="398,136,458,134,526,136,596,147,663,170,700,192,732,221,778,278,774,282,728,225,697,197,661,175,595,152,525,142,458,139,399,142"/>
+<area shape="poly" id="edge15_Node000009_Node000005" title=" " alt="" coords="405,330,427,319,451,298,474,272,537,218,541,222,478,276,455,301,429,324,407,335"/>
+<area shape="rect" id="Node000010" href="$namespace_nuki_opener.html#a6bf8f7b28ff29642c9206fe6fc3e0070" title=" " alt="" coords="480,285,658,326"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="407,335,464,323,465,329,409,340"/>
+<area shape="rect" id="Node000011" href="$namespace_nuki_opener.html#a3e96f2a12b591da08c015e0ea11fb890" title=" " alt="" coords="480,350,659,376"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="408,354,464,356,464,362,408,360"/>
+<area shape="rect" id="Node000012" href="$namespace_nuki_opener.html#a447a699b1fa6e98b086dd250d8db7825" title=" " alt="" coords="479,400,659,425"/>
+<area shape="poly" id="edge16_Node000009_Node000012" title=" " alt="" coords="409,371,498,393,497,398,407,376"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="659,303,695,303,695,308,659,308"/>
+<area shape="poly" id="edge14_Node000011_Node000008" title=" " alt="" coords="622,347,725,320,726,326,623,352"/>
+<area shape="poly" id="edge17_Node000012_Node000008" title=" " alt="" coords="632,396,661,386,716,357,762,326,765,330,718,361,663,391,634,401"/>
+<area shape="poly" id="edge22_Node000013_Node000005" title=" " alt="" coords="401,280,427,270,441,260,450,250,460,239,475,227,503,214,505,219,477,232,464,243,454,253,444,264,429,275,403,285"/>
+<area shape="poly" id="edge21_Node000013_Node000008" title=" " alt="" coords="399,280,476,271,569,265,663,271,735,286,734,291,662,276,569,270,476,276,400,286"/>
+<area shape="poly" id="edge19_Node000013_Node000010" title=" " alt="" coords="406,297,465,299,465,304,406,302"/>
+<area shape="poly" id="edge20_Node000013_Node000011" title=" " alt="" coords="384,307,429,319,477,335,503,343,502,348,475,340,427,324,382,312"/>
 </map>

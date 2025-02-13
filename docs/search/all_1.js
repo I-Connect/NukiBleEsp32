@@ -62,6 +62,7 @@ var searchData=
   ['authorizationidconfirmation_59',['AuthorizationIdConfirmation',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ab5de5c77f3b885ac685430674ae58c85',1,'Nuki']]],
   ['authorizationidinvite_60',['AuthorizationIdInvite',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7a7932b3c820cb33614417643b3e48f0',1,'Nuki']]],
   ['authorizationidtype_61',['AuthorizationIdType',['../namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18',1,'Nuki']]],
-  ['autolock_62',['AutoLock',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a5337798a2b8d599f0064c8df24f49166',1,'NukiLock']]],
-  ['automatic_63',['Automatic',['../namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a086247a9b57fde6eefee2a0c4752242d',1,'Nuki::Automatic'],['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a086247a9b57fde6eefee2a0c4752242d',1,'NukiLock::Automatic'],['../namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a086247a9b57fde6eefee2a0c4752242d',1,'NukiOpener::Automatic']]]
+  ['authorizationinfo_62',['AuthorizationInfo',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3522e2e2cc2866df2b78700d2d12212a',1,'Nuki']]],
+  ['autolock_63',['AutoLock',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a5337798a2b8d599f0064c8df24f49166',1,'NukiLock']]],
+  ['automatic_64',['Automatic',['../namespace_nuki.html#a50cd8903d8350caa174b2a5923ab7c62a086247a9b57fde6eefee2a0c4752242d',1,'Nuki::Automatic'],['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3a086247a9b57fde6eefee2a0c4752242d',1,'NukiLock::Automatic'],['../namespace_nuki_opener.html#a5cf5db077dde578bcd6ebd0967495ed2a086247a9b57fde6eefee2a0c4752242d',1,'NukiOpener::Automatic']]]
 ];

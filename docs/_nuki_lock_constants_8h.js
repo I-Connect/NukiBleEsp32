@@ -113,6 +113,12 @@ var _nuki_lock_constants_8h =
       [ "NukiLock::LoggingType::DoorSensor", "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a9272dbb9cfef10ff6cda9beff4335f06", null ],
       [ "NukiLock::LoggingType::DoorSensorLoggingEnabled", "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af2995020d68d07ec411ecd7b6c9f9366", null ]
     ] ],
+    [ "NukiLock::MotorSpeed", "namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5", [
+      [ "NukiLock::MotorSpeed::Standard", "namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5aeb6d8ae6f20283755b339c0dc273988b", null ],
+      [ "NukiLock::MotorSpeed::Insane", "namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5a77529ad508ab7d3b5a99adc7e711040b", null ],
+      [ "NukiLock::MotorSpeed::Gentle", "namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5ae4396ac193533682ecb8558bde1311c9", null ],
+      [ "NukiLock::MotorSpeed::Unknown", "namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
+    ] ],
     [ "NukiLock::State", "namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893ba", [
       [ "NukiLock::State::Uninitialized", "namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baaf704f57ea420275ad51bf55b7dec2c96", null ],
       [ "NukiLock::State::PairingMode", "namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baabd9746cf5e271fccaa07697b5b5a0b77", null ],
@@ -136,7 +142,9 @@ var _nuki_lock_constants_8h =
     [ "NukiLock::lockstateToString", "namespace_nuki_lock.html#ad340b9417b1165bb575df9ab1e073f3f", null ],
     [ "NukiLock::loggingTypeToString", "namespace_nuki_lock.html#ac9b75e2b69ab492a8ce9aabefa7f2cea", null ],
     [ "NukiLock::triggerToString", "namespace_nuki_lock.html#a2da27d3f227f70f0404f5ed7e9f4bd65", null ],
+    [ "NukiLock::keyturnerGdioUltraUUID", "namespace_nuki_lock.html#add2a62f4ff156a611f63448a31b1f4b5", null ],
     [ "NukiLock::keyturnerGdioUUID", "namespace_nuki_lock.html#ad079ef186b04a369d9051e8da39d67d3", null ],
+    [ "NukiLock::keyturnerPairingServiceUltraUUID", "namespace_nuki_lock.html#a2f3de31b26aa7fb65fb04f822adf2191", null ],
     [ "NukiLock::keyturnerPairingServiceUUID", "namespace_nuki_lock.html#a803114b2dace310a398d2b4421bf473b", null ],
     [ "NukiLock::keyturnerServiceUUID", "namespace_nuki_lock.html#a1f418bfd133c7c6e14f5db1b53520ca3", null ],
     [ "NukiLock::keyturnerUserDataUUID", "namespace_nuki_lock.html#a33b400888aadb340088c9c208a5015e9", null ]

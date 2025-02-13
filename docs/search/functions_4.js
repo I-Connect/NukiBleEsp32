@@ -15,8 +15,9 @@ var searchData=
   ['enablepairing_12',['enablePairing',['../class_nuki_lock_1_1_nuki_lock.html#a13d418882481294ba2d822dc189c9a5d',1,'NukiLock::NukiLock::enablePairing()'],['../class_nuki_opener_1_1_nuki_opener.html#ac4f34c593d6f10ac2c20b916fb95189a',1,'NukiOpener::NukiOpener::enablePairing(const bool enable)']]],
   ['enablerandomelectricstrikedelay_13',['enableRandomElectricStrikeDelay',['../class_nuki_opener_1_1_nuki_opener.html#acbe5597eb82f0d9127af22dee5967f50',1,'NukiOpener::NukiOpener']]],
   ['enablesinglelock_14',['enableSingleLock',['../class_nuki_lock_1_1_nuki_lock.html#a90996f283ac2ddcb3737e1512cab44f7',1,'NukiLock::NukiLock']]],
-  ['enablesoundconfirmation_15',['enableSoundConfirmation',['../class_nuki_opener_1_1_nuki_opener.html#ada6fc979fbb54b0204add4d58d2835a3',1,'NukiOpener::NukiOpener']]],
-  ['encode_16',['encode',['../namespace_nuki.html#a270a536c493ffabac22fb47fc5dff00a',1,'Nuki']]],
-  ['executeaction_17',['executeAction',['../class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6',1,'Nuki::NukiBle']]],
-  ['extenddisconnecttimeout_18',['extendDisconnectTimeout',['../class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495',1,'Nuki::NukiBle']]]
+  ['enableslowspeedduringnightmode_15',['enableSlowSpeedDuringNightMode',['../class_nuki_lock_1_1_nuki_lock.html#a91d4f826381ddd88e30e9bf2e5b61a27',1,'NukiLock::NukiLock']]],
+  ['enablesoundconfirmation_16',['enableSoundConfirmation',['../class_nuki_opener_1_1_nuki_opener.html#ada6fc979fbb54b0204add4d58d2835a3',1,'NukiOpener::NukiOpener']]],
+  ['encode_17',['encode',['../namespace_nuki.html#a270a536c493ffabac22fb47fc5dff00a',1,'Nuki']]],
+  ['executeaction_18',['executeAction',['../class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6',1,'Nuki::NukiBle']]],
+  ['extenddisconnecttimeout_19',['extendDisconnectTimeout',['../class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495',1,'Nuki::NukiBle']]]
 ];

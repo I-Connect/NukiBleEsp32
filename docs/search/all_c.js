@@ -6,5 +6,6 @@ var searchData=
   ['mostrecentcommand_3',['MostRecentCommand',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a1f411bcaf3bf4b56a0a9c337b8ef7c03',1,'Nuki']]],
   ['motorblocked_4',['MotorBlocked',['../namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a87f4c9e83f2dfbf3dd301d6e522592d5',1,'NukiLock::MotorBlocked'],['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa87f4c9e83f2dfbf3dd301d6e522592d5',1,'NukiLock::MotorBlocked']]],
   ['motorpowerfailure_5',['MotorPowerFailure',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa4a0d5f3b6c2181e01e1282d03847ce4f',1,'NukiLock']]],
-  ['mqtt_6',['MQTT',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3aab0a7cf5deeda86b66467df64c3b6122',1,'NukiLock']]]
+  ['motorspeed_6',['MotorSpeed',['../namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5',1,'NukiLock']]],
+  ['mqtt_7',['MQTT',['../namespace_nuki_lock.html#aff57e9657e2803dfe3cd3f02fa9710a3aab0a7cf5deeda86b66467df64c3b6122',1,'NukiLock']]]
 ];

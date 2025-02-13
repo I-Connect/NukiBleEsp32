@@ -36,11 +36,13 @@ var searchData=
   ['keypadcode_33',['KeypadCode',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a1669ee0b9d152bb744bb4c58b7e7ac5f',1,'Nuki']]],
   ['keypadcodecount_34',['KeypadCodeCount',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0af6fd3aed0138f63bf0c48f1d234485',1,'Nuki']]],
   ['keypadcodeid_35',['KeypadCodeId',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a042c5e865bdac0e54d6844e3d1ff7919',1,'Nuki']]],
-  ['keyturnergdiouuid_36',['keyturnerGdioUUID',['../namespace_nuki_lock.html#ad079ef186b04a369d9051e8da39d67d3',1,'NukiLock']]],
-  ['keyturnerpairingserviceuuid_37',['keyturnerPairingServiceUUID',['../namespace_nuki_lock.html#a803114b2dace310a398d2b4421bf473b',1,'NukiLock']]],
-  ['keyturnerserviceuuid_38',['keyturnerServiceUUID',['../namespace_nuki_lock.html#a1f418bfd133c7c6e14f5db1b53520ca3',1,'NukiLock']]],
-  ['keyturnerstates_39',['KeyturnerStates',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6e52dafa8010a8513a025723b6fe8a91',1,'Nuki']]],
-  ['keyturnerstatusreset_40',['KeyTurnerStatusReset',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3',1,'Nuki']]],
-  ['keyturnerstatusupdated_41',['KeyTurnerStatusUpdated',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2',1,'Nuki']]],
-  ['keyturneruserdatauuid_42',['keyturnerUserDataUUID',['../namespace_nuki_lock.html#a33b400888aadb340088c9c208a5015e9',1,'NukiLock']]]
+  ['keyturnergdioultrauuid_36',['keyturnerGdioUltraUUID',['../namespace_nuki_lock.html#add2a62f4ff156a611f63448a31b1f4b5',1,'NukiLock']]],
+  ['keyturnergdiouuid_37',['keyturnerGdioUUID',['../namespace_nuki_lock.html#ad079ef186b04a369d9051e8da39d67d3',1,'NukiLock']]],
+  ['keyturnerpairingserviceultrauuid_38',['keyturnerPairingServiceUltraUUID',['../namespace_nuki_lock.html#a2f3de31b26aa7fb65fb04f822adf2191',1,'NukiLock']]],
+  ['keyturnerpairingserviceuuid_39',['keyturnerPairingServiceUUID',['../namespace_nuki_lock.html#a803114b2dace310a398d2b4421bf473b',1,'NukiLock']]],
+  ['keyturnerserviceuuid_40',['keyturnerServiceUUID',['../namespace_nuki_lock.html#a1f418bfd133c7c6e14f5db1b53520ca3',1,'NukiLock']]],
+  ['keyturnerstates_41',['KeyturnerStates',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6e52dafa8010a8513a025723b6fe8a91',1,'Nuki']]],
+  ['keyturnerstatusreset_42',['KeyTurnerStatusReset',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3',1,'Nuki']]],
+  ['keyturnerstatusupdated_43',['KeyTurnerStatusUpdated',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2',1,'Nuki']]],
+  ['keyturneruserdatauuid_44',['keyturnerUserDataUUID',['../namespace_nuki_lock.html#a33b400888aadb340088c9c208a5015e9',1,'NukiLock']]]
 ];

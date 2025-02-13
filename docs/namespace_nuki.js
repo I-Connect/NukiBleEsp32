@@ -84,6 +84,7 @@ var namespace_nuki =
       [ "UpdateKeypadCode", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4cb35e7aad6fd3b954f39308ec3acc21", null ],
       [ "RemoveKeypadCode", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0b31faeb2e4c708245b5ed044ee6d138", null ],
       [ "KeypadAction", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5", null ],
+      [ "AuthorizationInfo", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3522e2e2cc2866df2b78700d2d12212a", null ],
       [ "ContinuousModeAction", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf", null ],
       [ "SimpleLockAction", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962", null ]
     ] ],
@@ -207,5 +208,7 @@ var namespace_nuki =
     [ "BLE_ADDRESS_STORE_NAME", "namespace_nuki.html#a358fdf7fe23a073a17891c5067ebc830", null ],
     [ "NUKI_SEMAPHORE_OWNER", "namespace_nuki.html#aa8efad679f0092f3b4604484fcc78b3e", null ],
     [ "SECRET_KEY_STORE_NAME", "namespace_nuki.html#adb89d2539abab2bb243846da302c1452", null ],
-    [ "SECURITY_PINCODE_STORE_NAME", "namespace_nuki.html#a1f4aa6f6fbcc563dcc0f9bd96b85eebc", null ]
+    [ "SECURITY_PINCODE_STORE_NAME", "namespace_nuki.html#a1f4aa6f6fbcc563dcc0f9bd96b85eebc", null ],
+    [ "ULTRA_PINCODE_STORE_NAME", "namespace_nuki.html#af5b3562968f0c49750235ba608631951", null ],
+    [ "ULTRA_STORE_NAME", "namespace_nuki.html#af82835955db69d4214edd9dae5a05993", null ]
 ];

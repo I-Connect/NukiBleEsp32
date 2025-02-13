@@ -11,7 +11,7 @@ var searchData=
   ['nuki_20opener_8',['Nuki opener',['../index.html#autotoc_md3',1,'']]],
   ['nuki_5fsemaphore_5fowner_9',['NUKI_SEMAPHORE_OWNER',['../namespace_nuki.html#aa8efad679f0092f3b4604484fcc78b3e',1,'Nuki']]],
   ['nuki_5fsemaphore_5ftimeout_10',['NUKI_SEMAPHORE_TIMEOUT',['../_nuki_ble_8cpp.html#a25463fc962f6580363ded7eb7b9b2ad8',1,'NukiBle.cpp']]],
-  ['nukible_11',['NukiBle',['../class_nuki_1_1_nuki_ble.html',1,'Nuki::NukiBle'],['../class_nuki_1_1_nuki_ble.html#a5b85e847d1108e5829884a66f4f069de',1,'Nuki::NukiBle::NukiBle()']]],
+  ['nukible_11',['NukiBle',['../class_nuki_1_1_nuki_ble.html',1,'Nuki::NukiBle'],['../class_nuki_1_1_nuki_ble.html#a4b852d794d27f81e94f95ced64ce591a',1,'Nuki::NukiBle::NukiBle()']]],
   ['nukible_2ecpp_12',['NukiBle.cpp',['../_nuki_ble_8cpp.html',1,'']]],
   ['nukible_2eh_13',['NukiBle.h',['../_nuki_ble_8h.html',1,'']]],
   ['nukible_2ehpp_14',['NukiBle.hpp',['../_nuki_ble_8hpp.html',1,'']]],

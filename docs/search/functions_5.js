@@ -15,5 +15,6 @@ var searchData=
   ['getrssi_12',['getRssi',['../class_nuki_1_1_nuki_ble.html#a9ca68095284552883993fab546d89e8a',1,'Nuki::NukiBle']]],
   ['getsecuritypincode_13',['getSecurityPincode',['../class_nuki_1_1_nuki_ble.html#ae8dfa35d43232706a75c6d14f35ae88e',1,'Nuki::NukiBle']]],
   ['gettimecontrolentries_14',['getTimeControlEntries',['../class_nuki_lock_1_1_nuki_lock.html#ac6457349ae032efb2d299681ac1ad21c',1,'NukiLock::NukiLock::getTimeControlEntries()'],['../class_nuki_opener_1_1_nuki_opener.html#a410947eb5c2922039dbd82fe10c824ef',1,'NukiOpener::NukiOpener::getTimeControlEntries()']]],
-  ['getweekdaysintfrombitset_15',['getWeekdaysIntFromBitset',['../namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3',1,'NukiOpener::getWeekdaysIntFromBitset()'],['../namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05',1,'Nuki::getWeekdaysIntFromBitset()']]]
+  ['getultrapincode_15',['getUltraPincode',['../class_nuki_1_1_nuki_ble.html#ace6183129221d85b476bc5f80a895c26',1,'Nuki::NukiBle']]],
+  ['getweekdaysintfrombitset_16',['getWeekdaysIntFromBitset',['../namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3',1,'NukiOpener::getWeekdaysIntFromBitset()'],['../namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05',1,'Nuki::getWeekdaysIntFromBitset()']]]
 ];

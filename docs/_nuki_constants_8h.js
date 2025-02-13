@@ -73,6 +73,7 @@ var _nuki_constants_8h =
       [ "Nuki::Command::UpdateKeypadCode", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4cb35e7aad6fd3b954f39308ec3acc21", null ],
       [ "Nuki::Command::RemoveKeypadCode", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0b31faeb2e4c708245b5ed044ee6d138", null ],
       [ "Nuki::Command::KeypadAction", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5", null ],
+      [ "Nuki::Command::AuthorizationInfo", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3522e2e2cc2866df2b78700d2d12212a", null ],
       [ "Nuki::Command::ContinuousModeAction", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf", null ],
       [ "Nuki::Command::SimpleLockAction", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962", null ]
     ] ],
@@ -150,5 +151,7 @@ var _nuki_constants_8h =
     [ "Nuki::AUTH_ID_STORE_NAME", "namespace_nuki.html#a553724683ab9b1ec83eb60a61a8c8060", null ],
     [ "Nuki::BLE_ADDRESS_STORE_NAME", "namespace_nuki.html#a358fdf7fe23a073a17891c5067ebc830", null ],
     [ "Nuki::SECRET_KEY_STORE_NAME", "namespace_nuki.html#adb89d2539abab2bb243846da302c1452", null ],
-    [ "Nuki::SECURITY_PINCODE_STORE_NAME", "namespace_nuki.html#a1f4aa6f6fbcc563dcc0f9bd96b85eebc", null ]
+    [ "Nuki::SECURITY_PINCODE_STORE_NAME", "namespace_nuki.html#a1f4aa6f6fbcc563dcc0f9bd96b85eebc", null ],
+    [ "Nuki::ULTRA_PINCODE_STORE_NAME", "namespace_nuki.html#af5b3562968f0c49750235ba608631951", null ],
+    [ "Nuki::ULTRA_STORE_NAME", "namespace_nuki.html#af82835955db69d4214edd9dae5a05993", null ]
 ];
