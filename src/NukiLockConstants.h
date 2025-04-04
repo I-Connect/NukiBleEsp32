@@ -353,6 +353,19 @@ enum class LoggingType : uint8_t {
   DoorSensorLoggingEnabled  = 0x07
 };
 
+struct __attribute__((packed)) InternalLogEntry {
+  uint32_t index;
+  uint16_t timeStampYear;
+  uint8_t timeStampMonth;
+  uint8_t timeStampDay;
+  uint8_t timeStampHour;
+  uint8_t timeStampMinute;
+  uint8_t timeStampSecond;
+  uint32_t authId;
+  LoggingType loggingType;
+  uint8_t data[40];
+};
+
 struct __attribute__((packed)) LogEntry {
   uint32_t index;
   uint16_t timeStampYear;

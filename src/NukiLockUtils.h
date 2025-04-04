@@ -42,6 +42,18 @@ void logBatteryReport(BatteryReport batteryReport, bool debug = false, Print* Lo
 void logLogEntry(LogEntry logEntry, bool debug = false, Print* Log = nullptr);
 void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug = false, Print* Log = nullptr);
 void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig, bool debug = false, Print* Log = nullptr);
+void logMqttConfig(MqttConfig mqttConfig, bool debug = false, Print* Log = nullptr);
+void logMqttConfigForMigration(MqttConfigForMigration mqttConfigForMigration, bool debug = false, Print* Log = nullptr);
+void logWifiScanEntry(WifiScanEntry wifiScanEntry, bool debug = false, Print* Log = nullptr);
+void logKeypad2Config(Keypad2Config keypad2Config, bool debug = false, Print* Log = nullptr);
+void logDoorSensorConfig(DoorSensorConfig doorSensorConfig, bool debug = false, Print* Log = nullptr);
+void logWifiConfig(WifiConfig wifiConfig, bool debug = false, Print* Log = nullptr);
+void logWifiConfigForMigration(WifiConfigForMigration wifiConfigForMigration, bool debug = false, Print* Log = nullptr);
+void logGeneralStatistics(GeneralStatistics generalStatistics, bool debug = false, Print* Log = nullptr);
+void logDailyStatistics(DailyStatistics dailyStatistics, bool debug = false, Print* Log = nullptr);
+void logFingerprintEntry(FingerprintEntry fingerprintEntry, bool debug = false, Print* Log = nullptr);
+void logInternalLogEntry(InternalLogEntry internalLogEntry, bool debug = false, Print* Log = nullptr);
+void logAccessoryInfo(AccessoryInfo accessoryInfo, bool debug = false, Print* Log = nullptr);
 void logMessageVar(const char* message, unsigned int var, Print* Log = nullptr, int level = 4);
 void logMessageVar(const char* message, const char* var, Print* Log = nullptr, int level = 4);
 void logMessageVar(const char* message, const float var, Print* Log = nullptr, int level = 4);
