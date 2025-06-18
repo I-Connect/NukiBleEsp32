@@ -298,7 +298,10 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
 
         pClient = NimBLEDevice::createClient();
         pClient->setClientCallbacks(this);
-        pClient->setConnectionParams(12,12,0,600,64,64);
+        #if !defined(CONFIG_IDF_TARGET_ESP32C5)
+        //DISABLE FOR ALL ESPS FOR NOW BASED ON ISSUES WITH C5 (2025-06-18)
+        //pClient->setConnectionParams(12,12,0,600,64,64);
+        #endif
         #ifndef NUKI_USE_LATEST_NIMBLE
         if (logger == nullptr) {
           log_d("[%s] Connect timeout %d s", deviceName.c_str(), connectTimeoutSec);
