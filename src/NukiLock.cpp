@@ -194,6 +194,24 @@ Nuki::CmdResult NukiLock::setFobAction(const uint8_t fobActionNr, const uint8_t 
   return result;
 }
 
+Nuki::CmdResult NukiLock::retrieveInternalLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount) {
+  Action action;
+  unsigned char payload[8] = {0};
+  memcpy(payload, &startIndex, 4);
+  memcpy(&payload[4], &count, 2);
+  memcpy(&payload[6], &sortOrder, 1);
+  memcpy(&payload[7], &totalCount, 1);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RequestInternalLogEntries;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfInternalLogEntries.clear();
+
+  return executeAction(action);
+}
+
 Nuki::CmdResult NukiLock::enableDst(const bool enable) {
   Config oldConfig;
   Nuki::CmdResult result = requestConfig(&oldConfig);
@@ -538,6 +556,30 @@ Nuki::CmdResult NukiLock::setAdvertisingMode(const AdvertisingMode mode) {
   return result;
 }
 
+Nuki::CmdResult NukiLock::scanWifi(uint8_t scanDurationSeconds) {
+  Action action;
+  unsigned char payload[1] = {0};
+  memcpy(payload, &scanDurationSeconds, 1);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::ScanWifi;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+
+  listOfWifiScanEntries.clear();
+
+  Nuki::CmdResult result = executeAction(action);
+  return result;
+}
+
+void NukiLock::getWifiScanEntries(std::list<WifiScanEntry>* wifiScanEntries) {
+  wifiScanEntries->clear();
+  std::list<WifiScanEntry>::iterator it = listOfWifiScanEntries.begin();
+  while (it != listOfWifiScanEntries.end()) {
+    wifiScanEntries->push_back(*it);
+    it++;
+  }
+}
 
 Nuki::CmdResult NukiLock::addTimeControlEntry(NewTimeControlEntry newTimeControlEntry) {
 //TODO verify data validity
@@ -626,6 +668,14 @@ void NukiLock::getLogEntries(std::list<LogEntry>* requestedLogEntries) {
   }
 }
 
+void NukiLock::getInternalLogEntries(std::list<InternalLogEntry>* requestedInternalLogEntries) {
+  requestedInternalLogEntries->clear();
+
+  for (const auto& it : listOfInternalLogEntries) {
+    requestedInternalLogEntries->push_back(it);
+  }
+}
+
 Nuki::CmdResult NukiLock::retrieveLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount) {
   Action action;
   unsigned char payload[8] = {0};
@@ -641,6 +691,18 @@ Nuki::CmdResult NukiLock::retrieveLogEntries(const uint32_t startIndex, const ui
 
   listOfLogEntries.clear();
 
+  return executeAction(action);
+}
+
+Nuki::CmdResult NukiLock::getAccessoryInfo(const uint8_t accessoryType) {
+  Action action;
+  unsigned char payload[1] = {0};
+  memcpy(payload, &accessoryType, 1);
+
+  action.cmdType = Nuki::CommandType::CommandWithChallengeAndPin;
+  action.command = Command::RequestAccessoryInfo;
+  memcpy(action.payload, &payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
   return executeAction(action);
 }
 
@@ -826,6 +888,97 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       if (debugNukiReadableData) {
         logLogEntry(logEntry, true, logger);
       }
+      break;
+    }
+    case Command::InternalLogEntry : {
+      printBuffer((byte*)data, dataLen, false, "internalLogEntry", debugNukiHexData, logger);
+      InternalLogEntry internalLogEntry;
+      memcpy(&internalLogEntry, data, dataLen);
+      listOfInternalLogEntries.push_back(internalLogEntry);
+      if (debugNukiReadableData) {
+        logInternalLogEntry(internalLogEntry, true, logger);
+      }
+      break;
+    }
+    case Command::MqttConfig :
+      memcpy(&mqttConfig, data, dataLen);
+      if (debugNukiReadableData) {
+        logMqttConfig(mqttConfig, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "mqttConfig", debugNukiHexData, logger);
+      break;
+    case Command::MqttConfigForMigration : {
+      memcpy(&mqttConfigForMigration, data, dataLen);
+      if (debugNukiReadableData) {
+        logMqttConfigForMigration(mqttConfigForMigration, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "mqttConfigForMigration", debugNukiHexData, logger);
+      break;
+    }
+    case Command::WifiScanEntry : {
+      printBuffer((byte*)data, dataLen, false, "wifiScanEntry", debugNukiHexData, logger);
+      WifiScanEntry wifiScanEntry;
+      memcpy(&wifiScanEntry, data, dataLen);
+      listOfWifiScanEntries.push_back(wifiScanEntry);
+      if (debugNukiReadableData) {
+        logWifiScanEntry(wifiScanEntry, true, logger);
+      }
+      break;
+    }
+    case Command::WifiConfig : {
+      memcpy(&wifiConfig, data, dataLen);
+      if (debugNukiReadableData) {
+        logWifiConfig(wifiConfig, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "wifiConfig", debugNukiHexData, logger);
+      break;
+    }
+    case Command::WifiConfigForMigration : {
+      memcpy(&wifiConfigForMigration, data, dataLen);
+      if (debugNukiReadableData) {
+        logWifiConfigForMigration(wifiConfigForMigration, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "wifiConfigForMigration", debugNukiHexData, logger);
+      break;
+    }
+    case Command::Keypad2Config : {
+      memcpy(&keypad2Config, data, dataLen);
+      if (debugNukiReadableData) {
+        logKeypad2Config(keypad2Config, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "keypad2Config", debugNukiHexData, logger);
+      break;
+    }
+    case Command::GeneralStatistics : {
+      memcpy(&generalStatistics, data, dataLen);
+      if (debugNukiReadableData) {
+        logGeneralStatistics(generalStatistics, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "generalStatistics", debugNukiHexData, logger);
+      break;
+    }
+    case Command::DailyStatistics : {
+      memcpy(&dailyStatistics, data, dataLen);
+      if (debugNukiReadableData) {
+        logDailyStatistics(dailyStatistics, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "dailyStatistics", debugNukiHexData, logger);
+      break;
+    }
+    case Command::AccessoryInfo : {
+      memcpy(&accessoryInfo, data, dataLen);
+      if (debugNukiReadableData) {
+        logAccessoryInfo(accessoryInfo, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "accessoryInfo", debugNukiHexData, logger);
+      break;
+    }
+    case Command::DoorSensorConfig : {
+      memcpy(&doorSensorConfig, data, dataLen);
+      if (debugNukiReadableData) {
+        logDoorSensorConfig(doorSensorConfig, true, logger);
+      }
+      printBuffer((byte*)data, dataLen, false, "doorSensorConfig", debugNukiHexData, logger);
       break;
     }
     default:

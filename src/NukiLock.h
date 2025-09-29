@@ -69,6 +69,22 @@ class NukiLock : public Nuki::NukiBle {
      */
     Nuki::CmdResult requestAdvancedConfig(AdvancedConfig* retrievedAdvancedConfig);
 
+    /**
+     * @brief Request the lock via BLE to send the internal log entries
+     *
+     * @param startIndex Startindex of first log msg to be send
+     * @param count The number of log entries to be read, starting at the specified start index.
+     * @param sortOrder The desired sort order
+     * @param totalCount true if a Log Entry Count is requested from the lock
+     */
+    Nuki::CmdResult retrieveInternalLogEntries(const uint32_t startIndex, const uint16_t count, const uint8_t sortOrder, bool const totalCount);
+
+    /**
+     * @brief Get the Internal Log Entries stored on the esp. Only available after executing retrieveInternalLogEntries.
+     *
+     * @param requestedInternalLogEntries list to store the returned internal log entries
+     */
+    void getInternalLogEntries(std::list<InternalLogEntry>* requestedInternalLogEntries);
 
     /**
      * @brief Gets the current config from the lock, updates the name parameter and sends the
@@ -385,7 +401,6 @@ class NukiLock : public Nuki::NukiBle {
      */
     Nuki::CmdResult setAdvertisingMode(const AdvertisingMode mode);
 
-
     /**
      * @brief Sends a new time(d) control entry via BLE to the lock.
      * This entry is independant of keypad or authorization entries, it will execute the
@@ -444,6 +459,27 @@ class NukiLock : public Nuki::NukiBle {
                                        const bool totalCount);
 
     /**
+     * @brief Retrieve information about an accessory
+     *
+     * @param accessoryType The accessory type to retrieve information about
+     */
+    Nuki::CmdResult getAccessoryInfo(const uint8_t accessoryType);
+
+    /**
+     * @brief Scan for WiFi networks
+     *
+     * @param scanDurationSeconds Amount of seconds to scan for WiFi networks
+     */
+    Nuki::CmdResult scanWifi(uint8_t scanDurationSeconds = 10);
+
+    /**
+     * @brief Get the Wifi scan entries stored on the esp (after executing scanWifi)
+     *
+     * @param wifiScanEntries list to store the returned Wifi scan entries
+     */
+    void getWifiScanEntries(std::list<WifiScanEntry>* wifiScanEntries);
+
+    /**
      * @brief Returns battery critical state parsed from the battery state byte (battery critical byte)
      *
      * Note that `retrieveOpenerState()` needs to be called first to retrieve the needed data
@@ -451,7 +487,7 @@ class NukiLock : public Nuki::NukiBle {
      * @return true if critical
      */
     bool isBatteryCritical();
-    
+
     /**
      * @brief Returns door sensor battery critical state in case this is supported
      *
@@ -511,9 +547,20 @@ class NukiLock : public Nuki::NukiBle {
     BatteryReport batteryReport;
     std::list<TimeControlEntry> listOfTimeControlEntries;
     std::list<LogEntry> listOfLogEntries;
+    std::list<InternalLogEntry> listOfInternalLogEntries;
+    std::list<WifiScanEntry> listOfWifiScanEntries;
 
     Config config;
     AdvancedConfig advancedConfig;
+    MqttConfig mqttConfig;
+    MqttConfigForMigration mqttConfigForMigration;
+    WifiConfig wifiConfig;
+    AccessoryInfo accessoryInfo;
+    WifiConfigForMigration wifiConfigForMigration;
+    Keypad2Config keypad2Config;
+    GeneralStatistics generalStatistics;
+    DailyStatistics dailyStatistics;
+    DoorSensorConfig doorSensorConfig;
 };
 
 }

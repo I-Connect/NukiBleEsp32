@@ -159,72 +159,72 @@ void logLockErrorCode(uint8_t errorCode, bool debug, Print* Log) {
 
 void logConfig(Config config, bool debug, Print* Log) {
   if (debug) {
-    logMessageVar("nukiId :%d", (unsigned int)config.nukiId, Log, 4);
-    logMessageVar("name :%s", (const char*)config.name, Log, 4);
+    logMessageVar("nukiId: %d", (unsigned int)config.nukiId, Log, 4);
+    logMessageVar("name: %s", (const char*)config.name, Log, 4);
     logMessage("latitude : Not reported for privacy", Log, 4);
     logMessage("longitude : Not reported for privacy", Log, 4);
-    //logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
-    //logMessageVar("longitude :%f", (const float)config.longitude, Log, 4);
-    logMessageVar("autoUnlatch :%d", (unsigned int)config.autoUnlatch, Log, 4);
-    logMessageVar("pairingEnabled :%d", (unsigned int)config.pairingEnabled, Log, 4);
-    logMessageVar("buttonEnabled :%d", (unsigned int)config.buttonEnabled, Log, 4);
-    logMessageVar("ledEnabled :%d", (unsigned int)config.ledEnabled, Log, 4);
-    logMessageVar("ledBrightness :%d", (unsigned int)config.ledBrightness, Log, 4);
-    logMessageVar("currentTime Year :%d", (unsigned int)config.currentTimeYear, Log, 4);
-    logMessageVar("currentTime Month :%d", (unsigned int)config.currentTimeMonth, Log, 4);
-    logMessageVar("currentTime Day :%d", (unsigned int)config.currentTimeDay, Log, 4);
-    logMessageVar("currentTime Hour :%d", (unsigned int)config.currentTimeHour, Log, 4);
-    logMessageVar("currentTime Minute :%d", (unsigned int)config.currentTimeMinute, Log, 4);
-    logMessageVar("currentTime Second :%d", (unsigned int)config.currentTimeSecond, Log, 4);
-    logMessageVar("timeZoneOffset :%d", (unsigned int)config.timeZoneOffset, Log, 4);
-    logMessageVar("dstMode :%d", (unsigned int)config.dstMode, Log, 4);
-    logMessageVar("hasFob :%d", (unsigned int)config.hasFob, Log, 4);
-    logMessageVar("fobAction1 :%d", (unsigned int)config.fobAction1, Log, 4);
-    logMessageVar("fobAction2 :%d", (unsigned int)config.fobAction2, Log, 4);
-    logMessageVar("fobAction3 :%d", (unsigned int)config.fobAction3, Log, 4);
-    logMessageVar("singleLock :%d", (unsigned int)config.singleLock, Log, 4);
-    logMessageVar("advertisingMode :%d", (unsigned int)config.advertisingMode, Log, 4);
-    logMessageVar("hasKeypad :%d", (unsigned int)config.hasKeypad, Log, 4);
+    //logMessageVar("latitude: %f", (const float)config.latitude, Log, 4);
+    //logMessageVar("longitude: %f", (const float)config.longitude, Log, 4);
+    logMessageVar("autoUnlatch: %d", (unsigned int)config.autoUnlatch, Log, 4);
+    logMessageVar("pairingEnabled: %d", (unsigned int)config.pairingEnabled, Log, 4);
+    logMessageVar("buttonEnabled: %d", (unsigned int)config.buttonEnabled, Log, 4);
+    logMessageVar("ledEnabled: %d", (unsigned int)config.ledEnabled, Log, 4);
+    logMessageVar("ledBrightness: %d", (unsigned int)config.ledBrightness, Log, 4);
+    logMessageVar("currentTime Year: %d", (unsigned int)config.currentTimeYear, Log, 4);
+    logMessageVar("currentTime Month: %d", (unsigned int)config.currentTimeMonth, Log, 4);
+    logMessageVar("currentTime Day: %d", (unsigned int)config.currentTimeDay, Log, 4);
+    logMessageVar("currentTime Hour: %d", (unsigned int)config.currentTimeHour, Log, 4);
+    logMessageVar("currentTime Minute: %d", (unsigned int)config.currentTimeMinute, Log, 4);
+    logMessageVar("currentTime Second: %d", (unsigned int)config.currentTimeSecond, Log, 4);
+    logMessageVar("timeZoneOffset: %d", (unsigned int)config.timeZoneOffset, Log, 4);
+    logMessageVar("dstMode: %d", (unsigned int)config.dstMode, Log, 4);
+    logMessageVar("hasFob: %d", (unsigned int)config.hasFob, Log, 4);
+    logMessageVar("fobAction1: %d", (unsigned int)config.fobAction1, Log, 4);
+    logMessageVar("fobAction2: %d", (unsigned int)config.fobAction2, Log, 4);
+    logMessageVar("fobAction3: %d", (unsigned int)config.fobAction3, Log, 4);
+    logMessageVar("singleLock: %d", (unsigned int)config.singleLock, Log, 4);
+    logMessageVar("advertisingMode: %d", (unsigned int)config.advertisingMode, Log, 4);
+    logMessageVar("hasKeypad: %d", (unsigned int)config.hasKeypad, Log, 4);
     if (Log == nullptr) {
-      log_d("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
-      log_d("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
+      log_d("firmwareVersion: %d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
+      log_d("hardwareRevision: %d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
     }
     else
     {
-      Log->printf("firmwareVersion :%d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
+      Log->printf("firmwareVersion: %d.%d.%d", config.firmwareVersion[0], config.firmwareVersion[1], config.firmwareVersion[2]);
       Log->println();
-      Log->printf("hardwareRevision :%d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
+      Log->printf("hardwareRevision: %d.%d", config.hardwareRevision[0], config.hardwareRevision[1]);
       Log->println();
     }
-    logMessageVar("homeKitStatus :%d", (unsigned int)config.homeKitStatus, Log, 4);
-    logMessageVar("timeZoneId :%d", (unsigned int)config.timeZoneId, Log, 4);
-    logMessageVar("deviceType :%d", (unsigned int)config.deviceType, Log, 4);
-    logMessageVar("wifiCapable :%d", (unsigned int)config.capabilities & 1, Log, 4);
-    logMessageVar("threadCapable :%d", (unsigned int)(((unsigned int)config.capabilities & 2) != 0 ? 1 : 0), Log, 4);
-    logMessageVar("hasKeypadV2 :%d", (unsigned int)config.hasKeypadV2, Log, 4);
-    logMessageVar("matterStatus :%d", (unsigned int)config.matterStatus, Log, 4);
-    logMessageVar("productVariant :%d", (unsigned int)config.productVariant, Log, 4);
+    logMessageVar("homeKitStatus: %d", (unsigned int)config.homeKitStatus, Log, 4);
+    logMessageVar("timeZoneId: %d", (unsigned int)config.timeZoneId, Log, 4);
+    logMessageVar("deviceType: %d", (unsigned int)config.deviceType, Log, 4);
+    logMessageVar("wifiCapable: %d", (unsigned int)config.capabilities & 1, Log, 4);
+    logMessageVar("threadCapable: %d", (unsigned int)(((unsigned int)config.capabilities & 2) != 0 ? 1 : 0), Log, 4);
+    logMessageVar("hasKeypadV2: %d", (unsigned int)config.hasKeypadV2, Log, 4);
+    logMessageVar("matterStatus: %d", (unsigned int)config.matterStatus, Log, 4);
+    logMessageVar("productVariant: %d", (unsigned int)config.productVariant, Log, 4);
   }
 }
 
 void logNewConfig(NewConfig newConfig, bool debug, Print* Log) {
   if (debug) {
-    logMessageVar("name :%s", (const char*)newConfig.name, Log, 4);
-    logMessageVar("latitude :%f", (const float)newConfig.latitude, Log, 4);
-    logMessageVar("longitude :%f", (const float)newConfig.longitude, Log, 4);
-    logMessageVar("autoUnlatch :%d", (unsigned int)newConfig.autoUnlatch, Log, 4);
-    logMessageVar("pairingEnabled :%d", (unsigned int)newConfig.pairingEnabled, Log, 4);
-    logMessageVar("buttonEnabled :%d", (unsigned int)newConfig.buttonEnabled, Log, 4);
-    logMessageVar("ledEnabled :%d", (unsigned int)newConfig.ledEnabled, Log, 4);
-    logMessageVar("ledBrightness :%d", (unsigned int)newConfig.ledBrightness, Log, 4);
-    logMessageVar("timeZoneOffset :%d", (unsigned int)newConfig.timeZoneOffset, Log, 4);
-    logMessageVar("dstMode :%d", (unsigned int)newConfig.dstMode, Log, 4);
-    logMessageVar("fobAction1 :%d", (unsigned int)newConfig.fobAction1, Log, 4);
-    logMessageVar("fobAction2 :%d", (unsigned int)newConfig.fobAction2, Log, 4);
-    logMessageVar("fobAction3 :%d", (unsigned int)newConfig.fobAction3, Log, 4);
-    logMessageVar("singleLock :%d", (unsigned int)newConfig.singleLock, Log, 4);
-    logMessageVar("advertisingMode :%d", (unsigned int)newConfig.advertisingMode, Log, 4);
-    logMessageVar("timeZoneId :%d", (unsigned int)newConfig.timeZoneId, Log, 4);
+    logMessageVar("name: %s", (const char*)newConfig.name, Log, 4);
+    logMessageVar("latitude: %f", (const float)newConfig.latitude, Log, 4);
+    logMessageVar("longitude: %f", (const float)newConfig.longitude, Log, 4);
+    logMessageVar("autoUnlatch: %d", (unsigned int)newConfig.autoUnlatch, Log, 4);
+    logMessageVar("pairingEnabled: %d", (unsigned int)newConfig.pairingEnabled, Log, 4);
+    logMessageVar("buttonEnabled: %d", (unsigned int)newConfig.buttonEnabled, Log, 4);
+    logMessageVar("ledEnabled: %d", (unsigned int)newConfig.ledEnabled, Log, 4);
+    logMessageVar("ledBrightness: %d", (unsigned int)newConfig.ledBrightness, Log, 4);
+    logMessageVar("timeZoneOffset: %d", (unsigned int)newConfig.timeZoneOffset, Log, 4);
+    logMessageVar("dstMode: %d", (unsigned int)newConfig.dstMode, Log, 4);
+    logMessageVar("fobAction1: %d", (unsigned int)newConfig.fobAction1, Log, 4);
+    logMessageVar("fobAction2: %d", (unsigned int)newConfig.fobAction2, Log, 4);
+    logMessageVar("fobAction3: %d", (unsigned int)newConfig.fobAction3, Log, 4);
+    logMessageVar("singleLock: %d", (unsigned int)newConfig.singleLock, Log, 4);
+    logMessageVar("advertisingMode: %d", (unsigned int)newConfig.advertisingMode, Log, 4);
+    logMessageVar("timeZoneId: %d", (unsigned int)newConfig.timeZoneId, Log, 4);
   }
 }
 
@@ -670,62 +670,252 @@ void logLogEntry(LogEntry logEntry, bool debug, Print* Log) {
 
 void logAdvancedConfig(AdvancedConfig advancedConfig, bool debug, Print* Log) {
   if (debug) {
-    logMessageVar("totalDegrees :%d", (unsigned int)advancedConfig.totalDegrees, Log, 4);
-    logMessageVar("unlockedPositionOffsetDegrees :%d", (unsigned int)advancedConfig.unlockedPositionOffsetDegrees, Log, 4);
-    logMessageVar("lockedPositionOffsetDegrees :%f", (const float)advancedConfig.lockedPositionOffsetDegrees, Log, 4);
-    logMessageVar("singleLockedPositionOffsetDegrees :%f", (const float)advancedConfig.singleLockedPositionOffsetDegrees, Log, 4);
-    logMessageVar("unlockedToLockedTransitionOffsetDegrees :%d", (unsigned int)advancedConfig.unlockedToLockedTransitionOffsetDegrees, Log, 4);
-    logMessageVar("lockNgoTimeout :%d", (unsigned int)advancedConfig.lockNgoTimeout, Log, 4);
-    logMessageVar("singleButtonPressAction :%d", (unsigned int)advancedConfig.singleButtonPressAction, Log, 4);
-    logMessageVar("doubleButtonPressAction :%d", (unsigned int)advancedConfig.doubleButtonPressAction, Log, 4);
-    logMessageVar("detachedCylinder :%d", (unsigned int)advancedConfig.detachedCylinder, Log, 4);
-    logMessageVar("batteryType :%d", (unsigned int)advancedConfig.batteryType, Log, 4);
-    logMessageVar("automaticBatteryTypeDetection :%d", (unsigned int)advancedConfig.automaticBatteryTypeDetection, Log, 4);
-    logMessageVar("unlatchDuration :%d", (unsigned int)advancedConfig.unlatchDuration, Log, 4);
-    logMessageVar("autoLockTimeOut :%d", (unsigned int)advancedConfig.autoLockTimeOut, Log, 4);
-    logMessageVar("autoUnLockDisabled :%d", (unsigned int)advancedConfig.autoUnLockDisabled, Log, 4);
-    logMessageVar("nightModeEnabled :%d", (unsigned int)advancedConfig.nightModeEnabled, Log, 4);
-    logMessageVar("nightModeStartTime Hour :%d", (unsigned int)advancedConfig.nightModeStartTime[0], Log, 4);
-    logMessageVar("nightModeStartTime Minute :%d", (unsigned int)advancedConfig.nightModeStartTime[1], Log, 4);
-    logMessageVar("nightModeEndTime Hour :%d", (unsigned int)advancedConfig.nightModeEndTime[0], Log, 4);
-    logMessageVar("nightModeEndTime Minute :%d", (unsigned int)advancedConfig.nightModeEndTime[1], Log, 4);
-    logMessageVar("nightModeAutoLockEnabled :%d", (unsigned int)advancedConfig.nightModeAutoLockEnabled, Log, 4);
-    logMessageVar("nightModeAutoUnlockDisabled :%d", (unsigned int)advancedConfig.nightModeAutoUnlockDisabled, Log, 4);
-    logMessageVar("nightModeImmediateLockOnStart :%d", (unsigned int)advancedConfig.nightModeImmediateLockOnStart, Log, 4);
-    logMessageVar("autoLockEnabled :%d", (unsigned int)advancedConfig.autoLockEnabled, Log, 4);
-    logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)advancedConfig.immediateAutoLockEnabled, Log, 4);
-    logMessageVar("autoUpdateEnabled :%d", (unsigned int)advancedConfig.autoUpdateEnabled, Log, 4);
-    logMessageVar("motorSpeed :%d", (unsigned int)advancedConfig.motorSpeed, Log, 4);
-    logMessageVar("enableSlowSpeedDuringNightMode :%d", (unsigned int)advancedConfig.enableSlowSpeedDuringNightMode, Log, 4);
+    logMessageVar("totalDegrees: %d", (unsigned int)advancedConfig.totalDegrees, Log, 4);
+    logMessageVar("unlockedPositionOffsetDegrees: %d", (unsigned int)advancedConfig.unlockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("lockedPositionOffsetDegrees: %f", (const float)advancedConfig.lockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("singleLockedPositionOffsetDegrees: %f", (const float)advancedConfig.singleLockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("unlockedToLockedTransitionOffsetDegrees: %d", (unsigned int)advancedConfig.unlockedToLockedTransitionOffsetDegrees, Log, 4);
+    logMessageVar("lockNgoTimeout: %d", (unsigned int)advancedConfig.lockNgoTimeout, Log, 4);
+    logMessageVar("singleButtonPressAction: %d", (unsigned int)advancedConfig.singleButtonPressAction, Log, 4);
+    logMessageVar("doubleButtonPressAction: %d", (unsigned int)advancedConfig.doubleButtonPressAction, Log, 4);
+    logMessageVar("detachedCylinder: %d", (unsigned int)advancedConfig.detachedCylinder, Log, 4);
+    logMessageVar("batteryType: %d", (unsigned int)advancedConfig.batteryType, Log, 4);
+    logMessageVar("automaticBatteryTypeDetection: %d", (unsigned int)advancedConfig.automaticBatteryTypeDetection, Log, 4);
+    logMessageVar("unlatchDuration: %d", (unsigned int)advancedConfig.unlatchDuration, Log, 4);
+    logMessageVar("autoLockTimeOut: %d", (unsigned int)advancedConfig.autoLockTimeOut, Log, 4);
+    logMessageVar("autoUnLockDisabled: %d", (unsigned int)advancedConfig.autoUnLockDisabled, Log, 4);
+    logMessageVar("nightModeEnabled: %d", (unsigned int)advancedConfig.nightModeEnabled, Log, 4);
+    logMessageVar("nightModeStartTime Hour: %d", (unsigned int)advancedConfig.nightModeStartTime[0], Log, 4);
+    logMessageVar("nightModeStartTime Minute: %d", (unsigned int)advancedConfig.nightModeStartTime[1], Log, 4);
+    logMessageVar("nightModeEndTime Hour: %d", (unsigned int)advancedConfig.nightModeEndTime[0], Log, 4);
+    logMessageVar("nightModeEndTime Minute: %d", (unsigned int)advancedConfig.nightModeEndTime[1], Log, 4);
+    logMessageVar("nightModeAutoLockEnabled: %d", (unsigned int)advancedConfig.nightModeAutoLockEnabled, Log, 4);
+    logMessageVar("nightModeAutoUnlockDisabled: %d", (unsigned int)advancedConfig.nightModeAutoUnlockDisabled, Log, 4);
+    logMessageVar("nightModeImmediateLockOnStart: %d", (unsigned int)advancedConfig.nightModeImmediateLockOnStart, Log, 4);
+    logMessageVar("autoLockEnabled: %d", (unsigned int)advancedConfig.autoLockEnabled, Log, 4);
+    logMessageVar("immediateAutoLockEnabled: %d", (unsigned int)advancedConfig.immediateAutoLockEnabled, Log, 4);
+    logMessageVar("autoUpdateEnabled: %d", (unsigned int)advancedConfig.autoUpdateEnabled, Log, 4);
+    logMessageVar("motorSpeed: %d", (unsigned int)advancedConfig.motorSpeed, Log, 4);
+    logMessageVar("enableSlowSpeedDuringNightMode: %d", (unsigned int)advancedConfig.enableSlowSpeedDuringNightMode, Log, 4);
   }
 }
 
 void logNewAdvancedConfig(NewAdvancedConfig newAdvancedConfig, bool debug, Print* Log) {
   if (debug) {
-    logMessageVar("unlockedPositionOffsetDegrees :%d", (unsigned int)newAdvancedConfig.unlockedPositionOffsetDegrees, Log, 4);
-    logMessageVar("lockedPositionOffsetDegrees :%f", (const float)newAdvancedConfig.lockedPositionOffsetDegrees, Log, 4);
-    logMessageVar("singleLockedPositionOffsetDegrees :%f", (const float)newAdvancedConfig.singleLockedPositionOffsetDegrees, Log, 4);
-    logMessageVar("unlockedToLockedTransitionOffsetDegrees :%d", (unsigned int)newAdvancedConfig.unlockedToLockedTransitionOffsetDegrees, Log, 4);
-    logMessageVar("lockNgoTimeout :%d", (unsigned int)newAdvancedConfig.lockNgoTimeout, Log, 4);
-    logMessageVar("singleButtonPressAction :%d", (unsigned int)newAdvancedConfig.singleButtonPressAction, Log, 4);
-    logMessageVar("doubleButtonPressAction :%d", (unsigned int)newAdvancedConfig.doubleButtonPressAction, Log, 4);
-    logMessageVar("detachedCylinder :%d", (unsigned int)newAdvancedConfig.detachedCylinder, Log, 4);
-    logMessageVar("batteryType :%d", (unsigned int)newAdvancedConfig.batteryType, Log, 4);
-    logMessageVar("automaticBatteryTypeDetection :%d", (unsigned int)newAdvancedConfig.automaticBatteryTypeDetection, Log, 4);
-    logMessageVar("unlatchDuration :%d", (unsigned int)newAdvancedConfig.unlatchDuration, Log, 4);
-    logMessageVar("autoUnLockTimeOut :%d", (unsigned int)newAdvancedConfig.autoLockTimeOut, Log, 4);
-    logMessageVar("autoUnLockDisabled :%d", (unsigned int)newAdvancedConfig.autoUnLockDisabled, Log, 4);
-    logMessageVar("nightModeEnabled :%d", (unsigned int)newAdvancedConfig.nightModeEnabled, Log, 4);
-    logMessageVar("nightModeStartTime Hour :%d", (unsigned int)newAdvancedConfig.nightModeStartTime[0], Log, 4);
-    logMessageVar("nightModeStartTime Minute :%d", (unsigned int)newAdvancedConfig.nightModeStartTime[1], Log, 4);
-    logMessageVar("nightModeEndTime Hour :%d", (unsigned int)newAdvancedConfig.nightModeEndTime[0], Log, 4);
-    logMessageVar("nightModeEndTime Minute :%d", (unsigned int)newAdvancedConfig.nightModeEndTime[1], Log, 4);
-    logMessageVar("nightModeAutoLockEnabled :%d", (unsigned int)newAdvancedConfig.nightModeAutoLockEnabled, Log, 4);
-    logMessageVar("nightModeAutoUnlockDisabled :%d", (unsigned int)newAdvancedConfig.nightModeAutoUnlockDisabled, Log, 4);
-    logMessageVar("nightModeImmediateLockOnStart :%d", (unsigned int)newAdvancedConfig.nightModeImmediateLockOnStart, Log, 4);
-    logMessageVar("autoLockEnabled :%d", (unsigned int)newAdvancedConfig.autoLockEnabled, Log, 4);
-    logMessageVar("immediateAutoLockEnabled :%d", (unsigned int)newAdvancedConfig.immediateAutoLockEnabled, Log, 4);
-    logMessageVar("autoUpdateEnabled :%d", (unsigned int)newAdvancedConfig.autoUpdateEnabled, Log, 4);
+    logMessageVar("unlockedPositionOffsetDegrees: %d", (unsigned int)newAdvancedConfig.unlockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("lockedPositionOffsetDegrees: %f", (const float)newAdvancedConfig.lockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("singleLockedPositionOffsetDegrees: %f", (const float)newAdvancedConfig.singleLockedPositionOffsetDegrees, Log, 4);
+    logMessageVar("unlockedToLockedTransitionOffsetDegrees: %d", (unsigned int)newAdvancedConfig.unlockedToLockedTransitionOffsetDegrees, Log, 4);
+    logMessageVar("lockNgoTimeout: %d", (unsigned int)newAdvancedConfig.lockNgoTimeout, Log, 4);
+    logMessageVar("singleButtonPressAction: %d", (unsigned int)newAdvancedConfig.singleButtonPressAction, Log, 4);
+    logMessageVar("doubleButtonPressAction: %d", (unsigned int)newAdvancedConfig.doubleButtonPressAction, Log, 4);
+    logMessageVar("detachedCylinder: %d", (unsigned int)newAdvancedConfig.detachedCylinder, Log, 4);
+    logMessageVar("batteryType: %d", (unsigned int)newAdvancedConfig.batteryType, Log, 4);
+    logMessageVar("automaticBatteryTypeDetection: %d", (unsigned int)newAdvancedConfig.automaticBatteryTypeDetection, Log, 4);
+    logMessageVar("unlatchDuration: %d", (unsigned int)newAdvancedConfig.unlatchDuration, Log, 4);
+    logMessageVar("autoUnLockTimeOut: %d", (unsigned int)newAdvancedConfig.autoLockTimeOut, Log, 4);
+    logMessageVar("autoUnLockDisabled: %d", (unsigned int)newAdvancedConfig.autoUnLockDisabled, Log, 4);
+    logMessageVar("nightModeEnabled: %d", (unsigned int)newAdvancedConfig.nightModeEnabled, Log, 4);
+    logMessageVar("nightModeStartTime Hour: %d", (unsigned int)newAdvancedConfig.nightModeStartTime[0], Log, 4);
+    logMessageVar("nightModeStartTime Minute: %d", (unsigned int)newAdvancedConfig.nightModeStartTime[1], Log, 4);
+    logMessageVar("nightModeEndTime Hour: %d", (unsigned int)newAdvancedConfig.nightModeEndTime[0], Log, 4);
+    logMessageVar("nightModeEndTime Minute: %d", (unsigned int)newAdvancedConfig.nightModeEndTime[1], Log, 4);
+    logMessageVar("nightModeAutoLockEnabled: %d", (unsigned int)newAdvancedConfig.nightModeAutoLockEnabled, Log, 4);
+    logMessageVar("nightModeAutoUnlockDisabled: %d", (unsigned int)newAdvancedConfig.nightModeAutoUnlockDisabled, Log, 4);
+    logMessageVar("nightModeImmediateLockOnStart: %d", (unsigned int)newAdvancedConfig.nightModeImmediateLockOnStart, Log, 4);
+    logMessageVar("autoLockEnabled: %d", (unsigned int)newAdvancedConfig.autoLockEnabled, Log, 4);
+    logMessageVar("immediateAutoLockEnabled: %d", (unsigned int)newAdvancedConfig.immediateAutoLockEnabled, Log, 4);
+    logMessageVar("autoUpdateEnabled: %d", (unsigned int)newAdvancedConfig.autoUpdateEnabled, Log, 4);
+  }
+}
+
+void logWifiScanEntry(WifiScanEntry wifiScanEntry, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("ssid: %s", (const char*)wifiScanEntry.ssid, Log, 4);
+    logMessageVar("type: %d", (unsigned int)wifiScanEntry.type, Log, 4);
+    logMessageVar("signal raw: %d", (unsigned int)wifiScanEntry.signal, Log, 4);
+    logMessageVar("signal: %d", (unsigned int)(wifiScanEntry.signal & 255), Log, 4);
+  }
+}
+
+void logMqttConfig(MqttConfig mqttConfig, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("enabled: %d", (unsigned int)mqttConfig.enabled, Log, 4);
+    logMessageVar("hostName: %s", (const char*)mqttConfig.hostName, Log, 4);
+    logMessageVar("userName: %s", (const char*)mqttConfig.userName, Log, 4);
+    logMessageVar("secureConnection: %d", (unsigned int)mqttConfig.secureConnection, Log, 4);
+    logMessageVar("autoDiscovery: %d", (unsigned int)mqttConfig.autoDiscovery, Log, 4);
+    logMessageVar("lockingEnabled: %d", (unsigned int)mqttConfig.lockingEnabled, Log, 4);
+  }
+}
+
+void logMqttConfigForMigration(MqttConfigForMigration mqttConfigForMigration, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("enabled: %d", (unsigned int)mqttConfigForMigration.enabled, Log, 4);
+    logMessageVar("hostName: %s", (const char*)mqttConfigForMigration.hostName, Log, 4);
+    logMessageVar("userName: %s", (const char*)mqttConfigForMigration.userName, Log, 4);
+    logMessageVar("secureConnection: %d", (unsigned int)mqttConfigForMigration.secureConnection, Log, 4);
+    logMessageVar("autoDiscovery: %d", (unsigned int)mqttConfigForMigration.autoDiscovery, Log, 4);
+    logMessageVar("lockingEnabled: %d", (unsigned int)mqttConfigForMigration.lockingEnabled, Log, 4);
+    logMessageVar("passphrase: %s", (const char*)mqttConfigForMigration.passphrase, Log, 4);
+  }
+}
+
+void logWifiConfig(WifiConfig wifiConfig, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("serverBridgeId: %d", (unsigned int)wifiConfig.serverBridgeId, Log, 4);
+    logMessageVar("wifiEnabled: %d", (unsigned int)wifiConfig.wifiEnabled, Log, 4);
+    logMessageVar("wifiExpertSettings composed value: %d", (unsigned int)wifiConfig.wifiExpertSettings, Log, 4);
+    logMessageVar("expertSettingsMode: %d", (unsigned int)(wifiConfig.wifiExpertSettings & 3), Log, 4);
+    logMessageVar("broadcastFilterSettings: %d", (unsigned int)((wifiConfig.wifiExpertSettings >> 2) & 3), Log, 4);
+    logMessageVar("dtimSkipSettings: %d", (unsigned int)((wifiConfig.wifiExpertSettings >> 4) & 7), Log, 4);
+    logMessageVar("sseSkipSettings: %d", (unsigned int)((wifiConfig.wifiExpertSettings >> 7) & 7), Log, 4);
+    logMessageVar("powersafeMode: %d", (unsigned int)((wifiConfig.wifiExpertSettings >> 10) & 3), Log, 4);
+    logMessageVar("activePingEnabled: %d", (unsigned int)((wifiConfig.wifiExpertSettings >> 12) & 1), Log, 4);
+  }
+}
+
+void logWifiConfigForMigration(WifiConfigForMigration wifiConfigForMigration, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("ssid: %s", (const char*)wifiConfigForMigration.ssid, Log, 4);
+    logMessageVar("type: %d", (unsigned int)wifiConfigForMigration.type, Log, 4);
+    logMessageVar("passphrase: %s", (const char*)wifiConfigForMigration.passphrase, Log, 4);
+  }
+}
+
+void logKeypad2Config(Keypad2Config keypad2Config, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("updatePending: %d", (unsigned int)keypad2Config.updatePending, Log, 4);
+    logMessageVar("ledBrightness: %d", (unsigned int)keypad2Config.ledBrightness, Log, 4);
+    logMessageVar("batteryType: %d", (unsigned int)keypad2Config.batteryType, Log, 4);
+    logMessageVar("buttonMode: %d", (unsigned int)keypad2Config.buttonMode, Log, 4);
+    logMessageVar("lockAction: %d", (unsigned int)keypad2Config.lockAction, Log, 4);
+  }
+}
+
+void logDoorSensorConfig(DoorSensorConfig doorSensorConfig, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("enabled: %d", (unsigned int)doorSensorConfig.enabled, Log, 4);
+    logMessageVar("doorAjarTimeout: %d", (unsigned int)doorSensorConfig.doorAjarTimeout, Log, 4);
+    logMessageVar("doorAjarLoggingEnabled: %d", (unsigned int)doorSensorConfig.doorAjarLoggingEnabled, Log, 4);
+    logMessageVar("doorStatusMismatchLoggingEnabled: %d", (unsigned int)doorSensorConfig.doorStatusMismatchLoggingEnabled, Log, 4);
+  }
+}
+
+void logFingerprintEntry(FingerprintEntry fingerprintEntry, bool debug, Print* Log) {
+  if (debug) {
+    String hexByte;
+    char tmp[16];
+
+    for (size_t i = 0; i < 32; i += 1) {
+      sprintf(tmp, "%02x", fingerprintEntry.fingerprintId[i]);
+      hexByte += strtol((const char*)tmp, nullptr, 16);
+    }
+    logMessageVar("fingerprintId:%s", (const char*)hexByte.c_str(), Log, 4);
+    logMessageVar("keypadCodeId: %d", (unsigned int)fingerprintEntry.keypadCodeId, Log, 4);
+    logMessageVar("name:%s", (const char*)fingerprintEntry.name, Log, 4);
+  }
+}
+
+void logAccessoryInfo(AccessoryInfo accessoryInfo, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("dateYear: %d", (unsigned int)accessoryInfo.dateYear, Log, 4);
+    logMessageVar("dateMonth: %d", (unsigned int)accessoryInfo.dateMonth, Log, 4);
+    logMessageVar("dateDay: %d", (unsigned int)accessoryInfo.dateDay, Log, 4);
+    logMessageVar("dateHour: %d", (unsigned int)accessoryInfo.dateHour, Log, 4);
+    logMessageVar("dateMinute: %d", (unsigned int)accessoryInfo.dateMinute, Log, 4);
+    logMessageVar("dateSecond: %d", (unsigned int)accessoryInfo.dateSecond, Log, 4);
+    logMessageVar("accessoryNukiId: %d", (unsigned int)accessoryInfo.accessoryNukiId, Log, 4);
+    logMessageVar("accessoryType: %d", (unsigned int)accessoryInfo.accessoryType, Log, 4);
+    if (Log == nullptr) {
+      log_d("firmwareVersion: %d.%d.%d", accessoryInfo.firmwareVersion[0], accessoryInfo.firmwareVersion[1], accessoryInfo.firmwareVersion[2]);
+      log_d("hardwareRevision: %d.%d", accessoryInfo.hardwareRevision[0], accessoryInfo.hardwareRevision[1]);
+    }
+    else
+    {
+      Log->printf("firmwareVersion: %d.%d.%d", accessoryInfo.firmwareVersion[0], accessoryInfo.firmwareVersion[1], accessoryInfo.firmwareVersion[2]);
+      Log->println();
+      Log->printf("hardwareRevision: %d.%d", accessoryInfo.hardwareRevision[0], accessoryInfo.hardwareRevision[1]);
+      Log->println();
+    }
+    logMessageVar("productVariantDifferentiator: %d", (unsigned int)accessoryInfo.productVariantDifferentiator, Log, 4);
+    logMessageVar("mostRecentBatteryVoltage: %d", (unsigned int)accessoryInfo.mostRecentBatteryVoltage, Log, 4);
+    logMessageVar("mostRecentTemperature: %d", (unsigned int)accessoryInfo.mostRecentTemperature, Log, 4);
+  }
+}
+
+void logDailyStatistics(DailyStatistics dailyStatistics, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("dateYear: %d", (unsigned int)dailyStatistics.dateYear, Log, 4);
+    logMessageVar("dateMonth: %d", (unsigned int)dailyStatistics.dateMonth, Log, 4);
+    logMessageVar("dateDay: %d", (unsigned int)dailyStatistics.dateDay, Log, 4);
+    //logMessageVar("dateHour: %d", (unsigned int)dailyStatistics.dateHour, Log, 4);
+    //logMessageVar("dateMinute: %d", (unsigned int)dailyStatistics.dateMinute, Log, 4);
+    //logMessageVar("dateSecond: %d", (unsigned int)dailyStatistics.dateSecond, Log, 4);
+    logMessageVar("version: %d", (unsigned int)dailyStatistics.version, Log, 4);
+    logMessageVar("countSuccessfulLockActions: %d", (unsigned int)dailyStatistics.countSuccessfulLockActions, Log, 4);
+    logMessageVar("countErroneousLockActions: %d", (unsigned int)dailyStatistics.countErroneousLockActions, Log, 4);
+    logMessageVar("avgCurrentConsumptionLock: %d", (unsigned int)dailyStatistics.avgCurrentConsumptionLock, Log, 4);
+    logMessageVar("maxCurrentConsumptionLock: %d", (unsigned int)dailyStatistics.maxCurrentConsumptionLock, Log, 4);
+    logMessageVar("batteryMinStartVoltageLock: %d", (unsigned int)dailyStatistics.batteryMinStartVoltageLock, Log, 4);
+    logMessageVar("countSuccessfulUnlatchActions: %d", (unsigned int)dailyStatistics.countSuccessfulUnlatchActions, Log, 4);
+    logMessageVar("countErroneousUnlatchActions: %d", (unsigned int)dailyStatistics.countErroneousUnlatchActions, Log, 4);
+    logMessageVar("avgCurrentConsumptionUnlatch: %d", (unsigned int)dailyStatistics.avgCurrentConsumptionUnlatch, Log, 4);
+    logMessageVar("maxCurrentConsumptionUnlatch: %d", (unsigned int)dailyStatistics.maxCurrentConsumptionUnlatch, Log, 4);
+    logMessageVar("batteryMinStartVoltageUnlatch: %d", (unsigned int)dailyStatistics.batteryMinStartVoltageUnlatch, Log, 4);
+    logMessageVar("incomingCommands: %d", (unsigned int)dailyStatistics.incomingCommands, Log, 4);
+    logMessageVar("outgoingCommands: %d", (unsigned int)dailyStatistics.outgoingCommands, Log, 4);
+    logMessageVar("maxTemperature: %d", (unsigned int)dailyStatistics.maxTemperature, Log, 4);
+    logMessageVar("minTemperature: %d", (unsigned int)dailyStatistics.minTemperature, Log, 4);
+    logMessageVar("avgTemperature: %d", (unsigned int)dailyStatistics.avgTemperature, Log, 4);
+    logMessageVar("numDoorSensorStatusChanges: %d", (unsigned int)dailyStatistics.numDoorSensorStatusChanges, Log, 4);
+    logMessageVar("maxBatteryPercentage: %d", (unsigned int)dailyStatistics.maxBatteryPercentage, Log, 4);
+    logMessageVar("minBatteryPercentage: %d", (unsigned int)dailyStatistics.minBatteryPercentage, Log, 4);
+    logMessageVar("idleTime: %d", (unsigned int)dailyStatistics.idleTime, Log, 4);
+    logMessageVar("connectionTime: %d", (unsigned int)dailyStatistics.connectionTime, Log, 4);
+    logMessageVar("actionTime: %d", (unsigned int)dailyStatistics.actionTime, Log, 4);
+  }
+}
+
+void logGeneralStatistics(GeneralStatistics generalStatistics, bool debug, Print* Log) {
+  if (debug) {
+    logMessageVar("version: %d", (unsigned int)generalStatistics.version, Log, 4);
+    logMessageVar("firstCalibrationYear: %d", (unsigned int)generalStatistics.firstCalibrationYear, Log, 4);
+    logMessageVar("firstCalibrationMonth: %d", (unsigned int)generalStatistics.firstCalibrationMonth, Log, 4);
+    logMessageVar("firstCalibrationDay: %d", (unsigned int)generalStatistics.firstCalibrationDay, Log, 4);
+    logMessageVar("calibrationCount: %d", (unsigned int)generalStatistics.calibrationCount, Log, 4);
+    logMessageVar("lockActionCount: %d", (unsigned int)generalStatistics.lockActionCount, Log, 4);
+    logMessageVar("unlatchCount: %d", (unsigned int)generalStatistics.unlatchCount, Log, 4);
+    logMessageVar("lastRebootDateYear: %d", (unsigned int)generalStatistics.lastRebootDateYear, Log, 4);
+    logMessageVar("lastRebootDateMonth: %d", (unsigned int)generalStatistics.lastRebootDateMonth, Log, 4);
+    logMessageVar("lastRebootDateDay: %d", (unsigned int)generalStatistics.lastRebootDateDay, Log, 4);
+    logMessageVar("lastRebootDateHour: %d", (unsigned int)generalStatistics.lastRebootDateHour, Log, 4);
+    logMessageVar("lastRebootDateMinute: %d", (unsigned int)generalStatistics.lastRebootDateMinute, Log, 4);
+    logMessageVar("lastRebootDateSecond: %d", (unsigned int)generalStatistics.lastRebootDateSecond, Log, 4);
+    logMessageVar("lastChargeDateYear: %d", (unsigned int)generalStatistics.lastChargeDateYear, Log, 4);
+    logMessageVar("lastChargeDateMonth: %d", (unsigned int)generalStatistics.lastChargeDateMonth, Log, 4);
+    logMessageVar("lastChargeDateDay: %d", (unsigned int)generalStatistics.lastChargeDateDay, Log, 4);
+    logMessageVar("lastChargeDateHour: %d", (unsigned int)generalStatistics.lastChargeDateHour, Log, 4);
+    logMessageVar("lastChargeDateMinute: %d", (unsigned int)generalStatistics.lastChargeDateMinute, Log, 4);
+    logMessageVar("lastChargeDateSecond: %d", (unsigned int)generalStatistics.lastChargeDateSecond, Log, 4);
+    logMessageVar("initialBatteryVoltage: %d", (unsigned int)generalStatistics.initialBatteryVoltage, Log, 4);
+    logMessageVar("numActionsDuringBatteryCycle: %d", (unsigned int)generalStatistics.numActionsDuringBatteryCycle, Log, 4);
+    logMessageVar("numUnexpectedReboots: %d", (unsigned int)generalStatistics.numUnexpectedReboots, Log, 4);
+  }
+}
+
+void logInternalLogEntry(InternalLogEntry internalLogEntry, bool debug, Print* Log) {
+  if (debug) {
+    if (Log == nullptr) {
+      log_d("[%d] type:%d authId:%d %d-%d-%d %d:%d:%d ", internalLogEntry.index, internalLogEntry.loggingType, internalLogEntry.authId, internalLogEntry.timeStampYear, internalLogEntry.timeStampMonth, internalLogEntry.timeStampDay, internalLogEntry.timeStampHour, internalLogEntry.timeStampMinute, internalLogEntry.timeStampSecond);
+    }
+    else
+    {
+      Log->printf("[%d] type:%d authId:%d %d-%d-%d %d:%d:%d ", internalLogEntry.index, internalLogEntry.loggingType, internalLogEntry.authId, internalLogEntry.timeStampYear, internalLogEntry.timeStampMonth, internalLogEntry.timeStampDay, internalLogEntry.timeStampHour, internalLogEntry.timeStampMinute, internalLogEntry.timeStampSecond);;
+      Log->println();
+    }
+
+    logMessageVar("data: %d", (unsigned int)internalLogEntry.data, Log, 4);
   }
 }
 

@@ -24,7 +24,7 @@
 #include "sodium/crypto_secretbox.h"
 
 #define GENERAL_TIMEOUT 3000
-#define CMD_TIMEOUT 10000
+#define CMD_TIMEOUT 3000
 #define PAIRING_TIMEOUT 30000
 #define HEARTBEAT_TIMEOUT 30000
 
@@ -180,12 +180,25 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void getKeypadEntries(std::list<KeypadEntry>* requestedKeyPadEntries);
 
     /**
+     * @brief Request the lock via BLE to send the existing fingerprint entries
+     *
+     */
+    Nuki::CmdResult retrieveFingerprintEntries();
+    
+    /**
+     * @brief Get the Fingerprint Entries stored on the esp (after executing retrieveFingerprintEntries)
+     *
+     * @param requestedFingerprintEntries list to store the returned Fingerprint entries
+     */
+    void getFingerprintEntries(std::list<FingerprintEntry>* requestedFingerprintEntries);    
+
+    /**
     * @brief Delete a Keypad Entry
     *
     * @param id Id to be deleted
     */
     CmdResult deleteKeypadEntry(uint16_t id);
-
+    
     /**
      * @brief Request the lock via BLE to send the existing authorizationentries
      *
@@ -232,6 +245,20 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      *
      */
     Nuki::CmdResult requestReboot();
+    
+    /**
+     * @brief Sends a custom command to the lock via BLE
+     *
+     * @param command Nuki command to execute
+     * @param withPin Set to true when using challenge and pin command
+     */
+    Nuki::CmdResult genericCommand(Command command, bool withPin = true);
+
+    /**
+     * @brief Sends a request for daily statistics to the lock via BLE
+     *
+     */
+    Nuki::CmdResult requestDailyStatistics();
 
     /**
      * @brief Sends the time to be set to the lock via BLE
@@ -430,17 +457,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Print* logger = nullptr;
 
   private:
-    #ifndef NUKI_MUTEX_RECURSIVE
-    SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateMutex();
-    #else
-    SemaphoreHandle_t nukiBleSemaphore = xSemaphoreCreateRecursiveMutex();
-    #endif
-    bool takeNukiBleSemaphore(std::string taker);
-    std::string owner = "free";
-    void giveNukiBleSemaphore();
-
-    bool altConnect = false;
     bool connecting = false;
+    bool disconnecting = false;
     bool statusUpdated = false;
     bool refreshServices = false;
     bool smartLockUltra = false;
@@ -470,6 +488,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool sendPlainMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
     bool sendEncryptedMessage(Command commandIdentifier, const unsigned char* payload, const uint8_t payloadLen);
 
+    #ifdef NUKI_USE_LATEST_NIMBLE
+    NimBLERemoteCharacteristic::notify_callback callback;
+    #else
+    notify_callback callback;
+    #endif
+
     void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* pData, size_t length, bool isNotify);
     void saveCredentials();
     bool retrieveCredentials();
@@ -486,17 +510,17 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint32_t deviceId;            //The ID of the Nuki App, Nuki Bridge or Nuki Fob to be authorized.
     BLEClient* pClient = nullptr;
 
-//Keyturner Pairing Service
+    //Keyturner Pairing Service
     const NimBLEUUID pairingServiceUUID;
-//Keyturner Pairing Service Ultra
+    //Keyturner Pairing Service Ultra
     const NimBLEUUID pairingServiceUltraUUID;
-//Keyturner Service
+    //Keyturner Service
     const NimBLEUUID deviceServiceUUID;
-//Keyturner pairing Data Input Output characteristic
+    //Keyturner pairing Data Input Output characteristic
     const NimBLEUUID gdioUUID;
-//Keyturner pairing Data Input Output characteristic Ultra
+    //Keyturner pairing Data Input Output characteristic Ultra
     const NimBLEUUID gdioUltraUUID;
-//User-Specific Data Input Output characteristic
+    //User-Specific Data Input Output characteristic
     const NimBLEUUID userDataUUID;
 
     const std::string preferencesId;
@@ -548,9 +572,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     #endif
 
     std::list<KeypadEntry> listOfKeyPadEntries;
+    std::list<FingerprintEntry> listOfFingerprintEntries;
     std::list<AuthorizationEntry> listOfAuthorizationEntries;
     AuthorizationIdType authorizationIdType = AuthorizationIdType::Bridge;
-
 };
 
 } // namespace Nuki

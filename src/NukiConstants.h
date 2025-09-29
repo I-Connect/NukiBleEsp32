@@ -65,62 +65,97 @@ enum class CommandStatus : uint8_t {
 };
 
 enum class Command : uint16_t {
-  Empty                       = 0x0000,
-  RequestData                 = 0x0001,
-  PublicKey                   = 0x0003,
-  Challenge                   = 0x0004,
-  AuthorizationAuthenticator  = 0x0005,
-  AuthorizationData           = 0x0006,
-  AuthorizationId             = 0x0007,
-  RemoveUserAuthorization     = 0x0008,
-  RequestAuthorizationEntries = 0x0009,
-  AuthorizationEntry          = 0x000A,
-  AuthorizationDatInvite      = 0x000B,
-  KeyturnerStates             = 0x000C,
-  LockAction                  = 0x000D,
-  Status                      = 0x000E,
-  MostRecentCommand           = 0x000F,
-  OpeningsClosingsSummary     = 0x0010,  // Lock only (+ NUKI v1 only)
-  BatteryReport               = 0x0011,
-  ErrorReport                 = 0x0012,
-  SetConfig                   = 0x0013,
-  RequestConfig               = 0x0014,
-  Config                      = 0x0015,
-  SetSecurityPin              = 0x0019,
-  RequestCalibration          = 0x001A, // SetCalibrated for Opener
-  RequestReboot               = 0x001D,
-  AuthorizationIdConfirmation = 0x001E,
-  AuthorizationIdInvite       = 0x001F,
-  VerifySecurityPin           = 0x0020,
-  UpdateTime                  = 0x0021,
-  UpdateAuthorization         = 0x0025,
-  AuthorizationEntryCount     = 0x0027,
-  StartBusSignalRecording     = 0x002F, // Opener only
-  RequestLogEntries           = 0x0031,
-  LogEntry                    = 0x0032,
-  LogEntryCount               = 0x0033,
-  EnableLogging               = 0x0034,
-  SetAdvancedConfig           = 0x0035,
-  RequestAdvancedConfig       = 0x0036,
-  AdvancedConfig              = 0x0037,
-  AddTimeControlEntry         = 0x0039,
-  TimeControlEntryId          = 0x003A,
-  RemoveTimeControlEntry      = 0x003B,
-  RequestTimeControlEntries   = 0x003C,
-  TimeControlEntryCount       = 0x003D,
-  TimeControlEntry            = 0x003E,
-  UpdateTimeControlEntry      = 0x003F,
-  AddKeypadCode               = 0x0041,
-  KeypadCodeId                = 0x0042,
-  RequestKeypadCodes          = 0x0043,
-  KeypadCodeCount             = 0x0044,
-  KeypadCode                  = 0x0045,
-  UpdateKeypadCode            = 0x0046,
-  RemoveKeypadCode            = 0x0047,
-  KeypadAction                = 0x0048,
-  AuthorizationInfo           = 0x004C,
-  ContinuousModeAction        = 0x0057, // Opener only
-  SimpleLockAction            = 0x0100
+  Empty                         = 0x0000,
+  RequestData                   = 0x0001,
+  PublicKey                     = 0x0003,
+  Challenge                     = 0x0004,
+  AuthorizationAuthenticator    = 0x0005,
+  AuthorizationData             = 0x0006,
+  AuthorizationId               = 0x0007,
+  RemoveUserAuthorization       = 0x0008,
+  RequestAuthorizationEntries   = 0x0009,
+  AuthorizationEntry            = 0x000A,
+  AuthorizationDatInvite        = 0x000B,
+  KeyturnerStates               = 0x000C,
+  LockAction                    = 0x000D,
+  Status                        = 0x000E,
+  MostRecentCommand             = 0x000F,
+  OpeningsClosingsSummary       = 0x0010,  // Lock only (+ NUKI v1 only)
+  BatteryReport                 = 0x0011,
+  ErrorReport                   = 0x0012,
+  SetConfig                     = 0x0013,
+  RequestConfig                 = 0x0014,
+  Config                        = 0x0015,
+  SetSecurityPin                = 0x0019,
+  RequestCalibration            = 0x001A, // SetCalibrated for Opener
+  RequestReboot                 = 0x001D,
+  AuthorizationIdConfirmation   = 0x001E,
+  AuthorizationIdInvite         = 0x001F,
+  VerifySecurityPin             = 0x0020,
+  UpdateTime                    = 0x0021,
+  UpdateAuthorization           = 0x0025,
+  AuthorizationEntryCount       = 0x0027,
+  StartBusSignalRecording       = 0x002F, // Opener only
+  RequestLogEntries             = 0x0031,
+  LogEntry                      = 0x0032,
+  LogEntryCount                 = 0x0033,
+  EnableLogging                 = 0x0034,
+  SetAdvancedConfig             = 0x0035,
+  RequestAdvancedConfig         = 0x0036,
+  AdvancedConfig                = 0x0037,
+  AddTimeControlEntry           = 0x0039,
+  TimeControlEntryId            = 0x003A,
+  RemoveTimeControlEntry        = 0x003B,
+  RequestTimeControlEntries     = 0x003C,
+  TimeControlEntryCount         = 0x003D,
+  TimeControlEntry              = 0x003E,
+  UpdateTimeControlEntry        = 0x003F,
+  AddKeypadCode                 = 0x0041,
+  KeypadCodeId                  = 0x0042,
+  RequestKeypadCodes            = 0x0043,
+  KeypadCodeCount               = 0x0044,
+  KeypadCode                    = 0x0045,
+  UpdateKeypadCode              = 0x0046,
+  RemoveKeypadCode              = 0x0047,
+  KeypadAction                  = 0x0048,
+  RestoreConfig                 = 0x004B,
+  AuthorizationInfo             = 0x004C,
+  ContinuousModeAction          = 0x0057, // Opener only
+  RequestDoorSensorConfig       = 0x0058,
+  DoorSensorConfig              = 0x0059,
+  RequestDailyStatistics        = 0x0060,
+  DailyStatistics               = 0x0061,
+  RequestGeneralStatistics      = 0x0063,
+  GeneralStatistics             = 0x0064,
+  RequestInternalLogEntries     = 0x0065,
+  InternalLogEntry              = 0x0066,
+  CheckKeypadCode               = 0x006E,
+  ScanWifi                      = 0x0080,
+  WifiScanEntry                 = 0x0081,
+  ConnectWifi                   = 0x0082,
+  ReadWifiConfig                = 0x0085,
+  WifiConfig                    = 0x0086,
+  SetWifiConfig                 = 0x0087,
+  ReadWifiConfigForMigration    = 0x0089,
+  WifiConfigForMigration        = 0x008A,
+  RequestMqttConfig             = 0x008B,
+  MqttConfig                    = 0x008C,
+  SetMqttConfig                 = 0x008D,
+  RequestMqttConfigForMigration = 0x008E,
+  MqttConfigForMigration        = 0x008F,
+  AccessoryInfo                 = 0x0090,
+  RequestAccessoryInfo          = 0x0091,
+  RequestFingerprintEntries     = 0x0098,
+  FingerprintEntry              = 0x0099,
+  GetKeypad2Config              = 0x009A,
+  Keypad2Config                 = 0x009B,
+  SetKeypad2Config              = 0x009C,
+  SimpleLockAction              = 0x0100,
+  EnableMatterCommissioning     = 0x0110,
+  SetMatterState                = 0x0111,
+  RequestMatterPairings         = 0x0112,
+  MatterPairing                 = 0x0113,
+  MatterPairingCount            = 0x0114
 };
 
 enum class AuthorizationIdType : uint8_t {
@@ -245,6 +280,137 @@ struct __attribute__((packed)) KeypadEntry {
   uint8_t allowedFromTimeMin;
   uint8_t allowedUntilTimeHour;
   uint8_t allowedUntilTimeMin;
+};
+
+struct __attribute__((packed)) FingerprintEntry {
+  uint8_t fingerprintId[32];
+  uint16_t keypadCodeId = 0;
+  uint8_t name[20];
+};
+
+struct __attribute__((packed)) DailyStatistics {
+  uint16_t dateYear = 0;
+  uint8_t dateMonth = 0;
+  uint8_t dateDay = 0;
+  //uint8_t dateHour = 0;
+  //uint8_t dateMinute = 0;
+  //uint8_t dateSecond = 0;
+  uint8_t version = 0;
+  uint16_t countSuccessfulLockActions = 0;
+  uint16_t countErroneousLockActions = 0;
+  uint16_t avgCurrentConsumptionLock = 0;
+  uint16_t maxCurrentConsumptionLock = 0;
+  uint16_t batteryMinStartVoltageLock = 0;
+  uint16_t countSuccessfulUnlatchActions = 0;
+  uint16_t countErroneousUnlatchActions = 0;
+  uint16_t avgCurrentConsumptionUnlatch = 0;
+  uint16_t maxCurrentConsumptionUnlatch = 0;
+  uint16_t batteryMinStartVoltageUnlatch = 0;
+  uint16_t incomingCommands = 0;
+  uint16_t outgoingCommands = 0;
+  uint8_t maxTemperature = 0;
+  uint8_t minTemperature = 0;
+  uint8_t avgTemperature = 0;
+  uint16_t numDoorSensorStatusChanges = 0;
+  uint8_t maxBatteryPercentage = 0;
+  uint8_t minBatteryPercentage = 0;
+  uint32_t idleTime = 0;
+  uint32_t connectionTime = 0;
+  uint32_t actionTime = 0;
+};
+
+struct __attribute__((packed)) GeneralStatistics {
+  uint8_t version = 0;
+  uint16_t firstCalibrationYear = 0;
+  uint8_t firstCalibrationMonth = 0;
+  uint8_t firstCalibrationDay = 0;
+  uint16_t calibrationCount = 0;
+  uint16_t lockActionCount = 0;
+  uint16_t unlatchCount = 0;
+  uint16_t lastRebootDateYear = 0;
+  uint8_t lastRebootDateMonth = 0;
+  uint8_t lastRebootDateDay = 0;
+  uint8_t lastRebootDateHour = 0;
+  uint8_t lastRebootDateMinute = 0;
+  uint8_t lastRebootDateSecond = 0;
+  uint16_t lastChargeDateYear = 0;
+  uint8_t lastChargeDateMonth = 0;
+  uint8_t lastChargeDateDay = 0;
+  uint8_t lastChargeDateHour = 0;
+  uint8_t lastChargeDateMinute = 0;
+  uint8_t lastChargeDateSecond = 0;
+  uint16_t initialBatteryVoltage = 0;
+  uint16_t numActionsDuringBatteryCycle = 0;
+  uint16_t numUnexpectedReboots = 0;
+};
+
+struct __attribute__((packed)) MqttConfig {
+  uint8_t enabled = 0;
+  uint8_t hostName[32];
+  uint8_t userName[32];
+  uint8_t secureConnection = 0;
+  uint8_t autoDiscovery = 0;
+  uint8_t lockingEnabled = 0;
+};
+
+struct __attribute__((packed)) MqttConfigForMigration {
+  uint8_t enabled = 0;
+  uint8_t hostName[32];
+  uint8_t userName[32];
+  uint8_t secureConnection = 0;
+  uint8_t autoDiscovery = 0;
+  uint8_t lockingEnabled = 0;
+  uint8_t passphrase[32];
+};
+
+struct __attribute__((packed)) AccessoryInfo {
+  uint16_t dateYear = 0;
+  uint8_t dateMonth = 0;
+  uint8_t dateDay = 0;
+  uint8_t dateHour = 0;
+  uint8_t dateMinute = 0;
+  uint8_t dateSecond = 0;
+  uint32_t accessoryNukiId = 0;
+  uint8_t accessoryType = 0;
+  unsigned char firmwareVersion[3] = {0, 0 , 0};
+  unsigned char hardwareRevision[2] = {0, 0};
+  uint8_t productVariantDifferentiator = 0;
+  uint16_t mostRecentBatteryVoltage = 0;
+  uint8_t mostRecentTemperature = 0;
+  //mostRecentEventData
+};
+
+struct __attribute__((packed)) WifiScanEntry {
+  uint8_t ssid[32];
+  uint8_t type = 0;
+  uint8_t signal = 0;
+};
+
+struct __attribute__((packed)) WifiConfig {
+  uint32_t serverBridgeId = 0;
+  uint8_t wifiEnabled = 0;
+  uint16_t wifiExpertSettings = 0;
+};
+
+struct __attribute__((packed)) WifiConfigForMigration {
+  uint8_t ssid[32];
+  uint8_t type = 0;
+  uint8_t passphrase[32];
+};
+
+struct __attribute__((packed)) Keypad2Config {
+  uint8_t updatePending = 0;
+  uint8_t ledBrightness = 0;
+  uint8_t batteryType = 0;
+  uint8_t buttonMode = 0;
+  uint8_t lockAction = 0;
+};
+
+struct __attribute__((packed)) DoorSensorConfig {
+  uint8_t enabled = 0;
+  uint8_t doorAjarTimeout = 0;
+  uint8_t doorAjarLoggingEnabled = 0;
+  uint8_t doorStatusMismatchLoggingEnabled = 0;
 };
 
 struct __attribute__((packed)) UpdatedKeypadEntry {

@@ -200,18 +200,18 @@ void logConfig(Config config, bool debug, Print* Log) {
 
 void logNewConfig(NewConfig newConfig, bool debug, Print* Log) {
   if (debug) {
-    logMessageVar("name :%s", (const char*)newConfig.name, Log, 4);
-    logMessageVar("latitude :%f", (const float)newConfig.latitude, Log, 4);
-    logMessageVar("longitude :%f", (const float)newConfig.longitude, Log, 4);
-    logMessageVar("pairingEnabled :%d", (unsigned int)newConfig.pairingEnabled, Log, 4);
-    logMessageVar("buttonEnabled :%d", (unsigned int)newConfig.buttonEnabled, Log, 4);
-    logMessageVar("timeZoneOffset :%d", (unsigned int)newConfig.timeZoneOffset, Log, 4);
-    logMessageVar("dstMode :%d", (unsigned int)newConfig.dstMode, Log, 4);
-    logMessageVar("fobAction1 :%d", (unsigned int)newConfig.fobAction1, Log, 4);
-    logMessageVar("fobAction2 :%d", (unsigned int)newConfig.fobAction2, Log, 4);
-    logMessageVar("fobAction3 :%d", (unsigned int)newConfig.fobAction3, Log, 4);
-    logMessageVar("advertisingMode :%d", (unsigned int)newConfig.advertisingMode, Log, 4);
-    logMessageVar("timeZoneId :%d", (unsigned int)newConfig.timeZoneId, Log, 4);
+    logMessageVar("name: %s", (const char*)newConfig.name, Log, 4);
+    logMessageVar("latitude: %f", (const float)newConfig.latitude, Log, 4);
+    logMessageVar("longitude: %f", (const float)newConfig.longitude, Log, 4);
+    logMessageVar("pairingEnabled: %d", (unsigned int)newConfig.pairingEnabled, Log, 4);
+    logMessageVar("buttonEnabled: %d", (unsigned int)newConfig.buttonEnabled, Log, 4);
+    logMessageVar("timeZoneOffset: %d", (unsigned int)newConfig.timeZoneOffset, Log, 4);
+    logMessageVar("dstMode: %d", (unsigned int)newConfig.dstMode, Log, 4);
+    logMessageVar("fobAction1: %d", (unsigned int)newConfig.fobAction1, Log, 4);
+    logMessageVar("fobAction2: %d", (unsigned int)newConfig.fobAction2, Log, 4);
+    logMessageVar("fobAction3: %d", (unsigned int)newConfig.fobAction3, Log, 4);
+    logMessageVar("advertisingMode: %d", (unsigned int)newConfig.advertisingMode, Log, 4);
+    logMessageVar("timeZoneId: %d", (unsigned int)newConfig.timeZoneId, Log, 4);
   }
 }
 
