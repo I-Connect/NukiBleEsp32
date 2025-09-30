@@ -30,11 +30,12 @@ var searchData=
   ['k_5ferror_5ftoo_5fmany_5fpin_5fattempts_27',['K_ERROR_TOO_MANY_PIN_ATTEMPTS',['../namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420adcb84ce1222c338a32ed7df37808d8fc',1,'NukiLock::K_ERROR_TOO_MANY_PIN_ATTEMPTS'],['../namespace_nuki_opener.html#a562b9b0603ef123649bc4b1f26827b87adcb84ce1222c338a32ed7df37808d8fc',1,'NukiOpener::K_ERROR_TOO_MANY_PIN_ATTEMPTS']]],
   ['k_5ferror_5fvoltage_5ftoo_5flow_28',['K_ERROR_VOLTAGE_TOO_LOW',['../namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420a4fdb01a425abc893b11804a5c3933716',1,'NukiLock::K_ERROR_VOLTAGE_TOO_LOW'],['../namespace_nuki_opener.html#a562b9b0603ef123649bc4b1f26827b87a4fdb01a425abc893b11804a5c3933716',1,'NukiOpener::K_ERROR_VOLTAGE_TOO_LOW']]],
   ['keypad_29',['Keypad',['../namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18a83b6427b45eaff29707e5b22380e2d72',1,'Nuki']]],
-  ['keypadaction_30',['KeypadAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5',1,'Nuki::KeypadAction'],['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af74f4f92bfeb161dde6409f4ced770c5',1,'NukiLock::KeypadAction'],['../namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daf74f4f92bfeb161dde6409f4ced770c5',1,'NukiOpener::KeypadAction']]],
-  ['keypadcode_31',['KeypadCode',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a1669ee0b9d152bb744bb4c58b7e7ac5f',1,'Nuki']]],
-  ['keypadcodecount_32',['KeypadCodeCount',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0af6fd3aed0138f63bf0c48f1d234485',1,'Nuki']]],
-  ['keypadcodeid_33',['KeypadCodeId',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a042c5e865bdac0e54d6844e3d1ff7919',1,'Nuki']]],
-  ['keyturnerstates_34',['KeyturnerStates',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6e52dafa8010a8513a025723b6fe8a91',1,'Nuki']]],
-  ['keyturnerstatusreset_35',['KeyTurnerStatusReset',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3',1,'Nuki']]],
-  ['keyturnerstatusupdated_36',['KeyTurnerStatusUpdated',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2',1,'Nuki']]]
+  ['keypad2config_30',['Keypad2Config',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a16bf88370e25757c4fd4f7a1bdd34a6f',1,'Nuki']]],
+  ['keypadaction_31',['KeypadAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5',1,'Nuki::KeypadAction'],['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af74f4f92bfeb161dde6409f4ced770c5',1,'NukiLock::KeypadAction'],['../namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daf74f4f92bfeb161dde6409f4ced770c5',1,'NukiOpener::KeypadAction']]],
+  ['keypadcode_32',['KeypadCode',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a1669ee0b9d152bb744bb4c58b7e7ac5f',1,'Nuki']]],
+  ['keypadcodecount_33',['KeypadCodeCount',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0af6fd3aed0138f63bf0c48f1d234485',1,'Nuki']]],
+  ['keypadcodeid_34',['KeypadCodeId',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a042c5e865bdac0e54d6844e3d1ff7919',1,'Nuki']]],
+  ['keyturnerstates_35',['KeyturnerStates',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6e52dafa8010a8513a025723b6fe8a91',1,'Nuki']]],
+  ['keyturnerstatusreset_36',['KeyTurnerStatusReset',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605eade5fdd6936e5252854f54c06e12073a3',1,'Nuki']]],
+  ['keyturnerstatusupdated_37',['KeyTurnerStatusUpdated',['../namespace_nuki.html#aaaaa89e1894bdf75271c6d443eb9605ea4bce823f5c497d25be608acdad73f8c2',1,'Nuki']]]
 ];

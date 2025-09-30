@@ -107,7 +107,7 @@ Nuki BLE for Esp32</h1>
 <h2><a class="anchor" id="autotoc_md1"></a>
 How to use</h2>
 <p>This library makes use of BLE scanner to receive the Ble advertisements sent by <a class="el" href="namespace_nuki.html">Nuki</a> devices and other Ble devices (<a href="https://github.com/I-Connect/BleScanner.git">https://github.com/I-Connect/BleScanner.git</a>).</p>
-<p>When running <code><a class="el" href="main_8cpp.html">main.cpp</a></code> which includes the example NukiSmartLockTest.h (with #define DEBUG_NUKI_CONNECT) there will initially be some logging "No nuki in pairing mode found", if you then press and hold the button on the <a class="el" href="namespace_nuki.html">Nuki</a> lock for 10 secs (until the led ring lights up) the ESP should automatically find the lock in pairing mode and pair with it. Credentials will be saved in a persistent <code>Preference</code> store with store name equal to the devicename specified on construction of the NukiBle object. No pairing needs to be done the next time the ESP starts.</p>
+<p>When running <code>main.cpp</code> which includes the example NukiSmartLockTest.h (with #define DEBUG_NUKI_CONNECT) there will initially be some logging "No nuki in pairing mode found", if you then press and hold the button on the <a class="el" href="namespace_nuki.html">Nuki</a> lock for 10 secs (until the led ring lights up) the ESP should automatically find the lock in pairing mode and pair with it. Credentials will be saved in a persistent <code>Preference</code> store with store name equal to the devicename specified on construction of the NukiBle object. No pairing needs to be done the next time the ESP starts.</p>
 <p>There are some example methods in <code>NukiSmartLockTest.h</code> to get/write data and execute actions on the lock.</p>
 <p>Be aware that if you have set a pincode on the lock you will have to store this in the esp using <code>nukiLock.savePincode()</code> otherwise the methods that need a pincode (most methods that write settings) will fail. This only needs to be done once as the pincode will be stored in the preferences.</p>
 <p>Logging can be enabled by setting the following defines (these are also available in platformio.ini):</p><ul>
@@ -196,7 +196,7 @@ Todo</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Feb 13 2025 16:19:11 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Tue Sep 30 2025 11:30:12 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

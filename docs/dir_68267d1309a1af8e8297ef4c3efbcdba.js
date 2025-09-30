@@ -1,7 +1,6 @@
 var dir_68267d1309a1af8e8297ef4c3efbcdba =
 [
-    [ "main.cpp", "main_8cpp.html", null ],
-    [ "NukiBle.cpp", "_nuki_ble_8cpp.html", "_nuki_ble_8cpp" ],
+    [ "NukiBle.cpp", "_nuki_ble_8cpp.html", null ],
     [ "NukiBle.h", "_nuki_ble_8h.html", "_nuki_ble_8h" ],
     [ "NukiBle.hpp", "_nuki_ble_8hpp.html", null ],
     [ "NukiConstants.h", "_nuki_constants_8h.html", "_nuki_constants_8h" ],

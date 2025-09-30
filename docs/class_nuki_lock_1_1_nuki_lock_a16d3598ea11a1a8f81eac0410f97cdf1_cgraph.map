@@ -1,30 +1,32 @@
 <map id="NukiLock::NukiLock::enableNightModeAutoLock" name="NukiLock::NukiLock::enableNightModeAutoLock">
-<area shape="rect" id="Node000001" title="Gets the current config from the lock, updates the night mode auto lock parameter and sends the new c..." alt="" coords="5,116,190,156"/>
-<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#aa882f9b3256313bbd45b4269f8c74521" title="Requests advanced config from Lock via BLE." alt="" coords="238,116,402,156"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,133,222,133,222,139,190,139"/>
-<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="450,123,638,149"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="402,133,434,133,434,139,402,139"/>
-<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="700,86,884,127"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="639,122,685,117,685,122,639,127"/>
-<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" title=" " alt="" coords="946,32,1155,72"/>
-<area shape="poly" id="edge16_Node000003_Node000005" title=" " alt="" coords="555,121,607,69,644,42,685,22,721,11,758,6,834,4,905,12,968,25,967,30,905,17,833,9,759,11,722,17,687,26,646,47,610,73,558,124"/>
-<area shape="rect" id="Node000006" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="962,98,1138,123"/>
-<area shape="poly" id="edge17_Node000003_Node000006" title=" " alt="" coords="639,135,686,136,792,140,838,140,897,136,975,124,976,130,898,141,838,145,792,145,686,141,639,141"/>
-<area shape="rect" id="Node000007" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="952,151,1148,177"/>
-<area shape="poly" id="edge18_Node000003_Node000007" title=" " alt="" coords="558,147,609,201,646,230,687,251,745,270,793,278,841,272,896,251,912,239,920,225,929,209,944,194,970,180,972,185,947,198,933,212,925,228,916,243,899,256,842,277,793,283,744,275,685,256,643,234,605,205,554,151"/>
-<area shape="rect" id="Node000008" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="696,201,888,242"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="585,147,717,193,715,198,583,152"/>
-<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="686,36,898,62"/>
-<area shape="poly" id="edge12_Node000003_Node000010" title=" " alt="" coords="571,120,624,96,685,72,713,64,714,69,687,77,626,101,574,125"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="884,85,936,73,937,79,885,90"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="884,105,947,106,947,112,884,111"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="885,124,975,145,974,150,884,130"/>
-<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="821,198,896,137,918,109,928,96,944,83,954,77,957,82,947,88,932,100,922,112,900,141,824,203"/>
-<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="860,198,896,180,910,169,919,158,929,147,944,136,966,127,968,131,947,141,933,151,923,162,914,173,899,185,863,203"/>
-<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="886,198,974,178,975,183,887,203"/>
-<area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#a25207bb564a4b54b8dd8c872177b53a7" title="Returns if BLE is pairing/paired/connected with a Smart Lock Ultra." alt="" coords="964,208,1137,234"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="888,219,948,219,948,224,888,224"/>
-<area shape="poly" id="edge13_Node000010_Node000005" title=" " alt="" coords="898,48,930,48,930,53,898,53"/>
-<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="850,60,979,91,978,96,849,65"/>
-<area shape="poly" id="edge15_Node000010_Node000007" title=" " alt="" coords="874,60,899,72,916,88,924,104,932,119,947,134,963,142,960,147,944,138,928,123,919,106,911,91,896,77,872,65"/>
+<area shape="rect" id="Node000001" title="Gets the current config from the lock, updates the night mode auto lock parameter and sends the new c..." alt="" coords="5,147,190,188"/>
+<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#aa882f9b3256313bbd45b4269f8c74521" title="Requests advanced config from Lock via BLE." alt="" coords="238,147,402,188"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,165,222,165,222,170,190,170"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="450,154,638,180"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="402,165,434,165,434,170,402,170"/>
+<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="700,90,884,130"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="602,151,686,132,687,137,604,156"/>
+<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" title=" " alt="" coords="946,92,1155,133"/>
+<area shape="poly" id="edge16_Node000003_Node000005" title=" " alt="" coords="639,161,762,153,897,139,935,133,936,139,898,145,762,158,639,166"/>
+<area shape="rect" id="Node000006" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="962,41,1138,67"/>
+<area shape="poly" id="edge18_Node000003_Node000006" title=" " alt="" coords="551,152,571,124,601,87,640,52,685,25,726,12,768,5,811,3,854,5,933,17,998,33,997,39,932,22,853,10,811,8,769,10,727,17,687,30,643,56,605,91,575,127,556,155"/>
+<area shape="rect" id="Node000007" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="952,158,1148,184"/>
+<area shape="poly" id="edge19_Node000003_Node000007" title=" " alt="" coords="562,178,614,219,649,239,687,254,746,271,794,279,841,274,896,254,912,242,920,228,928,212,944,197,962,188,964,192,947,201,933,215,925,231,916,246,899,259,842,280,794,284,745,276,685,259,647,244,612,223,559,183"/>
+<area shape="rect" id="Node000008" href="$class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07" title=" " alt="" coords="696,204,888,245"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="604,178,687,198,686,203,602,183"/>
+<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="686,40,898,65"/>
+<area shape="poly" id="edge12_Node000003_Node000010" title=" " alt="" coords="561,152,614,114,685,75,706,68,708,73,687,80,617,119,564,156"/>
+<area shape="rect" id="Node000011" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)" alt="" coords="688,320,896,345"/>
+<area shape="poly" id="edge17_Node000003_Node000011" title=" " alt="" coords="558,179,610,236,647,270,688,298,717,312,715,317,685,303,643,274,606,240,554,182"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="884,108,930,109,930,114,884,113"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="884,87,972,68,974,73,885,93"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="881,128,979,152,978,157,880,133"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="859,201,896,184,920,164,944,144,958,137,960,142,947,148,923,168,899,188,861,206"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="822,202,858,174,896,140,909,123,918,108,927,93,944,78,958,71,961,75,947,83,931,96,922,110,914,126,900,144,862,178,825,206"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="888,202,969,185,970,190,889,207"/>
+<area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#a25207bb564a4b54b8dd8c872177b53a7" title="Returns if BLE is pairing/paired/connected with a Smart Lock Ultra." alt="" coords="964,212,1137,237"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="888,222,948,222,948,227,888,227"/>
+<area shape="poly" id="edge13_Node000010_Node000005" title=" " alt="" coords="851,63,946,86,944,91,850,69"/>
+<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="898,50,946,51,946,56,898,56"/>
+<area shape="poly" id="edge15_Node000010_Node000007" title=" " alt="" coords="875,63,899,76,916,92,924,110,932,127,947,142,959,149,957,154,944,147,928,130,919,112,912,96,896,80,873,68"/>
 </map>

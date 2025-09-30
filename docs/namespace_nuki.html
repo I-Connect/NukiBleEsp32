@@ -215,9 +215,53 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0b31faeb2e4c708245b5ed044ee6d138">RemoveKeypadCode</a> = 0x0047
 , <br />
 &#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5">KeypadAction</a> = 0x0048
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad9b3af6038126acc8de62f4630be06dc">RestoreConfig</a> = 0x004B
 , <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3522e2e2cc2866df2b78700d2d12212a">AuthorizationInfo</a> = 0x004C
 , <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf">ContinuousModeAction</a> = 0x0057
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aeb853dcef930e93137f679b18fd3c04f">RequestDoorSensorConfig</a> = 0x0058
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a90a3a41dac6ea1e62faf2a7b91afc3a4">DoorSensorConfig</a> = 0x0059
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a2a9e206de26861d2c48aff10ef6ef396">RequestDailyStatistics</a> = 0x0060
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4866192451b902dd6f3f10724cd5ffcd">DailyStatistics</a> = 0x0061
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5e1072a200dfa0767484e93a4f6700a">RequestGeneralStatistics</a> = 0x0063
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7e9ede8a542ae824cef2599822db16b1">GeneralStatistics</a> = 0x0064
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a65b1801b528eaa0d9f81f4706ca24220">RequestInternalLogEntries</a> = 0x0065
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a80164ee37c58c298b15156385ab3be66">InternalLogEntry</a> = 0x0066
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad4ecf5d510d1fe721b787c67ae7f2aec">CheckKeypadCode</a> = 0x006E
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4dd8cdbcc5fa4ce55a05b1b7af12ab29">ScanWifi</a> = 0x0080
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad9c8906d50e88a02796758227a5d293c">WifiScanEntry</a> = 0x0081
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a115f8c6170f44dea5888e2a78d773b91">ConnectWifi</a> = 0x0082
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a465280c521462abbbb91f7fd07f77e34">ReadWifiConfig</a> = 0x0085
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3acb221c4e7ade679ed88bdaa0fa38a1fd">WifiConfig</a> = 0x0086
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6c60ce00ce7b52e31378c0cb1f1802a6">SetWifiConfig</a> = 0x0087
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6370b81f4ad9291ca1c164180285fd15">ReadWifiConfigForMigration</a> = 0x0089
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aba85a534d6d5baaa1fd44e904d131078">WifiConfigForMigration</a> = 0x008A
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a53802e2acc972bc4c993267d87fa621e">RequestMqttConfig</a> = 0x008B
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a54656bb6a3e2e33c75bad09261281195">MqttConfig</a> = 0x008C
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a31a65e713b9b1ab644eddc0e6902d9de">SetMqttConfig</a> = 0x008D
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad0340cedceba785f9e585750858468c0">RequestMqttConfigForMigration</a> = 0x008E
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6cf2dd61fa1c9d11932542324a211944">MqttConfigForMigration</a> = 0x008F
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aa0bddae60cc0aa5832e9de8b66b3bc5c">AccessoryInfo</a> = 0x0090
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5ab5cf92e1cb78c6c63d2825186ac8f">RequestAccessoryInfo</a> = 0x0091
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0275e441cdc075c735e57234989ffb29">RequestFingerprintEntries</a> = 0x0098
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4d5201f7f57eea0a9ad1abfe6a2d23e9">FingerprintEntry</a> = 0x0099
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aef80e57db52c6c637ac7f6bd9f1dec3d">GetKeypad2Config</a> = 0x009A
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a16bf88370e25757c4fd4f7a1bdd34a6f">Keypad2Config</a> = 0x009B
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b69198ffd2cfbc1873250f52700f3cc">SetKeypad2Config</a> = 0x009C
 , <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962">SimpleLockAction</a> = 0x0100
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a8cc6f008ac54511a3c9e43bb4f049abc">EnableMatterCommissioning</a> = 0x0110
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aec29dfd845635e1195f91edfb2d0de5a">SetMatterState</a> = 0x0111
+, <br />
+&#160;&#160;<a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a578b4e858176c095743749a6ca48ff05">RequestMatterPairings</a> = 0x0112
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a930f59a31b45c262c0bf49ca035f5dc5">MatterPairing</a> = 0x0113
+, <a class="el" href="#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a34277020bd4e4185c1c1fa307dff8cf4">MatterPairingCount</a> = 0x0114
 <br />
  }</td></tr>
 <tr class="separator:a0e3bec2ecdc2c4b53aeac3afcf0ef5f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -385,8 +429,6 @@ Variables</h2></td></tr>
 <tr class="separator:a553724683ab9b1ec83eb60a61a8c8060"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a358fdf7fe23a073a17891c5067ebc830" id="r_a358fdf7fe23a073a17891c5067ebc830"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a358fdf7fe23a073a17891c5067ebc830">BLE_ADDRESS_STORE_NAME</a> [] = &quot;bleAddress&quot;</td></tr>
 <tr class="separator:a358fdf7fe23a073a17891c5067ebc830"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8efad679f0092f3b4604484fcc78b3e" id="r_aa8efad679f0092f3b4604484fcc78b3e"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8efad679f0092f3b4604484fcc78b3e">NUKI_SEMAPHORE_OWNER</a> = &quot;Nuki&quot;</td></tr>
-<tr class="separator:aa8efad679f0092f3b4604484fcc78b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb89d2539abab2bb243846da302c1452" id="r_adb89d2539abab2bb243846da302c1452"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb89d2539abab2bb243846da302c1452">SECRET_KEY_STORE_NAME</a> [] = &quot;secretKeyK&quot;</td></tr>
 <tr class="separator:adb89d2539abab2bb243846da302c1452"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f4aa6f6fbcc563dcc0f9bd96b85eebc" id="r_a1f4aa6f6fbcc563dcc0f9bd96b85eebc"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f4aa6f6fbcc563dcc0f9bd96b85eebc">SECURITY_PINCODE_STORE_NAME</a> [] = &quot;securityPinCode&quot;</td></tr>
@@ -578,9 +620,44 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4cb35e7aad6fd3b954f39308ec3acc21" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4cb35e7aad6fd3b954f39308ec3acc21"></a>UpdateKeypadCode&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0b31faeb2e4c708245b5ed044ee6d138" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0b31faeb2e4c708245b5ed044ee6d138"></a>RemoveKeypadCode&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3af74f4f92bfeb161dde6409f4ced770c5"></a>KeypadAction&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad9b3af6038126acc8de62f4630be06dc" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad9b3af6038126acc8de62f4630be06dc"></a>RestoreConfig&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3522e2e2cc2866df2b78700d2d12212a" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a3522e2e2cc2866df2b78700d2d12212a"></a>AuthorizationInfo&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf"></a>ContinuousModeAction&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aeb853dcef930e93137f679b18fd3c04f" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aeb853dcef930e93137f679b18fd3c04f"></a>RequestDoorSensorConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a90a3a41dac6ea1e62faf2a7b91afc3a4" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a90a3a41dac6ea1e62faf2a7b91afc3a4"></a>DoorSensorConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a2a9e206de26861d2c48aff10ef6ef396" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a2a9e206de26861d2c48aff10ef6ef396"></a>RequestDailyStatistics&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4866192451b902dd6f3f10724cd5ffcd" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4866192451b902dd6f3f10724cd5ffcd"></a>DailyStatistics&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5e1072a200dfa0767484e93a4f6700a" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5e1072a200dfa0767484e93a4f6700a"></a>RequestGeneralStatistics&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7e9ede8a542ae824cef2599822db16b1" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7e9ede8a542ae824cef2599822db16b1"></a>GeneralStatistics&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a65b1801b528eaa0d9f81f4706ca24220" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a65b1801b528eaa0d9f81f4706ca24220"></a>RequestInternalLogEntries&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a80164ee37c58c298b15156385ab3be66" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a80164ee37c58c298b15156385ab3be66"></a>InternalLogEntry&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad4ecf5d510d1fe721b787c67ae7f2aec" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad4ecf5d510d1fe721b787c67ae7f2aec"></a>CheckKeypadCode&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4dd8cdbcc5fa4ce55a05b1b7af12ab29" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4dd8cdbcc5fa4ce55a05b1b7af12ab29"></a>ScanWifi&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad9c8906d50e88a02796758227a5d293c" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad9c8906d50e88a02796758227a5d293c"></a>WifiScanEntry&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a115f8c6170f44dea5888e2a78d773b91" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a115f8c6170f44dea5888e2a78d773b91"></a>ConnectWifi&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a465280c521462abbbb91f7fd07f77e34" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a465280c521462abbbb91f7fd07f77e34"></a>ReadWifiConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3acb221c4e7ade679ed88bdaa0fa38a1fd" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3acb221c4e7ade679ed88bdaa0fa38a1fd"></a>WifiConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6c60ce00ce7b52e31378c0cb1f1802a6" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6c60ce00ce7b52e31378c0cb1f1802a6"></a>SetWifiConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6370b81f4ad9291ca1c164180285fd15" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6370b81f4ad9291ca1c164180285fd15"></a>ReadWifiConfigForMigration&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aba85a534d6d5baaa1fd44e904d131078" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aba85a534d6d5baaa1fd44e904d131078"></a>WifiConfigForMigration&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a53802e2acc972bc4c993267d87fa621e" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a53802e2acc972bc4c993267d87fa621e"></a>RequestMqttConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a54656bb6a3e2e33c75bad09261281195" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a54656bb6a3e2e33c75bad09261281195"></a>MqttConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a31a65e713b9b1ab644eddc0e6902d9de" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a31a65e713b9b1ab644eddc0e6902d9de"></a>SetMqttConfig&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad0340cedceba785f9e585750858468c0" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad0340cedceba785f9e585750858468c0"></a>RequestMqttConfigForMigration&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6cf2dd61fa1c9d11932542324a211944" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6cf2dd61fa1c9d11932542324a211944"></a>MqttConfigForMigration&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aa0bddae60cc0aa5832e9de8b66b3bc5c" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aa0bddae60cc0aa5832e9de8b66b3bc5c"></a>AccessoryInfo&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5ab5cf92e1cb78c6c63d2825186ac8f" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5ab5cf92e1cb78c6c63d2825186ac8f"></a>RequestAccessoryInfo&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0275e441cdc075c735e57234989ffb29" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0275e441cdc075c735e57234989ffb29"></a>RequestFingerprintEntries&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4d5201f7f57eea0a9ad1abfe6a2d23e9" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4d5201f7f57eea0a9ad1abfe6a2d23e9"></a>FingerprintEntry&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aef80e57db52c6c637ac7f6bd9f1dec3d" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aef80e57db52c6c637ac7f6bd9f1dec3d"></a>GetKeypad2Config&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a16bf88370e25757c4fd4f7a1bdd34a6f" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a16bf88370e25757c4fd4f7a1bdd34a6f"></a>Keypad2Config&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b69198ffd2cfbc1873250f52700f3cc" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b69198ffd2cfbc1873250f52700f3cc"></a>SetKeypad2Config&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962"></a>SimpleLockAction&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a8cc6f008ac54511a3c9e43bb4f049abc" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a8cc6f008ac54511a3c9e43bb4f049abc"></a>EnableMatterCommissioning&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aec29dfd845635e1195f91edfb2d0de5a" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aec29dfd845635e1195f91edfb2d0de5a"></a>SetMatterState&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a578b4e858176c095743749a6ca48ff05" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a578b4e858176c095743749a6ca48ff05"></a>RequestMatterPairings&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a930f59a31b45c262c0bf49ca035f5dc5" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a930f59a31b45c262c0bf49ca035f5dc5"></a>MatterPairing&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a34277020bd4e4185c1c1fa307dff8cf4" name="a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a34277020bd4e4185c1c1fa307dff8cf4"></a>MatterPairingCount&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -1279,20 +1356,6 @@ template&lt;std::size_t N&gt; </div>
 
 </div>
 </div>
-<a id="aa8efad679f0092f3b4604484fcc78b3e" name="aa8efad679f0092f3b4604484fcc78b3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8efad679f0092f3b4604484fcc78b3e">&#9670;&#160;</a></span>NUKI_SEMAPHORE_OWNER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char* Nuki::NUKI_SEMAPHORE_OWNER = &quot;Nuki&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="adb89d2539abab2bb243846da302c1452" name="adb89d2539abab2bb243846da302c1452"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb89d2539abab2bb243846da302c1452">&#9670;&#160;</a></span>SECRET_KEY_STORE_NAME</h2>
 
@@ -1355,7 +1418,7 @@ template&lt;std::size_t N&gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_nuki.html">Nuki</a></li>
-    <li class="footer">Generated on Thu Feb 13 2025 16:19:10 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generated on Tue Sep 30 2025 11:30:12 for Nuki BLE ESP32 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

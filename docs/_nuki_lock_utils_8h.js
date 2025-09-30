@@ -1,11 +1,18 @@
 var _nuki_lock_utils_8h =
 [
     [ "NukiLock::cmdResultToString", "namespace_nuki_lock.html#a32c97560239db2a59f75190e4c7684bd", null ],
+    [ "NukiLock::logAccessoryInfo", "namespace_nuki_lock.html#ae6f2eea44b7b0c3aec6503dea0b19df4", null ],
     [ "NukiLock::logAdvancedConfig", "namespace_nuki_lock.html#a03e673a769ecefb4c006f70b6f00b190", null ],
     [ "NukiLock::logAuthorizationEntry", "namespace_nuki_lock.html#a0f24c85ea0802349b4173a6224e148fd", null ],
     [ "NukiLock::logBatteryReport", "namespace_nuki_lock.html#add2fab4b3c435a5bdbac6100ab0bbc42", null ],
     [ "NukiLock::logCompletionStatus", "namespace_nuki_lock.html#ac4d82a0f8f0d3ae3fe2a00c9d442cab0", null ],
     [ "NukiLock::logConfig", "namespace_nuki_lock.html#ab086ceeda3d1303bb71b60d978ef3467", null ],
+    [ "NukiLock::logDailyStatistics", "namespace_nuki_lock.html#a0659754539ebef743ae133a389b739c3", null ],
+    [ "NukiLock::logDoorSensorConfig", "namespace_nuki_lock.html#afcc8a7199c54768221d0f0cb31a13a58", null ],
+    [ "NukiLock::logFingerprintEntry", "namespace_nuki_lock.html#a4fd96b4af547ef29400feb85fcb8d3fc", null ],
+    [ "NukiLock::logGeneralStatistics", "namespace_nuki_lock.html#a4b3a6de8193c5deb6641fe1cb343e950", null ],
+    [ "NukiLock::logInternalLogEntry", "namespace_nuki_lock.html#a53c9585bb1e4f213e3080fc73bb7b336", null ],
+    [ "NukiLock::logKeypad2Config", "namespace_nuki_lock.html#a27efa02919578c828e2b38e33a22401a", null ],
     [ "NukiLock::logKeypadEntry", "namespace_nuki_lock.html#abd7c5e26ea58dc4c04bd5cb9a81d37e7", null ],
     [ "NukiLock::logKeyturnerState", "namespace_nuki_lock.html#ab1986f14b91343876f9fb360da901791", null ],
     [ "NukiLock::logLockAction", "namespace_nuki_lock.html#a031da7ab93a6a69e0e16dd7f5426ffaf", null ],
@@ -15,6 +22,8 @@ var _nuki_lock_utils_8h =
     [ "NukiLock::logMessageVar", "namespace_nuki_lock.html#a660e6e34c70bf3ed2fb21ffd672cf11a", null ],
     [ "NukiLock::logMessageVar", "namespace_nuki_lock.html#a8f0b0b307f74cd374d2d33bda682f160", null ],
     [ "NukiLock::logMessageVar", "namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a", null ],
+    [ "NukiLock::logMqttConfig", "namespace_nuki_lock.html#a56a27350fc787c0f4a12396524a8cbcd", null ],
+    [ "NukiLock::logMqttConfigForMigration", "namespace_nuki_lock.html#abce0d5f498469d62d720684186b6b913", null ],
     [ "NukiLock::logNewAdvancedConfig", "namespace_nuki_lock.html#aae8c01cd0dfed352b308749595936440", null ],
     [ "NukiLock::logNewAuthorizationEntry", "namespace_nuki_lock.html#a630414184015ed567084332b87f2b0ad", null ],
     [ "NukiLock::logNewConfig", "namespace_nuki_lock.html#a2598cc6498f2457f7bf30fce59685e0b", null ],
@@ -23,5 +32,8 @@ var _nuki_lock_utils_8h =
     [ "NukiLock::logNukiTrigger", "namespace_nuki_lock.html#a7d68c58293514d39207ee29f239b897c", null ],
     [ "NukiLock::logTimeControlEntry", "namespace_nuki_lock.html#ab7a8e7266f3ff581a0c32d1adb638ff7", null ],
     [ "NukiLock::logUpdatedAuthorizationEntry", "namespace_nuki_lock.html#a2ebb97ddf9c98aa499df020dc8c96e27", null ],
-    [ "NukiLock::logUpdatedKeypadEntry", "namespace_nuki_lock.html#a2afef62c8ad3997e1154ffaabbd645de", null ]
+    [ "NukiLock::logUpdatedKeypadEntry", "namespace_nuki_lock.html#a2afef62c8ad3997e1154ffaabbd645de", null ],
+    [ "NukiLock::logWifiConfig", "namespace_nuki_lock.html#ad3c99cdbe4ca103480e416cd3cbdf57e", null ],
+    [ "NukiLock::logWifiConfigForMigration", "namespace_nuki_lock.html#aaa6d14f45ca4120780f3ceff1e1639a3", null ],
+    [ "NukiLock::logWifiScanEntry", "namespace_nuki_lock.html#a42c0a3b31d4302c5f07c10f1ffa4ab97", null ]
 ];
