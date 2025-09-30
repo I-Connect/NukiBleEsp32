@@ -43,9 +43,7 @@ jobs:
         pip install --upgrade platformio
     - name: Run PlatformIO
       run: |
-        # install libs before build
-        pio pkg install -e ${{ matrix.env }}
-        pio run -e ${{ matrix.env }}
+        pio run -d examples -e ${{ matrix.env }}
 
   documentation:
     needs: build
