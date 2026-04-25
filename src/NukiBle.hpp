@@ -2,6 +2,10 @@
 #include "NukiDataTypes.h"
 
 namespace Nuki {
+
+#define altConnect false
+#define CMD_TIMEOUT 10000
+
 template<typename TDeviceAction>
 Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
   if(!isPairedWithLock()) {
@@ -89,9 +93,9 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
     }
     case CommandState::CmdSent: {
       #ifndef NUKI_64BIT_TIME
-      if (millis() - timeNow > CMD_TIMEOUT) {
+      if (millis() - timeNow > commandTimeoutDuration) {
       #else
-      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      if ((esp_timer_get_time() / 1000) - timeNow > commandTimeoutDuration) {
       #endif
         logMessage("************************ COMMAND FAILED TIMEOUT************************", 2);
         disconnect();
@@ -167,9 +171,9 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         logMessage("************************ RECEIVING CHALLENGE RESPONSE************************");
       }
       #ifndef NUKI_64BIT_TIME
-      if (millis() - timeNow > CMD_TIMEOUT) {
+      if (millis() - timeNow > commandTimeoutDuration) {
       #else
-      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      if ((esp_timer_get_time() / 1000) - timeNow > commandTimeoutDuration) {
       #endif
         logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
         disconnect();
@@ -230,9 +234,9 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         logMessage("************************ RECEIVING DATA ************************");
       }
       #ifndef NUKI_64BIT_TIME
-      if (millis() - timeNow > CMD_TIMEOUT) {
+      if (millis() - timeNow > commandTimeoutDuration) {
       #else
-      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      if ((esp_timer_get_time() / 1000) - timeNow > commandTimeoutDuration) {
       #endif
         logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
         disconnect();
@@ -306,9 +310,9 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         logMessage("************************ RECEIVING CHALLENGE RESPONSE************************");
       }
       #ifndef NUKI_64BIT_TIME
-      if (millis() - timeNow > CMD_TIMEOUT) {
+      if (millis() - timeNow > commandTimeoutDuration) {
       #else
-      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      if ((esp_timer_get_time() / 1000) - timeNow > commandTimeoutDuration) {
       #endif
         logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
         disconnect();
@@ -354,9 +358,9 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         logMessage("************************ RECEIVING ACCEPT ************************");
       }
       #ifndef NUKI_64BIT_TIME
-      if (millis() - timeNow > CMD_TIMEOUT) {
+      if (millis() - timeNow > commandTimeoutDuration) {
       #else
-      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      if ((esp_timer_get_time() / 1000) - timeNow > commandTimeoutDuration) {
       #endif
         logMessage("************************ ACCEPT FAILED TIMEOUT ************************", 2);
         disconnect();
@@ -386,9 +390,9 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         logMessage("************************ RECEIVING COMPLETE ************************");
       }
       #ifndef NUKI_64BIT_TIME
-      if (millis() - timeNow > CMD_TIMEOUT) {
+      if (millis() - timeNow > commandTimeoutDuration) {
       #else
-      if ((esp_timer_get_time() / 1000) - timeNow > CMD_TIMEOUT) {
+      if ((esp_timer_get_time() / 1000) - timeNow > commandTimeoutDuration) {
       #endif
         logMessage("************************ COMMAND FAILED TIMEOUT ************************", 2);
         disconnect();
