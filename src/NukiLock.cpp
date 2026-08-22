@@ -556,6 +556,19 @@ Nuki::CmdResult NukiLock::setAdvertisingMode(const AdvertisingMode mode) {
   return result;
 }
 
+Nuki::CmdResult NukiLock::setDoorSensorState(const bool doorOpen)
+{
+  Action action;
+  // 0x0092 door-sensor state report: [deviceState=0x10 (sensor active)][0x00]
+  // [doorFlag: 0x00=closed, >=0x01=open][0x00].
+  unsigned char payload[4] = {0x10, 0x00, static_cast<unsigned char>(doorOpen ? 0x01 : 0x00), 0x00};
+  action.cmdType = CommandType::CommandWithChallenge;
+  action.command = Command::DoorSensorReport;
+  memcpy(action.payload, payload, sizeof(payload));
+  action.payloadLen = sizeof(payload);
+  return executeAction(action);
+}
+
 Nuki::CmdResult NukiLock::scanWifi(uint8_t scanDurationSeconds) {
   Action action;
   unsigned char payload[1] = {0};

@@ -401,6 +401,14 @@ class NukiLock : public Nuki::NukiBle {
      */
     Nuki::CmdResult setAdvertisingMode(const AdvertisingMode mode);
 
+
+  /**
+   * @brief Reports the door sensor state to the lock.
+   *
+   * @param doorOpen true: door is open, false: door is closed
+   */
+  Nuki::CmdResult setDoorSensorState(const bool doorOpen);
+
     /**
      * @brief Sends a new time(d) control entry via BLE to the lock.
      * This entry is independant of keypad or authorization entries, it will execute the
