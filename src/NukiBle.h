@@ -23,8 +23,8 @@
 #include <list>
 #include "sodium/crypto_secretbox.h"
 
-#define GENERAL_TIMEOUT 3000
-#define CMD_TIMEOUT 3000
+// #define GENERAL_TIMEOUT 3000
+// #define CMD_TIMEOUT 3000
 #define PAIRING_TIMEOUT 30000
 #define HEARTBEAT_TIMEOUT 30000
 
@@ -108,6 +108,20 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * @param timeoutMs
      */
     void setDisconnectTimeout(uint32_t timeoutMs);
+
+    /**
+    * @brief Set the BLE General Timeout in milliseconds.
+    *
+    * @param timeoutMs
+    */
+    void setGeneralTimeout(uint32_t timeoutMs);
+
+    /**
+     * @brief Set the BLE Command Timeout in seconds.
+     *
+     * @param timeoutMs
+     */
+    void setCommandTimeout(uint32_t timeoutMs);
 
     /**
      * @brief Set the BLE Connect Timeout in seconds.
@@ -466,6 +480,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool encryptPairing = false;
     bool recieveEncrypted = false;
     uint16_t timeoutDuration = 1000;
+    uint32_t generalTimeoutDuration = 10000;
+    uint32_t commandTimeoutDuration = 3000;
     uint8_t connectTimeoutSec = 1;
     uint8_t connectRetries = 5;
     uint32_t countDisconnects = 0;
