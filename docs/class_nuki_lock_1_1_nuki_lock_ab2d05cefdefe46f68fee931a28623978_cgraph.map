@@ -1,5 +1,5 @@
 <map id="NukiLock::NukiLock::removeTimeControlEntry" name="NukiLock::NukiLock::removeTimeControlEntry">
-<area shape="rect" id="Node000001" title="Deletes a time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,147,175,188"/>
+<area shape="rect" id="Node000001" title="Deletes a time(d) control entry via BLE to the lock. (see addTimeControlEntry())." alt="" coords="5,147,175,188"/>
 <area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="223,154,411,180"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,165,207,165,207,170,175,170"/>
 <area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886" title=" " alt="" coords="473,90,656,130"/>
@@ -14,7 +14,7 @@
 <area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="376,178,459,198,458,203,375,183"/>
 <area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="459,40,670,65"/>
 <area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="333,152,387,114,458,75,479,68,481,73,460,80,390,119,336,156"/>
-<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)" alt="" coords="460,320,669,345"/>
+<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)." alt="" coords="460,320,669,345"/>
 <area shape="poly" id="edge16_Node000002_Node000010" title=" " alt="" coords="331,179,383,236,419,270,460,298,490,312,487,317,458,303,416,274,379,240,327,182"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="657,108,703,109,703,114,657,113"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="656,87,745,68,746,73,657,93"/>

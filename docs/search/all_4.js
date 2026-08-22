@@ -23,7 +23,8 @@ var searchData=
   ['doorsensor_20',['DoorSensor',['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a9272dbb9cfef10ff6cda9beff4335f06',1,'NukiLock']]],
   ['doorsensorconfig_21',['DoorSensorConfig',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a90a3a41dac6ea1e62faf2a7b91afc3a4',1,'Nuki']]],
   ['doorsensorloggingenabled_22',['DoorSensorLoggingEnabled',['../namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87af2995020d68d07ec411ecd7b6c9f9366',1,'NukiLock']]],
-  ['doorsensorstate_23',['DoorSensorState',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3',1,'Nuki']]],
-  ['doorsensorstatetostring_24',['doorSensorStateToString',['../namespace_nuki_lock.html#abafc6bffb3f0bc0e15762d2c736c1ca9',1,'NukiLock']]],
-  ['doorstateunknown_25',['DoorStateUnknown',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3adaf9513f16b00b4c39854f6faafc9395',1,'Nuki']]]
+  ['doorsensorreport_23',['DoorSensorReport',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ae915ba897f8a92b0dc4571fcf916a198',1,'Nuki']]],
+  ['doorsensorstate_24',['DoorSensorState',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3',1,'Nuki']]],
+  ['doorsensorstatetostring_25',['doorSensorStateToString',['../namespace_nuki_lock.html#abafc6bffb3f0bc0e15762d2c736c1ca9',1,'NukiLock']]],
+  ['doorstateunknown_26',['DoorStateUnknown',['../namespace_nuki.html#af435580dd93257235a1cf360358fa0c3adaf9513f16b00b4c39854f6faafc9395',1,'Nuki']]]
 ];

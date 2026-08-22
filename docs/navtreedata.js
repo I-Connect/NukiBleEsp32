@@ -49,7 +49,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
@@ -67,10 +67,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_nuki_ble_8cpp.html",
-"class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5",
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac2961811c1e93653a90c1d628916d7f4",
-"namespace_nuki_lock.html#a53c9585bb1e4f213e3080fc73bb7b336"
+"class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7",
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a8762719aa46a422243482ac9c22ab794",
+"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87accce994b3a8efcddcc0ea8ebf2677c95",
+"struct_nuki_opener_1_1_action.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
+const SYNCONMSG = 'click to disable panel synchronization';
+const SYNCOFFMSG = 'click to enable panel synchronization';
+const LISTOFALLMEMBERS = 'List of all members';

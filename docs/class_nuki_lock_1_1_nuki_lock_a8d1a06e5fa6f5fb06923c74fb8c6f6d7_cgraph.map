@@ -1,5 +1,5 @@
 <map id="NukiLock::NukiLock::updateTimeControlEntry" name="NukiLock::NukiLock::updateTimeControlEntry">
-<area shape="rect" id="Node000001" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="5,333,171,373"/>
+<area shape="rect" id="Node000001" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())." alt="" coords="5,333,171,373"/>
 <area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6" title=" " alt="" coords="219,175,407,200"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,330,280,208,283,212,119,334"/>
 <area shape="rect" id="Node000011" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="474,368,647,394"/>
@@ -20,7 +20,7 @@
 <area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="353,198,486,245,484,250,352,203"/>
 <area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="455,39,666,64"/>
 <area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="325,172,378,124,414,96,454,73,468,67,470,72,456,78,417,101,381,128,329,176"/>
-<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)" alt="" coords="456,88,665,114"/>
+<area shape="rect" id="Node000010" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)." alt="" coords="456,88,665,114"/>
 <area shape="poly" id="edge16_Node000002_Node000010" title=" " alt="" coords="340,172,392,148,454,124,481,116,483,121,456,129,394,153,342,177"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="653,157,699,157,699,162,653,162"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="650,177,747,200,746,205,649,182"/>

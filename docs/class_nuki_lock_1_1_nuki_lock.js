@@ -48,6 +48,7 @@ var class_nuki_lock_1_1_nuki_lock =
     [ "setAdvertisingMode", "class_nuki_lock_1_1_nuki_lock.html#a77f3101f055d596878064283b2b877b5", null ],
     [ "setAutoLockTimeOut", "class_nuki_lock_1_1_nuki_lock.html#ae4a6dda575b4e564b9e1f15e40cb9878", null ],
     [ "setBatteryType", "class_nuki_lock_1_1_nuki_lock.html#ad268a0eabddd0df736163be5301969fd", null ],
+    [ "setDoorSensorState", "class_nuki_lock_1_1_nuki_lock.html#aa09e358c25ac43dbd87678b307a681ad", null ],
     [ "setDoubleButtonPressAction", "class_nuki_lock_1_1_nuki_lock.html#a79c0f4cdf6cd03ab252f0568f766a5f6", null ],
     [ "setFobAction", "class_nuki_lock_1_1_nuki_lock.html#a095b0ebfce74133dfb4c77fba5e92da3", null ],
     [ "setLatitude", "class_nuki_lock_1_1_nuki_lock.html#a74af452143f4b51466421f3daf6b05dd", null ],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['general_5ftimeout_0',['GENERAL_TIMEOUT',['../_nuki_ble_8h.html#a65f439f37fb225e2d6731df6a0513d17',1,'NukiBle.h']]]
+  ['pairing_5ftimeout_0',['PAIRING_TIMEOUT',['../_nuki_ble_8h.html#ac55426573f15100d7c8b3d8936332a04',1,'NukiBle.h']]]
 ];

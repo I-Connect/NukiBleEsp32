@@ -205,7 +205,7 @@ var sectionId = 'dynsection-28';
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not)">
+<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not).">
 <polygon fill="white" stroke="#666666" points="513.38,-192.31 357.12,-192.31 357.12,-173.06 513.38,-173.06 513.38,-192.31"/>
 <text text-anchor="middle" x="435.25" y="-178.81" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::isPairedWithLock</text>
 </a>

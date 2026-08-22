@@ -6,7 +6,7 @@
 <!-- Title: NukiOpener::NukiOpener::addTimeControlEntry Pages: 1 -->
 <svg width="713pt" height="342pt"
  viewBox="0.00 0.00 713.25 341.50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 337.5)">
+<g id="page0,1_graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 337.5)">
 <title>NukiOpener::NukiOpener::addTimeControlEntry</title>
 <!-- Node1 -->
 <g id="Node000001" class="node">
@@ -205,7 +205,7 @@
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not)">
+<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not).">
 <polygon fill="white" stroke="#666666" points="511.12,-272.25 354.88,-272.25 354.88,-253 511.12,-253 511.12,-272.25"/>
 <text text-anchor="middle" x="433" y="-258.75" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::isPairedWithLock</text>
 </a>

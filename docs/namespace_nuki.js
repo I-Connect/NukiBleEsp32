@@ -19,6 +19,7 @@ var namespace_nuki =
       [ "Alkali", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a098e792157e1beadc3ed73cb00cd42b0", null ],
       [ "Accumulators", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a9847344b6abc15c6a232d5255cdf65b8", null ],
       [ "Lithium", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6aa0a569e51b6942b08a4a72a5dbfabcb6", null ],
+      [ "NoWarnings", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6acf6ccc1b149764728488aa9e2718a827", null ],
       [ "Unknown", "namespace_nuki.html#a1494a2f67b03f5128713185bc50796c6a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "CmdResult", "namespace_nuki.html#a486931322cf764426f77d97d8c4a5918", [
@@ -111,6 +112,7 @@ var namespace_nuki =
       [ "MqttConfigForMigration", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6cf2dd61fa1c9d11932542324a211944", null ],
       [ "AccessoryInfo", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aa0bddae60cc0aa5832e9de8b66b3bc5c", null ],
       [ "RequestAccessoryInfo", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ac5ab5cf92e1cb78c6c63d2825186ac8f", null ],
+      [ "DoorSensorReport", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ae915ba897f8a92b0dc4571fcf916a198", null ],
       [ "RequestFingerprintEntries", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a0275e441cdc075c735e57234989ffb29", null ],
       [ "FingerprintEntry", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4d5201f7f57eea0a9ad1abfe6a2d23e9", null ],
       [ "GetKeypad2Config", "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aef80e57db52c6c637ac7f6bd9f1dec3d", null ],

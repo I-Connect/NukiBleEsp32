@@ -49,7 +49,7 @@
 <script type="application/ecmascript">
 var viewWidth = 837;
 var viewHeight = 263;
-var sectionId = 'dynsection-50';
+var sectionId = 'dynsection-51';
 </script>
 <script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
@@ -216,7 +216,7 @@ var sectionId = 'dynsection-50';
 <!-- Node11 -->
 <g id="Node000011" class="node">
 <title>Node11</title>
-<g id="a_Node000011"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not)">
+<g id="a_Node000011"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not).">
 <polygon fill="white" stroke="#666666" points="634.38,-19.25 478.12,-19.25 478.12,0 634.38,0 634.38,-19.25"/>
 <text text-anchor="middle" x="556.25" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::isPairedWithLock</text>
 </a>

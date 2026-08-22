@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cmd_5ftimeout_0',['CMD_TIMEOUT',['../_nuki_ble_8h.html#ab968c2a7a3938ef37739457da7d32a43',1,'NukiBle.h']]]
+  ['endian_5fchange_5fu16_0',['ENDIAN_CHANGE_U16',['../_nuki_utils_8h.html#aed8c4eaac7d0cae5422c08bcda136600',1,'NukiUtils.h']]]
 ];

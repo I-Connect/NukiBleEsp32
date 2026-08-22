@@ -12,7 +12,7 @@
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="159,178,242,198,241,203,158,183"/>
 <area shape="rect" id="Node000008" href="$class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411" title=" " alt="" coords="242,40,453,65"/>
 <area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="116,152,170,114,241,75,261,68,263,73,243,80,172,119,119,156"/>
-<area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)" alt="" coords="243,320,452,345"/>
+<area shape="rect" id="Node000009" href="$class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" title="Returns pairing state (if credentials are stored or not)." alt="" coords="243,320,452,345"/>
 <area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="113,179,165,236,202,270,243,298,272,312,270,317,240,303,199,274,161,240,109,182"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="440,108,485,109,485,114,439,113"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="439,87,528,68,529,73,440,93"/>

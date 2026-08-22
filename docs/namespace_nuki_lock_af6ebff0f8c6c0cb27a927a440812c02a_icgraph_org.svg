@@ -6,7 +6,7 @@
 <!-- Title: NukiLock::logMessageVar Pages: 1 -->
 <svg width="544pt" height="1197pt"
  viewBox="0.00 0.00 543.50 1196.50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1192.5)">
+<g id="page0,1_graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1192.5)">
 <title>NukiLock::logMessageVar</title>
 <!-- Node1 -->
 <g id="Node000001" class="node">
@@ -443,7 +443,7 @@
 <!-- Node28 -->
 <g id="Node000028" class="node">
 <title>Node28</title>
-<g id="a_Node000028"><a xlink:href="class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())">
+<g id="a_Node000028"><a xlink:href="class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry()).">
 <polygon fill="white" stroke="#666666" points="144.62,-144.5 20.62,-144.5 20.62,-114 144.62,-114 144.62,-144.5"/>
 <text text-anchor="start" x="28.62" y="-131" font-family="Helvetica,sans-Serif" font-size="10.00">NukiLock::NukiLock</text>
 <text text-anchor="middle" x="82.62" y="-119.75" font-family="Helvetica,sans-Serif" font-size="10.00">::updateTimeControlEntry</text>

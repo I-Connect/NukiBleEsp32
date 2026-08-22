@@ -46,7 +46,7 @@
 <area shape="poly" id="edge37_Node000001_Node000026" title=" " alt="" coords="627,761,617,617,593,409,576,301,554,203,528,121,512,90,496,66,475,49,478,45,500,63,517,87,532,119,559,201,581,300,599,408,622,617,633,761"/>
 <area shape="rect" id="Node000027" href="$namespace_nuki_lock.html#ab7a8e7266f3ff581a0c32d1adb638ff7" title=" " alt="" coords="301,1419,471,1459"/>
 <area shape="poly" id="edge39_Node000001_Node000027" title=" " alt="" coords="631,818,618,942,592,1117,574,1206,553,1288,528,1355,515,1382,500,1402,473,1422,470,1418,496,1398,510,1379,523,1353,548,1286,569,1205,587,1116,612,942,626,818"/>
-<area shape="rect" id="Node000028" href="$class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())" alt="" coords="33,1397,198,1438"/>
+<area shape="rect" id="Node000028" href="$class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())." alt="" coords="33,1397,198,1438"/>
 <area shape="poly" id="edge51_Node000001_Node000028" title=" " alt="" coords="631,818,618,936,593,1098,575,1181,554,1256,529,1317,515,1341,500,1358,484,1366,458,1374,380,1389,199,1412,198,1407,379,1383,456,1369,482,1361,496,1354,510,1337,524,1315,549,1254,570,1180,587,1097,613,935,626,818"/>
 <area shape="rect" id="Node000029" href="$namespace_nuki_lock.html#a2ebb97ddf9c98aa499df020dc8c96e27" title=" " alt="" coords="274,1484,498,1525"/>
 <area shape="poly" id="edge41_Node000001_Node000029" title=" " alt="" coords="632,818,621,955,597,1151,580,1252,558,1344,532,1420,516,1450,500,1473,485,1485,482,1481,496,1469,512,1447,527,1418,553,1343,574,1251,592,1150,616,955,627,818"/>

@@ -6,7 +6,7 @@
 <!-- Title: Nuki::printBuffer Pages: 1 -->
 <svg width="294pt" height="517pt"
  viewBox="0.00 0.00 294.25 516.50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 512.5)">
+<g id="page0,1_graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 512.5)">
 <title>Nuki::printBuffer</title>
 <!-- Node1 -->
 <g id="Node000001" class="node">
@@ -190,7 +190,7 @@
 <!-- Node11 -->
 <g id="Node000011" class="node">
 <title>Node11</title>
-<g id="a_Node000011"><a xlink:href="class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())">
+<g id="a_Node000011"><a xlink:href="class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry()).">
 <polygon fill="white" stroke="#666666" points="144.62,-79.5 20.62,-79.5 20.62,-49 144.62,-49 144.62,-79.5"/>
 <text text-anchor="start" x="28.62" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">NukiLock::NukiLock</text>
 <text text-anchor="middle" x="82.62" y="-54.75" font-family="Helvetica,sans-Serif" font-size="10.00">::updateTimeControlEntry</text>
@@ -209,7 +209,7 @@
 <!-- Node12 -->
 <g id="Node000012" class="node">
 <title>Node12</title>
-<g id="a_Node000012"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry())">
+<g id="a_Node000012"><a xlink:href="class_nuki_opener_1_1_nuki_opener.html#ad896a195b57a3961a10497c432bc55ed" target="_top" xlink:title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry()).">
 <polygon fill="white" stroke="#666666" points="144.62,-30.5 20.62,-30.5 20.62,0 144.62,0 144.62,-30.5"/>
 <text text-anchor="start" x="28.62" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">NukiOpener::NukiOpener</text>
 <text text-anchor="middle" x="82.62" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">::updateTimeControlEntry</text>

@@ -58,7 +58,7 @@ var sectionId = 'dynsection-49';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry())">
+<g id="a_Node000001"><a xlink:title="Sends an updated time(d) control entry via BLE to the opener. (see addTimeControlEntry()).">
 <polygon fill="#999999" stroke="#666666" points="124,-88.88 0,-88.88 0,-58.38 124,-58.38 124,-88.88"/>
 <text text-anchor="start" x="8" y="-75.38" font-family="Helvetica,sans-Serif" font-size="10.00">NukiOpener::NukiOpener</text>
 <text text-anchor="middle" x="62" y="-64.12" font-family="Helvetica,sans-Serif" font-size="10.00">::updateTimeControlEntry</text>
@@ -252,7 +252,7 @@ var sectionId = 'dynsection-49';
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not)">
+<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not).">
 <polygon fill="white" stroke="#666666" points="494.62,-272.25 338.38,-272.25 338.38,-253 494.62,-253 494.62,-272.25"/>
 <text text-anchor="middle" x="416.5" y="-258.75" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::isPairedWithLock</text>
 </a>

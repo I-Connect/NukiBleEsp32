@@ -6,7 +6,7 @@
 <!-- Title: NukiOpener::NukiOpener::requestConfig Pages: 1 -->
 <svg width="697pt" height="263pt"
  viewBox="0.00 0.00 696.75 263.03" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259.03)">
+<g id="page0,1_graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 259.03)">
 <title>NukiOpener::NukiOpener::requestConfig</title>
 <!-- Node1 -->
 <g id="Node000001" class="node">
@@ -150,7 +150,7 @@
 <!-- Node10 -->
 <g id="Node000010" class="node">
 <title>Node10</title>
-<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not)">
+<g id="a_Node000010"><a xlink:href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca" target="_top" xlink:title="Returns pairing state (if credentials are stored or not).">
 <polygon fill="white" stroke="#666666" points="494.62,-19.25 338.38,-19.25 338.38,0 494.62,0 494.62,-19.25"/>
 <text text-anchor="middle" x="416.5" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">Nuki::NukiBle::isPairedWithLock</text>
 </a>
