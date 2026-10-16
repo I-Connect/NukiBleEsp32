@@ -1,5 +1,7 @@
 <map id="NukiLock::logFingerprintEntry" name="NukiLock::logFingerprintEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,167,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="215,13,388,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,23,199,23,199,28,167,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,167,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="45,29,43,19,50,10,64,5,86,3,109,5,123,11,121,16,108,10,86,8,66,10,53,15,48,21,50,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="215,37,388,62"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="167,47,199,47,199,52,167,52"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="266,38,258,28,263,18,277,12,301,10,328,13,341,20,339,24,326,18,301,15,279,18,266,22,264,28,270,35"/>
 </map>

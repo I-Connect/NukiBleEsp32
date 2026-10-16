@@ -1,5 +1,7 @@
 <map id="NukiOpener::logNewTimeControlEntry" name="NukiOpener::logNewTimeControlEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,216,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="264,13,450,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,23,248,23,248,28,216,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,216,70"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="64,29,62,19,70,10,86,5,111,3,137,5,153,11,151,16,136,10,110,8,87,10,73,15,67,21,69,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="264,37,450,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,47,248,47,248,52,216,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="316,38,308,28,313,18,330,12,357,10,387,13,403,20,400,25,386,18,357,15,331,18,316,22,313,28,320,35"/>
 </map>

@@ -1,0 +1,6 @@
+<map id="Nuki::getWeekdaysIntFromBitset" name="Nuki::getWeekdaysIntFromBitset">
+<area shape="rect" id="Node000001" title="Translate a bitset&lt;N&gt; into Nuki weekdays int." alt="" coords="180,29,357,70"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="301,16,289,10,268,8,249,10,238,15,234,20,236,28,230,29,228,19,235,10,248,5,268,3,290,5,303,11"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki.html#aa7e9e9ff38eb673d2da28d041a2a9bd9" title=" " alt="" coords="5,37,132,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,52,132,52,132,47,164,47"/>
+</map>

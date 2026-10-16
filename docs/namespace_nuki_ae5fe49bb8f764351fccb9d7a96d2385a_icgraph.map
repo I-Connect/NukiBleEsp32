@@ -1,5 +1,10 @@
 <map id="Nuki::calculateCrc" name="Nuki::calculateCrc">
-<area shape="rect" id="Node000001" title=" " alt="" coords="155,5,281,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816" title=" " alt="" coords="5,5,107,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,21,107,21,107,16,139,16"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="329,29,455,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="419,16,410,10,392,8,375,10,367,15,365,20,369,28,365,30,359,21,362,11,374,5,392,3,412,5,422,12"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki.html#aa7e9e9ff38eb673d2da28d041a2a9bd9" title=" " alt="" coords="5,29,132,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="313,35,281,33,180,33,132,37,132,32,180,28,281,28,314,30"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816" title=" " alt="" coords="180,67,281,92"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="319,62,282,70,281,65,318,56"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="164,67,127,58,128,53,165,62"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="258,54,248,48,230,45,214,47,205,52,203,57,207,65,203,68,197,58,201,48,212,42,230,40,250,43,260,49"/>
 </map>

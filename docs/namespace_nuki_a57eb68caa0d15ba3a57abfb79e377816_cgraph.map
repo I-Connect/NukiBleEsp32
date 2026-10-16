@@ -1,5 +1,7 @@
 <map id="Nuki::crcValid" name="Nuki::crcValid">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,107,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki.html#ae5fe49bb8f764351fccb9d7a96d2385a" title=" " alt="" coords="155,5,281,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,16,139,16,139,21,107,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,107,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="28,30,23,21,26,11,38,5,56,3,76,5,86,12,83,16,74,10,56,8,39,10,30,15,28,20,33,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki.html#ae5fe49bb8f764351fccb9d7a96d2385a" title=" " alt="" coords="155,29,281,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,40,139,40,139,45,107,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="190,30,185,21,188,11,199,5,218,3,238,5,248,12,245,16,236,10,218,8,201,10,192,15,190,20,195,28"/>
 </map>

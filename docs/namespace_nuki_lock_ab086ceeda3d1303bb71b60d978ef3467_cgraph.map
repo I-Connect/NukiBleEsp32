@@ -1,7 +1,10 @@
 <map id="NukiLock::logConfig" name="NukiLock::logConfig">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,142,56"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#a1c4b22e22d81b2258bb6f2ce1e1f7d6f" title=" " alt="" coords="200,5,353,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,32,184,27,184,32,142,38"/>
-<area shape="rect" id="Node000003" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="190,55,363,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="142,49,174,53,174,58,142,54"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,67,142,92"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="40,68,33,58,37,48,51,42,74,40,98,43,111,50,109,54,97,48,73,45,52,47,41,52,38,57,44,65"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#a1c4b22e22d81b2258bb6f2ce1e1f7d6f" title=" " alt="" coords="200,29,353,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="142,64,188,56,189,61,143,70"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="190,103,363,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="143,89,186,97,185,102,142,94"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="242,31,236,21,240,11,254,5,276,3,301,5,314,12,311,17,300,10,276,8,255,10,244,15,241,20,247,27"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="242,104,236,94,240,84,254,78,276,76,301,79,314,86,311,90,300,84,276,81,255,83,244,88,241,93,247,101"/>
 </map>

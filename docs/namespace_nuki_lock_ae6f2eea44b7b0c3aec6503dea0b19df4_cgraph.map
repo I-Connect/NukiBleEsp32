@@ -1,5 +1,7 @@
 <map id="NukiLock::logAccessoryInfo" name="NukiLock::logAccessoryInfo">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,189,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="237,5,410,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,16,221,16,221,21,189,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,189,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="59,31,52,21,56,11,72,5,97,3,125,5,139,12,136,17,123,10,97,8,73,10,60,15,57,20,64,27"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="237,29,410,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="189,40,221,40,221,45,189,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="286,31,278,21,283,11,298,5,323,3,351,5,365,12,363,17,350,10,323,8,299,10,286,15,284,20,290,27"/>
 </map>

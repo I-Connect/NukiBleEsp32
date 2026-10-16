@@ -1,5 +1,6 @@
 <map id="NukiLock::logNewTimeControlEntry" name="NukiLock::logNewTimeControlEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="201,5,398,46"/>
-<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,5,153,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,28,153,28,153,23,186,23"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="201,29,398,70"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="335,16,322,10,299,8,278,10,266,15,261,21,263,28,258,29,256,19,262,10,277,5,299,3,323,5,337,11"/>
+<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#ae580874f09b745718bb40c263de51c6e" title="Sends a new time(d) control entry via BLE to the lock. This entry is independant of keypad or authori..." alt="" coords="5,29,153,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,52,153,52,153,47,186,47"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="NukiLock::logWifiScanEntry" name="NukiLock::logWifiScanEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,186,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="234,5,407,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,16,218,16,218,21,186,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,186,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="58,31,51,21,55,11,70,5,96,3,123,5,137,12,135,17,122,10,95,8,72,10,59,15,56,20,62,27"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="234,29,407,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,40,218,40,218,45,186,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="283,31,276,21,280,11,295,5,320,3,348,5,362,12,359,17,346,10,320,8,297,10,284,15,281,20,287,27"/>
 </map>

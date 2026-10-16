@@ -1,5 +1,6 @@
 <map id="NukiLock::logTimeControlEntry" name="NukiLock::logTimeControlEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="219,5,389,46"/>
-<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())." alt="" coords="5,5,171,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,28,171,28,171,23,203,23"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="219,29,389,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="339,16,326,10,304,8,283,10,271,15,266,21,268,28,263,29,261,19,268,10,282,5,304,3,327,5,341,11"/>
+<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7" title="Sends an updated time(d) control entry via BLE to the lock. (see addTimeControlEntry())." alt="" coords="5,29,171,70"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="203,52,171,52,171,47,203,47"/>
 </map>

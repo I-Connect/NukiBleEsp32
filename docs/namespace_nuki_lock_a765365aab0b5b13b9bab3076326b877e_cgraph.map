@@ -1,5 +1,7 @@
 <map id="NukiLock::logNewTimeControlEntry" name="NukiLock::logNewTimeControlEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,203,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="251,13,424,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,23,235,23,235,28,203,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,203,70"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="60,29,58,19,65,10,81,5,104,3,129,5,144,11,142,16,128,10,104,8,82,10,68,15,63,21,65,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="251,37,424,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,47,235,47,235,52,203,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="299,38,291,28,296,18,311,12,337,10,366,13,380,20,378,24,364,18,337,15,313,18,299,22,296,28,303,35"/>
 </map>

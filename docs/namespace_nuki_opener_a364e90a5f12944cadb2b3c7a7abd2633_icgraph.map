@@ -1,0 +1,7 @@
+<map id="NukiOpener::logNewKeypadEntry" name="NukiOpener::logNewKeypadEntry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="243,29,426,70"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="373,16,358,10,334,8,312,10,298,15,293,21,295,28,290,29,288,19,295,10,311,5,334,3,360,5,375,11"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3" title="Translate a bitset&lt;N&gt; into Nuki weekdays int." alt="" coords="5,29,195,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,52,195,52,195,47,227,47"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="138,16,124,10,100,8,78,10,64,15,59,21,61,28,56,29,54,19,61,10,77,5,100,3,125,5,140,11"/>
+</map>

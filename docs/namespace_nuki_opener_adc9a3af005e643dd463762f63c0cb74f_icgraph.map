@@ -1,0 +1,7 @@
+<map id="NukiOpener::logUpdatedAuthorizationEntry" name="NukiOpener::logUpdatedAuthorizationEntry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="243,29,480,70"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="404,16,388,10,361,8,336,10,321,15,315,21,318,28,312,29,310,19,318,10,335,5,361,3,389,5,406,11"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3" title="Translate a bitset&lt;N&gt; into Nuki weekdays int." alt="" coords="5,29,195,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,52,195,52,195,47,227,47"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="143,16,127,10,100,8,75,10,60,15,54,21,56,28,51,29,49,19,57,10,74,5,100,3,128,5,145,11"/>
+</map>

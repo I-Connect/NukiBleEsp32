@@ -1,5 +1,7 @@
 <map id="NukiOpener::logNewConfig" name="NukiOpener::logNewConfig">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,182,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="230,5,416,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,16,214,16,214,21,182,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,182,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="56,31,48,21,52,11,68,5,94,3,122,5,136,12,133,17,120,10,93,8,69,10,56,15,53,20,60,27"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="230,29,416,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,40,214,40,214,45,182,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="285,31,277,21,282,11,297,5,323,3,351,5,365,12,363,17,349,10,323,8,299,10,285,15,283,20,289,27"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="NukiLock::logUpdatedKeypadEntry" name="NukiLock::logUpdatedKeypadEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,198,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="246,13,419,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,23,230,23,230,28,198,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,198,70"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="58,29,56,19,63,10,78,5,102,3,126,5,141,11,139,16,125,10,101,8,79,10,66,15,61,21,63,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="246,37,419,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,47,230,47,230,52,198,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="294,38,287,28,291,18,307,12,332,10,361,13,375,20,373,24,359,18,332,15,308,18,295,22,292,28,298,35"/>
 </map>

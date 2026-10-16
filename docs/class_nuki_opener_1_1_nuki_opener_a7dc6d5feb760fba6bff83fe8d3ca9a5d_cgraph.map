@@ -1,7 +1,9 @@
 <map id="NukiOpener::NukiOpener::logErrorCode" name="NukiOpener::NukiOpener::logErrorCode">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,171,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#a6083f441acdf873afa151b034ab6531f" title=" " alt="" coords="219,13,431,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,23,203,23,203,28,171,28"/>
-<area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d" title=" " alt="" coords="479,13,645,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="431,23,463,23,463,28,431,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,22,171,62"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#a6083f441acdf873afa151b034ab6531f" title=" " alt="" coords="219,29,431,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,40,203,40,203,45,171,45"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="286,31,278,21,283,11,299,5,325,3,354,5,368,12,366,17,352,11,325,8,300,10,286,15,283,20,290,27"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d" title=" " alt="" coords="479,29,645,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="431,40,463,40,463,45,431,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="523,31,515,21,520,11,536,5,562,3,592,6,606,13,604,17,590,11,562,8,537,10,523,15,520,20,527,27"/>
 </map>

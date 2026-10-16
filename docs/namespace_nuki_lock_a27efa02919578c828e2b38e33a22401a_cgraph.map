@@ -1,5 +1,7 @@
 <map id="NukiLock::logKeypad2Config" name="NukiLock::logKeypad2Config">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,192,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="240,5,413,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,16,224,16,224,21,192,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,192,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="61,31,53,21,58,11,73,5,99,3,126,5,141,12,138,17,125,10,98,8,74,10,61,15,59,20,65,27"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="240,29,413,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="192,40,224,40,224,45,192,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="289,31,281,21,286,11,301,5,326,3,354,5,368,12,366,17,353,10,326,8,302,10,289,15,286,20,293,27"/>
 </map>

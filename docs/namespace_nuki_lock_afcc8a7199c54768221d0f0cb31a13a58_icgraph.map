@@ -1,5 +1,6 @@
 <map id="NukiLock::logDoorSensorConfig" name="NukiLock::logDoorSensorConfig">
-<area shape="rect" id="Node000001" title=" " alt="" coords="210,13,414,38"/>
-<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5" title=" " alt="" coords="5,5,162,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,162,28,162,23,195,23"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="210,29,414,55"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="352,17,338,10,312,8,288,10,275,15,272,20,278,27,274,31,267,21,271,11,286,5,312,3,340,5,354,12"/>
+<area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5" title=" " alt="" coords="5,22,162,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,45,162,45,162,40,195,40"/>
 </map>

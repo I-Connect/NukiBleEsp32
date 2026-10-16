@@ -1,5 +1,7 @@
 <map id="NukiOpener::logKeypadEntry" name="NukiOpener::logKeypadEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,191,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="239,5,425,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,16,223,16,223,21,191,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,191,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="59,31,52,21,56,11,72,5,98,3,127,5,141,12,139,17,125,11,98,8,73,10,60,15,57,20,63,27"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="239,29,425,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="191,40,223,40,223,45,191,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="293,31,285,21,290,11,306,5,332,3,360,5,375,12,373,17,359,11,332,8,307,10,294,15,291,20,297,27"/>
 </map>

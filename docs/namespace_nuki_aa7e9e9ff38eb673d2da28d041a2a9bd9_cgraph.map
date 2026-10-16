@@ -1,0 +1,13 @@
+<map id="Nuki::calculateCrc" name="Nuki::calculateCrc">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,67,132,92"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki.html#ae5fe49bb8f764351fccb9d7a96d2385a" title=" " alt="" coords="405,29,531,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,64,131,44,179,28,233,20,289,18,390,26,389,31,289,23,234,25,180,33,133,49,93,69"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816" title=" " alt="" coords="218,67,319,92"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="132,77,202,77,202,82,132,82"/>
+<area shape="rect" id="Node000004" href="$namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05" title="Translate a bitset&lt;N&gt; into Nuki weekdays int." alt="" coords="180,140,357,181"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="103,90,203,132,201,137,101,95"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="435,30,428,21,432,11,446,5,468,3,493,5,505,12,503,17,491,10,468,8,447,10,436,15,433,20,439,27"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="319,67,389,54,390,59,320,73"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="235,68,228,58,232,48,246,42,268,40,293,43,305,50,303,54,291,48,268,45,247,47,236,52,234,57,239,65"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="230,140,228,131,235,122,248,116,268,114,290,116,303,122,301,127,289,121,268,119,249,121,238,126,234,132,236,139"/>
+</map>

@@ -1,5 +1,7 @@
 <map id="NukiOpener::logUpdatedAuthorizationEntry" name="NukiOpener::logUpdatedAuthorizationEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,243,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="291,13,477,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,23,275,23,275,28,243,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,243,70"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="75,29,73,19,81,10,98,5,124,3,152,5,169,11,167,16,151,10,124,8,99,10,84,15,78,21,81,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="291,37,477,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,47,275,47,275,52,243,52"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="341,38,333,28,338,18,355,12,384,10,416,13,432,20,430,25,415,18,384,15,356,18,341,22,338,28,345,35"/>
 </map>

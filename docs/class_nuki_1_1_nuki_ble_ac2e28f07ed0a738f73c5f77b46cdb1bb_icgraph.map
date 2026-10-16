@@ -1,7 +1,8 @@
 <map id="Nuki::NukiBle::handleReturnMessage" name="Nuki::NukiBle::handleReturnMessage">
 <area shape="rect" id="Node000001" title=" " alt="" coords="219,39,401,79"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="346,26,332,20,310,17,289,19,276,24,271,30,273,37,268,39,266,29,273,20,288,14,310,12,334,14,348,21"/>
 <area shape="rect" id="Node000002" href="$class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5" title=" " alt="" coords="10,5,166,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,46,166,40,167,35,204,40"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="203,46,166,40,167,35,204,40"/>
 <area shape="rect" id="Node000003" href="$class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da" title=" " alt="" coords="5,71,171,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,77,171,82,171,76,203,72"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="203,77,171,82,171,76,203,72"/>
 </map>

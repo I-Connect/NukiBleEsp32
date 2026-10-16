@@ -1,5 +1,7 @@
 <map id="Nuki::generateNonce" name="Nuki::generateNonce">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,148,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b" title=" " alt="" coords="196,5,309,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,16,180,16,180,21,148,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,148,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="47,30,41,21,44,11,57,5,77,3,98,5,109,12,106,16,96,10,76,8,58,10,48,15,46,20,51,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b" title=" " alt="" coords="196,29,309,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="148,40,180,40,180,45,148,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="223,30,217,21,220,11,232,5,252,3,274,5,285,12,282,16,272,10,252,8,234,10,224,15,222,20,227,28"/>
 </map>

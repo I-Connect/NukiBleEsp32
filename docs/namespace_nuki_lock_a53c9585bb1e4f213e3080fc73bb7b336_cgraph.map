@@ -1,5 +1,7 @@
 <map id="NukiLock::logInternalLogEntry" name="NukiLock::logInternalLogEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,171,46"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="219,13,392,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,23,203,23,203,28,171,28"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,171,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="47,29,45,19,52,10,66,5,88,3,112,5,126,11,123,16,110,10,88,8,67,10,55,15,50,21,52,28"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="219,37,392,62"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="171,47,203,47,203,52,171,52"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="269,38,262,28,266,18,281,12,305,10,332,13,346,20,343,24,330,18,305,15,282,18,270,22,267,28,273,35"/>
 </map>

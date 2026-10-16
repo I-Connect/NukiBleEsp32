@@ -1,5 +1,9 @@
 <map id="NukiOpener::logConfig" name="NukiOpener::logConfig">
-<area shape="rect" id="Node000001" title=" " alt="" coords="219,13,368,38"/>
-<area shape="rect" id="Node000002" href="$class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da" title=" " alt="" coords="5,5,171,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,28,171,28,171,23,203,23"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="243,70,392,96"/>
+<area shape="poly" id="edge4_Node000001_Node000001" title=" " alt="" coords="355,58,342,51,317,49,294,51,282,56,279,61,285,68,281,71,274,62,278,52,293,46,317,44,344,46,358,53"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#ac1fc5a534be20aad0d158511c3cbfff3" title="Translate a bitset&lt;N&gt; into Nuki weekdays int." alt="" coords="5,29,195,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,72,195,67,195,62,228,67"/>
+<area shape="rect" id="Node000003" href="$class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da" title=" " alt="" coords="17,95,183,135"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="228,99,183,105,183,100,227,94"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="135,16,122,10,100,8,79,10,67,15,62,21,64,28,59,29,57,19,64,10,78,5,100,3,124,5,138,11"/>
 </map>

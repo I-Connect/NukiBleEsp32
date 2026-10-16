@@ -1,5 +1,7 @@
 <map id="NukiLock::logBatteryReport" name="NukiLock::logBatteryReport">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,185,31"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="233,5,406,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,16,217,16,217,21,185,21"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,185,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="58,31,50,21,55,11,70,5,95,3,122,5,136,12,134,17,121,10,95,8,71,10,58,15,56,20,62,27"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_lock.html#af6ebff0f8c6c0cb27a927a440812c02a" title=" " alt="" coords="233,29,406,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="185,40,217,40,217,45,185,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="282,31,275,21,279,11,294,5,319,3,347,5,361,12,358,17,345,10,319,8,296,10,283,15,280,20,286,27"/>
 </map>

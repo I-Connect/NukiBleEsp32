@@ -1,13 +1,18 @@
 <map id="NukiOpener::logLogEntry" name="NukiOpener::logLogEntry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,96,170,121"/>
-<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#a6bf8f7b28ff29642c9206fe6fc3e0070" title=" " alt="" coords="222,5,400,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,92,239,49,240,54,126,97"/>
-<area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d" title=" " alt="" coords="452,70,618,96"/>
-<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="170,101,436,86,437,91,170,106"/>
-<area shape="rect" id="Node000004" href="$namespace_nuki_opener.html#a3e96f2a12b591da08c015e0ea11fb890" title=" " alt="" coords="221,121,400,146"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,115,206,119,205,124,169,120"/>
-<area shape="rect" id="Node000005" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="218,170,404,196"/>
-<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="121,119,219,156,240,163,239,168,217,162,119,124"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="393,44,468,63,466,68,392,49"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="370,118,460,97,461,102,372,123"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,132,170,157"/>
+<area shape="poly" id="edge8_Node000001_Node000001" title=" " alt="" coords="50,133,43,123,47,113,63,107,88,105,115,108,129,114,126,119,113,113,87,110,64,112,51,117,48,122,55,129"/>
+<area shape="rect" id="Node000002" href="$namespace_nuki_opener.html#a6bf8f7b28ff29642c9206fe6fc3e0070" title=" " alt="" coords="222,29,400,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,128,217,86,245,74,247,79,219,91,121,133"/>
+<area shape="rect" id="Node000003" href="$namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d" title=" " alt="" coords="452,94,618,120"/>
+<area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="170,134,217,130,437,112,437,117,218,135,170,139"/>
+<area shape="rect" id="Node000004" href="$namespace_nuki_opener.html#a3e96f2a12b591da08c015e0ea11fb890" title=" " alt="" coords="221,169,400,194"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="169,155,216,163,215,168,168,160"/>
+<area shape="rect" id="Node000005" href="$namespace_nuki_opener.html#ac87f753e40affc2a7be0d69862685555" title=" " alt="" coords="218,242,404,268"/>
+<area shape="poly" id="edge10_Node000001_Node000005" title=" " alt="" coords="117,155,270,232,268,237,114,160"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="269,29,267,19,274,10,288,5,311,3,335,5,349,11,347,16,334,10,311,8,290,10,277,15,272,21,274,28"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="393,68,468,87,466,92,392,73"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="498,95,491,86,495,76,510,70,535,68,563,70,577,77,574,82,561,75,535,73,511,75,499,80,496,85,502,92"/>
+<area shape="poly" id="edge7_Node000004_Node000003" title=" " alt="" coords="351,166,479,123,480,128,353,171"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="274,170,266,160,271,150,286,144,311,142,338,145,352,152,350,156,337,150,311,147,287,150,274,154,272,160,278,167"/>
+<area shape="poly" id="edge11_Node000005_Node000005" title=" " alt="" coords="274,243,266,234,271,224,286,218,311,216,338,218,352,225,350,230,337,223,311,221,287,223,274,228,272,233,278,240"/>
 </map>
