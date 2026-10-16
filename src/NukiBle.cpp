@@ -85,8 +85,7 @@ void NukiBle::initialize(bool initAltConnect) {
   pClient = NimBLEDevice::createClient();
   pClient->setClientCallbacks(this);
   #if !defined(CONFIG_IDF_TARGET_ESP32C5)
-  //DISABLE FOR ALL ESPS FOR NOW BASED ON ISSUES WITH C5 (2025-06-18)
-  //pClient->setConnectionParams(12,12,0,600,64,64);
+  pClient->setConnectionParams(12,24,0,600,64,64);
   #endif
   #ifndef NUKI_USE_LATEST_NIMBLE
   if (logger == nullptr) {
@@ -259,6 +258,16 @@ bool NukiBle::connectBle(const BLEAddress bleAddress, bool pairing) {
 
   while (connectRetry < connectRetries) {
     if(!pClient->isConnected()) {
+      #ifdef NUKI_USE_LATEST_NIMBLE
+      ble_gap_conn_desc staleConn;
+      if (ble_gap_conn_find_by_addr(bleAddress.getBase(), &staleConn) == 0) {
+        if (debugNukiConnect) {
+          logMessageVar("[%s] Terminating stale connection", deviceName.c_str());
+        }
+        ble_gap_terminate(staleConn.conn_handle, BLE_ERR_REM_USER_CONN_TERM);
+        delay(100);
+      }
+      #endif
       if (!pClient->connect(bleAddress, refreshServices)) {
         if (debugNukiConnect) {
           logMessageVar("[%s] Failed to connect", deviceName.c_str());
@@ -615,12 +624,25 @@ Nuki::CmdResult NukiBle::retrieveKeypadEntries(const uint16_t offset, const uint
     }
 
     //wait for return of Keypad Codes (0x0045)
+    uint16_t expectedKeypadCodes = getKeypadEntryCount() > offset ? getKeypadEntryCount() - offset : 0;
+    if (expectedKeypadCodes > count) {
+      expectedKeypadCodes = count;
+    }
     #ifndef NUKI_64BIT_TIME
     timeNow = millis();
     #else
     timeNow = (esp_timer_get_time() / 1000);
     #endif
-    while (nrOfReceivedKeypadCodes < getKeypadEntryCount()) {
+    uint16_t lastReceivedKeypadCodes = 0;
+    while (nrOfReceivedKeypadCodes < expectedKeypadCodes) {
+      if (nrOfReceivedKeypadCodes != lastReceivedKeypadCodes) {
+        lastReceivedKeypadCodes = nrOfReceivedKeypadCodes;
+        #ifndef NUKI_64BIT_TIME
+        timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
+      }
       #ifndef NUKI_64BIT_TIME
       if (millis() - timeNow > generalTimeoutDuration) {
       #else

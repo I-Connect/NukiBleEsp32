@@ -83,7 +83,7 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         disconnect();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        return Nuki::CmdResult::Failed;
+        return Nuki::CmdResult::Error;
       }
       break;
     }
@@ -221,7 +221,7 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         disconnect();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        return Nuki::CmdResult::Failed;
+        return Nuki::CmdResult::Error;
       }
       break;
     }
@@ -345,7 +345,7 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         disconnect();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
-        return Nuki::CmdResult::Failed;
+        return Nuki::CmdResult::Error;
       }
       break;
     }
