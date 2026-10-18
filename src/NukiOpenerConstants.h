@@ -308,6 +308,12 @@ struct __attribute__((packed)) LogEntry {
   uint8_t data[8];
 };
 
+enum class LogEntryCompletionStatus : uint8_t {
+  InvalidCode            = 0x0e,
+  InvalidFingerprint     = 0xe1,
+  NotAuthorized          = 0x09,
+};
+
 inline void lockactionToString(const LockAction action, char* str) {
   switch (action) {
     case LockAction::ActivateRTO:
