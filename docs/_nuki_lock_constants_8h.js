@@ -104,6 +104,11 @@ var _nuki_lock_constants_8h =
       [ "NukiLock::LockState::MotorBlocked", "namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798a87f4c9e83f2dfbf3dd301d6e522592d5", null ],
       [ "NukiLock::LockState::Undefined", "namespace_nuki_lock.html#a7df30dde7b3bb479eb95acff41247798aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
+    [ "NukiLock::LogEntryCompletionStatus", "namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88b", [
+      [ "NukiLock::LogEntryCompletionStatus::InvalidCode", "namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba54811ceb822294b83e9ded0838e73c02", null ],
+      [ "NukiLock::LogEntryCompletionStatus::InvalidFingerprint", "namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba980454caa08ef03709479d1a2c53a278", null ],
+      [ "NukiLock::LogEntryCompletionStatus::NotAuthorized", "namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba418ec6476e1acd92e17681f4bd00e3a3", null ]
+    ] ],
     [ "NukiLock::LoggingType", "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87", [
       [ "NukiLock::LoggingType::LoggingEnabled", "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87accce994b3a8efcddcc0ea8ebf2677c95", null ],
       [ "NukiLock::LoggingType::LockAction", "namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a13052aceaadac2d27d26269dededc2e9", null ],

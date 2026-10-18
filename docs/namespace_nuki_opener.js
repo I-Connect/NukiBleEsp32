@@ -78,6 +78,11 @@ var namespace_nuki_opener =
       [ "Opening", "namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7a9bd99a0beea48f10663fc4a7d7a33140", null ],
       [ "Undefined", "namespace_nuki_opener.html#a2c0deff06f5a8c511ed86b4340de43a7aec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
+    [ "LogEntryCompletionStatus", "namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235af", [
+      [ "InvalidCode", "namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa54811ceb822294b83e9ded0838e73c02", null ],
+      [ "InvalidFingerprint", "namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa980454caa08ef03709479d1a2c53a278", null ],
+      [ "NotAuthorized", "namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa418ec6476e1acd92e17681f4bd00e3a3", null ]
+    ] ],
     [ "LoggingType", "namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667d", [
       [ "LoggingEnabled", "namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daccce994b3a8efcddcc0ea8ebf2677c95", null ],
       [ "LockAction", "namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667da13052aceaadac2d27d26269dededc2e9", null ],

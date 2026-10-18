@@ -8,5 +8,6 @@ var searchData=
   ['insane_5',['Insane',['../namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5a77529ad508ab7d3b5a99adc7e711040b',1,'NukiLock']]],
   ['intelligent_6',['Intelligent',['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a9b62305de14f24a0111b59ac6e687b80',1,'NukiLock::Intelligent'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea9b62305de14f24a0111b59ac6e687b80',1,'NukiLock::Intelligent']]],
   ['internallogentry_7',['InternalLogEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a80164ee37c58c298b15156385ab3be66',1,'Nuki']]],
-  ['invalidcode_8',['InvalidCode',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02',1,'NukiLock']]]
+  ['invalidcode_8',['InvalidCode',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02',1,'NukiLock::InvalidCode'],['../namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba54811ceb822294b83e9ded0838e73c02',1,'NukiLock::InvalidCode'],['../namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa54811ceb822294b83e9ded0838e73c02',1,'NukiOpener::InvalidCode']]],
+  ['invalidfingerprint_9',['InvalidFingerprint',['../namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba980454caa08ef03709479d1a2c53a278',1,'NukiLock::InvalidFingerprint'],['../namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa980454caa08ef03709479d1a2c53a278',1,'NukiOpener::InvalidFingerprint']]]
 ];

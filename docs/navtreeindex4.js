@@ -1,5 +1,13 @@
 var NAVTREEINDEX4 =
 {
+"struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b":[2,0,1,0,3],
+"struct_nuki_lock_1_1_action.html#a31eafa284a08c2b6658616455a552774":[1,0,1,0,1],
+"struct_nuki_lock_1_1_action.html#a31eafa284a08c2b6658616455a552774":[2,0,1,0,1],
+"struct_nuki_lock_1_1_action.html#a474b7936ebcb39a2416ec0778c91b883":[1,0,1,0,2],
+"struct_nuki_lock_1_1_action.html#a474b7936ebcb39a2416ec0778c91b883":[2,0,1,0,2],
+"struct_nuki_lock_1_1_action.html#aa0fe956163b57b86c53adc568717abcb":[1,0,1,0,0],
+"struct_nuki_lock_1_1_action.html#aa0fe956163b57b86c53adc568717abcb":[2,0,1,0,0],
+"struct_nuki_opener_1_1_action.html":[1,0,2,0],
 "struct_nuki_opener_1_1_action.html":[2,0,2,0],
 "struct_nuki_opener_1_1_action.html#a57ff901296d569ab0149af6cf45624bc":[1,0,2,0,3],
 "struct_nuki_opener_1_1_action.html#a57ff901296d569ab0149af6cf45624bc":[2,0,2,0,3],

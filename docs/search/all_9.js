@@ -9,13 +9,14 @@ var searchData=
   ['insane_6',['Insane',['../namespace_nuki_lock.html#a67430ea10ea567c4a0c81d81e77410a5a77529ad508ab7d3b5a99adc7e711040b',1,'NukiLock']]],
   ['intelligent_7',['Intelligent',['../namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a9b62305de14f24a0111b59ac6e687b80',1,'NukiLock::Intelligent'],['../namespace_nuki_lock.html#a7225a9e30b0163ebe6f927690650e3eea9b62305de14f24a0111b59ac6e687b80',1,'NukiLock::Intelligent']]],
   ['internallogentry_8',['InternalLogEntry',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a80164ee37c58c298b15156385ab3be66',1,'Nuki']]],
-  ['invalidcode_9',['InvalidCode',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02',1,'NukiLock']]],
-  ['isbatterycharging_10',['isBatteryCharging',['../class_nuki_lock_1_1_nuki_lock.html#a4b2df38bb798035d59441d4503fbf820',1,'NukiLock::NukiLock']]],
-  ['isbatterycritical_11',['isBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#ae8aa24e2040634ebec0ce529f8d5d125',1,'NukiLock::NukiLock::isBatteryCritical()'],['../class_nuki_opener_1_1_nuki_opener.html#a0e9d8a92ddbf41bd1c69faecd5138353',1,'NukiOpener::NukiOpener::isBatteryCritical()']]],
-  ['ischararrayempty_12',['isCharArrayEmpty',['../namespace_nuki.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0',1,'Nuki']]],
-  ['ischararraynotempty_13',['isCharArrayNotEmpty',['../namespace_nuki.html#af7752bab0ff47daf5e6082b7925874e5',1,'Nuki']]],
-  ['isdoorsensorbatterycritical_14',['isDoorSensorBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#a72e2b231cbd57fd6025b82335211af1c',1,'NukiLock::NukiLock']]],
-  ['iskeypadbatterycritical_15',['isKeypadBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#ace85fa0423fe9089038cb5887e64a8a4',1,'NukiLock::NukiLock::isKeypadBatteryCritical()'],['../class_nuki_opener_1_1_nuki_opener.html#a99426e312104a6d9e7ee048b996dd073',1,'NukiOpener::NukiOpener::isKeypadBatteryCritical()']]],
-  ['islockultra_16',['isLockUltra',['../class_nuki_1_1_nuki_ble.html#a25207bb564a4b54b8dd8c872177b53a7',1,'Nuki::NukiBle']]],
-  ['ispairedwithlock_17',['isPairedWithLock',['../class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca',1,'Nuki::NukiBle']]]
+  ['invalidcode_9',['InvalidCode',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104aa54811ceb822294b83e9ded0838e73c02',1,'NukiLock::InvalidCode'],['../namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba54811ceb822294b83e9ded0838e73c02',1,'NukiLock::InvalidCode'],['../namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa54811ceb822294b83e9ded0838e73c02',1,'NukiOpener::InvalidCode']]],
+  ['invalidfingerprint_10',['InvalidFingerprint',['../namespace_nuki_lock.html#aa6d6804e1fe9c01a96ae70323223e88ba980454caa08ef03709479d1a2c53a278',1,'NukiLock::InvalidFingerprint'],['../namespace_nuki_opener.html#ae3ad26955d988d9f2e1be1e2e91235afa980454caa08ef03709479d1a2c53a278',1,'NukiOpener::InvalidFingerprint']]],
+  ['isbatterycharging_11',['isBatteryCharging',['../class_nuki_lock_1_1_nuki_lock.html#a4b2df38bb798035d59441d4503fbf820',1,'NukiLock::NukiLock']]],
+  ['isbatterycritical_12',['isBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#ae8aa24e2040634ebec0ce529f8d5d125',1,'NukiLock::NukiLock::isBatteryCritical()'],['../class_nuki_opener_1_1_nuki_opener.html#a0e9d8a92ddbf41bd1c69faecd5138353',1,'NukiOpener::NukiOpener::isBatteryCritical()']]],
+  ['ischararrayempty_13',['isCharArrayEmpty',['../namespace_nuki.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0',1,'Nuki']]],
+  ['ischararraynotempty_14',['isCharArrayNotEmpty',['../namespace_nuki.html#af7752bab0ff47daf5e6082b7925874e5',1,'Nuki']]],
+  ['isdoorsensorbatterycritical_15',['isDoorSensorBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#a72e2b231cbd57fd6025b82335211af1c',1,'NukiLock::NukiLock']]],
+  ['iskeypadbatterycritical_16',['isKeypadBatteryCritical',['../class_nuki_lock_1_1_nuki_lock.html#ace85fa0423fe9089038cb5887e64a8a4',1,'NukiLock::NukiLock::isKeypadBatteryCritical()'],['../class_nuki_opener_1_1_nuki_opener.html#a99426e312104a6d9e7ee048b996dd073',1,'NukiOpener::NukiOpener::isKeypadBatteryCritical()']]],
+  ['islockultra_17',['isLockUltra',['../class_nuki_1_1_nuki_ble.html#a25207bb564a4b54b8dd8c872177b53a7',1,'Nuki::NukiBle']]],
+  ['ispairedwithlock_18',['isPairedWithLock',['../class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca',1,'Nuki::NukiBle']]]
 ];
