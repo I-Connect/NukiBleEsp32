@@ -309,7 +309,7 @@ struct __attribute__((packed)) LogEntry {
 };
 
 enum class LogEntryCompletionStatus : uint8_t {
-  InvalidCode            = 0x0e,
+  InvalidCode            = 0xe0,
   InvalidFingerprint     = 0xe1,
   NotAuthorized          = 0x09,
 };
