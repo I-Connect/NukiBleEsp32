@@ -132,6 +132,9 @@ void NukiBle::setPower(esp_power_level_t powerLevel) {
     case ESP_PWR_LVL_N6:
       power = -6;
       break;
+    case ESP_PWR_LVL_N3:
+      power = -3;
+      break;
     case ESP_PWR_LVL_N0:
       power = 0;
       break;
@@ -144,6 +147,20 @@ void NukiBle::setPower(esp_power_level_t powerLevel) {
     case ESP_PWR_LVL_P9:
       power = 9;
       break;
+#if !defined(CONFIG_IDF_TARGET_ESP32)
+    case ESP_PWR_LVL_P12:
+      power = 12;
+      break;
+    case ESP_PWR_LVL_P15:
+      power = 15;
+      break;
+    case ESP_PWR_LVL_P18:
+      power = 18;
+      break;
+    case ESP_PWR_LVL_P20:
+      power = 20;
+      break;
+#endif
     default:
       power = 9;
       break;
