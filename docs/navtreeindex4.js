@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"struct_nuki_lock_1_1_action.html":[2,0,1,0],
+"struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b":[1,0,1,0,3],
 "struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b":[2,0,1,0,3],
 "struct_nuki_lock_1_1_action.html#a31eafa284a08c2b6658616455a552774":[1,0,1,0,1],
 "struct_nuki_lock_1_1_action.html#a31eafa284a08c2b6658616455a552774":[2,0,1,0,1],

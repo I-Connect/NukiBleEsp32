@@ -1,9 +1,11 @@
 <map id="Nuki::NukiBle::cmdStateMachine" name="Nuki::NukiBle::cmdStateMachine">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,70,217,96"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,217,133"/>
 <area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" title=" " alt="" coords="265,5,474,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,67,259,47,260,53,173,72"/>
-<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="281,70,458,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,80,265,80,265,86,217,86"/>
-<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="271,120,468,145"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="183,94,284,113,283,119,182,99"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,105,264,57,286,49,288,54,266,61,145,109"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#a252293e3e2ae14f9b879d27629d64a8a" title=" " alt="" coords="285,71,454,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,106,269,100,270,105,217,111"/>
+<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="281,136,458,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="217,129,266,134,265,140,217,134"/>
+<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="271,185,468,210"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="148,131,265,171,291,178,290,183,264,176,146,136"/>
 </map>

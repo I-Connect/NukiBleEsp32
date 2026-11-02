@@ -27,6 +27,7 @@ var class_nuki_1_1_nuki_ble =
     [ "getUltraPincode", "class_nuki_1_1_nuki_ble.html#ace6183129221d85b476bc5f80a895c26", null ],
     [ "handleReturnMessage", "class_nuki_1_1_nuki_ble.html#ac2e28f07ed0a738f73c5f77b46cdb1bb", null ],
     [ "initialize", "class_nuki_1_1_nuki_ble.html#a232073e29e23ad1249b866449c16bcb1", null ],
+    [ "isExpectedResponse", "class_nuki_1_1_nuki_ble.html#a252293e3e2ae14f9b879d27629d64a8a", null ],
     [ "isLockUltra", "class_nuki_1_1_nuki_ble.html#a25207bb564a4b54b8dd8c872177b53a7", null ],
     [ "isPairedWithLock", "class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca", null ],
     [ "logErrorCode", "class_nuki_1_1_nuki_ble.html#a4b0321c949c20375fbd58a017c4323cf", null ],
