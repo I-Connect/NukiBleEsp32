@@ -37,5 +37,6 @@ var searchData=
   ['connectwifi_34',['ConnectWifi',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a115f8c6170f44dea5888e2a78d773b91',1,'Nuki']]],
   ['continuousmode_35',['ContinuousMode',['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa9a186789c704a614d2f5b01d13d5b0ba',1,'NukiOpener']]],
   ['continuousmodeaction_36',['ContinuousModeAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf',1,'Nuki']]],
-  ['crcvalid_37',['crcValid',['../namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816',1,'Nuki']]]
+  ['copypayload_37',['copyPayload',['../class_nuki_1_1_nuki_ble.html#a13736c402acc276535ad00ac78b48f6e',1,'Nuki::NukiBle']]],
+  ['crcvalid_38',['crcValid',['../namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816',1,'Nuki']]]
 ];

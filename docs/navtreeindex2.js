@@ -1,5 +1,11 @@
 var NAVTREEINDEX2 =
 {
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a75bb561fbee0d718070318b43e17cc41":[1,0,0,6,4],
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7a29ea0b92d523c92a0a7c1ce9c8123b":[1,0,0,6,26],
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7a7932b3c820cb33614417643b3e48f0":[1,0,0,6,25],
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b33ee0ac8480dff8a93c383634996b7":[1,0,0,6,27],
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b69198ffd2cfbc1873250f52700f3cc":[1,0,0,6,85],
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7bb77a984cd32b2aa0333e7d327cd9b0":[1,0,0,6,15],
 "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7e9ede8a542ae824cef2599822db16b1":[1,0,0,6,61],
 "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a80164ee37c58c298b15156385ab3be66":[1,0,0,6,63],
 "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a8762719aa46a422243482ac9c22ab794":[1,0,0,6,21],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "namespace_nuki_lock.html#a2ebb97ddf9c98aa499df020dc8c96e27":[1,0,1,51],
 "namespace_nuki_lock.html#a2f3de31b26aa7fb65fb04f822adf2191":[1,0,1,59],
 "namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25":[1,0,1,5],
-"namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a02d2a7ceeeea3587a4cb7cd1d8f173a7":[1,0,1,5,3],
-"namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a7e7123b0d269ad5d9ec8d12c52a8ed8a":[1,0,1,5,1],
-"namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a9b62305de14f24a0111b59ac6e687b80":[1,0,1,5,0],
-"namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25aabc770742b5a11ed8a870d034012c571":[1,0,1,5,4],
-"namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25ab485167c5b0e59d47009a16f90fe2659":[1,0,1,5,2],
-"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87":[1,0,1,10],
-"namespace_nuki_lock.html#a323dcc0a7e4cc1d5acdad59e037f0f87a13052aceaadac2d27d26269dededc2e9":[1,0,1,10,1]
+"namespace_nuki_lock.html#a30a82c8431626986b974aa823a1b6e25a02d2a7ceeeea3587a4cb7cd1d8f173a7":[1,0,1,5,3]
 };

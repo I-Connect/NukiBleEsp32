@@ -8,6 +8,7 @@ var class_nuki_1_1_nuki_ble =
     [ "cmdChallStateMachine", "class_nuki_1_1_nuki_ble.html#a59169a9f492793762e3c6ba39b611b07", null ],
     [ "cmdStateMachine", "class_nuki_1_1_nuki_ble.html#ad135bb1455665decfddff67772c1d411", null ],
     [ "connectBle", "class_nuki_1_1_nuki_ble.html#a0924aa3772a05cbb3bff3cb44cb20de7", null ],
+    [ "copyPayload", "class_nuki_1_1_nuki_ble.html#a13736c402acc276535ad00ac78b48f6e", null ],
     [ "deleteAuthorizationEntry", "class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866", null ],
     [ "deleteKeypadEntry", "class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b", null ],
     [ "executeAction", "class_nuki_1_1_nuki_ble.html#af1f1e299e8d97e053bba80e92ba285d6", null ],
@@ -35,6 +36,7 @@ var class_nuki_1_1_nuki_ble =
     [ "logMessageVar", "class_nuki_1_1_nuki_ble.html#a6b061bee9a6eec159673921f5127dd47", null ],
     [ "logMessageVar", "class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71", null ],
     [ "pairNuki", "class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700", null ],
+    [ "payloadLongEnough", "class_nuki_1_1_nuki_ble.html#a1820d5ff09f6f9d07bb88773434bdc26", null ],
     [ "registerBleScanner", "class_nuki_1_1_nuki_ble.html#a5c239070e553f07971d2ccd05406d343", null ],
     [ "registerLogger", "class_nuki_1_1_nuki_ble.html#a1f6919c051fc4952471f8ba3dde16390", null ],
     [ "requestCalibration", "class_nuki_1_1_nuki_ble.html#a5c80321a4355c9394be7a7de29133c7b", null ],
@@ -73,5 +75,6 @@ var class_nuki_1_1_nuki_ble =
     [ "debugNukiReadableData", "class_nuki_1_1_nuki_ble.html#a5c22a93795806fb121334b9de4259597", null ],
     [ "errorCode", "class_nuki_1_1_nuki_ble.html#a448a1cd276fb8643bc983c447d21c231", null ],
     [ "lastMsgCodeReceived", "class_nuki_1_1_nuki_ble.html#ae5afb32ec14d3be623a5cf4995352cf6", null ],
-    [ "logger", "class_nuki_1_1_nuki_ble.html#a79d8374699e2a457b74f6ff0d9fe8af2", null ]
+    [ "logger", "class_nuki_1_1_nuki_ble.html#a79d8374699e2a457b74f6ff0d9fe8af2", null ],
+    [ "payloadRejected", "class_nuki_1_1_nuki_ble.html#ade1b7862df4809ee38b87bc355993c84", null ]
 ];

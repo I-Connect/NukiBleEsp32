@@ -242,6 +242,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad135bb1455665decfddff67772c1d411" id="r_ad135bb1455665decfddff67772c1d411"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction&gt; </td></tr>
 <tr class="memitem:ad135bb1455665decfddff67772c1d411 template"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad135bb1455665decfddff67772c1d411">cmdStateMachine</a> (const TDeviceAction action)</td></tr>
 <tr class="memitem:a0924aa3772a05cbb3bff3cb44cb20de7" id="r_a0924aa3772a05cbb3bff3cb44cb20de7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0924aa3772a05cbb3bff3cb44cb20de7">connectBle</a> (const BLEAddress bleAddress, bool pairing)</td></tr>
+<tr class="memitem:a13736c402acc276535ad00ac78b48f6e" id="r_a13736c402acc276535ad00ac78b48f6e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a13736c402acc276535ad00ac78b48f6e">copyPayload</a> (void *dst, size_t dstSize, size_t minLen, const unsigned char *data, uint16_t dataLen, const char *what)</td></tr>
 <tr class="memitem:af1f1e299e8d97e053bba80e92ba285d6" id="r_af1f1e299e8d97e053bba80e92ba285d6"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction&gt; </td></tr>
 <tr class="memitem:af1f1e299e8d97e053bba80e92ba285d6 template"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#af1f1e299e8d97e053bba80e92ba285d6">executeAction</a> (const TDeviceAction action)</td></tr>
 <tr class="memitem:a6e8fca90c04249660dce6cb993eb4495" id="r_a6e8fca90c04249660dce6cb993eb4495"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6e8fca90c04249660dce6cb993eb4495">extendDisconnectTimeout</a> ()</td></tr>
@@ -250,6 +251,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ac7ce691d9c3e586474655d1663eb2e20" id="r_ac7ce691d9c3e586474655d1663eb2e20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac7ce691d9c3e586474655d1663eb2e20">logMessage</a> (const char *message, int level=4)</td></tr>
 <tr class="memitem:a6b061bee9a6eec159673921f5127dd47" id="r_a6b061bee9a6eec159673921f5127dd47"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6b061bee9a6eec159673921f5127dd47">logMessageVar</a> (const char *message, const char *var, int level=4)</td></tr>
 <tr class="memitem:af3650133f46aeca48a5f01b95d23ab71" id="r_af3650133f46aeca48a5f01b95d23ab71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af3650133f46aeca48a5f01b95d23ab71">logMessageVar</a> (const char *message, unsigned int var, int level=4)</td></tr>
+<tr class="memitem:a1820d5ff09f6f9d07bb88773434bdc26" id="r_a1820d5ff09f6f9d07bb88773434bdc26"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1820d5ff09f6f9d07bb88773434bdc26">payloadLongEnough</a> (uint16_t dataLen, size_t needed, const char *what)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-static-methods" class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -266,6 +268,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a448a1cd276fb8643bc983c447d21c231" id="r_a448a1cd276fb8643bc983c447d21c231"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a448a1cd276fb8643bc983c447d21c231">errorCode</a> = 0</td></tr>
 <tr class="memitem:ae5afb32ec14d3be623a5cf4995352cf6" id="r_ae5afb32ec14d3be623a5cf4995352cf6"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae5afb32ec14d3be623a5cf4995352cf6">lastMsgCodeReceived</a> = <a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ace2c8aed9c2fa0cfbed56cbda4d8bf07">Command::Empty</a></td></tr>
 <tr class="memitem:a79d8374699e2a457b74f6ff0d9fe8af2" id="r_a79d8374699e2a457b74f6ff0d9fe8af2"><td class="memItemLeft">Print *&#160;</td><td class="memItemRight"><a class="el" href="#a79d8374699e2a457b74f6ff0d9fe8af2">logger</a> = nullptr</td></tr>
+<tr class="memitem:ade1b7862df4809ee38b87bc355993c84" id="r_ade1b7862df4809ee38b87bc355993c84"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ade1b7862df4809ee38b87bc355993c84">payloadRejected</a> = false</td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4b852d794d27f81e94f95ced64ce591a" name="a4b852d794d27f81e94f95ced64ce591a"></a>
@@ -580,6 +583,61 @@ template&lt;typename TDeviceAction&gt; </div>
 
 </div>
 </div>
+<a id="a13736c402acc276535ad00ac78b48f6e" name="a13736c402acc276535ad00ac78b48f6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13736c402acc276535ad00ac78b48f6e">&#9670;&#160;</a></span>copyPayload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::copyPayload </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>dst</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>dstSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>minLen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned char *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>dataLen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>what</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary">
+</div>
+<div id="dynsection-13-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a13736c402acc276535ad00ac78b48f6e_icgraph.svg" width="404" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="afe0f8813341d3666aae927febd4ed866" name="afe0f8813341d3666aae927febd4ed866"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe0f8813341d3666aae927febd4ed866">&#9670;&#160;</a></span>deleteAuthorizationEntry()</h2>
 
@@ -602,10 +660,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary">
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary">
 </div>
-<div id="dynsection-13-content" class="dyncontent hidden">
+<div id="dynsection-14-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_afe0f8813341d3666aae927febd4ed866_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -633,10 +691,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary">
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary">
 </div>
-<div id="dynsection-14-content" class="dyncontent hidden">
+<div id="dynsection-15-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a1aacb6b629b0e93a6f819732ab95922b_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -666,16 +724,16 @@ template&lt;typename TDeviceAction&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary">
-</div>
-<div id="dynsection-15-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_af1f1e299e8d97e053bba80e92ba285d6_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
 <div id="dynsection-16-summary" class="dynsummary">
 </div>
 <div id="dynsection-16-content" class="dyncontent hidden">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_af1f1e299e8d97e053bba80e92ba285d6_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary">
+</div>
+<div id="dynsection-17-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_af1f1e299e8d97e053bba80e92ba285d6_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -703,10 +761,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary">
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary">
 </div>
-<div id="dynsection-17-content" class="dyncontent hidden">
+<div id="dynsection-18-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a6e8fca90c04249660dce6cb993eb4495_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -739,10 +797,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary">
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary">
 </div>
-<div id="dynsection-18-content" class="dyncontent hidden">
+<div id="dynsection-19-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a3bc2507adc5d5c6523289687dfd13b53_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -859,10 +917,10 @@ template&lt;typename TDeviceAction&gt; </div>
 </div><div class="memdoc">
 
 <p>Returns the keypad entry count. Only available after executing retreiveKeypadEntries. </p>
-<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary">
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary">
 </div>
-<div id="dynsection-19-content" class="dyncontent hidden">
+<div id="dynsection-20-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_ad94d354153b8b4f779f7a7a32258ff48_icgraph.svg" width="419" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1037,12 +1095,6 @@ template&lt;typename TDeviceAction&gt; </div>
 </div><div class="memdoc">
 
 <p>Reimplemented in <a class="el" href="class_nuki_lock_1_1_nuki_lock.html#a8d9fc4e4a1bde183754ced8b783f82d5">NukiLock::NukiLock</a>, and <a class="el" href="class_nuki_opener_1_1_nuki_opener.html#a19ad4317e201ebe5e43ad55b6ea906da">NukiOpener::NukiOpener</a>.</p>
-<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary">
-</div>
-<div id="dynsection-20-content" class="dyncontent hidden">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_ac2e28f07ed0a738f73c5f77b46cdb1bb_cgraph.svg" width="194" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
 <div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
 <div id="dynsection-21-summary" class="dynsummary">
 </div>
@@ -1317,6 +1369,40 @@ template&lt;typename TDeviceAction&gt; </div>
 <div id="dynsection-27-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a787125bfc92266571d95e94da6756700_cgraph.svg" width="667" height="202"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a1820d5ff09f6f9d07bb88773434bdc26" name="a1820d5ff09f6f9d07bb88773434bdc26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1820d5ff09f6f9d07bb88773434bdc26">&#9670;&#160;</a></span>payloadLongEnough()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::payloadLongEnough </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>dataLen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>needed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>what</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -2321,6 +2407,28 @@ template&lt;typename TDeviceAction&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">Print* Nuki::NukiBle::logger = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade1b7862df4809ee38b87bc355993c84" name="ade1b7862df4809ee38b87bc355993c84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade1b7862df4809ee38b87bc355993c84">&#9670;&#160;</a></span>payloadRejected</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::NukiBle::payloadRejected = false</td>
         </tr>
       </table>
   </td>

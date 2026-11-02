@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"class_nuki_lock_1_1_nuki_lock.html#a862978a250acfbc8d814b1ccefc0d0c5":[2,0,1,1,54],
+"class_nuki_lock_1_1_nuki_lock.html#a878d1cd7ae1feec70d090710d4d2d8a6":[1,0,1,1,7],
+"class_nuki_lock_1_1_nuki_lock.html#a878d1cd7ae1feec70d090710d4d2d8a6":[2,0,1,1,7],
+"class_nuki_lock_1_1_nuki_lock.html#a87a78b41f81a3cfef26a523eb0576b48":[1,0,1,1,44],
+"class_nuki_lock_1_1_nuki_lock.html#a87a78b41f81a3cfef26a523eb0576b48":[2,0,1,1,44],
+"class_nuki_lock_1_1_nuki_lock.html#a8c31082ff2e2f502c03f9ec54ff24ecc":[1,0,1,1,65],
 "class_nuki_lock_1_1_nuki_lock.html#a8c31082ff2e2f502c03f9ec54ff24ecc":[2,0,1,1,65],
 "class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7":[1,0,1,1,67],
 "class_nuki_lock_1_1_nuki_lock.html#a8d1a06e5fa6f5fb06923c74fb8c6f6d7":[2,0,1,1,67],
@@ -243,11 +249,5 @@ var NAVTREEINDEX1 =
 "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6cf2dd61fa1c9d11932542324a211944":[1,0,0,6,77],
 "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a6e52dafa8010a8513a025723b6fe8a91":[1,0,0,6,11],
 "namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7336890e1248b06e66dd316a06472d8f":[1,0,0,6,29],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962":[1,0,0,6,86],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a75bb561fbee0d718070318b43e17cc41":[1,0,0,6,4],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7a29ea0b92d523c92a0a7c1ce9c8123b":[1,0,0,6,26],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7a7932b3c820cb33614417643b3e48f0":[1,0,0,6,25],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b33ee0ac8480dff8a93c383634996b7":[1,0,0,6,27],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7b69198ffd2cfbc1873250f52700f3cc":[1,0,0,6,85],
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a7bb77a984cd32b2aa0333e7d327cd9b0":[1,0,0,6,15]
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a743d43740e59c3b24363082cb28fc962":[1,0,0,6,86]
 };
