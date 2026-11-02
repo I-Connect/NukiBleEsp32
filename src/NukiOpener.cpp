@@ -680,7 +680,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
   switch (returnCode) {
     case Command::KeyturnerStates : {
       printBuffer((byte*)data, dataLen, false, "keyturnerStates", debugNukiHexData, logger);
-      memcpy(&openerState, data, dataLen);
+      copyPayload(&openerState, sizeof(openerState), data, dataLen);
       if (debugNukiReadableData) {
         logKeyturnerState(openerState, true, logger);
       }
@@ -688,14 +688,14 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
     }
     case Command::BatteryReport : {
       printBuffer((byte*)data, dataLen, false, "batteryReport", debugNukiHexData, logger);
-      memcpy(&batteryReport, data, dataLen);
+      copyPayload(&batteryReport, sizeof(batteryReport), data, dataLen);
       if (debugNukiReadableData) {
         logBatteryReport(batteryReport, true, logger);
       }
       break;
     }
     case Command::Config : {
-      memcpy(&config, data, dataLen);
+      copyPayload(&config, sizeof(config), data, dataLen);
       if (debugNukiReadableData) {
         logConfig(config, true, logger);
       }
@@ -703,7 +703,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
       break;
     }
     case Command::AdvancedConfig : {
-      memcpy(&advancedConfig, data, dataLen);
+      copyPayload(&advancedConfig, sizeof(advancedConfig), data, dataLen);
       if (debugNukiReadableData) {
         logAdvancedConfig(advancedConfig, true, logger);
       }
@@ -713,14 +713,14 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
     case Command::TimeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "timeControlEntry", debugNukiHexData, logger);
       TimeControlEntry timeControlEntry;
-      memcpy(&timeControlEntry, data, dataLen);
+      copyPayload(&timeControlEntry, sizeof(timeControlEntry), data, dataLen);
       listOfTimeControlEntries.push_back(timeControlEntry);
       break;
     }
     case Command::LogEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry", debugNukiHexData, logger);
       LogEntry logEntry;
-      memcpy(&logEntry, data, dataLen);
+      copyPayload(&logEntry, sizeof(logEntry), data, dataLen);
       listOfLogEntries.push_back(logEntry);
       if (debugNukiReadableData) {
         logLogEntry(logEntry, true, logger);
@@ -729,6 +729,10 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
     }
     default:
       NukiBle::handleReturnMessage(returnCode, data, dataLen);
+  }
+  if (payloadRejected) {
+    payloadRejected = false;
+    return;
   }
   lastMsgCodeReceived = returnCode;
 }

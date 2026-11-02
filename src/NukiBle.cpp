@@ -1599,10 +1599,9 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 
   if (pBLERemoteCharacteristic->getUUID() == gdioUUID || (pBLERemoteCharacteristic->getUUID() == gdioUltraUUID && (!recieveEncrypted || length < 24))) {
     //handle not encrypted msg
-    unsigned char plainData[200];
-    if (length < 4 || length - 4 > sizeof(plainData)) {
+    unsigned char plainData[200] = {0};
+    if (length < 5 || length - 4 > sizeof(plainData)) {
       logMessageVar("Dropping unencrypted message with invalid length %d", (unsigned int)length, 2);
-      crcCheckOke = false;
       return;
     }
     uint16_t returnCode = ((uint16_t)recData[1] << 8) | recData[0];
@@ -1612,52 +1611,63 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
       handleReturnMessage((Command)returnCode, plainData, length - 4);
     }
   } else if (pBLERemoteCharacteristic->getUUID() == userDataUUID || (pBLERemoteCharacteristic->getUUID() == gdioUltraUUID && recieveEncrypted)) {
-    if (pBLERemoteCharacteristic->getUUID() == gdioUltraUUID) {
-      recieveEncrypted = false;
-    }
     //handle encrypted msg
     const size_t headerLen = crypto_secretbox_NONCEBYTES + 6;
+    unsigned char encrData[256];
+    unsigned char decrData[sizeof(encrData) - crypto_secretbox_MACBYTES] = {0};
     if (length < headerLen + crypto_secretbox_MACBYTES + 8) {
       logMessageVar("Dropping encrypted message with invalid length %d", (unsigned int)length, 2);
-      crcCheckOke = false;
       return;
     }
     unsigned char recNonce[crypto_secretbox_NONCEBYTES];
     unsigned char recAuthorizationId[4];
-    unsigned char recMsgLen[2];
+    uint16_t encrMsgLen = 0;
     memcpy(recNonce, &recData[0], crypto_secretbox_NONCEBYTES);
     memcpy(recAuthorizationId, &recData[crypto_secretbox_NONCEBYTES], 4);
-    memcpy(recMsgLen, &recData[crypto_secretbox_NONCEBYTES + 4], 2);
-    uint16_t encrMsgLen = 0;
-    memcpy(&encrMsgLen, recMsgLen, 2);
-    if (encrMsgLen < crypto_secretbox_MACBYTES + 8 || encrMsgLen > length - headerLen) {
+    memcpy(&encrMsgLen, &recData[crypto_secretbox_NONCEBYTES + 4], 2);
+    if (encrMsgLen < crypto_secretbox_MACBYTES + 8 || encrMsgLen > length - headerLen || encrMsgLen > sizeof(encrData)) {
       logMessageVar("Dropping encrypted message with invalid payload length %d", (unsigned int)encrMsgLen, 2);
-      crcCheckOke = false;
       return;
     }
-    unsigned char encrData[encrMsgLen];
-    memcpy(&encrData, &recData[crypto_secretbox_NONCEBYTES + 6], encrMsgLen);
-
-    unsigned char decrData[encrMsgLen - crypto_secretbox_MACBYTES];
-    decode(decrData, encrData, encrMsgLen, recNonce, secretKeyK, logger);
+    if (pBLERemoteCharacteristic->getUUID() == gdioUltraUUID) {
+      recieveEncrypted = false;
+    }
+    memcpy(encrData, &recData[headerLen], encrMsgLen);
+    const uint16_t decrLen = encrMsgLen - crypto_secretbox_MACBYTES;
+    if (decode(decrData, encrData, encrMsgLen, recNonce, secretKeyK, logger) < 0) {
+      logMessage("Dropping encrypted message that failed authentication", 2);
+      return;
+    }
 
     if (debugNukiCommunication) {
       logMessageVar("Received encrypted msg, len: %d", encrMsgLen);
     }
     printBuffer(recNonce, sizeof(recNonce), false, "received nonce", debugNukiHexData, logger);
     printBuffer(recAuthorizationId, sizeof(recAuthorizationId), false, "Received AuthorizationId", debugNukiHexData, logger);
-    printBuffer(encrData, sizeof(encrData), false, "Rec encrypted data", debugNukiHexData, logger);
-    printBuffer(decrData, sizeof(decrData), false, "Decrypted data", debugNukiHexData, logger);
+    printBuffer(encrData, encrMsgLen, false, "Rec encrypted data", debugNukiHexData, logger);
+    printBuffer(decrData, decrLen, false, "Decrypted data", debugNukiHexData, logger);
 
-    crcCheckOke = crcValid(decrData, sizeof(decrData), debugNukiCommunication, logger);
+    crcCheckOke = crcValid(decrData, decrLen, debugNukiCommunication, logger);
     if (crcCheckOke) {
       uint16_t returnCode = 0;
       memcpy(&returnCode, &decrData[4], 2);
-      unsigned char payload[sizeof(decrData) - 8];
-      memcpy(&payload, &decrData[6], sizeof(payload));
-      handleReturnMessage((Command)returnCode, payload, sizeof(payload));
+      handleReturnMessage((Command)returnCode, &decrData[6], decrLen - 8);
     }
   }
+}
+
+bool NukiBle::payloadLongEnough(uint16_t dataLen, size_t needed, const char* what) {
+  if (dataLen >= needed) {
+    return true;
+  }
+  logMessageVar("Dropping %s message with too short payload", what, 2);
+  payloadRejected = true;
+  return false;
+}
+
+void NukiBle::copyPayload(void* dst, size_t dstSize, const unsigned char* data, uint16_t dataLen) {
+  memset(dst, 0, dstSize);
+  memcpy(dst, data, dataLen < dstSize ? dataLen : dstSize);
 }
 
 void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen) {
@@ -1669,11 +1679,17 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::PublicKey : {
+      if (!payloadLongEnough(dataLen, 32, "publicKey")) {
+        break;
+      }
       memcpy(remotePublicKey, data, 32);
       printBuffer(remotePublicKey, sizeof(remotePublicKey), false,  "Remote public key", debugNukiHexData, logger);
       break;
     }
     case Command::Challenge : {
+      if (!payloadLongEnough(dataLen, 32, "challenge")) {
+        break;
+      }
       memcpy(challengeNonceK, data, 32);
       printBuffer((byte*)data, dataLen, false, "Challenge", debugNukiHexData, logger);
       break;
@@ -1687,6 +1703,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::AuthorizationId : {
+      if (!payloadLongEnough(dataLen, isLockUltra() ? 20 : 84, "authorizationId")) {
+        break;
+      }
       unsigned char lockId[16];
       printBuffer((byte*)data, dataLen, false, "authorizationId data", debugNukiHexData, logger);
       if (isLockUltra()) {
@@ -1705,7 +1724,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     case Command::AuthorizationEntry : {
       printBuffer((byte*)data, dataLen, false, "authorizationEntry", debugNukiHexData, logger);
       AuthorizationEntry authEntry;
-      memcpy(&authEntry, data, dataLen);
+      copyPayload(&authEntry, sizeof(authEntry), data, dataLen);
       listOfAuthorizationEntries.push_back(authEntry);
       if (debugNukiReadableData) {
         NukiLock::logAuthorizationEntry(authEntry, true, logger);
@@ -1713,6 +1732,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::Status : {
+      if (!payloadLongEnough(dataLen, 1, "status")) {
+        break;
+      }
       printBuffer((byte*)data, dataLen, false, "status", debugNukiHexData, logger);
       receivedStatus = data[0];
       if (debugNukiCommunication) {
@@ -1730,6 +1752,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::ErrorReport : {
+      if (!payloadLongEnough(dataLen, 3, "errorReport")) {
+        break;
+      }
       if (logger == nullptr) {
         log_e("Error: %02x for command: %02x:%02x", data[0], data[2], data[1]);
       }
@@ -1760,6 +1785,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::AuthorizationEntryCount : {
+      if (!payloadLongEnough(dataLen, 2, "authorizationEntryCount")) {
+        break;
+      }
       printBuffer((byte*)data, dataLen, false, "authorizationEntryCount", debugNukiHexData, logger);
       uint16_t count = 0;
       memcpy(&count, data, 2);
@@ -1767,6 +1795,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::LogEntryCount : {
+      if (!payloadLongEnough(dataLen, 3, "logEntryCount")) {
+        break;
+      }
       memcpy(&loggingEnabled, data, sizeof(logEntryCount));
       memcpy(&logEntryCount, &data[1], sizeof(logEntryCount));
       if (debugNukiReadableData) {
@@ -1790,6 +1821,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::KeypadCodeCount : {
+      if (!payloadLongEnough(dataLen, 2, "keypadCodeCount")) {
+        break;
+      }
       memcpy(&nrOfKeypadCodes, data, 2);
       keypadCodeCountReceived = true;
       printBuffer((byte*)data, dataLen, false, "keypadCodeCount", debugNukiHexData, logger);
@@ -1803,7 +1837,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     }
     case Command::FingerprintEntry : {
       FingerprintEntry fingerprintEntry;
-      memcpy(&fingerprintEntry, data, dataLen);
+      copyPayload(&fingerprintEntry, sizeof(fingerprintEntry), data, dataLen);
       listOfFingerprintEntries.push_back(fingerprintEntry);
 
       printBuffer((byte*)data, dataLen, false, "fingerprintEntry", debugNukiHexData, logger);
@@ -1814,7 +1848,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     }
     case Command::KeypadCode : {
       KeypadEntry keypadEntry;
-      memcpy(&keypadEntry, data, dataLen);
+      copyPayload(&keypadEntry, sizeof(keypadEntry), data, dataLen);
       listOfKeyPadEntries.push_back(keypadEntry);
       nrOfReceivedKeypadCodes++;
 
