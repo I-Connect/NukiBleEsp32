@@ -60,6 +60,30 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
 }
 
 template <typename TDeviceAction>
+bool NukiBle::isExpectedResponse(const TDeviceAction action, const Command received) const {
+  Command expected = Command::Empty;
+  switch (action.command) {
+    case Command::RequestData: {
+      if (action.payloadLen >= sizeof(Command)) {
+        memcpy(&expected, action.payload, sizeof(Command));
+      }
+      break;
+    }
+    case Command::RequestConfig: {
+      expected = Command::Config;
+      break;
+    }
+    case Command::RequestAdvancedConfig: {
+      expected = Command::AdvancedConfig;
+      break;
+    }
+    default:
+      break;
+  }
+  return expected == Command::Empty || received == expected;
+}
+
+template <typename TDeviceAction>
 Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
   extendDisconnectTimeout();  
   switch (nukiCommandState) {
@@ -97,7 +121,7 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         disconnect();
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty) {
+      } else if (lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty && isExpectedResponse(action, lastMsgCodeReceived)) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND DONE ************************");
         }
@@ -254,7 +278,7 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
-      } else if (crcCheckOke) {
+      } else if (crcCheckOke && isExpectedResponse(action, lastMsgCodeReceived)) {
         if (debugNukiCommunication) {
           logMessage("************************ DATA RECEIVED ************************");
         }
