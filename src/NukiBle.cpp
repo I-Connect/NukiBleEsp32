@@ -1847,7 +1847,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
     }
     case Command::FingerprintEntry : {
       FingerprintEntry fingerprintEntry;
-      if (!copyPayload(&fingerprintEntry, sizeof(fingerprintEntry), sizeof(fingerprintEntry), data, dataLen, "fingerprintEntry")) {
+      if (!copyPayload(&fingerprintEntry, sizeof(fingerprintEntry), 1, data, dataLen, "fingerprintEntry")) {
         break;
       }
       listOfFingerprintEntries.push_back(fingerprintEntry);

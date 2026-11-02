@@ -730,7 +730,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
     case Command::LogEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry", debugNukiHexData, logger);
       LogEntry logEntry;
-      if (!copyPayload(&logEntry, sizeof(logEntry), sizeof(logEntry), data, dataLen, "logEntry")) {
+      if (!copyPayload(&logEntry, sizeof(logEntry), offsetof(LogEntry, loggingType) + sizeof(LogEntry::loggingType), data, dataLen, "logEntry")) {
         break;
       }
       listOfLogEntries.push_back(logEntry);

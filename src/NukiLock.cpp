@@ -906,7 +906,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::LogEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry", debugNukiHexData, logger);
       LogEntry logEntry;
-      if (!copyPayload(&logEntry, sizeof(logEntry), sizeof(logEntry), data, dataLen, "logEntry")) {
+      if (!copyPayload(&logEntry, sizeof(logEntry), offsetof(LogEntry, loggingType) + sizeof(LogEntry::loggingType), data, dataLen, "logEntry")) {
         break;
       }
       listOfLogEntries.push_back(logEntry);
@@ -918,7 +918,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::InternalLogEntry : {
       printBuffer((byte*)data, dataLen, false, "internalLogEntry", debugNukiHexData, logger);
       InternalLogEntry internalLogEntry;
-      if (!copyPayload(&internalLogEntry, sizeof(internalLogEntry), sizeof(internalLogEntry), data, dataLen, "internalLogEntry")) {
+      if (!copyPayload(&internalLogEntry, sizeof(internalLogEntry), 1, data, dataLen, "internalLogEntry")) {
         break;
       }
       listOfInternalLogEntries.push_back(internalLogEntry);
@@ -928,7 +928,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::MqttConfig :
-      if (!copyPayload(&mqttConfig, sizeof(mqttConfig), sizeof(mqttConfig), data, dataLen, "mqttConfig")) {
+      if (!copyPayload(&mqttConfig, sizeof(mqttConfig), 1, data, dataLen, "mqttConfig")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -937,7 +937,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       printBuffer((byte*)data, dataLen, false, "mqttConfig", debugNukiHexData, logger);
       break;
     case Command::MqttConfigForMigration : {
-      if (!copyPayload(&mqttConfigForMigration, sizeof(mqttConfigForMigration), sizeof(mqttConfigForMigration), data, dataLen, "mqttConfigForMigration")) {
+      if (!copyPayload(&mqttConfigForMigration, sizeof(mqttConfigForMigration), 1, data, dataLen, "mqttConfigForMigration")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -949,7 +949,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::WifiScanEntry : {
       printBuffer((byte*)data, dataLen, false, "wifiScanEntry", debugNukiHexData, logger);
       WifiScanEntry wifiScanEntry;
-      if (!copyPayload(&wifiScanEntry, sizeof(wifiScanEntry), sizeof(wifiScanEntry), data, dataLen, "wifiScanEntry")) {
+      if (!copyPayload(&wifiScanEntry, sizeof(wifiScanEntry), 1, data, dataLen, "wifiScanEntry")) {
         break;
       }
       listOfWifiScanEntries.push_back(wifiScanEntry);
@@ -959,7 +959,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::WifiConfig : {
-      if (!copyPayload(&wifiConfig, sizeof(wifiConfig), sizeof(wifiConfig), data, dataLen, "wifiConfig")) {
+      if (!copyPayload(&wifiConfig, sizeof(wifiConfig), 1, data, dataLen, "wifiConfig")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -969,7 +969,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::WifiConfigForMigration : {
-      if (!copyPayload(&wifiConfigForMigration, sizeof(wifiConfigForMigration), sizeof(wifiConfigForMigration), data, dataLen, "wifiConfigForMigration")) {
+      if (!copyPayload(&wifiConfigForMigration, sizeof(wifiConfigForMigration), 1, data, dataLen, "wifiConfigForMigration")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -979,7 +979,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::Keypad2Config : {
-      if (!copyPayload(&keypad2Config, sizeof(keypad2Config), sizeof(keypad2Config), data, dataLen, "keypad2Config")) {
+      if (!copyPayload(&keypad2Config, sizeof(keypad2Config), 1, data, dataLen, "keypad2Config")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -989,7 +989,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::GeneralStatistics : {
-      if (!copyPayload(&generalStatistics, sizeof(generalStatistics), offsetof(GeneralStatistics, lastRebootDateSecond) + sizeof(GeneralStatistics::lastRebootDateSecond), data, dataLen, "generalStatistics")) {
+      if (!copyPayload(&generalStatistics, sizeof(generalStatistics), 1, data, dataLen, "generalStatistics")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -999,7 +999,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::DailyStatistics : {
-      if (!copyPayload(&dailyStatistics, sizeof(dailyStatistics), offsetof(DailyStatistics, outgoingCommands) + sizeof(DailyStatistics::outgoingCommands), data, dataLen, "dailyStatistics")) {
+      if (!copyPayload(&dailyStatistics, sizeof(dailyStatistics), 1, data, dataLen, "dailyStatistics")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -1009,7 +1009,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::AccessoryInfo : {
-      if (!copyPayload(&accessoryInfo, sizeof(accessoryInfo), offsetof(AccessoryInfo, hardwareRevision) + sizeof(AccessoryInfo::hardwareRevision), data, dataLen, "accessoryInfo")) {
+      if (!copyPayload(&accessoryInfo, sizeof(accessoryInfo), 1, data, dataLen, "accessoryInfo")) {
         break;
       }
       if (debugNukiReadableData) {
@@ -1019,7 +1019,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::DoorSensorConfig : {
-      if (!copyPayload(&doorSensorConfig, sizeof(doorSensorConfig), sizeof(doorSensorConfig), data, dataLen, "doorSensorConfig")) {
+      if (!copyPayload(&doorSensorConfig, sizeof(doorSensorConfig), 1, data, dataLen, "doorSensorConfig")) {
         break;
       }
       if (debugNukiReadableData) {
