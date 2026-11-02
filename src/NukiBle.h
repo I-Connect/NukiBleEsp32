@@ -453,7 +453,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Nuki::CmdResult cmdChallAccStateMachine(const TDeviceAction action);
 
     template <typename TDeviceAction>
-    bool isExpectedResponse(const TDeviceAction action, const Command received) const;
+    static bool isExpectedResponse(const TDeviceAction& action, const Command received);
 
     virtual void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
     virtual void logErrorCode(uint8_t errorCode) = 0;

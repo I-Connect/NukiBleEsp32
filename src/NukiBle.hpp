@@ -60,27 +60,49 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
 }
 
 template <typename TDeviceAction>
-bool NukiBle::isExpectedResponse(const TDeviceAction action, const Command received) const {
-  Command expected = Command::Empty;
+bool NukiBle::isExpectedResponse(const TDeviceAction& action, const Command received) {
   switch (action.command) {
     case Command::RequestData: {
-      if (action.payloadLen >= sizeof(Command)) {
-        memcpy(&expected, action.payload, sizeof(Command));
+      if (action.payloadLen < 2) {
+        return true;
       }
-      break;
+      uint16_t requested = 0;
+      memcpy(&requested, action.payload, 2);
+      return received == (Command)requested;
     }
-    case Command::RequestConfig: {
-      expected = Command::Config;
-      break;
-    }
-    case Command::RequestAdvancedConfig: {
-      expected = Command::AdvancedConfig;
-      break;
-    }
+    case Command::RequestConfig:
+      return received == Command::Config;
+    case Command::RequestAdvancedConfig:
+      return received == Command::AdvancedConfig;
+    case Command::RequestAuthorizationEntries:
+      return received == Command::AuthorizationEntryCount || received == Command::AuthorizationEntry || received == Command::Status;
+    case Command::RequestLogEntries:
+      return received == Command::LogEntryCount || received == Command::LogEntry || received == Command::Status;
+    case Command::RequestKeypadCodes:
+      return received == Command::KeypadCodeCount || received == Command::KeypadCode || received == Command::Status;
+    case Command::RequestTimeControlEntries:
+      return received == Command::TimeControlEntryCount || received == Command::TimeControlEntry || received == Command::Status;
+    case Command::AddKeypadCode:
+      return received == Command::KeypadCodeId || received == Command::Status;
+    case Command::AddTimeControlEntry:
+      return received == Command::TimeControlEntryId || received == Command::Status;
+    case Command::UpdateKeypadCode:
+    case Command::RemoveKeypadCode:
+    case Command::UpdateTimeControlEntry:
+    case Command::RemoveTimeControlEntry:
+    case Command::UpdateAuthorization:
+    case Command::RemoveUserAuthorization:
+    case Command::SetConfig:
+    case Command::SetAdvancedConfig:
+    case Command::SetSecurityPin:
+    case Command::VerifySecurityPin:
+    case Command::UpdateTime:
+    case Command::RequestCalibration:
+    case Command::RequestReboot:
+      return received == Command::Status;
     default:
-      break;
+      return true;
   }
-  return expected == Command::Empty || received == expected;
 }
 
 template <typename TDeviceAction>
@@ -128,6 +150,11 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Success;
+      } else if (lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty) {
+        if (debugNukiCommunication) {
+          logMessageVar("************************ IGNORING UNEXPECTED MESSAGE [%d] ************************", (unsigned int)lastMsgCodeReceived);
+        }
+        lastMsgCodeReceived = Command::Empty;
       } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED ************************");
@@ -284,6 +311,12 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         }
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::Success;
+      } else if (crcCheckOke && lastMsgCodeReceived != Command::Empty) {
+        if (debugNukiCommunication) {
+          logMessageVar("************************ IGNORING UNEXPECTED MESSAGE [%d] ************************", (unsigned int)lastMsgCodeReceived);
+        }
+        crcCheckOke = false;
+        lastMsgCodeReceived = Command::Empty;
       }
       break;
     }
