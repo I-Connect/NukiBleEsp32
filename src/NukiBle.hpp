@@ -64,7 +64,7 @@ bool NukiBle::isExpectedResponse(const TDeviceAction& action, const Command rece
   switch (action.command) {
     case Command::RequestData: {
       if (action.payloadLen < 2) {
-        return true;
+        return false;
       }
       uint16_t requested = 0;
       memcpy(&requested, action.payload, 2);
