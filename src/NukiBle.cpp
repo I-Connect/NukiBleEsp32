@@ -1599,10 +1599,15 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
 
   if (pBLERemoteCharacteristic->getUUID() == gdioUUID || (pBLERemoteCharacteristic->getUUID() == gdioUltraUUID && (!recieveEncrypted || length < 24))) {
     //handle not encrypted msg
+    unsigned char plainData[200];
+    if (length < 4 || length - 4 > sizeof(plainData)) {
+      logMessageVar("Dropping unencrypted message with invalid length %d", (unsigned int)length, 2);
+      crcCheckOke = false;
+      return;
+    }
     uint16_t returnCode = ((uint16_t)recData[1] << 8) | recData[0];
     crcCheckOke = crcValid(recData, length, debugNukiCommunication, logger);
     if (crcCheckOke) {
-      unsigned char plainData[200];
       memcpy(plainData, &recData[2], length - 4);
       handleReturnMessage((Command)returnCode, plainData, length - 4);
     }
@@ -1611,6 +1616,12 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
       recieveEncrypted = false;
     }
     //handle encrypted msg
+    const size_t headerLen = crypto_secretbox_NONCEBYTES + 6;
+    if (length < headerLen + crypto_secretbox_MACBYTES + 8) {
+      logMessageVar("Dropping encrypted message with invalid length %d", (unsigned int)length, 2);
+      crcCheckOke = false;
+      return;
+    }
     unsigned char recNonce[crypto_secretbox_NONCEBYTES];
     unsigned char recAuthorizationId[4];
     unsigned char recMsgLen[2];
@@ -1619,6 +1630,11 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     memcpy(recMsgLen, &recData[crypto_secretbox_NONCEBYTES + 4], 2);
     uint16_t encrMsgLen = 0;
     memcpy(&encrMsgLen, recMsgLen, 2);
+    if (encrMsgLen < crypto_secretbox_MACBYTES + 8 || encrMsgLen > length - headerLen) {
+      logMessageVar("Dropping encrypted message with invalid payload length %d", (unsigned int)encrMsgLen, 2);
+      crcCheckOke = false;
+      return;
+    }
     unsigned char encrData[encrMsgLen];
     memcpy(&encrData, &recData[crypto_secretbox_NONCEBYTES + 6], encrMsgLen);
 
