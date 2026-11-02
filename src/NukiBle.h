@@ -456,6 +456,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     static bool isExpectedResponse(const TDeviceAction& action, const Command received);
 
     virtual void handleReturnMessage(Command returnCode, unsigned char* data, uint16_t dataLen);
+    bool payloadLongEnough(uint16_t dataLen, size_t needed, const char* what);
+    bool copyPayload(void* dst, size_t dstSize, size_t minLen, const unsigned char* data, uint16_t dataLen, const char* what);
+    bool payloadRejected = false;
     virtual void logErrorCode(uint8_t errorCode) = 0;
 
     // Cannot initialize to any meaningful value since error namespaces are only

@@ -856,7 +856,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
   switch (returnCode) {
     case Command::KeyturnerStates : {
       printBuffer((byte*)data, dataLen, false, "keyturnerStates", debugNukiHexData, logger);
-      memcpy(&keyTurnerState, data, dataLen);
+      if (!copyPayload(&keyTurnerState, sizeof(keyTurnerState), offsetof(KeyTurnerState, lastLockActionCompletionStatus) + sizeof(KeyTurnerState::lastLockActionCompletionStatus), data, dataLen, "keyTurnerState")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logKeyturnerState(keyTurnerState, true, logger);
       }
@@ -864,14 +866,18 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     }
     case Command::BatteryReport : {
       printBuffer((byte*)data, dataLen, false, "batteryReport", debugNukiHexData, logger);
-      memcpy(&batteryReport, data, dataLen);
+      if (!copyPayload(&batteryReport, sizeof(batteryReport), sizeof(batteryReport), data, dataLen, "batteryReport")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logBatteryReport(batteryReport, true, logger);
       }
       break;
     }
     case Command::Config : {
-      memcpy(&config, data, dataLen);
+      if (!copyPayload(&config, sizeof(config), offsetof(Config, hardwareRevision) + sizeof(Config::hardwareRevision), data, dataLen, "config")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logConfig(config, true, logger);
       }
@@ -879,7 +885,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::AdvancedConfig : {
-      memcpy(&advancedConfig, data, dataLen);
+      if (!copyPayload(&advancedConfig, sizeof(advancedConfig), offsetof(AdvancedConfig, autoLockTimeOut) + sizeof(AdvancedConfig::autoLockTimeOut), data, dataLen, "advancedConfig")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logAdvancedConfig(advancedConfig, true, logger);
       }
@@ -889,14 +897,18 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::TimeControlEntry : {
       printBuffer((byte*)data, dataLen, false, "timeControlEntry", debugNukiHexData, logger);
       TimeControlEntry timeControlEntry;
-      memcpy(&timeControlEntry, data, dataLen);
+      if (!copyPayload(&timeControlEntry, sizeof(timeControlEntry), sizeof(timeControlEntry), data, dataLen, "timeControlEntry")) {
+        break;
+      }
       listOfTimeControlEntries.push_back(timeControlEntry);
       break;
     }
     case Command::LogEntry : {
       printBuffer((byte*)data, dataLen, false, "logEntry", debugNukiHexData, logger);
       LogEntry logEntry;
-      memcpy(&logEntry, data, dataLen);
+      if (!copyPayload(&logEntry, sizeof(logEntry), offsetof(LogEntry, loggingType) + sizeof(LogEntry::loggingType), data, dataLen, "logEntry")) {
+        break;
+      }
       listOfLogEntries.push_back(logEntry);
       if (debugNukiReadableData) {
         logLogEntry(logEntry, true, logger);
@@ -906,7 +918,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::InternalLogEntry : {
       printBuffer((byte*)data, dataLen, false, "internalLogEntry", debugNukiHexData, logger);
       InternalLogEntry internalLogEntry;
-      memcpy(&internalLogEntry, data, dataLen);
+      if (!copyPayload(&internalLogEntry, sizeof(internalLogEntry), 1, data, dataLen, "internalLogEntry")) {
+        break;
+      }
       listOfInternalLogEntries.push_back(internalLogEntry);
       if (debugNukiReadableData) {
         logInternalLogEntry(internalLogEntry, true, logger);
@@ -914,14 +928,18 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::MqttConfig :
-      memcpy(&mqttConfig, data, dataLen);
+      if (!copyPayload(&mqttConfig, sizeof(mqttConfig), 1, data, dataLen, "mqttConfig")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logMqttConfig(mqttConfig, true, logger);
       }
       printBuffer((byte*)data, dataLen, false, "mqttConfig", debugNukiHexData, logger);
       break;
     case Command::MqttConfigForMigration : {
-      memcpy(&mqttConfigForMigration, data, dataLen);
+      if (!copyPayload(&mqttConfigForMigration, sizeof(mqttConfigForMigration), 1, data, dataLen, "mqttConfigForMigration")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logMqttConfigForMigration(mqttConfigForMigration, true, logger);
       }
@@ -931,7 +949,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     case Command::WifiScanEntry : {
       printBuffer((byte*)data, dataLen, false, "wifiScanEntry", debugNukiHexData, logger);
       WifiScanEntry wifiScanEntry;
-      memcpy(&wifiScanEntry, data, dataLen);
+      if (!copyPayload(&wifiScanEntry, sizeof(wifiScanEntry), 1, data, dataLen, "wifiScanEntry")) {
+        break;
+      }
       listOfWifiScanEntries.push_back(wifiScanEntry);
       if (debugNukiReadableData) {
         logWifiScanEntry(wifiScanEntry, true, logger);
@@ -939,7 +959,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::WifiConfig : {
-      memcpy(&wifiConfig, data, dataLen);
+      if (!copyPayload(&wifiConfig, sizeof(wifiConfig), 1, data, dataLen, "wifiConfig")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logWifiConfig(wifiConfig, true, logger);
       }
@@ -947,7 +969,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::WifiConfigForMigration : {
-      memcpy(&wifiConfigForMigration, data, dataLen);
+      if (!copyPayload(&wifiConfigForMigration, sizeof(wifiConfigForMigration), 1, data, dataLen, "wifiConfigForMigration")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logWifiConfigForMigration(wifiConfigForMigration, true, logger);
       }
@@ -955,7 +979,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::Keypad2Config : {
-      memcpy(&keypad2Config, data, dataLen);
+      if (!copyPayload(&keypad2Config, sizeof(keypad2Config), 1, data, dataLen, "keypad2Config")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logKeypad2Config(keypad2Config, true, logger);
       }
@@ -963,7 +989,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::GeneralStatistics : {
-      memcpy(&generalStatistics, data, dataLen);
+      if (!copyPayload(&generalStatistics, sizeof(generalStatistics), 1, data, dataLen, "generalStatistics")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logGeneralStatistics(generalStatistics, true, logger);
       }
@@ -971,7 +999,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::DailyStatistics : {
-      memcpy(&dailyStatistics, data, dataLen);
+      if (!copyPayload(&dailyStatistics, sizeof(dailyStatistics), 1, data, dataLen, "dailyStatistics")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logDailyStatistics(dailyStatistics, true, logger);
       }
@@ -979,7 +1009,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::AccessoryInfo : {
-      memcpy(&accessoryInfo, data, dataLen);
+      if (!copyPayload(&accessoryInfo, sizeof(accessoryInfo), 1, data, dataLen, "accessoryInfo")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logAccessoryInfo(accessoryInfo, true, logger);
       }
@@ -987,7 +1019,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       break;
     }
     case Command::DoorSensorConfig : {
-      memcpy(&doorSensorConfig, data, dataLen);
+      if (!copyPayload(&doorSensorConfig, sizeof(doorSensorConfig), 1, data, dataLen, "doorSensorConfig")) {
+        break;
+      }
       if (debugNukiReadableData) {
         logDoorSensorConfig(doorSensorConfig, true, logger);
       }
@@ -996,6 +1030,9 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
     }
     default:
       NukiBle::handleReturnMessage(returnCode, data, dataLen);
+  }
+  if (payloadRejected) {
+    return;
   }
   lastMsgCodeReceived = returnCode;
 }
