@@ -702,6 +702,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
       if (!copyPayload(&config, sizeof(config), offsetof(Config, hardwareRevision) + sizeof(Config::hardwareRevision), data, dataLen, "config")) {
         break;
       }
+      storeUnknownBytes(configUnknownBytes, configUnknownLen, sizeof(configUnknownBytes), data, dataLen, sizeof(config));
       if (debugNukiReadableData) {
         logConfig(config, true, logger);
       }
@@ -712,6 +713,7 @@ void NukiOpener::handleReturnMessage(Command returnCode, unsigned char* data, ui
       if (!copyPayload(&advancedConfig, sizeof(advancedConfig), offsetof(AdvancedConfig, soundLevel) + sizeof(AdvancedConfig::soundLevel), data, dataLen, "advancedConfig")) {
         break;
       }
+      storeUnknownBytes(advancedConfigUnknownBytes, advancedConfigUnknownLen, sizeof(advancedConfigUnknownBytes), data, dataLen, sizeof(advancedConfig));
       if (debugNukiReadableData) {
         logAdvancedConfig(advancedConfig, true, logger);
       }
