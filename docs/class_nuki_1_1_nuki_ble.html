@@ -141,10 +141,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1aacb6b629b0e93a6f819732ab95922b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a Keypad Entry.  <br /></td></tr>
 <tr class="memitem:a3bc2507adc5d5c6523289687dfd13b53" id="r_a3bc2507adc5d5c6523289687dfd13b53"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3bc2507adc5d5c6523289687dfd13b53">genericCommand</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a> command, bool withPin=true)</td></tr>
 <tr class="memdesc:a3bc2507adc5d5c6523289687dfd13b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a custom command to the lock via BLE.  <br /></td></tr>
+<tr class="memitem:a8c26d4e32871b1e8974688cce75fd7ec" id="r_a8c26d4e32871b1e8974688cce75fd7ec"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a8c26d4e32871b1e8974688cce75fd7ec">getAdvancedConfigUnknownBytes</a> (unsigned char *dst, uint8_t maxLen) const</td></tr>
+<tr class="memdesc:a8c26d4e32871b1e8974688cce75fd7ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="#aec038507e6cd5872dd89f84561885972" title="Copies the bytes of the last received config that lie beyond the known Config struct.">getConfigUnknownBytes()</a> for the advanced config.  <br /></td></tr>
 <tr class="memitem:aa0efa09f2e6f191679d9f47482320639" id="r_aa0efa09f2e6f191679d9f47482320639"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa0efa09f2e6f191679d9f47482320639">getAuthorizationEntries</a> (std::list&lt; AuthorizationEntry &gt; *requestedAuthorizationEntries)</td></tr>
 <tr class="memdesc:aa0efa09f2e6f191679d9f47482320639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Authorization Entries stored on the esp (after executing retreiveAuthorizationEntries).  <br /></td></tr>
 <tr class="memitem:af5c530a86b19d15b54d57417e8082ee3" id="r_af5c530a86b19d15b54d57417e8082ee3"><td class="memItemLeft">const BLEAddress&#160;</td><td class="memItemRight"><a class="el" href="#af5c530a86b19d15b54d57417e8082ee3">getBleAddress</a> () const</td></tr>
 <tr class="memdesc:af5c530a86b19d15b54d57417e8082ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the BLE address of the device if paired.  <br /></td></tr>
+<tr class="memitem:aec038507e6cd5872dd89f84561885972" id="r_aec038507e6cd5872dd89f84561885972"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aec038507e6cd5872dd89f84561885972">getConfigUnknownBytes</a> (unsigned char *dst, uint8_t maxLen) const</td></tr>
+<tr class="memdesc:aec038507e6cd5872dd89f84561885972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the bytes of the last received config that lie beyond the known Config struct.  <br /></td></tr>
 <tr class="memitem:ac41a554d79ad8cbfd7def3f9436a344c" id="r_ac41a554d79ad8cbfd7def3f9436a344c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac41a554d79ad8cbfd7def3f9436a344c">getFingerprintEntries</a> (std::list&lt; FingerprintEntry &gt; *requestedFingerprintEntries)</td></tr>
 <tr class="memdesc:ac41a554d79ad8cbfd7def3f9436a344c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Fingerprint Entries stored on the esp (after executing retrieveFingerprintEntries).  <br /></td></tr>
 <tr class="memitem:a018d9c075633e04c2c415597614db5b5" id="r_a018d9c075633e04c2c415597614db5b5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a018d9c075633e04c2c415597614db5b5">getKeypadEntries</a> (std::list&lt; KeypadEntry &gt; *requestedKeyPadEntries)</td></tr>
@@ -252,6 +256,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a6b061bee9a6eec159673921f5127dd47" id="r_a6b061bee9a6eec159673921f5127dd47"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6b061bee9a6eec159673921f5127dd47">logMessageVar</a> (const char *message, const char *var, int level=4)</td></tr>
 <tr class="memitem:af3650133f46aeca48a5f01b95d23ab71" id="r_af3650133f46aeca48a5f01b95d23ab71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af3650133f46aeca48a5f01b95d23ab71">logMessageVar</a> (const char *message, unsigned int var, int level=4)</td></tr>
 <tr class="memitem:a1820d5ff09f6f9d07bb88773434bdc26" id="r_a1820d5ff09f6f9d07bb88773434bdc26"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1820d5ff09f6f9d07bb88773434bdc26">payloadLongEnough</a> (uint16_t dataLen, size_t needed, const char *what)</td></tr>
+<tr class="memitem:a66178648bbf48b1c5224d1cdae7a751e" id="r_a66178648bbf48b1c5224d1cdae7a751e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a66178648bbf48b1c5224d1cdae7a751e">storeUnknownBytes</a> (unsigned char *dst, uint8_t &amp;dstLen, uint8_t dstSize, const unsigned char *data, uint16_t dataLen, size_t known)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-static-methods" class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
@@ -260,6 +265,10 @@ Static Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:adb4ac271a213678cf7792e8f1c1bbf11" id="r_adb4ac271a213678cf7792e8f1c1bbf11"><td class="memItemLeft">unsigned char&#160;</td><td class="memItemRight"><a class="el" href="#adb4ac271a213678cf7792e8f1c1bbf11">advancedConfigUnknownBytes</a> [32] = {0}</td></tr>
+<tr class="memitem:a72841f661d5e8e54037e8aa1b08ccebb" id="r_a72841f661d5e8e54037e8aa1b08ccebb"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a72841f661d5e8e54037e8aa1b08ccebb">advancedConfigUnknownLen</a> = 0</td></tr>
+<tr class="memitem:a308c93f88c0993bad82f701a2d3ddebd" id="r_a308c93f88c0993bad82f701a2d3ddebd"><td class="memItemLeft">unsigned char&#160;</td><td class="memItemRight"><a class="el" href="#a308c93f88c0993bad82f701a2d3ddebd">configUnknownBytes</a> [32] = {0}</td></tr>
+<tr class="memitem:a0caa1de0101f699d75965c4f73dcf8d4" id="r_a0caa1de0101f699d75965c4f73dcf8d4"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a0caa1de0101f699d75965c4f73dcf8d4">configUnknownLen</a> = 0</td></tr>
 <tr class="memitem:a2ef4cd9d592ccfd0f79d0a5fddbc4769" id="r_a2ef4cd9d592ccfd0f79d0a5fddbc4769"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2ef4cd9d592ccfd0f79d0a5fddbc4769">debugNukiCommand</a> = false</td></tr>
 <tr class="memitem:afd7900728075918c1b3175e1af45af2c" id="r_afd7900728075918c1b3175e1af45af2c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afd7900728075918c1b3175e1af45af2c">debugNukiCommunication</a> = false</td></tr>
 <tr class="memitem:ab2d78074edff5e6c2e32facabad95e95" id="r_ab2d78074edff5e6c2e32facabad95e95"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab2d78074edff5e6c2e32facabad95e95">debugNukiConnect</a> = false</td></tr>
@@ -806,6 +815,29 @@ template&lt;typename TDeviceAction&gt; </div>
 
 </div>
 </div>
+<a id="a8c26d4e32871b1e8974688cce75fd7ec" name="a8c26d4e32871b1e8974688cce75fd7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c26d4e32871b1e8974688cce75fd7ec">&#9670;&#160;</a></span>getAdvancedConfigUnknownBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Nuki::NukiBle::getAdvancedConfigUnknownBytes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>dst</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>maxLen</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Same as <a class="el" href="#aec038507e6cd5872dd89f84561885972" title="Copies the bytes of the last received config that lie beyond the known Config struct.">getConfigUnknownBytes()</a> for the advanced config. </p>
+
+</div>
+</div>
 <a id="aa0efa09f2e6f191679d9f47482320639" name="aa0efa09f2e6f191679d9f47482320639"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa0efa09f2e6f191679d9f47482320639">&#9670;&#160;</a></span>getAuthorizationEntries()</h2>
 
@@ -848,6 +880,37 @@ template&lt;typename TDeviceAction&gt; </div>
 
 <p>Returns the BLE address of the device if paired. </p>
 <dl class="section return"><dt>Returns</dt><dd>BLE address </dd></dl>
+
+</div>
+</div>
+<a id="aec038507e6cd5872dd89f84561885972" name="aec038507e6cd5872dd89f84561885972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec038507e6cd5872dd89f84561885972">&#9670;&#160;</a></span>getConfigUnknownBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Nuki::NukiBle::getConfigUnknownBytes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>dst</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>maxLen</em></span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies the bytes of the last received config that lie beyond the known Config struct. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dst</td><td>buffer to copy to </td></tr>
+    <tr><td class="paramname">maxLen</td><td>size of dst </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>number of bytes copied, 0 when the device sent no unknown bytes </dd></dl>
 
 </div>
 </div>
@@ -2071,6 +2134,61 @@ template&lt;typename TDeviceAction&gt; </div>
 
 </div>
 </div>
+<a id="a66178648bbf48b1c5224d1cdae7a751e" name="a66178648bbf48b1c5224d1cdae7a751e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66178648bbf48b1c5224d1cdae7a751e">&#9670;&#160;</a></span>storeUnknownBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Nuki::NukiBle::storeUnknownBytes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>dst</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t &amp;</td>          <td class="paramname"><span class="paramname"><em>dstLen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>dstSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned char *</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>dataLen</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>known</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-38-summary" class="dynsummary">
+</div>
+<div id="dynsection-38-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a66178648bbf48b1c5224d1cdae7a751e_icgraph.svg" width="415" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="ae3380f2d856dc4bd5c414736eb26d61e" name="ae3380f2d856dc4bd5c414736eb26d61e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3380f2d856dc4bd5c414736eb26d61e">&#9670;&#160;</a></span>unPairNuki()</h2>
 
@@ -2087,10 +2205,10 @@ template&lt;typename TDeviceAction&gt; </div>
 </div><div class="memdoc">
 
 <p>Delete stored credentials. </p>
-<div id="dynsection-38" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-38-summary" class="dynsummary">
+<div id="dynsection-39" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-39-summary" class="dynsummary">
 </div>
-<div id="dynsection-38-content" class="dyncontent hidden">
+<div id="dynsection-39-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_ae3380f2d856dc4bd5c414736eb26d61e_cgraph.svg" width="426" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2118,10 +2236,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-39" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-39-summary" class="dynsummary">
+<div id="dynsection-40" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-40-summary" class="dynsummary">
 </div>
-<div id="dynsection-39-content" class="dyncontent hidden">
+<div id="dynsection-40-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_af47efb4e020a327687327ad82963b347_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -2144,10 +2262,10 @@ template&lt;typename TDeviceAction&gt; </div>
 
 <p>checks the time past after last connect/communication sent, if the time past &gt; timeout it will disconnect the BLE connection with the lock so that lock will start sending advertisements. </p>
 <p>This method is optional since the lock will automatically disconnect after approximately 20 seconds. However, the lock might be unresponsive during this time if the connection is stale. For this reason, using this method is advised. If used, this method should be run in loop or a task. </p>
-<div id="dynsection-40" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-40-summary" class="dynsummary">
+<div id="dynsection-41" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-41-summary" class="dynsummary">
 </div>
-<div id="dynsection-40-content" class="dyncontent hidden">
+<div id="dynsection-41-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_adb7e6f9ff5c724d74ce074dc2cb7a7bf_cgraph.svg" width="446" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -2175,10 +2293,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-41" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-41-summary" class="dynsummary">
+<div id="dynsection-42" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-42-summary" class="dynsummary">
 </div>
-<div id="dynsection-41-content" class="dyncontent hidden">
+<div id="dynsection-42-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a0f1be2034e079e676a7771dfb775df81_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -2206,10 +2324,10 @@ template&lt;typename TDeviceAction&gt; </div>
   </table>
   </dd>
 </dl>
-<div id="dynsection-42" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-42-summary" class="dynsummary">
+<div id="dynsection-43" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-43-summary" class="dynsummary">
 </div>
-<div id="dynsection-42-content" class="dyncontent hidden">
+<div id="dynsection-43-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_aac2e6b5ca939d23e8f590519b78df9f1_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
@@ -2232,16 +2350,104 @@ template&lt;typename TDeviceAction&gt; </div>
 
 <p>Send the verify pincode command via BLE to the lock. This command uses the earlier by <a class="el" href="#ad636dbf0bbe9d6f58b4775b2fddaf64e" title="Saves the pincode on the esp. This pincode is used for sending/setting config via BLE to the lock by ...">saveSecurityPincode()</a> stored pincode. </p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a> returns success when the pin code is correct (same as stored in the lock) </dd></dl>
-<div id="dynsection-43" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-43-summary" class="dynsummary">
+<div id="dynsection-44" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-44-summary" class="dynsummary">
 </div>
-<div id="dynsection-43-content" class="dyncontent hidden">
+<div id="dynsection-44-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_1_1_nuki_ble_a2c962e2c69d9063972790109704dd233_cgraph.svg" width="100%" height="571"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="adb4ac271a213678cf7792e8f1c1bbf11" name="adb4ac271a213678cf7792e8f1c1bbf11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb4ac271a213678cf7792e8f1c1bbf11">&#9670;&#160;</a></span>advancedConfigUnknownBytes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char Nuki::NukiBle::advancedConfigUnknownBytes[32] = {0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a72841f661d5e8e54037e8aa1b08ccebb" name="a72841f661d5e8e54037e8aa1b08ccebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72841f661d5e8e54037e8aa1b08ccebb">&#9670;&#160;</a></span>advancedConfigUnknownLen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Nuki::NukiBle::advancedConfigUnknownLen = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a308c93f88c0993bad82f701a2d3ddebd" name="a308c93f88c0993bad82f701a2d3ddebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308c93f88c0993bad82f701a2d3ddebd">&#9670;&#160;</a></span>configUnknownBytes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char Nuki::NukiBle::configUnknownBytes[32] = {0}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0caa1de0101f699d75965c4f73dcf8d4" name="a0caa1de0101f699d75965c4f73dcf8d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0caa1de0101f699d75965c4f73dcf8d4">&#9670;&#160;</a></span>configUnknownLen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Nuki::NukiBle::configUnknownLen = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2ef4cd9d592ccfd0f79d0a5fddbc4769" name="a2ef4cd9d592ccfd0f79d0a5fddbc4769"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ef4cd9d592ccfd0f79d0a5fddbc4769">&#9670;&#160;</a></span>debugNukiCommand</h2>
 

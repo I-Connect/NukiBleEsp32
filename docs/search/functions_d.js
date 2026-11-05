@@ -52,5 +52,6 @@ var searchData=
   ['setultrapin_49',['setUltraPin',['../class_nuki_1_1_nuki_ble.html#a451a1cdad186be0bce54af974fa84949',1,'Nuki::NukiBle']]],
   ['setunlatchduration_50',['setUnlatchDuration',['../class_nuki_lock_1_1_nuki_lock.html#a3b61331bfe8f2b7432f403de7347cd16',1,'NukiLock::NukiLock']]],
   ['setunlockedpositionoffsetdegrees_51',['setUnlockedPositionOffsetDegrees',['../class_nuki_lock_1_1_nuki_lock.html#a8c31082ff2e2f502c03f9ec54ff24ecc',1,'NukiLock::NukiLock']]],
-  ['setunlockedtolockedtransitionoffsetdegrees_52',['setUnlockedToLockedTransitionOffsetDegrees',['../class_nuki_lock_1_1_nuki_lock.html#ad061a65419379fb4542529078dc4da08',1,'NukiLock::NukiLock']]]
+  ['setunlockedtolockedtransitionoffsetdegrees_52',['setUnlockedToLockedTransitionOffsetDegrees',['../class_nuki_lock_1_1_nuki_lock.html#ad061a65419379fb4542529078dc4da08',1,'NukiLock::NukiLock']]],
+  ['storeunknownbytes_53',['storeUnknownBytes',['../class_nuki_1_1_nuki_ble.html#a66178648bbf48b1c5224d1cdae7a751e',1,'Nuki::NukiBle']]]
 ];

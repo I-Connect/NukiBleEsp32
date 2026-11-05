@@ -33,10 +33,12 @@ var searchData=
   ['completionstatus_30',['CompletionStatus',['../namespace_nuki_lock.html#a54b34c8336455e871ee25f457a6e104a',1,'NukiLock::CompletionStatus'],['../namespace_nuki_opener.html#a4177c1ba41abd209eed76ca85cb40c88',1,'NukiOpener::CompletionStatus']]],
   ['completionstatustostring_31',['completionStatusToString',['../namespace_nuki_lock.html#a5a08c6af3090841e419f5ffeec0db34b',1,'NukiLock::completionStatusToString()'],['../namespace_nuki_opener.html#a0a2d135ae3ef54e3226280e1efa73c2a',1,'NukiOpener::completionStatusToString()']]],
   ['config_32',['Config',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3afa535ffb25e1fd20341652f9be21e06e',1,'Nuki']]],
-  ['connectble_33',['connectBle',['../class_nuki_1_1_nuki_ble.html#a0924aa3772a05cbb3bff3cb44cb20de7',1,'Nuki::NukiBle']]],
-  ['connectwifi_34',['ConnectWifi',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a115f8c6170f44dea5888e2a78d773b91',1,'Nuki']]],
-  ['continuousmode_35',['ContinuousMode',['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa9a186789c704a614d2f5b01d13d5b0ba',1,'NukiOpener']]],
-  ['continuousmodeaction_36',['ContinuousModeAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf',1,'Nuki']]],
-  ['copypayload_37',['copyPayload',['../class_nuki_1_1_nuki_ble.html#a13736c402acc276535ad00ac78b48f6e',1,'Nuki::NukiBle']]],
-  ['crcvalid_38',['crcValid',['../namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816',1,'Nuki']]]
+  ['configunknownbytes_33',['configUnknownBytes',['../class_nuki_1_1_nuki_ble.html#a308c93f88c0993bad82f701a2d3ddebd',1,'Nuki::NukiBle']]],
+  ['configunknownlen_34',['configUnknownLen',['../class_nuki_1_1_nuki_ble.html#a0caa1de0101f699d75965c4f73dcf8d4',1,'Nuki::NukiBle']]],
+  ['connectble_35',['connectBle',['../class_nuki_1_1_nuki_ble.html#a0924aa3772a05cbb3bff3cb44cb20de7',1,'Nuki::NukiBle']]],
+  ['connectwifi_36',['ConnectWifi',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a115f8c6170f44dea5888e2a78d773b91',1,'Nuki']]],
+  ['continuousmode_37',['ContinuousMode',['../namespace_nuki_opener.html#a34441b9bfeae74b37f336fd49594c92aa9a186789c704a614d2f5b01d13d5b0ba',1,'NukiOpener']]],
+  ['continuousmodeaction_38',['ContinuousModeAction',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ad268b1df866143853a1ebc51e253e5bf',1,'Nuki']]],
+  ['copypayload_39',['copyPayload',['../class_nuki_1_1_nuki_ble.html#a13736c402acc276535ad00ac78b48f6e',1,'Nuki::NukiBle']]],
+  ['crcvalid_40',['crcValid',['../namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816',1,'Nuki']]]
 ];
