@@ -419,6 +419,19 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      */
     void setDebugHexData(bool enable);
 
+    /**
+     * @brief Copies the bytes of the last received config that lie beyond the known Config struct
+     * @param dst buffer to copy to
+     * @param maxLen size of dst
+     * @return number of bytes copied, 0 when the device sent no unknown bytes
+     */
+    uint8_t getConfigUnknownBytes(unsigned char* dst, uint8_t maxLen) const;
+
+    /**
+     * @brief Same as getConfigUnknownBytes() for the advanced config
+     */
+    uint8_t getAdvancedConfigUnknownBytes(unsigned char* dst, uint8_t maxLen) const;
+
      /**
      * @brief Whether to enable or disable command debug logging
      *
@@ -439,6 +452,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void logMessageVar(const char* message, unsigned int var, int level = 4);
     void logMessageVar(const char* message, const char* var, int level = 4);
     void logMessage(const char* message, int level = 4);
+    void storeUnknownBytes(unsigned char* dst, uint8_t& dstLen, uint8_t dstSize, const unsigned char* data, uint16_t dataLen, size_t known);
 
     template <typename TDeviceAction>
     Nuki::CmdResult executeAction(const TDeviceAction action);
@@ -472,6 +486,10 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool debugNukiCommunication = false;
     bool debugNukiReadableData = false;
     bool debugNukiHexData = false;
+    unsigned char configUnknownBytes[32] = {0};
+    uint8_t configUnknownLen = 0;
+    unsigned char advancedConfigUnknownBytes[32] = {0};
+    uint8_t advancedConfigUnknownLen = 0;
     bool debugNukiCommand = false;
 
     Print* logger = nullptr;

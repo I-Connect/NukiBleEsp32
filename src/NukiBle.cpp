@@ -1961,6 +1961,28 @@ void NukiBle::registerLogger(Print* Log) {
   logger = Log;
 }
 
+uint8_t NukiBle::getConfigUnknownBytes(unsigned char* dst, uint8_t maxLen) const {
+  uint8_t len = configUnknownLen > maxLen ? maxLen : configUnknownLen;
+  memcpy(dst, configUnknownBytes, len);
+  return len;
+}
+
+uint8_t NukiBle::getAdvancedConfigUnknownBytes(unsigned char* dst, uint8_t maxLen) const {
+  uint8_t len = advancedConfigUnknownLen > maxLen ? maxLen : advancedConfigUnknownLen;
+  memcpy(dst, advancedConfigUnknownBytes, len);
+  return len;
+}
+
+void NukiBle::storeUnknownBytes(unsigned char* dst, uint8_t& dstLen, uint8_t dstSize, const unsigned char* data, uint16_t dataLen, size_t known) {
+  dstLen = 0;
+  if (dataLen <= known) {
+    return;
+  }
+  size_t extra = dataLen - known;
+  dstLen = extra > dstSize ? dstSize : extra;
+  memcpy(dst, data + known, dstLen);
+}
+
 void NukiBle::logMessage(const char* message, int level) {
   if (logger == nullptr) {
     switch (level) {
