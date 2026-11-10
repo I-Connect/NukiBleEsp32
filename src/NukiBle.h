@@ -432,6 +432,16 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      */
     uint8_t getAdvancedConfigUnknownBytes(unsigned char* dst, uint8_t maxLen) const;
 
+    /**
+     * @brief Length of the last received config payload in bytes, 0 if none was received yet
+     */
+    uint16_t getConfigPayloadLength() const;
+
+    /**
+     * @brief Length of the last received advanced config payload in bytes, 0 if none was received yet
+     */
+    uint16_t getAdvancedConfigPayloadLength() const;
+
      /**
      * @brief Whether to enable or disable command debug logging
      *
@@ -488,8 +498,10 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     bool debugNukiHexData = false;
     unsigned char configUnknownBytes[32] = {0};
     uint8_t configUnknownLen = 0;
+    uint16_t configPayloadLen = 0;
     unsigned char advancedConfigUnknownBytes[32] = {0};
     uint8_t advancedConfigUnknownLen = 0;
+    uint16_t advancedConfigPayloadLen = 0;
     bool debugNukiCommand = false;
 
     Print* logger = nullptr;

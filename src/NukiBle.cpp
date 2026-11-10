@@ -1973,6 +1973,14 @@ uint8_t NukiBle::getAdvancedConfigUnknownBytes(unsigned char* dst, uint8_t maxLe
   return len;
 }
 
+uint16_t NukiBle::getConfigPayloadLength() const {
+  return configPayloadLen;
+}
+
+uint16_t NukiBle::getAdvancedConfigPayloadLength() const {
+  return advancedConfigPayloadLen;
+}
+
 void NukiBle::storeUnknownBytes(unsigned char* dst, uint8_t& dstLen, uint8_t dstSize, const unsigned char* data, uint16_t dataLen, size_t known) {
   dstLen = 0;
   if (dataLen <= known) {
