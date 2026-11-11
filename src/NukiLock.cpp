@@ -878,6 +878,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       if (!copyPayload(&config, sizeof(config), offsetof(Config, hardwareRevision) + sizeof(Config::hardwareRevision), data, dataLen, "config")) {
         break;
       }
+      configPayloadLen = dataLen;
       storeUnknownBytes(configUnknownBytes, configUnknownLen, sizeof(configUnknownBytes), data, dataLen, sizeof(config));
       if (debugNukiReadableData) {
         logConfig(config, true, logger);
@@ -889,6 +890,7 @@ void NukiLock::handleReturnMessage(Command returnCode, unsigned char* data, uint
       if (!copyPayload(&advancedConfig, sizeof(advancedConfig), offsetof(AdvancedConfig, autoLockTimeOut) + sizeof(AdvancedConfig::autoLockTimeOut), data, dataLen, "advancedConfig")) {
         break;
       }
+      advancedConfigPayloadLen = dataLen;
       storeUnknownBytes(advancedConfigUnknownBytes, advancedConfigUnknownLen, sizeof(advancedConfigUnknownBytes), data, dataLen, sizeof(advancedConfig));
       if (debugNukiReadableData) {
         logAdvancedConfig(advancedConfig, true, logger);
