@@ -67,10 +67,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_nuki_ble_8cpp.html",
-"class_nuki_lock_1_1_nuki_lock.html#a6fe38ed0e5e9bd572875f2b19a32af04",
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a4ed64f95dbde67ec6bc0eff55649f616",
-"namespace_nuki_lock.html#a0a589ffd71ef1ca710126565f32893baad70fff996708bae037f6b32033ba92fc",
-"namespace_nuki_opener.html#ad5810b4aac856a27473aedd0fe8f433e"
+"class_nuki_lock_1_1_nuki_lock.html#a5c90aedc9737dd929dbb209cc8d5c48c",
+"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a40c0308f9923fd5a8726b54cc8ba3137",
+"namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420aeedc285975c5053ff40831e640431a0b",
+"namespace_nuki_opener.html#aad7d6b0194a17c63e1016ede4a5db454"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

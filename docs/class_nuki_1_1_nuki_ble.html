@@ -141,12 +141,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1aacb6b629b0e93a6f819732ab95922b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a Keypad Entry.  <br /></td></tr>
 <tr class="memitem:a3bc2507adc5d5c6523289687dfd13b53" id="r_a3bc2507adc5d5c6523289687dfd13b53"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3bc2507adc5d5c6523289687dfd13b53">genericCommand</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a> command, bool withPin=true)</td></tr>
 <tr class="memdesc:a3bc2507adc5d5c6523289687dfd13b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a custom command to the lock via BLE.  <br /></td></tr>
+<tr class="memitem:aa9fc157e60860fa976e5dabf95990e87" id="r_aa9fc157e60860fa976e5dabf95990e87"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#aa9fc157e60860fa976e5dabf95990e87">getAdvancedConfigPayloadLength</a> () const</td></tr>
+<tr class="memdesc:aa9fc157e60860fa976e5dabf95990e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the last received advanced config payload in bytes, 0 if none was received yet.  <br /></td></tr>
 <tr class="memitem:a8c26d4e32871b1e8974688cce75fd7ec" id="r_a8c26d4e32871b1e8974688cce75fd7ec"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a8c26d4e32871b1e8974688cce75fd7ec">getAdvancedConfigUnknownBytes</a> (unsigned char *dst, uint8_t maxLen) const</td></tr>
 <tr class="memdesc:a8c26d4e32871b1e8974688cce75fd7ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="#aec038507e6cd5872dd89f84561885972" title="Copies the bytes of the last received config that lie beyond the known Config struct.">getConfigUnknownBytes()</a> for the advanced config.  <br /></td></tr>
 <tr class="memitem:aa0efa09f2e6f191679d9f47482320639" id="r_aa0efa09f2e6f191679d9f47482320639"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa0efa09f2e6f191679d9f47482320639">getAuthorizationEntries</a> (std::list&lt; AuthorizationEntry &gt; *requestedAuthorizationEntries)</td></tr>
 <tr class="memdesc:aa0efa09f2e6f191679d9f47482320639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Authorization Entries stored on the esp (after executing retreiveAuthorizationEntries).  <br /></td></tr>
 <tr class="memitem:af5c530a86b19d15b54d57417e8082ee3" id="r_af5c530a86b19d15b54d57417e8082ee3"><td class="memItemLeft">const BLEAddress&#160;</td><td class="memItemRight"><a class="el" href="#af5c530a86b19d15b54d57417e8082ee3">getBleAddress</a> () const</td></tr>
 <tr class="memdesc:af5c530a86b19d15b54d57417e8082ee3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the BLE address of the device if paired.  <br /></td></tr>
+<tr class="memitem:a02fba085721d767383f703eabed2a74e" id="r_a02fba085721d767383f703eabed2a74e"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a02fba085721d767383f703eabed2a74e">getConfigPayloadLength</a> () const</td></tr>
+<tr class="memdesc:a02fba085721d767383f703eabed2a74e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Length of the last received config payload in bytes, 0 if none was received yet.  <br /></td></tr>
 <tr class="memitem:aec038507e6cd5872dd89f84561885972" id="r_aec038507e6cd5872dd89f84561885972"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aec038507e6cd5872dd89f84561885972">getConfigUnknownBytes</a> (unsigned char *dst, uint8_t maxLen) const</td></tr>
 <tr class="memdesc:aec038507e6cd5872dd89f84561885972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the bytes of the last received config that lie beyond the known Config struct.  <br /></td></tr>
 <tr class="memitem:ac41a554d79ad8cbfd7def3f9436a344c" id="r_ac41a554d79ad8cbfd7def3f9436a344c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac41a554d79ad8cbfd7def3f9436a344c">getFingerprintEntries</a> (std::list&lt; FingerprintEntry &gt; *requestedFingerprintEntries)</td></tr>
@@ -265,8 +269,10 @@ Static Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a0bacf095f6ed8ad70891caef30054202" id="r_a0bacf095f6ed8ad70891caef30054202"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a0bacf095f6ed8ad70891caef30054202">advancedConfigPayloadLen</a> = 0</td></tr>
 <tr class="memitem:adb4ac271a213678cf7792e8f1c1bbf11" id="r_adb4ac271a213678cf7792e8f1c1bbf11"><td class="memItemLeft">unsigned char&#160;</td><td class="memItemRight"><a class="el" href="#adb4ac271a213678cf7792e8f1c1bbf11">advancedConfigUnknownBytes</a> [32] = {0}</td></tr>
 <tr class="memitem:a72841f661d5e8e54037e8aa1b08ccebb" id="r_a72841f661d5e8e54037e8aa1b08ccebb"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a72841f661d5e8e54037e8aa1b08ccebb">advancedConfigUnknownLen</a> = 0</td></tr>
+<tr class="memitem:a8eba1c04bb755bd1e22edc109d60305a" id="r_a8eba1c04bb755bd1e22edc109d60305a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a8eba1c04bb755bd1e22edc109d60305a">configPayloadLen</a> = 0</td></tr>
 <tr class="memitem:a308c93f88c0993bad82f701a2d3ddebd" id="r_a308c93f88c0993bad82f701a2d3ddebd"><td class="memItemLeft">unsigned char&#160;</td><td class="memItemRight"><a class="el" href="#a308c93f88c0993bad82f701a2d3ddebd">configUnknownBytes</a> [32] = {0}</td></tr>
 <tr class="memitem:a0caa1de0101f699d75965c4f73dcf8d4" id="r_a0caa1de0101f699d75965c4f73dcf8d4"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a0caa1de0101f699d75965c4f73dcf8d4">configUnknownLen</a> = 0</td></tr>
 <tr class="memitem:a2ef4cd9d592ccfd0f79d0a5fddbc4769" id="r_a2ef4cd9d592ccfd0f79d0a5fddbc4769"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2ef4cd9d592ccfd0f79d0a5fddbc4769">debugNukiCommand</a> = false</td></tr>
@@ -815,6 +821,25 @@ template&lt;typename TDeviceAction&gt; </div>
 
 </div>
 </div>
+<a id="aa9fc157e60860fa976e5dabf95990e87" name="aa9fc157e60860fa976e5dabf95990e87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9fc157e60860fa976e5dabf95990e87">&#9670;&#160;</a></span>getAdvancedConfigPayloadLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Nuki::NukiBle::getAdvancedConfigPayloadLength </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of the last received advanced config payload in bytes, 0 if none was received yet. </p>
+
+</div>
+</div>
 <a id="a8c26d4e32871b1e8974688cce75fd7ec" name="a8c26d4e32871b1e8974688cce75fd7ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8c26d4e32871b1e8974688cce75fd7ec">&#9670;&#160;</a></span>getAdvancedConfigUnknownBytes()</h2>
 
@@ -880,6 +905,25 @@ template&lt;typename TDeviceAction&gt; </div>
 
 <p>Returns the BLE address of the device if paired. </p>
 <dl class="section return"><dt>Returns</dt><dd>BLE address </dd></dl>
+
+</div>
+</div>
+<a id="a02fba085721d767383f703eabed2a74e" name="a02fba085721d767383f703eabed2a74e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02fba085721d767383f703eabed2a74e">&#9670;&#160;</a></span>getConfigPayloadLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Nuki::NukiBle::getConfigPayloadLength </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Length of the last received config payload in bytes, 0 if none was received yet. </p>
 
 </div>
 </div>
@@ -2360,6 +2404,28 @@ template&lt;typename TDeviceAction&gt; </div>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a0bacf095f6ed8ad70891caef30054202" name="a0bacf095f6ed8ad70891caef30054202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bacf095f6ed8ad70891caef30054202">&#9670;&#160;</a></span>advancedConfigPayloadLen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Nuki::NukiBle::advancedConfigPayloadLen = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="adb4ac271a213678cf7792e8f1c1bbf11" name="adb4ac271a213678cf7792e8f1c1bbf11"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb4ac271a213678cf7792e8f1c1bbf11">&#9670;&#160;</a></span>advancedConfigUnknownBytes</h2>
 
@@ -2393,6 +2459,28 @@ template&lt;typename TDeviceAction&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">uint8_t Nuki::NukiBle::advancedConfigUnknownLen = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8eba1c04bb755bd1e22edc109d60305a" name="a8eba1c04bb755bd1e22edc109d60305a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eba1c04bb755bd1e22edc109d60305a">&#9670;&#160;</a></span>configPayloadLen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Nuki::NukiBle::configPayloadLen = 0</td>
         </tr>
       </table>
   </td>
