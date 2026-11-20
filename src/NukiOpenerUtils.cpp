@@ -160,7 +160,7 @@ void logConfig(Config config, bool debug, Print* Log) {
   if (debug) {
     logMessageVar("nukiId :%d", (unsigned int)config.nukiId, Log, 4);
     logMessageVar("name :%s", (const char*)config.name, Log, 4);
-    logMessageVar("capabilities :%s", (unsigned int)config.capabilities, Log, 4);
+    logMessageVar("capabilities :%d", (unsigned int)config.capabilities, Log, 4);
     logMessage("latitude : Not reported for privacy", Log, 4);
     logMessage("longitude : Not reported for privacy", Log, 4);
     //logMessageVar("latitude :%f", (const float)config.latitude, Log, 4);
