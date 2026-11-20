@@ -659,6 +659,7 @@ void NukiOpener::createNewAdvancedConfig(const AdvancedConfig* oldConfig, NewAdv
   newConfig->electricStrikeDuration = oldConfig->electricStrikeDuration;
   newConfig->disableRtoAfterRing = oldConfig->disableRtoAfterRing;
   newConfig->rtoTimeout = oldConfig->rtoTimeout;
+  newConfig->unknown = oldConfig->unknown;
   newConfig->doorbellSuppression = oldConfig->doorbellSuppression;
   newConfig->doorbellSuppressionDuration = oldConfig->doorbellSuppressionDuration;
   newConfig->soundRing = oldConfig->soundRing;
