@@ -64,11 +64,11 @@ int encode(unsigned char* output, unsigned char* input, unsigned long long len, 
 
   if (result) {
     if (Log == nullptr) {
-      log_d("Encryption failed (length %i, given result %i)\n", len, result);
+      log_d("Encryption failed (length %i, given result %i)\n", (int)len, result);
     }
     else
     {
-      Log->printf("Encryption failed (length %i, given result %i)\r\n", len, result);
+      Log->printf("Encryption failed (length %i, given result %i)\r\n", (int)len, result);
     }
     return -1;
   }
@@ -81,11 +81,11 @@ int decode(unsigned char* output, unsigned char* input, unsigned long long len, 
 
   if (result) {
     if (Log == nullptr) {
-      log_w("Decryption failed (length %i, given result %i)\n", len, result);
+      log_w("Decryption failed (length %i, given result %i)\n", (int)len, result);
     }
     else
     {
-      Log->printf("Decryption failed (length %i, given result %i)\r\n", len, result);
+      Log->printf("Decryption failed (length %i, given result %i)\r\n", (int)len, result);
     }
     return -1;
   }
