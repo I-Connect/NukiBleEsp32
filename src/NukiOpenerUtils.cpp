@@ -551,11 +551,11 @@ void logBatteryReport(BatteryReport batteryReport, bool debug, Print* Log) {
 
 void logLogEntry(LogEntry logEntry, bool debug, Print* Log) {
   if (Log == nullptr) {
-    log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
+    log_d("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", (unsigned int)logEntry.index, (int)logEntry.loggingType, (unsigned int)logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);
   }
   else
   {
-    Log->printf("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", logEntry.index, logEntry.loggingType, logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);;
+    Log->printf("[%d] type:%d authId:%d name: %s %d-%d-%d %d:%d:%d ", (unsigned int)logEntry.index, (int)logEntry.loggingType, (unsigned int)logEntry.authId, logEntry.name, logEntry.timeStampYear, logEntry.timeStampMonth, logEntry.timeStampDay, logEntry.timeStampHour, logEntry.timeStampMinute, logEntry.timeStampSecond);;
     Log->println();
   }
 

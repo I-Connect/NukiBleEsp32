@@ -1088,7 +1088,7 @@ void NukiBle::getMacAddress(char* macAddress) {
   unsigned char buf[6];
   if ((preferences.getBytes(BLE_ADDRESS_STORE_NAME, buf, 6) > 0)) {
     BLEAddress address = BLEAddress(buf, 0);
-    sprintf(macAddress, "%d", address.toString().c_str());
+    sprintf(macAddress, "%s", address.toString().c_str());
   }
 }
 
@@ -1454,11 +1454,11 @@ bool NukiBle::sendPlainMessage(Command commandIdentifier, const unsigned char* p
   printBuffer((byte*)dataToSend, payloadLen + 4, false, "Sending plain message", debugNukiHexData, logger);
   if (debugNukiHexData) {
     if (logger == nullptr) {
-      log_d("Command identifier: %02x, CRC: %04x", (uint32_t)commandIdentifier, dataCrc);
+      log_d("Command identifier: %02x, CRC: %04x", (unsigned int)commandIdentifier, dataCrc);
     }
     else
     {
-      logger->printf("Command identifier: %02x, CRC: %04x\r\n", (uint32_t)commandIdentifier, dataCrc);
+      logger->printf("Command identifier: %02x, CRC: %04x\r\n", (unsigned int)commandIdentifier, dataCrc);
     }
   }
 
