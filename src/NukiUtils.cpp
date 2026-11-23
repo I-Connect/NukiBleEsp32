@@ -1,6 +1,7 @@
 #include "NukiUtils.h"
 
 #include "sodium/crypto_secretbox.h"
+#include "psa/crypto.h"
 #include "Crc16.h"
 
 
@@ -57,6 +58,45 @@ bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len) {
     }
   }
   return true;
+}
+
+bool generateKeyPair(unsigned char* publicKey, unsigned char* privateKey) {
+  psa_key_attributes_t attributes = PSA_KEY_ATTRIBUTES_INIT;
+  psa_key_id_t key = 0;
+  size_t length = 0;
+
+  psa_set_key_type(&attributes, PSA_KEY_TYPE_ECC_KEY_PAIR(PSA_ECC_FAMILY_MONTGOMERY));
+  psa_set_key_bits(&attributes, 255);
+  psa_set_key_algorithm(&attributes, PSA_ALG_ECDH);
+  psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_DERIVE | PSA_KEY_USAGE_EXPORT);
+
+  if (psa_crypto_init() != PSA_SUCCESS || psa_generate_key(&attributes, &key) != PSA_SUCCESS) {
+    return false;
+  }
+
+  bool result = psa_export_key(key, privateKey, 32, &length) == PSA_SUCCESS && length == 32
+                && psa_export_public_key(key, publicKey, 32, &length) == PSA_SUCCESS && length == 32;
+  psa_destroy_key(key);
+  return result;
+}
+
+bool keyAgreement(unsigned char* sharedKey, const unsigned char* privateKey, const unsigned char* remotePublicKey) {
+  psa_key_attributes_t attributes = PSA_KEY_ATTRIBUTES_INIT;
+  psa_key_id_t key = 0;
+  size_t length = 0;
+
+  psa_set_key_type(&attributes, PSA_KEY_TYPE_ECC_KEY_PAIR(PSA_ECC_FAMILY_MONTGOMERY));
+  psa_set_key_bits(&attributes, 255);
+  psa_set_key_algorithm(&attributes, PSA_ALG_ECDH);
+  psa_set_key_usage_flags(&attributes, PSA_KEY_USAGE_DERIVE);
+
+  if (psa_crypto_init() != PSA_SUCCESS || psa_import_key(&attributes, privateKey, 32, &key) != PSA_SUCCESS) {
+    return false;
+  }
+
+  bool result = psa_raw_key_agreement(PSA_ALG_ECDH, key, remotePublicKey, 32, sharedKey, 32, &length) == PSA_SUCCESS && length == 32;
+  psa_destroy_key(key);
+  return result;
 }
 
 int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS, Print* Log) {

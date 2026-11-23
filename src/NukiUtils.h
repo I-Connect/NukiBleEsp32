@@ -26,6 +26,8 @@ void printBuffer(const byte* buff, const uint8_t size, const boolean asChars, co
 bool isCharArrayNotEmpty(unsigned char* array, uint16_t len);
 bool isCharArrayEmpty(unsigned char* array, uint16_t len);
 bool compareCharArray(unsigned char* a, unsigned char* b, uint8_t len);
+bool generateKeyPair(unsigned char* publicKey, unsigned char* privateKey);
+bool keyAgreement(unsigned char* sharedKey, const unsigned char* privateKey, const unsigned char* remotePublicKey);
 int encode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS, Print* Log = nullptr);
 int decode(unsigned char* output, unsigned char* input, unsigned long long len, unsigned char* nonce, unsigned char* keyS, Print* Log = nullptr);
 void generateNonce(unsigned char* hexArray, uint8_t nrOfBytes, bool debug = false, Print* Log = nullptr);

@@ -15,11 +15,9 @@
 #include "NukiUtils.h"
 #include "string.h"
 #include <algorithm>
-#include "sodium/crypto_scalarmult.h"
 #include "sodium/crypto_core_hsalsa20.h"
 #include "sodium/crypto_auth_hmacsha256.h"
 #include "sodium/crypto_secretbox.h"
-#include "sodium/crypto_box.h"
 #include "NimBLEBeacon.h"
 
 namespace Nuki {
@@ -207,14 +205,12 @@ PairingResult NukiBle::pairNuki(AuthorizationIdType idType) {
       logMessage("Nuki in pairing mode found");
     }
     if (connectBle(bleAddress, true)) {
-      crypto_box_keypair(myPublicKey, myPrivateKey);
-
-      PairingState nukiPairingState = PairingState::InitPairing;
-      do {
+      PairingState nukiPairingState = generateKeyPair(myPublicKey, myPrivateKey) ? PairingState::InitPairing : PairingState::Timeout;
+      while ((nukiPairingState != PairingState::Success) && (nukiPairingState != PairingState::Timeout)) {
         nukiPairingState = pairStateMachine(nukiPairingState);
         extendDisconnectTimeout();
         delay(50);
-      } while ((nukiPairingState != PairingState::Success) && (nukiPairingState != PairingState::Timeout));
+      }
 
       if (nukiPairingState == PairingState::Success) {
         saveCredentials();
@@ -1193,7 +1189,11 @@ PairingState NukiBle::pairStateMachine(const PairingState nukiPairingState) {
         logMessage("##################### CALCULATE DH SHARED KEY s #########################");
       }
       unsigned char sharedKeyS[32] = {0x00};
-      crypto_scalarmult_curve25519(sharedKeyS, myPrivateKey, remotePublicKey);
+      if (!keyAgreement(sharedKeyS, myPrivateKey, remotePublicKey)) {
+        logMessage("Key agreement failed", 2);
+        nukiPairingResultState = PairingState::Timeout;
+        break;
+      }
       printBuffer(sharedKeyS, sizeof(sharedKeyS), false, "Shared key s", debugNukiHexData, logger);
 
       if (debugNukiConnect) {
