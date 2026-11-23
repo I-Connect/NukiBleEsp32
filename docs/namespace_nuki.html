@@ -401,12 +401,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a57eb68caa0d15ba3a57abfb79e377816" id="r_a57eb68caa0d15ba3a57abfb79e377816"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a57eb68caa0d15ba3a57abfb79e377816">crcValid</a> (uint8_t *pData, uint16_t length, bool debug, Print *Log)</td></tr>
 <tr class="memitem:a61ac87a5fa1c207a1daed8609a3cd4c9" id="r_a61ac87a5fa1c207a1daed8609a3cd4c9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a61ac87a5fa1c207a1daed8609a3cd4c9">decode</a> (unsigned char *output, unsigned char *input, unsigned long long len, unsigned char *nonce, unsigned char *keyS, Print *Log)</td></tr>
 <tr class="memitem:a270a536c493ffabac22fb47fc5dff00a" id="r_a270a536c493ffabac22fb47fc5dff00a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a270a536c493ffabac22fb47fc5dff00a">encode</a> (unsigned char *output, unsigned char *input, unsigned long long len, unsigned char *nonce, unsigned char *keyS, Print *Log)</td></tr>
+<tr class="memitem:a2b78fe79eb5eac68fa06a1a5cb955020" id="r_a2b78fe79eb5eac68fa06a1a5cb955020"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2b78fe79eb5eac68fa06a1a5cb955020">generateKeyPair</a> (unsigned char *publicKey, unsigned char *privateKey)</td></tr>
 <tr class="memitem:a547c975779e6d3b980a202106f805f48" id="r_a547c975779e6d3b980a202106f805f48"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a547c975779e6d3b980a202106f805f48">generateNonce</a> (unsigned char *hexArray, uint8_t nrOfBytes, bool debug, Print *Log)</td></tr>
 <tr class="memitem:aacbd1098adadb8b3b929e83c6de37c05" id="r_aacbd1098adadb8b3b929e83c6de37c05"><td class="memTemplParams" colspan="2">template&lt;std::size_t N&gt; </td></tr>
 <tr class="memitem:aacbd1098adadb8b3b929e83c6de37c05 template"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aacbd1098adadb8b3b929e83c6de37c05">getWeekdaysIntFromBitset</a> (const std::bitset&lt; N &gt; bits)</td></tr>
 <tr class="memdesc:aacbd1098adadb8b3b929e83c6de37c05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate a bitset&lt;N&gt; into <a class="el" href="namespace_nuki.html">Nuki</a> weekdays int.  <br /></td></tr>
 <tr class="memitem:a2b85ffdf8eae3b1bc9f8784b51bda1a0" id="r_a2b85ffdf8eae3b1bc9f8784b51bda1a0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2b85ffdf8eae3b1bc9f8784b51bda1a0">isCharArrayEmpty</a> (unsigned char *array, uint16_t len)</td></tr>
 <tr class="memitem:af7752bab0ff47daf5e6082b7925874e5" id="r_af7752bab0ff47daf5e6082b7925874e5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af7752bab0ff47daf5e6082b7925874e5">isCharArrayNotEmpty</a> (unsigned char *array, uint16_t len)</td></tr>
+<tr class="memitem:a5a3168d7733960e1b614e3161714c906" id="r_a5a3168d7733960e1b614e3161714c906"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5a3168d7733960e1b614e3161714c906">keyAgreement</a> (unsigned char *sharedKey, const unsigned char *privateKey, const unsigned char *remotePublicKey)</td></tr>
 <tr class="memitem:a438fdfcef9f81eb0a3e493631b71ca5b" id="r_a438fdfcef9f81eb0a3e493631b71ca5b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a438fdfcef9f81eb0a3e493631b71ca5b">printBuffer</a> (const byte *buff, const uint8_t size, const boolean asChars, const char *header, bool debug, Print *Log)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
@@ -1199,6 +1201,39 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2b78fe79eb5eac68fa06a1a5cb955020" name="a2b78fe79eb5eac68fa06a1a5cb955020"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b78fe79eb5eac68fa06a1a5cb955020">&#9670;&#160;</a></span>generateKeyPair()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::generateKeyPair </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>publicKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>privateKey</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-11-summary" class="dynsummary">
+</div>
+<div id="dynsection-11-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a2b78fe79eb5eac68fa06a1a5cb955020_cgraph.svg" width="160" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-12-summary" class="dynsummary">
+</div>
+<div id="dynsection-12-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a2b78fe79eb5eac68fa06a1a5cb955020_icgraph.svg" width="363" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a547c975779e6d3b980a202106f805f48" name="a547c975779e6d3b980a202106f805f48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a547c975779e6d3b980a202106f805f48">&#9670;&#160;</a></span>generateNonce()</h2>
 
@@ -1227,16 +1262,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div id="dynsection-11" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-11-summary" class="dynsummary">
+<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-13-summary" class="dynsummary">
 </div>
-<div id="dynsection-11-content" class="dyncontent hidden">
+<div id="dynsection-13-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a547c975779e6d3b980a202106f805f48_cgraph.svg" width="315" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-<div id="dynsection-12" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-12-summary" class="dynsummary">
+<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-14-summary" class="dynsummary">
 </div>
-<div id="dynsection-12-content" class="dyncontent hidden">
+<div id="dynsection-14-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a547c975779e6d3b980a202106f805f48_icgraph.svg" width="154" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1273,16 +1308,16 @@ template&lt;std::size_t N&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t with bit6 = Monday ... bit0 = Sunday </dd></dl>
-<div id="dynsection-13" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-13-summary" class="dynsummary">
+<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-15-summary" class="dynsummary">
 </div>
-<div id="dynsection-13-content" class="dyncontent hidden">
+<div id="dynsection-15-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_aacbd1098adadb8b3b929e83c6de37c05_cgraph.svg" width="188" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-<div id="dynsection-14" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-14-summary" class="dynsummary">
+<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-16-summary" class="dynsummary">
 </div>
-<div id="dynsection-14-content" class="dyncontent hidden">
+<div id="dynsection-16-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_aacbd1098adadb8b3b929e83c6de37c05_icgraph.svg" width="363" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1306,16 +1341,16 @@ template&lt;std::size_t N&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div id="dynsection-15" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-15-summary" class="dynsummary">
+<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-17-summary" class="dynsummary">
 </div>
-<div id="dynsection-15-content" class="dyncontent hidden">
+<div id="dynsection-17-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a2b85ffdf8eae3b1bc9f8784b51bda1a0_cgraph.svg" width="168" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-<div id="dynsection-16" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-16-summary" class="dynsummary">
+<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-18-summary" class="dynsummary">
 </div>
-<div id="dynsection-16-content" class="dyncontent hidden">
+<div id="dynsection-18-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a2b85ffdf8eae3b1bc9f8784b51bda1a0_icgraph.svg" width="168" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
@@ -1339,17 +1374,55 @@ template&lt;std::size_t N&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div id="dynsection-17" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-17-summary" class="dynsummary">
+<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-19-summary" class="dynsummary">
 </div>
-<div id="dynsection-17-content" class="dyncontent hidden">
+<div id="dynsection-19-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_af7752bab0ff47daf5e6082b7925874e5_cgraph.svg" width="190" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-<div id="dynsection-18" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-18-summary" class="dynsummary">
+<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-20-summary" class="dynsummary">
 </div>
-<div id="dynsection-18-content" class="dyncontent hidden">
+<div id="dynsection-20-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_af7752bab0ff47daf5e6082b7925874e5_icgraph.svg" width="190" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a5a3168d7733960e1b614e3161714c906" name="a5a3168d7733960e1b614e3161714c906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a3168d7733960e1b614e3161714c906">&#9670;&#160;</a></span>keyAgreement()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Nuki::keyAgreement </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char *</td>          <td class="paramname"><span class="paramname"><em>sharedKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned char *</td>          <td class="paramname"><span class="paramname"><em>privateKey</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned char *</td>          <td class="paramname"><span class="paramname"><em>remotePublicKey</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div id="dynsection-21" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-21-summary" class="dynsummary">
+</div>
+<div id="dynsection-21-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a5a3168d7733960e1b614e3161714c906_cgraph.svg" width="148" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div id="dynsection-22" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-22-summary" class="dynsummary">
+</div>
+<div id="dynsection-22-content" class="dyncontent hidden">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a5a3168d7733960e1b614e3161714c906_icgraph.svg" width="148" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1392,16 +1465,16 @@ template&lt;std::size_t N&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<div id="dynsection-19" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
-<div id="dynsection-19-summary" class="dynsummary">
+<div id="dynsection-23" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the call graph for this function:</div>
+<div id="dynsection-23-summary" class="dynsummary">
 </div>
-<div id="dynsection-19-content" class="dyncontent hidden">
+<div id="dynsection-23-content" class="dyncontent hidden">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a438fdfcef9f81eb0a3e493631b71ca5b_cgraph.svg" width="124" height="60"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-<div id="dynsection-20" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
-<div id="dynsection-20-summary" class="dynsummary">
+<div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
+<div id="dynsection-24-summary" class="dynsummary">
 </div>
-<div id="dynsection-20-content" class="dyncontent hidden">
+<div id="dynsection-24-content" class="dyncontent hidden">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespace_nuki_a438fdfcef9f81eb0a3e493631b71ca5b_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 

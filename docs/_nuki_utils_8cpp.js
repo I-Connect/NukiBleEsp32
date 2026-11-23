@@ -5,9 +5,11 @@ var _nuki_utils_8cpp =
     [ "Nuki::crcValid", "namespace_nuki.html#a57eb68caa0d15ba3a57abfb79e377816", null ],
     [ "Nuki::decode", "namespace_nuki.html#a61ac87a5fa1c207a1daed8609a3cd4c9", null ],
     [ "Nuki::encode", "namespace_nuki.html#a270a536c493ffabac22fb47fc5dff00a", null ],
+    [ "Nuki::generateKeyPair", "namespace_nuki.html#a2b78fe79eb5eac68fa06a1a5cb955020", null ],
     [ "Nuki::generateNonce", "namespace_nuki.html#a547c975779e6d3b980a202106f805f48", null ],
     [ "Nuki::getWeekdaysIntFromBitset", "namespace_nuki.html#aacbd1098adadb8b3b929e83c6de37c05", null ],
     [ "Nuki::isCharArrayEmpty", "namespace_nuki.html#a2b85ffdf8eae3b1bc9f8784b51bda1a0", null ],
     [ "Nuki::isCharArrayNotEmpty", "namespace_nuki.html#af7752bab0ff47daf5e6082b7925874e5", null ],
+    [ "Nuki::keyAgreement", "namespace_nuki.html#a5a3168d7733960e1b614e3161714c906", null ],
     [ "Nuki::printBuffer", "namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b", null ]
 ];

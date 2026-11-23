@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daf74f4f92bfeb161dde6409f4ced770c5":[1,0,2,8,3],
+"namespace_nuki_opener.html#aac5c6a662593b3723d84ec094d89d525":[1,0,2,33],
 "namespace_nuki_opener.html#aad7d6b0194a17c63e1016ede4a5db454":[1,0,2,11],
 "namespace_nuki_opener.html#ab62811be19a9ac8b70ee75cdab93d77a":[1,0,2,22],
 "namespace_nuki_opener.html#abe42ec4ff1fe8d7a2324598ccb90732d":[1,0,2,27],

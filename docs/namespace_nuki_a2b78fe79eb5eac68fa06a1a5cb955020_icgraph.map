@@ -1,0 +1,6 @@
+<map id="Nuki::generateKeyPair" name="Nuki::generateKeyPair">
+<area shape="rect" id="Node000001" title=" " alt="" coords="208,29,357,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="317,17,305,10,282,8,261,10,250,15,248,20,253,27,249,30,242,21,246,11,260,5,282,3,307,5,319,12"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700" title="Checks if credentials are stored in preferences, if not initiate pairing." alt="" coords="5,29,160,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="192,45,160,45,160,40,192,40"/>
+</map>
