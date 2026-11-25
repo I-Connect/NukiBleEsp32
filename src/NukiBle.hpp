@@ -459,6 +459,11 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
       }
       lastMsgCodeReceived = Command::Empty;
+      // What arrived before the action went out (a late error of the action before, the
+      // challenge) is not its answer
+      errorReportSeen = false;
+      statusAcceptedSeen = false;
+      statusCompleteSeen = false;
       //add received challenge nonce to payload
       uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
       unsigned char payload[payloadLen];
@@ -507,18 +512,13 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return busy ? Nuki::CmdResult::Lock_Busy : Nuki::CmdResult::Failed;
-      } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Accepted) {
-        #ifndef NUKI_64BIT_TIME
-        timeNow = millis();
-        #else
-        timeNow = (esp_timer_get_time() / 1000);
-        #endif
-        nukiCommandState = CommandState::CmdAccepted;
-        lastMsgCodeReceived = Command::Empty;
-      } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Complete) {
-        //accept was skipped on lock because ie unlock command when lock allready unlocked?
+      } else if (statusAcceptedSeen || statusCompleteSeen) {
+        // An action is reported as done once the device accepted it, as it always was (the
+        // "complete" of a motor that runs for seconds is not waited for). Read from marks
+        // that stay: the state the device sends right behind "accepted" replaces
+        // lastMsgCodeReceived before this has looked at it.
         if (debugNukiCommunication) {
-          logMessage("************************ COMMAND SUCCESS (SKIPPED) ************************");
+          logMessage("************************ COMMAND SUCCESS ************************");
         }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
@@ -555,11 +555,9 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
-      } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::Complete || lastMsgCodeReceived == Command::Status) {
-        // The first comparison is true while nothing arrived since "accepted": an action has
-        // always been reported as done once the device accepted it. A "complete" that arrives
-        // before this looks (it does, now that messages are not held back) is the same answer,
-        // not a reason to wait for the timeout.
+      } else {
+        // Not reached any more (CmdSent ends the action at "accepted"), kept for a state
+        // machine that is in this state for another reason
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND SUCCESS ************************");
         }

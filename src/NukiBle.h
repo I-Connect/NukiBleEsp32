@@ -138,6 +138,15 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void holdConnection();
 
     /**
+     * @brief Exchanges something small on an open connection, so that the device does not
+     * end it for being silent (it does after about ten seconds). Does nothing without a
+     * connection or while a command runs.
+     *
+     * @return true when the device answered
+     */
+    bool keepAlive();
+
+    /**
      * @brief Whether there is a connection to the device right now
      */
     bool isConnected();
@@ -533,6 +542,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     // An error report arrived since the command went out. Kept apart from lastMsgCodeReceived,
     // which the next message overwrites before the command has looked at it.
     volatile bool errorReportSeen = false;
+    // The same for the status of a lock action
+    volatile bool statusAcceptedSeen = false;
+    volatile bool statusCompleteSeen = false;
     // The last command was refused by the device, on a connection that is fine
     bool linkOkAfterFailure = false;
     /**

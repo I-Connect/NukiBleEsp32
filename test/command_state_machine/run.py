@@ -130,6 +130,7 @@ class NukiBle {
       errorReportSeen = true;
     } else if (command == Command::Status) {
       receivedStatus = value;
+      if (value == 0) statusCompleteSeen = true; else if (value == 1) statusAcceptedSeen = true;
     }
     lastMsgCodeReceived = command;
     crcCheckOke = true;
@@ -142,6 +143,7 @@ class NukiBle {
   CommandState nukiCommandState = CommandState::Idle;
   Command lastMsgCodeReceived = Command::Empty;
   volatile bool errorReportSeen = false;
+  volatile bool statusAcceptedSeen = false, statusCompleteSeen = false;
   bool linkOkAfterFailure = false;
   uint8_t errorCode = 0;
   uint8_t receivedStatus = 0xff;
@@ -393,6 +395,33 @@ int main(int argc, char** argv) {
     assert(nowMs - started < 1000);
     return 0;
   }
+  if (scenario == "action_state_behind_accepted") {
+    // The device sends its state right behind "accepted", before the command has looked, and
+    // "complete" only seconds later: done at "accepted", not a timeout and a second attempt
+    device([](const NukiBle::Sent&) {
+      script.push_back([] {
+        ble.receive(Command::Status, (uint8_t) CommandStatus::Accepted);
+        ble.receive(Command::KeyturnerStates);
+      });
+    });
+    const int64_t started = nowMs;
+    assert(ble.executeAction(lockAction) == CmdResult::Success);
+    assert(nowMs - started < 1000 && ble.disconnects == 0);
+    return 0;
+  }
+  if (scenario == "action_error_before_it_went_out") {
+    // A late error of the action before arrives while this one waits for its challenge: it
+    // is not this action's answer
+    ble.onSend = [](const NukiBle::Sent& message) {
+      if (message.isChallengeRequest) {
+        script.push_back([] { ble.receive(Command::ErrorReport, 69); ble.receive(Command::Challenge, 5); });
+      } else {
+        script.push_back([] { ble.receive(Command::Status, (uint8_t) CommandStatus::Accepted); });
+      }
+    };
+    assert(ble.executeAction(lockAction) == CmdResult::Success);
+    return 0;
+  }
   if (scenario == "no_wait_between_steps") {
     // With the challenge there, the command goes out without a wait in between
     ble.setChallengePrefetch(true);
@@ -411,7 +440,8 @@ int main(int argc, char** argv) {
 SCENARIOS = ["plain", "ahead_ready", "ahead_on_its_way", "refresh_crosses_command", "read_keeps_challenge",
              "no_ahead_after_list", "refused", "refused_connection", "error_then_message", "ahead_not_taken",
              "timeout", "action_refused", "action_stale_error", "action_complete_right_after_accepted",
-             "action_accepted_only", "no_wait_between_steps"]
+             "action_accepted_only", "action_state_behind_accepted", "action_error_before_it_went_out",
+             "no_wait_between_steps"]
 
 
 def main():

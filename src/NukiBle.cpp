@@ -63,6 +63,10 @@ NukiBle::NukiBle(const std::string& deviceName,
 }
 
 NukiBle::~NukiBle() {
+  if (responseSignal != nullptr) {
+    vSemaphoreDelete(responseSignal);
+    responseSignal = nullptr;
+  }
   if (bleScanner != nullptr) {
     bleScanner->unsubscribe(this);
     bleScanner = nullptr;
@@ -1725,11 +1729,48 @@ void NukiBle::requestChallengeAhead() {
     return;
   }
   unsigned char payload[sizeof(Command)] = {0x04, 0x00};  // challenge
+  // Marked as on its way before it goes out: the write waits for the device, and the answer
+  // (or the end of the connection) may be handled before it returns
+  challengePrefetchAt = esp_timer_get_time() / 1000;
+  challengePrefetch = ChallengePrefetch::Sent;
   challengePrefetchSending = true;
   const bool sent = sendEncryptedMessage(Command::RequestData, payload, sizeof(Command));
   challengePrefetchSending = false;
-  challengePrefetchAt = esp_timer_get_time() / 1000;
-  challengePrefetch = sent ? ChallengePrefetch::Sent : ChallengePrefetch::None;
+  if (!sent) {
+    challengePrefetch = ChallengePrefetch::None;
+  }
+}
+
+bool NukiBle::keepAlive() {
+  if (!isPaired || !isConnected() || nukiCommandState != CommandState::Idle) {
+    return false;
+  }
+  extendDisconnectTimeout();
+  if (challengePrefetchActive()) {
+    prefetchChallenge(true);
+    return true;
+  }
+  // The smallest exchange there is, a challenge nobody uses. Its answer is waited for here:
+  // arriving behind the challenge request of a command it would be taken for that one's.
+  unsigned char payload[sizeof(Command)] = {0x04, 0x00};
+  lastMsgCodeReceived = Command::Empty;
+  challengePrefetchSending = true;
+  const bool sent = sendEncryptedMessage(Command::RequestData, payload, sizeof(Command));
+  challengePrefetchSending = false;
+  if (!sent) {
+    return false;
+  }
+  const int64_t started = esp_timer_get_time() / 1000;
+  while (lastMsgCodeReceived != Command::Challenge && (esp_timer_get_time() / 1000) - started < 500) {
+    if (responseSignal != nullptr) {
+      xSemaphoreTake(responseSignal, pdMS_TO_TICKS(10));
+    } else {
+      delay(10);
+    }
+  }
+  const bool answered = lastMsgCodeReceived == Command::Challenge;
+  lastMsgCodeReceived = Command::Empty;
+  return answered;
 }
 
 void NukiBle::afterRefusal() {
@@ -1838,6 +1879,11 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       }
       printBuffer((byte*)data, dataLen, false, "status", debugNukiHexData, logger);
       receivedStatus = data[0];
+      if (receivedStatus == 0) {
+        statusCompleteSeen = true;
+      } else if (receivedStatus == 1) {
+        statusAcceptedSeen = true;
+      }
       if (debugNukiCommunication) {
         if (receivedStatus == 0) {
           logMessage("command COMPLETE");
