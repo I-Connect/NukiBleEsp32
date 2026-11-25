@@ -491,6 +491,18 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint8_t errorCode = 0;
 
     Command lastMsgCodeReceived = Command::Empty;
+    // An error report arrived since the command went out. Kept apart from lastMsgCodeReceived,
+    // which the next message overwrites before the command has looked at it.
+    volatile bool errorReportSeen = false;
+    // The last command was refused by the device, on a connection that is fine
+    bool linkOkAfterFailure = false;
+    /**
+     * @brief The device answered a command with an error report. The connection is closed only
+     * for the errors that say something about it (not authorized, wrong PIN or challenge, a
+     * message that arrived broken): a refused keypad code or a busy device leave it open for
+     * the next command, which then does not have to connect again.
+     */
+    void afterRefusal();
 
     bool debugNukiConnect = false;
     bool debugNukiCommunication = false;

@@ -1666,6 +1666,22 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   }
 }
 
+void NukiBle::afterRefusal() {
+  switch (errorCode) {
+    case 0x20: // not authorized
+    case 0x21: // bad pin
+    case 0x22: // bad nonce
+    case 0xFD: // bad crc
+    case 0xFE: // bad length
+    case 0xFF: // unknown
+      disconnect();
+      break;
+    default:
+      linkOkAfterFailure = true;
+      break;
+  }
+}
+
 bool NukiBle::payloadLongEnough(uint16_t dataLen, size_t needed, const char* what) {
   if (dataLen >= needed) {
     return true;
@@ -1779,6 +1795,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
         logger->printf("Error: %02x for command: %02x:%02x\r\n", data[0], data[2], data[1]);
       }
       memcpy(&errorCode, &data[0], sizeof(errorCode));
+      errorReportSeen = true;
       logErrorCode(data[0]);
       if ((uint8_t)data[0] == (uint8_t)0x21) {
         if (eventHandler) {
