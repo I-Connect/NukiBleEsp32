@@ -688,6 +688,7 @@ Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
   memcpy(action.payload, &newKeypadEntry, sizeof(NewKeypadEntry));
   action.payloadLen = sizeof(NewKeypadEntry);
 
+  lastKeypadCodeId = 0;
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
     if (debugNukiReadableData) {
@@ -1677,6 +1678,10 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   }
 }
 
+uint16_t NukiBle::getLastKeypadCodeId() {
+  return lastKeypadCodeId;
+}
+
 void NukiBle::setChallengePrefetch(bool enable) {
   challengePrefetchEnabled = enable;
   if (!enable) {
@@ -1914,6 +1919,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::KeypadCodeId : {
+      if (dataLen >= 2) {
+        memcpy(&lastKeypadCodeId, data, 2);
+      }
       printBuffer((byte*)data, dataLen, false, "keypadCodeId", debugNukiHexData, logger);
       break;
     }

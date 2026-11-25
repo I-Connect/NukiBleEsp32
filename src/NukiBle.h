@@ -196,6 +196,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     Nuki::CmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
 
     /**
+     * @brief The id the device gave the keypad code of the last successful addKeypadEntry(),
+     * 0 when it did not say. Without it the id is only known after the list is read again.
+     */
+    uint16_t getLastKeypadCodeId();
+
+    /**
      * @brief Send an updated keypad entry to the lock via BLE
      *
      * @param updatedKeypadEntry Nuki api based datatype to be sent
@@ -664,6 +670,7 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     uint8_t receivedStatus;
     bool crcCheckOke;
+    uint16_t lastKeypadCodeId = 0;
     // Given for every message of the device, so that a command that waits for one goes on at once
     SemaphoreHandle_t responseSignal = nullptr;
 
