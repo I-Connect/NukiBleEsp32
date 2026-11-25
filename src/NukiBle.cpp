@@ -71,6 +71,9 @@ NukiBle::~NukiBle() {
 
 void NukiBle::initialize(bool initAltConnect) {
   preferences.begin(preferencesId.c_str(), false);
+  if (responseSignal == nullptr) {
+    responseSignal = xSemaphoreCreateBinary();
+  }
   #ifdef NUKI_USE_LATEST_NIMBLE
   if (!NimBLEDevice::isInitialized())
   #else
@@ -1657,6 +1660,9 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     }
     crcCheckOke = crcOk && !payloadRejected;
     payloadRejected = false;
+  }
+  if (responseSignal != nullptr) {
+    xSemaphoreGive(responseSignal);
   }
 }
 

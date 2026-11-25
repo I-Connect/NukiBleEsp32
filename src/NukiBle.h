@@ -591,6 +591,8 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     uint8_t receivedStatus;
     bool crcCheckOke;
+    // Given for every message of the device, so that a command that waits for one goes on at once
+    SemaphoreHandle_t responseSignal = nullptr;
 
     unsigned char remotePublicKey[32] = {0x00};
     unsigned char challengeNonceK[32] = {0x00};

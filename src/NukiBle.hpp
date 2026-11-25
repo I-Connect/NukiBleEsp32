@@ -26,7 +26,8 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
 
   while (1) {
     extendDisconnectTimeout();
-      
+
+    const CommandState stateBefore = nukiCommandState;
     Nuki::CmdResult result;
     if (action.cmdType == Nuki::CommandType::Command) {
       result = cmdStateMachine(action);
@@ -54,7 +55,17 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
     #ifndef NUKI_NO_WDT_RESET
     esp_task_wdt_reset();
     #endif
-    delay(10);
+    if (nukiCommandState != stateBefore && nukiCommandState != CommandState::ChallengeSent &&
+        nukiCommandState != CommandState::CmdSent && nukiCommandState != CommandState::CmdAccepted) {
+      // The next step sends something: nothing to wait for
+      continue;
+    }
+    // Until the device's next message, and every 10 ms for the timeouts
+    if (responseSignal != nullptr) {
+      xSemaphoreTake(responseSignal, pdMS_TO_TICKS(10));
+    } else {
+      delay(10);
+    }
   }
   return Nuki::CmdResult::Failed;
 }
