@@ -53,6 +53,21 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
         disconnect();
       }
       linkOkAfterFailure = false;
+      if (challengePrefetchUsed) {
+        challengePrefetchUsed = false;
+        if (result == Nuki::CmdResult::Success) {
+          challengePrefetchStrikes = 0;
+        } else if (result == Nuki::CmdResult::TimeOut || (result == Nuki::CmdResult::Failed && errorCode == 0x22)) {
+          // 0x22: the device did not take the challenge
+          challengePrefetchStrikes++;
+          logMessage(challengePrefetchStrikes >= 2
+                       ? "A command with a challenge asked for ahead was not taken, asking ahead is off until the restart"
+                       : "A command with a challenge asked for ahead was not taken", 2);
+        }
+      }
+      if (result == Nuki::CmdResult::Success && isChangeCommand(action.command)) {
+        prefetchChallenge();
+      }
       return result;
     }
     #ifndef NUKI_NO_WDT_RESET
@@ -124,6 +139,10 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
   extendDisconnectTimeout();  
   switch (nukiCommandState) {
     case CommandState::Idle: {
+      if (challengePrefetch == ChallengePrefetch::Sent && (esp_timer_get_time() / 1000) - challengePrefetchAt < 500) {
+        // A challenge asked for ahead is on its way: it comes first, then this read goes out
+        return Nuki::CmdResult::Working;
+      }
       if (debugNukiCommunication) {
         logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
       }
@@ -204,6 +223,27 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
   extendDisconnectTimeout();
   switch (nukiCommandState) {
     case CommandState::Idle: {
+      if (challengePrefetch == ChallengePrefetch::Ready) {
+        // Asked for ahead and already here
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        nukiCommandState = CommandState::ChallengeRespReceived;
+        return Nuki::CmdResult::Working;
+      }
+      if (challengePrefetch == ChallengePrefetch::Sent && (esp_timer_get_time() / 1000) - challengePrefetchAt < 500) {
+        // Asked for ahead and on its way: wait for that one
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        #ifndef NUKI_64BIT_TIME
+        timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
+        nukiCommandState = CommandState::ChallengeSent;
+        return Nuki::CmdResult::Working;
+      }
+      challengePrefetch = ChallengePrefetch::None;
+      challengePrefetchUsed = false;
       if (debugNukiCommunication) {
         logMessage("************************ SENDING CHALLENGE ************************");
       }
@@ -350,6 +390,27 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
   extendDisconnectTimeout();
   switch (nukiCommandState) {
     case CommandState::Idle: {
+      if (challengePrefetch == ChallengePrefetch::Ready) {
+        // Asked for ahead and already here
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        nukiCommandState = CommandState::ChallengeRespReceived;
+        return Nuki::CmdResult::Working;
+      }
+      if (challengePrefetch == ChallengePrefetch::Sent && (esp_timer_get_time() / 1000) - challengePrefetchAt < 500) {
+        // Asked for ahead and on its way: wait for that one
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        #ifndef NUKI_64BIT_TIME
+        timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
+        nukiCommandState = CommandState::ChallengeSent;
+        return Nuki::CmdResult::Working;
+      }
+      challengePrefetch = ChallengePrefetch::None;
+      challengePrefetchUsed = false;
       if (debugNukiCommunication) {
         logMessage("************************ SENDING CHALLENGE ************************");
       }

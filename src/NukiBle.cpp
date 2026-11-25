@@ -1357,6 +1357,11 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
   # 24 byte #    4 byte       # 2 byte  #      4 byte              #       2 byte       #  n byte # 2 byte #
   */
 
+  if (!challengePrefetchSending && commandIdentifier != Command::RequestData) {
+    // The challenge is used up by the command that takes it. A read in between leaves it valid.
+    challengePrefetch = ChallengePrefetch::None;
+  }
+
   //compose plain data
   unsigned char plainData[6 + payloadLen] = {};
   unsigned char plainDataWithCrc[8 + payloadLen] = {};
@@ -1666,6 +1671,56 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
   }
 }
 
+void NukiBle::setChallengePrefetch(bool enable) {
+  challengePrefetchEnabled = enable;
+  if (!enable) {
+    challengePrefetch = ChallengePrefetch::None;
+  }
+}
+
+bool NukiBle::challengePrefetchActive() const {
+  return challengePrefetchEnabled && challengePrefetchStrikes < 2;
+}
+
+bool NukiBle::isConnected() {
+  return pClient != nullptr && !connecting && !disconnecting && pClient->isConnected();
+}
+
+void NukiBle::holdConnection() {
+  if (isConnected()) {
+    extendDisconnectTimeout();
+  }
+}
+
+void NukiBle::prefetchChallenge(bool refresh) {
+  if (nukiCommandState != CommandState::Idle) {
+    return;
+  }
+  const int64_t now = esp_timer_get_time() / 1000;
+  if (challengePrefetch == ChallengePrefetch::Sent && now - challengePrefetchAt < 500) {
+    return;
+  }
+  if (challengePrefetch == ChallengePrefetch::Ready && !refresh) {
+    return;
+  }
+  // The mark of the challenge this one replaces must not be taken for its arrival
+  lastMsgCodeReceived = Command::Empty;
+  requestChallengeAhead();
+}
+
+void NukiBle::requestChallengeAhead() {
+  // Only on a connection that is there: sendEncryptedMessage() would open one
+  if (!challengePrefetchActive() || !isPaired || !isConnected()) {
+    return;
+  }
+  unsigned char payload[sizeof(Command)] = {0x04, 0x00};  // challenge
+  challengePrefetchSending = true;
+  const bool sent = sendEncryptedMessage(Command::RequestData, payload, sizeof(Command));
+  challengePrefetchSending = false;
+  challengePrefetchAt = esp_timer_get_time() / 1000;
+  challengePrefetch = sent ? ChallengePrefetch::Sent : ChallengePrefetch::None;
+}
+
 void NukiBle::afterRefusal() {
   switch (errorCode) {
     case 0x20: // not authorized
@@ -1721,6 +1776,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
         break;
       }
       memcpy(challengeNonceK, data, 32);
+      if (challengePrefetch == ChallengePrefetch::Sent) {
+        challengePrefetch = ChallengePrefetch::Ready;
+      }
       printBuffer((byte*)data, dataLen, false, "Challenge", debugNukiHexData, logger);
       break;
     }
@@ -1919,6 +1977,7 @@ void NukiBle::onDisconnect(BLEClient*)
 #endif
 {
   countDisconnects = 0;
+  challengePrefetch = ChallengePrefetch::None;
   if (debugNukiConnect) {
     logMessage("BLE disconnected");
   }

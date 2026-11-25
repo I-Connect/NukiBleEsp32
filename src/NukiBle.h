@@ -110,6 +110,39 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void setDisconnectTimeout(uint32_t timeoutMs);
 
     /**
+     * @brief Every command but a plain read starts by asking the device for a challenge. With
+     * this on, the challenge of the next command is asked for when a command that changes one
+     * entry is done (and whenever prefetchChallenge() is called), so the next command goes out
+     * the moment it is given: one exchange less to wait for. Off by default.
+     *
+     * Tried on an Opener (firmware 1.12.4): it takes a challenge that is seconds old, and one
+     * with a state read in between. When a device refuses two commands in a row that used a
+     * challenge asked for ahead, this switches itself off until the restart.
+     */
+    void setChallengePrefetch(bool enable);
+    bool challengePrefetchActive() const;
+
+    /**
+     * @brief Asks for the challenge of the next command now, if there is a connection and no
+     * command is running. Never opens a connection.
+     *
+     * @param refresh replace a challenge that is already there. The device ends a connection
+     * without traffic after about ten seconds: called every few seconds this keeps it open.
+     */
+    void prefetchChallenge(bool refresh = false);
+
+    /**
+     * @brief Keeps an open connection from being closed by the disconnect timeout, for another
+     * timeout from now
+     */
+    void holdConnection();
+
+    /**
+     * @brief Whether there is a connection to the device right now
+     */
+    bool isConnected();
+
+    /**
     * @brief Set the BLE General Timeout in milliseconds.
     *
     * @param timeoutMs
@@ -503,6 +536,34 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * the next command, which then does not have to connect again.
      */
     void afterRefusal();
+
+    enum class ChallengePrefetch : uint8_t { None, Sent, Ready };
+    volatile ChallengePrefetch challengePrefetch = ChallengePrefetch::None;
+    bool challengePrefetchEnabled = false;
+    bool challengePrefetchSending = false;
+    bool challengePrefetchUsed = false;
+    uint8_t challengePrefetchStrikes = 0;
+    int64_t challengePrefetchAt = 0;
+    void requestChallengeAhead();
+    /**
+     * @brief A change of one entry: nothing more comes from the device after its answer (a list
+     * request is followed by its entries), and another change often follows
+     */
+    static bool isChangeCommand(Command command) {
+      switch (command) {
+        case Command::AddKeypadCode:
+        case Command::UpdateKeypadCode:
+        case Command::RemoveKeypadCode:
+        case Command::UpdateAuthorization:
+        case Command::RemoveUserAuthorization:
+        case Command::AddTimeControlEntry:
+        case Command::UpdateTimeControlEntry:
+        case Command::RemoveTimeControlEntry:
+          return true;
+        default:
+          return false;
+      }
+    }
 
     bool debugNukiConnect = false;
     bool debugNukiCommunication = false;
