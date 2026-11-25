@@ -1586,7 +1586,13 @@ bool NukiBle::registerOnUsdioChar() {
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* recData, size_t length, bool isNotify) {
-  delay(100);
+  // This runs on the Bluetooth host task, and the device sends its next message only after
+  // this one is confirmed: a wait here is a wait for every message of every command and of
+  // every entry of a list. Kept only while pairing, where it has always been and which cannot
+  // be tried without a device in pairing mode.
+  if (!isPaired) {
+    delay(100);
+  }
 
   #ifndef NUKI_64BIT_TIME
   lastHeartbeat = millis();
