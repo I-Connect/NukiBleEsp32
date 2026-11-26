@@ -50,8 +50,9 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -67,10 +68,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_nuki_ble_8cpp.html",
-"class_nuki_lock_1_1_nuki_lock.html#a5c90aedc9737dd929dbb209cc8d5c48c",
-"namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3a40c0308f9923fd5a8726b54cc8ba3137",
-"namespace_nuki_lock.html#a03eef223a843766356645cc3f2b82420ad6405e87fa63acf163bbfebf546e6168",
-"namespace_nuki_opener.html#a8da21a4c3713b86b9f1e70f2386e667daf74f4f92bfeb161dde6409f4ced770c5"
+"class_nuki_1_1_smartlock_event_handler.html#a6f37f65088c096a7607f01b16fbdb9aa",
+"functions_c.html",
+"namespace_nuki.html#acfab7799acfeeaea370901e50b67cb9fad70e628169f0a0dcf3874f511bad58d8",
+"namespace_nuki_opener.html#a4bdb7a1f0a0f10878fba8ec9109983b8af0e8551a7bbf58b385dab28062cea9fd"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

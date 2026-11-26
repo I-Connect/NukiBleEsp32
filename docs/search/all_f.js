@@ -19,7 +19,8 @@ var searchData=
   ['payloadlen_16',['payloadLen',['../struct_nuki_lock_1_1_action.html#a2fab44d32b3e86b6cb4463f9f2ecbf0b',1,'NukiLock::Action::payloadLen'],['../struct_nuki_opener_1_1_action.html#a57ff901296d569ab0149af6cf45624bc',1,'NukiOpener::Action::payloadLen']]],
   ['payloadlongenough_17',['payloadLongEnough',['../class_nuki_1_1_nuki_ble.html#a1820d5ff09f6f9d07bb88773434bdc26',1,'Nuki::NukiBle']]],
   ['payloadrejected_18',['payloadRejected',['../class_nuki_1_1_nuki_ble.html#ade1b7862df4809ee38b87bc355993c84',1,'Nuki::NukiBle']]],
-  ['printbuffer_19',['printBuffer',['../namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b',1,'Nuki']]],
-  ['processes_20',['BT processes',['../index.html#autotoc_md4',1,'']]],
-  ['publickey_21',['PublicKey',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aaddbd28a071e14f428d003c79304dd18',1,'Nuki']]]
+  ['prefetchchallenge_19',['prefetchChallenge',['../class_nuki_1_1_nuki_ble.html#a1883d4d8bbc6921ae9bfbb6d18671ee7',1,'Nuki::NukiBle']]],
+  ['printbuffer_20',['printBuffer',['../namespace_nuki.html#a438fdfcef9f81eb0a3e493631b71ca5b',1,'Nuki']]],
+  ['processes_21',['BT processes',['../index.html#autotoc_md4',1,'']]],
+  ['publickey_22',['PublicKey',['../namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3aaddbd28a071e14f428d003c79304dd18',1,'Nuki']]]
 ];

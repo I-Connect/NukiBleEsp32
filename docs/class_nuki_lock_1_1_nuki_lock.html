@@ -268,6 +268,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8c69d960c9034d3ae5877285b666f09c inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a new authorization entry to the lock via BLE.  <br /></td></tr>
 <tr class="memitem:ad96ef33212df343aa1433229f58f2ff7 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ad96ef33212df343aa1433229f58f2ff7"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7">addKeypadEntry</a> (NewKeypadEntry newKeypadEntry)</td></tr>
 <tr class="memdesc:ad96ef33212df343aa1433229f58f2ff7 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a new keypad entry to the lock via BLE.  <br /></td></tr>
+<tr class="memitem:a8d254ac7369da47100f44fb9aad3bb67 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a8d254ac7369da47100f44fb9aad3bb67"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a8d254ac7369da47100f44fb9aad3bb67">challengePrefetchActive</a> () const</td></tr>
 <tr class="memitem:afe0f8813341d3666aae927febd4ed866 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_afe0f8813341d3666aae927febd4ed866"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#afe0f8813341d3666aae927febd4ed866">deleteAuthorizationEntry</a> (const uint32_t id)</td></tr>
 <tr class="memdesc:afe0f8813341d3666aae927febd4ed866 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the authorization entry from the lock.  <br /></td></tr>
 <tr class="memitem:a1aacb6b629b0e93a6f819732ab95922b inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a1aacb6b629b0e93a6f819732ab95922b"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1aacb6b629b0e93a6f819732ab95922b">deleteKeypadEntry</a> (uint16_t id)</td></tr>
@@ -294,6 +295,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ad94d354153b8b4f779f7a7a32258ff48 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the keypad entry count. Only available after executing retreiveKeypadEntries.  <br /></td></tr>
 <tr class="memitem:a766c9d12feab598187c4b1f9088147a1 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a766c9d12feab598187c4b1f9088147a1"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a766c9d12feab598187c4b1f9088147a1">getLastHeartbeat</a> ()</td></tr>
 <tr class="memdesc:a766c9d12feab598187c4b1f9088147a1 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp (millis) of the last received BLE beacon from the lock.  <br /></td></tr>
+<tr class="memitem:aadf96df503a9f244afcc6dfb18be3601 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_aadf96df503a9f244afcc6dfb18be3601"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#aadf96df503a9f244afcc6dfb18be3601">getLastKeypadCodeId</a> ()</td></tr>
+<tr class="memdesc:aadf96df503a9f244afcc6dfb18be3601 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id the device gave the keypad code of the last successful <a class="el" href="class_nuki_1_1_nuki_ble.html#ad96ef33212df343aa1433229f58f2ff7" title="Send a new keypad entry to the lock via BLE.">addKeypadEntry()</a>, 0 when it did not say. Without it the id is only known after the list is read again.  <br /></td></tr>
 <tr class="memitem:ab5549c3abc871476916f317762bbc0f7 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ab5549c3abc871476916f317762bbc0f7"><td class="memItemLeft">unsigned long&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ab5549c3abc871476916f317762bbc0f7">getLastReceivedBeaconTs</a> () const</td></tr>
 <tr class="memdesc:ab5549c3abc871476916f317762bbc0f7 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp in milliseconds when the last ble beacon has been received from the device.  <br /></td></tr>
 <tr class="memitem:ad66ab378bf0d78bf56f4badc846e2e96 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ad66ab378bf0d78bf56f4badc846e2e96"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad66ab378bf0d78bf56f4badc846e2e96">getLogEntryCount</a> ()</td></tr>
@@ -305,14 +308,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8dfa35d43232706a75c6d14f35ae88e inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ae8dfa35d43232706a75c6d14f35ae88e"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ae8dfa35d43232706a75c6d14f35ae88e">getSecurityPincode</a> ()</td></tr>
 <tr class="memdesc:ae8dfa35d43232706a75c6d14f35ae88e inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the pincode stored on the esp. This pincode is used for sending/setting config via BLE to the lock by other methods and needs to be the same pincode as stored in the lock.  <br /></td></tr>
 <tr class="memitem:ace6183129221d85b476bc5f80a895c26 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ace6183129221d85b476bc5f80a895c26"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ace6183129221d85b476bc5f80a895c26">getUltraPincode</a> ()</td></tr>
+<tr class="memitem:a651dd82ec2e2ef3a92fdcbe72312c081 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a651dd82ec2e2ef3a92fdcbe72312c081"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a651dd82ec2e2ef3a92fdcbe72312c081">holdConnection</a> ()</td></tr>
+<tr class="memdesc:a651dd82ec2e2ef3a92fdcbe72312c081 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keeps an open connection from being closed by the disconnect timeout, for another timeout from now.  <br /></td></tr>
 <tr class="memitem:a232073e29e23ad1249b866449c16bcb1 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a232073e29e23ad1249b866449c16bcb1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a232073e29e23ad1249b866449c16bcb1">initialize</a> (bool initAltConnect=false)</td></tr>
 <tr class="memdesc:a232073e29e23ad1249b866449c16bcb1 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes stored preferences based on the devicename passed in the constructor, creates the BLE client, sets the BLE callback and checks if the lock is paired (if credentials are stored in preferences).  <br /></td></tr>
+<tr class="memitem:a25c87dc20f62f69edd692d3560be0d3c inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a25c87dc20f62f69edd692d3560be0d3c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a25c87dc20f62f69edd692d3560be0d3c">isConnected</a> ()</td></tr>
+<tr class="memdesc:a25c87dc20f62f69edd692d3560be0d3c inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether there is a connection to the device right now.  <br /></td></tr>
 <tr class="memitem:a25207bb564a4b54b8dd8c872177b53a7 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a25207bb564a4b54b8dd8c872177b53a7"><td class="memItemLeft">const bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a25207bb564a4b54b8dd8c872177b53a7">isLockUltra</a> () const</td></tr>
 <tr class="memdesc:a25207bb564a4b54b8dd8c872177b53a7 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if BLE is pairing/paired/connected with a Smart Lock Ultra.  <br /></td></tr>
 <tr class="memitem:a050f54fbfcea03dc5238e8c66a7e89ca inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a050f54fbfcea03dc5238e8c66a7e89ca"><td class="memItemLeft">const bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a050f54fbfcea03dc5238e8c66a7e89ca">isPairedWithLock</a> () const</td></tr>
 <tr class="memdesc:a050f54fbfcea03dc5238e8c66a7e89ca inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pairing state (if credentials are stored or not).  <br /></td></tr>
+<tr class="memitem:a07326c9d023cfb6e1066a833955ea7ac inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a07326c9d023cfb6e1066a833955ea7ac"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a07326c9d023cfb6e1066a833955ea7ac">keepAlive</a> ()</td></tr>
+<tr class="memdesc:a07326c9d023cfb6e1066a833955ea7ac inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges something small on an open connection, so that the device does not end it for being silent (it does after about ten seconds). Does nothing without a connection or while a command runs.  <br /></td></tr>
 <tr class="memitem:a787125bfc92266571d95e94da6756700 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a787125bfc92266571d95e94da6756700"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#aa55754f0a4a54a7a7334bc38a1d82632">Nuki::PairingResult</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a787125bfc92266571d95e94da6756700">pairNuki</a> (<a class="el" href="namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18">AuthorizationIdType</a> idType=<a class="el" href="namespace_nuki.html#acc97410506fbd81f769ab9ca09bf8e18ade8504b73ea228d0ea9bbce69752092e">AuthorizationIdType::Bridge</a>)</td></tr>
 <tr class="memdesc:a787125bfc92266571d95e94da6756700 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if credentials are stored in preferences, if not initiate pairing.  <br /></td></tr>
+<tr class="memitem:a1883d4d8bbc6921ae9bfbb6d18671ee7 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a1883d4d8bbc6921ae9bfbb6d18671ee7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1883d4d8bbc6921ae9bfbb6d18671ee7">prefetchChallenge</a> (bool refresh=false)</td></tr>
+<tr class="memdesc:a1883d4d8bbc6921ae9bfbb6d18671ee7 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asks for the challenge of the next command now, if there is a connection and no command is running. Never opens a connection.  <br /></td></tr>
 <tr class="memitem:a5c239070e553f07971d2ccd05406d343 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a5c239070e553f07971d2ccd05406d343"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5c239070e553f07971d2ccd05406d343">registerBleScanner</a> (BleScanner::Publisher *bleScanner)</td></tr>
 <tr class="memdesc:a5c239070e553f07971d2ccd05406d343 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the BLE scanner to be used for scanning for advertisements from the lock. BleScanner::Publisher is defined in dependent library <a href="https://github.com/I-Connect/BleScanner.git">https://github.com/I-Connect/BleScanner.git</a>.  <br /></td></tr>
 <tr class="memitem:a1f6919c051fc4952471f8ba3dde16390 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a1f6919c051fc4952471f8ba3dde16390"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1f6919c051fc4952471f8ba3dde16390">registerLogger</a> (Print *Log)</td></tr>
@@ -334,6 +345,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad636dbf0bbe9d6f58b4775b2fddaf64e inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_ad636dbf0bbe9d6f58b4775b2fddaf64e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad636dbf0bbe9d6f58b4775b2fddaf64e">saveSecurityPincode</a> (const uint16_t pinCode)</td></tr>
 <tr class="memdesc:ad636dbf0bbe9d6f58b4775b2fddaf64e inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the pincode on the esp. This pincode is used for sending/setting config via BLE to the lock by other methods and needs to be the same pincode as stored in the lock.  <br /></td></tr>
 <tr class="memitem:a2a90f5195ecd20ae993065cb92063a64 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a2a90f5195ecd20ae993065cb92063a64"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a2a90f5195ecd20ae993065cb92063a64">saveUltraPincode</a> (const uint32_t pinCode, bool save=true)</td></tr>
+<tr class="memitem:a41169238cf750e6403a7e013ace38b08 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a41169238cf750e6403a7e013ace38b08"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a41169238cf750e6403a7e013ace38b08">setChallengePrefetch</a> (bool enable)</td></tr>
+<tr class="memdesc:a41169238cf750e6403a7e013ace38b08 inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every command but a plain read starts by asking the device for a challenge. With this on, the challenge of the next command is asked for when a command that changes one entry is done (and whenever <a class="el" href="class_nuki_1_1_nuki_ble.html#a1883d4d8bbc6921ae9bfbb6d18671ee7" title="Asks for the challenge of the next command now, if there is a connection and no command is running....">prefetchChallenge()</a> is called), so the next command goes out the moment it is given: one exchange less to wait for. Off by default.  <br /></td></tr>
 <tr class="memitem:abf6c871de6466abd81d4918680bba92a inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_abf6c871de6466abd81d4918680bba92a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#abf6c871de6466abd81d4918680bba92a">setCommandTimeout</a> (uint32_t timeoutMs)</td></tr>
 <tr class="memdesc:abf6c871de6466abd81d4918680bba92a inherit pub_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the BLE <a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a> Timeout in seconds.  <br /></td></tr>
 <tr class="memitem:a7398219e296dd6be6a732db9029de579 inherit pub_methods_class_nuki_1_1_nuki_ble" id="r_a7398219e296dd6be6a732db9029de579"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a7398219e296dd6be6a732db9029de579">setConnectRetries</a> (uint8_t retries)</td></tr>
@@ -378,6 +391,8 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a8d9fc4e4a1bde183754ced8b783f82d5" id="r_a8d9fc4e4a1bde183754ced8b783f82d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8d9fc4e4a1bde183754ced8b783f82d5">handleReturnMessage</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a> returnCode, unsigned char *data, uint16_t dataLen) override</td></tr>
 <tr class="inherit_header pro_methods_class_nuki_1_1_nuki_ble"><td colspan="2" class="dyn-inherit"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Member Functions inherited from <a class="el" href="class_nuki_1_1_nuki_ble.html">Nuki::NukiBle</a></td></tr>
+<tr class="memitem:a4e1de69ee63f338e6e1fe088f72d7b3f inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a4e1de69ee63f338e6e1fe088f72d7b3f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a4e1de69ee63f338e6e1fe088f72d7b3f">afterRefusal</a> ()</td></tr>
+<tr class="memdesc:a4e1de69ee63f338e6e1fe088f72d7b3f inherit pro_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">The device answered a command with an error report. The connection is closed only for the errors that say something about it (not authorized, wrong PIN or challenge, a message that arrived broken): a refused keypad code or a busy device leave it open for the next command, which then does not have to connect again.  <br /></td></tr>
 <tr class="memitem:ada0f3beebd95d35c122e25dd3f9eb886 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_ada0f3beebd95d35c122e25dd3f9eb886"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction&gt; </td></tr>
 <tr class="memitem:ada0f3beebd95d35c122e25dd3f9eb886 inherit pro_methods_class_nuki_1_1_nuki_ble template"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a486931322cf764426f77d97d8c4a5918">Nuki::CmdResult</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ada0f3beebd95d35c122e25dd3f9eb886">cmdChallAccStateMachine</a> (const TDeviceAction action)</td></tr>
 <tr class="memitem:a59169a9f492793762e3c6ba39b611b07 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a59169a9f492793762e3c6ba39b611b07"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction&gt; </td></tr>
@@ -393,17 +408,31 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a6b061bee9a6eec159673921f5127dd47 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a6b061bee9a6eec159673921f5127dd47"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a6b061bee9a6eec159673921f5127dd47">logMessageVar</a> (const char *message, const char *var, int level=4)</td></tr>
 <tr class="memitem:af3650133f46aeca48a5f01b95d23ab71 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_af3650133f46aeca48a5f01b95d23ab71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71">logMessageVar</a> (const char *message, unsigned int var, int level=4)</td></tr>
 <tr class="memitem:a1820d5ff09f6f9d07bb88773434bdc26 inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a1820d5ff09f6f9d07bb88773434bdc26"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1820d5ff09f6f9d07bb88773434bdc26">payloadLongEnough</a> (uint16_t dataLen, size_t needed, const char *what)</td></tr>
+<tr class="memitem:a3f9604fac91bcde847b7a7f0deba4f3f inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a3f9604fac91bcde847b7a7f0deba4f3f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a3f9604fac91bcde847b7a7f0deba4f3f">requestChallengeAhead</a> ()</td></tr>
 <tr class="memitem:a66178648bbf48b1c5224d1cdae7a751e inherit pro_methods_class_nuki_1_1_nuki_ble" id="r_a66178648bbf48b1c5224d1cdae7a751e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a66178648bbf48b1c5224d1cdae7a751e">storeUnknownBytes</a> (unsigned char *dst, uint8_t &amp;dstLen, uint8_t dstSize, const unsigned char *data, uint16_t dataLen, size_t known)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_types_class_nuki_1_1_nuki_ble"><td colspan="2" class="dyn-inherit"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Types inherited from <a class="el" href="class_nuki_1_1_nuki_ble.html">Nuki::NukiBle</a></td></tr>
+<tr class="memitem:aef7782293111c0e631ec787db1d9acc0 inherit pro_types_class_nuki_1_1_nuki_ble" id="r_aef7782293111c0e631ec787db1d9acc0"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#aef7782293111c0e631ec787db1d9acc0">ChallengePrefetch</a> : uint8_t { <a class="el" href="class_nuki_1_1_nuki_ble.html#aef7782293111c0e631ec787db1d9acc0a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="class_nuki_1_1_nuki_ble.html#aef7782293111c0e631ec787db1d9acc0a7f8c0283f16925caed8e632086b81b9c">Sent</a>
+, <a class="el" href="class_nuki_1_1_nuki_ble.html#aef7782293111c0e631ec787db1d9acc0ae7d31fc0602fb2ede144d18cdffd816b">Ready</a>
+ }</td></tr>
 <tr class="inherit_header pro_static_methods_class_nuki_1_1_nuki_ble"><td colspan="2" class="dyn-inherit"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Protected Member Functions inherited from <a class="el" href="class_nuki_1_1_nuki_ble.html">Nuki::NukiBle</a></td></tr>
+<tr class="memitem:ac403c0ad4fe8a89f4cd57ddf647613df inherit pro_static_methods_class_nuki_1_1_nuki_ble" id="r_ac403c0ad4fe8a89f4cd57ddf647613df"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ac403c0ad4fe8a89f4cd57ddf647613df">isChangeCommand</a> (<a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a> command)</td></tr>
+<tr class="memdesc:ac403c0ad4fe8a89f4cd57ddf647613df inherit pro_static_methods_class_nuki_1_1_nuki_ble"><td class="mdescLeft">&#160;</td><td class="mdescRight">A change of one entry: nothing more comes from the device after its answer (a list request is followed by its entries), and another change often follows.  <br /></td></tr>
 <tr class="memitem:a252293e3e2ae14f9b879d27629d64a8a inherit pro_static_methods_class_nuki_1_1_nuki_ble" id="r_a252293e3e2ae14f9b879d27629d64a8a"><td class="memTemplParams" colspan="2">template&lt;typename TDeviceAction&gt; </td></tr>
 <tr class="memitem:a252293e3e2ae14f9b879d27629d64a8a inherit pro_static_methods_class_nuki_1_1_nuki_ble template"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a252293e3e2ae14f9b879d27629d64a8a">isExpectedResponse</a> (const TDeviceAction &amp;action, const <a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a> received)</td></tr>
 <tr class="inherit_header pro_attribs_class_nuki_1_1_nuki_ble"><td colspan="2" class="dyn-inherit"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Attributes inherited from <a class="el" href="class_nuki_1_1_nuki_ble.html">Nuki::NukiBle</a></td></tr>
 <tr class="memitem:a0bacf095f6ed8ad70891caef30054202 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a0bacf095f6ed8ad70891caef30054202"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a0bacf095f6ed8ad70891caef30054202">advancedConfigPayloadLen</a> = 0</td></tr>
 <tr class="memitem:adb4ac271a213678cf7792e8f1c1bbf11 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_adb4ac271a213678cf7792e8f1c1bbf11"><td class="memItemLeft">unsigned char&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#adb4ac271a213678cf7792e8f1c1bbf11">advancedConfigUnknownBytes</a> [32] = {0}</td></tr>
 <tr class="memitem:a72841f661d5e8e54037e8aa1b08ccebb inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a72841f661d5e8e54037e8aa1b08ccebb"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a72841f661d5e8e54037e8aa1b08ccebb">advancedConfigUnknownLen</a> = 0</td></tr>
+<tr class="memitem:ae1d72fa30df1053a930ded3d1d191808 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ae1d72fa30df1053a930ded3d1d191808"><td class="memItemLeft">volatile <a class="el" href="class_nuki_1_1_nuki_ble.html#aef7782293111c0e631ec787db1d9acc0">ChallengePrefetch</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ae1d72fa30df1053a930ded3d1d191808">challengePrefetch</a> = <a class="el" href="class_nuki_1_1_nuki_ble.html#aef7782293111c0e631ec787db1d9acc0a6adf97f83acf6453d4a6a4b1070f3754">ChallengePrefetch::None</a></td></tr>
+<tr class="memitem:ac0406a3a4d2e3c7121eb55eae9b96f51 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ac0406a3a4d2e3c7121eb55eae9b96f51"><td class="memItemLeft">int64_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ac0406a3a4d2e3c7121eb55eae9b96f51">challengePrefetchAt</a> = 0</td></tr>
+<tr class="memitem:ad635e89939b75d2c3663e6f02f85f511 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ad635e89939b75d2c3663e6f02f85f511"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad635e89939b75d2c3663e6f02f85f511">challengePrefetchEnabled</a> = false</td></tr>
+<tr class="memitem:ad40089e9d82a8ff62f405f4b64b54776 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ad40089e9d82a8ff62f405f4b64b54776"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ad40089e9d82a8ff62f405f4b64b54776">challengePrefetchSending</a> = false</td></tr>
+<tr class="memitem:adab64e598af7f7965df8e4a220f994e0 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_adab64e598af7f7965df8e4a220f994e0"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#adab64e598af7f7965df8e4a220f994e0">challengePrefetchStrikes</a> = 0</td></tr>
+<tr class="memitem:abbf9c036f3dabf03332f0d1baf6b80e4 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_abbf9c036f3dabf03332f0d1baf6b80e4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#abbf9c036f3dabf03332f0d1baf6b80e4">challengePrefetchUsed</a> = false</td></tr>
 <tr class="memitem:a8eba1c04bb755bd1e22edc109d60305a inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a8eba1c04bb755bd1e22edc109d60305a"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a8eba1c04bb755bd1e22edc109d60305a">configPayloadLen</a> = 0</td></tr>
 <tr class="memitem:a308c93f88c0993bad82f701a2d3ddebd inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a308c93f88c0993bad82f701a2d3ddebd"><td class="memItemLeft">unsigned char&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a308c93f88c0993bad82f701a2d3ddebd">configUnknownBytes</a> [32] = {0}</td></tr>
 <tr class="memitem:a0caa1de0101f699d75965c4f73dcf8d4 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a0caa1de0101f699d75965c4f73dcf8d4"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a0caa1de0101f699d75965c4f73dcf8d4">configUnknownLen</a> = 0</td></tr>
@@ -413,9 +442,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:aca947b0b8bbb7288b9bf71160bdc8ee1 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_aca947b0b8bbb7288b9bf71160bdc8ee1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#aca947b0b8bbb7288b9bf71160bdc8ee1">debugNukiHexData</a> = false</td></tr>
 <tr class="memitem:a5c22a93795806fb121334b9de4259597 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a5c22a93795806fb121334b9de4259597"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5c22a93795806fb121334b9de4259597">debugNukiReadableData</a> = false</td></tr>
 <tr class="memitem:a448a1cd276fb8643bc983c447d21c231 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a448a1cd276fb8643bc983c447d21c231"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a448a1cd276fb8643bc983c447d21c231">errorCode</a> = 0</td></tr>
+<tr class="memitem:a2916ca6d72632da92162bceadbdad492 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a2916ca6d72632da92162bceadbdad492"><td class="memItemLeft">volatile bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a2916ca6d72632da92162bceadbdad492">errorReportSeen</a> = false</td></tr>
 <tr class="memitem:ae5afb32ec14d3be623a5cf4995352cf6 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ae5afb32ec14d3be623a5cf4995352cf6"><td class="memItemLeft"><a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3">Command</a>&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ae5afb32ec14d3be623a5cf4995352cf6">lastMsgCodeReceived</a> = <a class="el" href="namespace_nuki.html#a0e3bec2ecdc2c4b53aeac3afcf0ef5f3ace2c8aed9c2fa0cfbed56cbda4d8bf07">Command::Empty</a></td></tr>
+<tr class="memitem:a1649f42c8e81362ae5a7de279fc1f1ad inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a1649f42c8e81362ae5a7de279fc1f1ad"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a1649f42c8e81362ae5a7de279fc1f1ad">linkOkAfterFailure</a> = false</td></tr>
 <tr class="memitem:a79d8374699e2a457b74f6ff0d9fe8af2 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a79d8374699e2a457b74f6ff0d9fe8af2"><td class="memItemLeft">Print *&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a79d8374699e2a457b74f6ff0d9fe8af2">logger</a> = nullptr</td></tr>
 <tr class="memitem:ade1b7862df4809ee38b87bc355993c84 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_ade1b7862df4809ee38b87bc355993c84"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#ade1b7862df4809ee38b87bc355993c84">payloadRejected</a> = false</td></tr>
+<tr class="memitem:aa15d755837b8a297cfb701279e5addaa inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_aa15d755837b8a297cfb701279e5addaa"><td class="memItemLeft">volatile bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#aa15d755837b8a297cfb701279e5addaa">statusAcceptedSeen</a> = false</td></tr>
+<tr class="memitem:a5d473d8082114ac072b2a0cfccac4f86 inherit pro_attribs_class_nuki_1_1_nuki_ble" id="r_a5d473d8082114ac072b2a0cfccac4f86"><td class="memItemLeft">volatile bool&#160;</td><td class="memItemRight"><a class="el" href="class_nuki_1_1_nuki_ble.html#a5d473d8082114ac072b2a0cfccac4f86">statusCompleteSeen</a> = false</td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a98d6daa6b2e9adb789bdbfdea5106ff9" name="a98d6daa6b2e9adb789bdbfdea5106ff9"></a>
@@ -503,7 +536,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-4-summary" class="dynsummary">
 </div>
 <div id="dynsection-4-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ab7f3198fd83119c4410720add1cb15f4_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ab7f3198fd83119c4410720add1cb15f4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -534,7 +567,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-5-summary" class="dynsummary">
 </div>
 <div id="dynsection-5-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a757a00aed3f244d2bbf94e5ee43dd37d_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a757a00aed3f244d2bbf94e5ee43dd37d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -565,7 +598,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-6-summary" class="dynsummary">
 </div>
 <div id="dynsection-6-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ac03f0730a8d0fadbbdf4244d8c2e2742_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ac03f0730a8d0fadbbdf4244d8c2e2742_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -596,7 +629,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-7-summary" class="dynsummary">
 </div>
 <div id="dynsection-7-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a0c1f973e20c4a0971adcd4e1afa11da2_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a0c1f973e20c4a0971adcd4e1afa11da2_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -627,7 +660,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-8-summary" class="dynsummary">
 </div>
 <div id="dynsection-8-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aad63ea6dc121cc0745fc6355bf2c8f26_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aad63ea6dc121cc0745fc6355bf2c8f26_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -658,7 +691,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-9-summary" class="dynsummary">
 </div>
 <div id="dynsection-9-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a878d1cd7ae1feec70d090710d4d2d8a6_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a878d1cd7ae1feec70d090710d4d2d8a6_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -689,7 +722,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-10-summary" class="dynsummary">
 </div>
 <div id="dynsection-10-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad441de3551e792c9070ae2b60f2d5d4a_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad441de3551e792c9070ae2b60f2d5d4a_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -720,7 +753,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-11-summary" class="dynsummary">
 </div>
 <div id="dynsection-11-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a06ba72ef070011d790a4e5ddb3f9677b_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a06ba72ef070011d790a4e5ddb3f9677b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -751,7 +784,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-12-summary" class="dynsummary">
 </div>
 <div id="dynsection-12-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a5d9ce84f318744382929ce0f43e77898_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a5d9ce84f318744382929ce0f43e77898_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -782,7 +815,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-13-summary" class="dynsummary">
 </div>
 <div id="dynsection-13-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a4352576d0723bacc3b16c21c30b10fb8_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a4352576d0723bacc3b16c21c30b10fb8_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -813,7 +846,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-14-summary" class="dynsummary">
 </div>
 <div id="dynsection-14-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_abf870b85851138c4efefec54d59a3d34_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_abf870b85851138c4efefec54d59a3d34_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -844,7 +877,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-15-summary" class="dynsummary">
 </div>
 <div id="dynsection-15-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a08060c962a7692a7468fe6add5c142a4_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a08060c962a7692a7468fe6add5c142a4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -875,7 +908,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-16-summary" class="dynsummary">
 </div>
 <div id="dynsection-16-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a16d3598ea11a1a8f81eac0410f97cdf1_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a16d3598ea11a1a8f81eac0410f97cdf1_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -906,7 +939,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-17-summary" class="dynsummary">
 </div>
 <div id="dynsection-17-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a136a27061c7bd67c75b389d8da89874a_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a136a27061c7bd67c75b389d8da89874a_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -937,7 +970,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-18-summary" class="dynsummary">
 </div>
 <div id="dynsection-18-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a13d418882481294ba2d822dc189c9a5d_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a13d418882481294ba2d822dc189c9a5d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -968,7 +1001,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-19-summary" class="dynsummary">
 </div>
 <div id="dynsection-19-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a90996f283ac2ddcb3737e1512cab44f7_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a90996f283ac2ddcb3737e1512cab44f7_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -999,7 +1032,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-20-summary" class="dynsummary">
 </div>
 <div id="dynsection-20-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a91d4f826381ddd88e30e9bf2e5b61a27_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a91d4f826381ddd88e30e9bf2e5b61a27_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1030,7 +1063,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-21-summary" class="dynsummary">
 </div>
 <div id="dynsection-21-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a6847909be0a92fd0c209d53a3312447b_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a6847909be0a92fd0c209d53a3312447b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1338,7 +1371,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-23-summary" class="dynsummary">
 </div>
 <div id="dynsection-23-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a73f888ce42f7e444e557070aa1c1fa18_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a73f888ce42f7e444e557070aa1c1fa18_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div id="dynsection-24" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
 <div id="dynsection-24-summary" class="dynsummary">
@@ -1399,7 +1432,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-25-summary" class="dynsummary">
 </div>
 <div id="dynsection-25-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a542fd3c88bfc43ff0b3b73afde3266f9_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a542fd3c88bfc43ff0b3b73afde3266f9_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div id="dynsection-26" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
 <div id="dynsection-26-summary" class="dynsummary">
@@ -1463,7 +1496,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-28-summary" class="dynsummary">
 </div>
 <div id="dynsection-28-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a916263e3dedbcf5bdbf690c84c39b19f_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a916263e3dedbcf5bdbf690c84c39b19f_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1494,7 +1527,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-29-summary" class="dynsummary">
 </div>
 <div id="dynsection-29-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ab2d05cefdefe46f68fee931a28623978_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ab2d05cefdefe46f68fee931a28623978_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1525,7 +1558,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-30-summary" class="dynsummary">
 </div>
 <div id="dynsection-30-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aa882f9b3256313bbd45b4269f8c74521_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aa882f9b3256313bbd45b4269f8c74521_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div id="dynsection-31" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
 <div id="dynsection-31-summary" class="dynsummary">
@@ -1562,7 +1595,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-32-summary" class="dynsummary">
 </div>
 <div id="dynsection-32-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ac7921a0633e3681d4bb62d8a5ced4446_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ac7921a0633e3681d4bb62d8a5ced4446_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1593,7 +1626,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-33-summary" class="dynsummary">
 </div>
 <div id="dynsection-33-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ada503f36c737418195f48743658ed372_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ada503f36c737418195f48743658ed372_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div id="dynsection-34" class="dynheader closed"><span class="dynarrow"><span class="arrowhead closed"></span></span>Here is the caller graph for this function:</div>
 <div id="dynsection-34-summary" class="dynsummary">
@@ -1630,7 +1663,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-35-summary" class="dynsummary">
 </div>
 <div id="dynsection-35-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a28358f24ba27300e6c5098a478e0719e_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a28358f24ba27300e6c5098a478e0719e_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1678,7 +1711,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-36-summary" class="dynsummary">
 </div>
 <div id="dynsection-36-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a258002b700deeac812925253cbc578b4_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a258002b700deeac812925253cbc578b4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1751,7 +1784,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-37-summary" class="dynsummary">
 </div>
 <div id="dynsection-37-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad0565f3fa1079f9ecfdd195e69c59699_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad0565f3fa1079f9ecfdd195e69c59699_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1776,7 +1809,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-38-summary" class="dynsummary">
 </div>
 <div id="dynsection-38-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad0fe612a007b920f8e97888c1a3077da_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad0fe612a007b920f8e97888c1a3077da_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1807,7 +1840,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-39-summary" class="dynsummary">
 </div>
 <div id="dynsection-39-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a87a78b41f81a3cfef26a523eb0576b48_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a87a78b41f81a3cfef26a523eb0576b48_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1838,7 +1871,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-40-summary" class="dynsummary">
 </div>
 <div id="dynsection-40-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a77f3101f055d596878064283b2b877b5_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a77f3101f055d596878064283b2b877b5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1869,7 +1902,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-41-summary" class="dynsummary">
 </div>
 <div id="dynsection-41-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ae4a6dda575b4e564b9e1f15e40cb9878_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ae4a6dda575b4e564b9e1f15e40cb9878_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1900,7 +1933,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-42-summary" class="dynsummary">
 </div>
 <div id="dynsection-42-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad268a0eabddd0df736163be5301969fd_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad268a0eabddd0df736163be5301969fd_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1931,7 +1964,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-43-summary" class="dynsummary">
 </div>
 <div id="dynsection-43-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aa09e358c25ac43dbd87678b307a681ad_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aa09e358c25ac43dbd87678b307a681ad_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1962,7 +1995,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-44-summary" class="dynsummary">
 </div>
 <div id="dynsection-44-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a79c0f4cdf6cd03ab252f0568f766a5f6_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a79c0f4cdf6cd03ab252f0568f766a5f6_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1998,7 +2031,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-45-summary" class="dynsummary">
 </div>
 <div id="dynsection-45-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a095b0ebfce74133dfb4c77fba5e92da3_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a095b0ebfce74133dfb4c77fba5e92da3_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2029,7 +2062,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-46-summary" class="dynsummary">
 </div>
 <div id="dynsection-46-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a74af452143f4b51466421f3daf6b05dd_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a74af452143f4b51466421f3daf6b05dd_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2060,7 +2093,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-47-summary" class="dynsummary">
 </div>
 <div id="dynsection-47-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a256465793a3f5d36dc1824b76fe6645b_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a256465793a3f5d36dc1824b76fe6645b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2091,7 +2124,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-48-summary" class="dynsummary">
 </div>
 <div id="dynsection-48-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a1725408f522d05b40cae03c8d4d72d4d_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a1725408f522d05b40cae03c8d4d72d4d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2122,7 +2155,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-49-summary" class="dynsummary">
 </div>
 <div id="dynsection-49-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a862978a250acfbc8d814b1ccefc0d0c5_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a862978a250acfbc8d814b1ccefc0d0c5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2153,7 +2186,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-50-summary" class="dynsummary">
 </div>
 <div id="dynsection-50-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a13420f720e09979ab066f8257950759d_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a13420f720e09979ab066f8257950759d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2184,7 +2217,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-51-summary" class="dynsummary">
 </div>
 <div id="dynsection-51-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a0146d203df1c854d97fb63a22c364507_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a0146d203df1c854d97fb63a22c364507_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2215,7 +2248,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-52-summary" class="dynsummary">
 </div>
 <div id="dynsection-52-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a200d970dd36406e1877937ae485730ac_cgraph.svg" width="100%" height="571"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a200d970dd36406e1877937ae485730ac_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2246,7 +2279,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-53-summary" class="dynsummary">
 </div>
 <div id="dynsection-53-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aa996984ac02247cb9c603973e654f00d_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_aa996984ac02247cb9c603973e654f00d_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2277,7 +2310,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-54-summary" class="dynsummary">
 </div>
 <div id="dynsection-54-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a305eb92359b91b38bf977d150d7e74af_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a305eb92359b91b38bf977d150d7e74af_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2308,7 +2341,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-55-summary" class="dynsummary">
 </div>
 <div id="dynsection-55-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a9a7f884ddcad98526e9a7c24500d0d17_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a9a7f884ddcad98526e9a7c24500d0d17_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2339,7 +2372,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-56-summary" class="dynsummary">
 </div>
 <div id="dynsection-56-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a66b18a01f72c3eea00197c4c7e14a086_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a66b18a01f72c3eea00197c4c7e14a086_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2370,7 +2403,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-57-summary" class="dynsummary">
 </div>
 <div id="dynsection-57-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ade0af0c3d500433974976551a283b489_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ade0af0c3d500433974976551a283b489_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2401,7 +2434,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-58-summary" class="dynsummary">
 </div>
 <div id="dynsection-58-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_abe3f354193c9428160e2c3c5e3bc2bb9_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_abe3f354193c9428160e2c3c5e3bc2bb9_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2432,7 +2465,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-59-summary" class="dynsummary">
 </div>
 <div id="dynsection-59-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a3b61331bfe8f2b7432f403de7347cd16_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a3b61331bfe8f2b7432f403de7347cd16_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2463,7 +2496,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-60-summary" class="dynsummary">
 </div>
 <div id="dynsection-60-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a8c31082ff2e2f502c03f9ec54ff24ecc_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_a8c31082ff2e2f502c03f9ec54ff24ecc_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -2494,7 +2527,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="dynsection-61-summary" class="dynsummary">
 </div>
 <div id="dynsection-61-content" class="dyncontent hidden">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad061a65419379fb4542529078dc4da08_cgraph.svg" width="100%" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_nuki_lock_1_1_nuki_lock_ad061a65419379fb4542529078dc4da08_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

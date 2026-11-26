@@ -1,0 +1,7 @@
+<map id="Nuki::NukiBle::prefetchChallenge" name="Nuki::NukiBle::prefetchChallenge">
+<area shape="rect" id="Node000001" title="Asks for the challenge of the next command now, if there is a connection and no command is running...." alt="" coords="5,42,216,68"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" title=" " alt="" coords="264,5,473,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,40,248,37,248,42,216,46"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#a25c87dc20f62f69edd692d3560be0d3c" title="Whether there is a connection to the device right now." alt="" coords="279,70,458,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="216,64,264,69,263,74,216,69"/>
+</map>

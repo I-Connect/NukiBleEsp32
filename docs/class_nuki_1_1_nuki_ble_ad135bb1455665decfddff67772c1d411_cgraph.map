@@ -1,11 +1,13 @@
 <map id="Nuki::NukiBle::cmdStateMachine" name="Nuki::NukiBle::cmdStateMachine">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,108,217,133"/>
-<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" title=" " alt="" coords="265,5,474,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,105,264,57,286,49,288,54,266,61,145,109"/>
-<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#a252293e3e2ae14f9b879d27629d64a8a" title=" " alt="" coords="285,71,454,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,106,269,100,270,105,217,111"/>
-<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="281,136,458,161"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="217,129,266,134,265,140,217,134"/>
-<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="271,185,468,210"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="148,131,265,171,291,178,290,183,264,176,146,136"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,128,217,154"/>
+<area shape="rect" id="Node000002" href="$class_nuki_1_1_nuki_ble.html#a4e1de69ee63f338e6e1fe088f72d7b3f" title="The device answered a command with an error report. The connection is closed only for the errors that..." alt="" coords="281,5,458,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,125,186,84,224,61,264,41,284,33,286,38,266,46,226,66,189,88,131,130"/>
+<area shape="rect" id="Node000003" href="$class_nuki_1_1_nuki_ble.html#a6e8fca90c04249660dce6cb993eb4495" title=" " alt="" coords="265,55,474,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,125,271,98,272,103,165,130"/>
+<area shape="rect" id="Node000004" href="$class_nuki_1_1_nuki_ble.html#a252293e3e2ae14f9b879d27629d64a8a" title=" " alt="" coords="285,120,454,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="217,138,269,138,269,144,217,144"/>
+<area shape="rect" id="Node000005" href="$class_nuki_1_1_nuki_ble.html#ac7ce691d9c3e586474655d1663eb2e20" title=" " alt="" coords="281,185,458,211"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="173,152,294,179,293,184,172,157"/>
+<area shape="rect" id="Node000006" href="$class_nuki_1_1_nuki_ble.html#af3650133f46aeca48a5f01b95d23ab71" title=" " alt="" coords="271,235,468,260"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="134,152,192,186,266,221,285,227,283,233,264,226,189,191,131,156"/>
 </map>
