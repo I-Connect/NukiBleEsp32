@@ -24,9 +24,12 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
     logMessageVar("Start executing: %02x ", (unsigned int)action.command);
   }
 
+  errorReportSeen = false;
+  linkOkAfterFailure = false;
   while (1) {
     extendDisconnectTimeout();
-      
+
+    const CommandState stateBefore = nukiCommandState;
     Nuki::CmdResult result;
     if (action.cmdType == Nuki::CommandType::Command) {
       result = cmdStateMachine(action);
@@ -46,15 +49,41 @@ Nuki::CmdResult NukiBle::executeAction(const TDeviceAction action) {
       return Nuki::CmdResult::Failed;
     }
     if (result != Nuki::CmdResult::Working) {
-      if (result == Nuki::CmdResult::Error || result == Nuki::CmdResult::Failed) {
+      if (result == Nuki::CmdResult::Error || (result == Nuki::CmdResult::Failed && !linkOkAfterFailure)) {
         disconnect();
+      }
+      linkOkAfterFailure = false;
+      if (challengePrefetchUsed) {
+        challengePrefetchUsed = false;
+        if (result == Nuki::CmdResult::Success) {
+          challengePrefetchStrikes = 0;
+        } else if (result == Nuki::CmdResult::TimeOut || (result == Nuki::CmdResult::Failed && errorCode == 0x22)) {
+          // 0x22: the device did not take the challenge
+          challengePrefetchStrikes++;
+          logMessage(challengePrefetchStrikes >= 2
+                       ? "A command with a challenge asked for ahead was not taken, asking ahead is off until the restart"
+                       : "A command with a challenge asked for ahead was not taken", 2);
+        }
+      }
+      if (result == Nuki::CmdResult::Success && isChangeCommand(action.command)) {
+        prefetchChallenge();
       }
       return result;
     }
     #ifndef NUKI_NO_WDT_RESET
     esp_task_wdt_reset();
     #endif
-    delay(10);
+    if (nukiCommandState != stateBefore && nukiCommandState != CommandState::ChallengeSent &&
+        nukiCommandState != CommandState::CmdSent && nukiCommandState != CommandState::CmdAccepted) {
+      // The next step sends something: nothing to wait for
+      continue;
+    }
+    // Until the device's next message, and every 10 ms for the timeouts
+    if (responseSignal != nullptr) {
+      xSemaphoreTake(responseSignal, pdMS_TO_TICKS(10));
+    } else {
+      delay(10);
+    }
   }
   return Nuki::CmdResult::Failed;
 }
@@ -110,10 +139,15 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
   extendDisconnectTimeout();  
   switch (nukiCommandState) {
     case CommandState::Idle: {
+      if (challengePrefetch == ChallengePrefetch::Sent && (esp_timer_get_time() / 1000) - challengePrefetchAt < 500) {
+        // A challenge asked for ahead is on its way: it comes first, then this read goes out
+        return Nuki::CmdResult::Working;
+      }
       if (debugNukiCommunication) {
         logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
       }
       lastMsgCodeReceived = Command::Empty;
+      errorReportSeen = false;
 
       if (sendEncryptedMessage(Command::RequestData, action.payload, action.payloadLen)) {
         #ifndef NUKI_64BIT_TIME
@@ -143,31 +177,31 @@ Nuki::CmdResult NukiBle::cmdStateMachine(const TDeviceAction action) {
         disconnect();
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty && isExpectedResponse(action, lastMsgCodeReceived)) {
+      } else if (!errorReportSeen && lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty && isExpectedResponse(action, lastMsgCodeReceived)) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND DONE ************************");
         }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Success;
-      } else if (lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty) {
+      } else if (!errorReportSeen && lastMsgCodeReceived != Command::ErrorReport && lastMsgCodeReceived != Command::Empty) {
         if (debugNukiCommunication) {
           logMessageVar("************************ IGNORING UNEXPECTED MESSAGE [%d] ************************", (unsigned int)lastMsgCodeReceived);
         }
         lastMsgCodeReceived = Command::Empty;
-      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
+      } else if (errorReportSeen && errorCode != 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED ************************");
         }
-        disconnect();
+        afterRefusal();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
-      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
+      } else if (errorReportSeen && errorCode == 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED LOCK BUSY ************************");
         }
-        disconnect();
+        afterRefusal();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
@@ -189,6 +223,27 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
   extendDisconnectTimeout();
   switch (nukiCommandState) {
     case CommandState::Idle: {
+      if (challengePrefetch == ChallengePrefetch::Ready) {
+        // Asked for ahead and already here
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        nukiCommandState = CommandState::ChallengeRespReceived;
+        return Nuki::CmdResult::Working;
+      }
+      if (challengePrefetch == ChallengePrefetch::Sent && (esp_timer_get_time() / 1000) - challengePrefetchAt < 500) {
+        // Asked for ahead and on its way: wait for that one
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        #ifndef NUKI_64BIT_TIME
+        timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
+        nukiCommandState = CommandState::ChallengeSent;
+        return Nuki::CmdResult::Working;
+      }
+      challengePrefetch = ChallengePrefetch::None;
+      challengePrefetchUsed = false;
       if (debugNukiCommunication) {
         logMessage("************************ SENDING CHALLENGE ************************");
       }
@@ -238,6 +293,7 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
       }
       lastMsgCodeReceived = Command::Empty;
       crcCheckOke = false;
+      errorReportSeen = false;
       //add received challenge nonce to payload
       uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
       if (sendPinCode) {
@@ -289,19 +345,19 @@ Nuki::CmdResult NukiBle::cmdChallStateMachine(const TDeviceAction action, const 
         disconnect();
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
+      } else if (errorReportSeen && errorCode != 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED ************************");
         }
-        disconnect();
+        afterRefusal();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
-      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
+      } else if (errorReportSeen && errorCode == 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED LOCK BUSY ************************");
         }
-        disconnect();
+        afterRefusal();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
@@ -334,6 +390,27 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
   extendDisconnectTimeout();
   switch (nukiCommandState) {
     case CommandState::Idle: {
+      if (challengePrefetch == ChallengePrefetch::Ready) {
+        // Asked for ahead and already here
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        nukiCommandState = CommandState::ChallengeRespReceived;
+        return Nuki::CmdResult::Working;
+      }
+      if (challengePrefetch == ChallengePrefetch::Sent && (esp_timer_get_time() / 1000) - challengePrefetchAt < 500) {
+        // Asked for ahead and on its way: wait for that one
+        challengePrefetch = ChallengePrefetch::None;
+        challengePrefetchUsed = true;
+        #ifndef NUKI_64BIT_TIME
+        timeNow = millis();
+        #else
+        timeNow = (esp_timer_get_time() / 1000);
+        #endif
+        nukiCommandState = CommandState::ChallengeSent;
+        return Nuki::CmdResult::Working;
+      }
+      challengePrefetch = ChallengePrefetch::None;
+      challengePrefetchUsed = false;
       if (debugNukiCommunication) {
         logMessage("************************ SENDING CHALLENGE ************************");
       }
@@ -382,6 +459,11 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         logMessageVar("************************ SENDING COMMAND [%d] ************************", (unsigned int)action.command);
       }
       lastMsgCodeReceived = Command::Empty;
+      // What arrived before the action went out (a late error of the action before, the
+      // challenge) is not its answer
+      errorReportSeen = false;
+      statusAcceptedSeen = false;
+      statusCompleteSeen = false;
       //add received challenge nonce to payload
       uint8_t payloadLen = action.payloadLen + sizeof(challengeNonceK);
       unsigned char payload[payloadLen];
@@ -419,18 +501,24 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         disconnect();
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Accepted) {
-        #ifndef NUKI_64BIT_TIME
-        timeNow = millis();
-        #else
-        timeNow = (esp_timer_get_time() / 1000);
-        #endif
-        nukiCommandState = CommandState::CmdAccepted;
-        lastMsgCodeReceived = Command::Empty;
-      } else if (lastMsgCodeReceived == Command::Status && (CommandStatus)receivedStatus == CommandStatus::Complete) {
-        //accept was skipped on lock because ie unlock command when lock allready unlocked?
+      } else if (errorReportSeen) {
+        // Refused right away (busy, not allowed, ...): no "accepted" will follow, so this is
+        // the answer and not something to wait the timeout out for
         if (debugNukiCommunication) {
-          logMessage("************************ COMMAND SUCCESS (SKIPPED) ************************");
+          logMessage("************************ COMMAND REFUSED ************************");
+        }
+        const bool busy = errorCode == 69;
+        afterRefusal();
+        nukiCommandState = CommandState::Idle;
+        lastMsgCodeReceived = Command::Empty;
+        return busy ? Nuki::CmdResult::Lock_Busy : Nuki::CmdResult::Failed;
+      } else if (statusAcceptedSeen || statusCompleteSeen) {
+        // An action is reported as done once the device accepted it, as it always was (the
+        // "complete" of a motor that runs for seconds is not waited for). Read from marks
+        // that stay: the state the device sends right behind "accepted" replaces
+        // lastMsgCodeReceived before this has looked at it.
+        if (debugNukiCommunication) {
+          logMessage("************************ COMMAND SUCCESS ************************");
         }
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
@@ -451,23 +539,25 @@ Nuki::CmdResult NukiBle::cmdChallAccStateMachine(const TDeviceAction action) {
         disconnect();
         nukiCommandState = CommandState::Idle;
         return Nuki::CmdResult::TimeOut;
-      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode != 69) {
+      } else if (errorReportSeen && errorCode != 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED ************************");
         }
-        disconnect();
+        afterRefusal();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Failed;
-      } else if (lastMsgCodeReceived == Command::ErrorReport && errorCode == 69) {
+      } else if (errorReportSeen && errorCode == 69) {
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND FAILED LOCK BUSY ************************");
         }
-        disconnect();
+        afterRefusal();
         nukiCommandState = CommandState::Idle;
         lastMsgCodeReceived = Command::Empty;
         return Nuki::CmdResult::Lock_Busy;
-      } else if ((CommandStatus)lastMsgCodeReceived == CommandStatus::Complete) {
+      } else {
+        // Not reached any more (CmdSent ends the action at "accepted"), kept for a state
+        // machine that is in this state for another reason
         if (debugNukiCommunication) {
           logMessage("************************ COMMAND SUCCESS ************************");
         }

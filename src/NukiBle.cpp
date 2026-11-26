@@ -63,6 +63,10 @@ NukiBle::NukiBle(const std::string& deviceName,
 }
 
 NukiBle::~NukiBle() {
+  if (responseSignal != nullptr) {
+    vSemaphoreDelete(responseSignal);
+    responseSignal = nullptr;
+  }
   if (bleScanner != nullptr) {
     bleScanner->unsubscribe(this);
     bleScanner = nullptr;
@@ -71,6 +75,9 @@ NukiBle::~NukiBle() {
 
 void NukiBle::initialize(bool initAltConnect) {
   preferences.begin(preferencesId.c_str(), false);
+  if (responseSignal == nullptr) {
+    responseSignal = xSemaphoreCreateBinary();
+  }
   #ifdef NUKI_USE_LATEST_NIMBLE
   if (!NimBLEDevice::isInitialized())
   #else
@@ -685,6 +692,7 @@ Nuki::CmdResult NukiBle::addKeypadEntry(NewKeypadEntry newKeypadEntry) {
   memcpy(action.payload, &newKeypadEntry, sizeof(NewKeypadEntry));
   action.payloadLen = sizeof(NewKeypadEntry);
 
+  lastKeypadCodeId = 0;
   Nuki::CmdResult result = executeAction(action);
   if (result == Nuki::CmdResult::Success) {
     if (debugNukiReadableData) {
@@ -1354,6 +1362,11 @@ bool NukiBle::sendEncryptedMessage(Command commandIdentifier, const unsigned cha
   # 24 byte #    4 byte       # 2 byte  #      4 byte              #       2 byte       #  n byte # 2 byte #
   */
 
+  if (!challengePrefetchSending && commandIdentifier != Command::RequestData) {
+    // The challenge is used up by the command that takes it. A read in between leaves it valid.
+    challengePrefetch = ChallengePrefetch::None;
+  }
+
   //compose plain data
   unsigned char plainData[6 + payloadLen] = {};
   unsigned char plainDataWithCrc[8 + payloadLen] = {};
@@ -1578,7 +1591,13 @@ bool NukiBle::registerOnUsdioChar() {
 }
 
 void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, uint8_t* recData, size_t length, bool isNotify) {
-  delay(100);
+  // This runs on the Bluetooth host task, and the device sends its next message only after
+  // this one is confirmed: a wait here is a wait for every message of every command and of
+  // every entry of a list. Kept only while pairing, where it has always been and which cannot
+  // be tried without a device in pairing mode.
+  if (!isPaired) {
+    delay(100);
+  }
 
   #ifndef NUKI_64BIT_TIME
   lastHeartbeat = millis();
@@ -1658,6 +1677,116 @@ void NukiBle::notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic, 
     crcCheckOke = crcOk && !payloadRejected;
     payloadRejected = false;
   }
+  if (responseSignal != nullptr) {
+    xSemaphoreGive(responseSignal);
+  }
+}
+
+uint16_t NukiBle::getLastKeypadCodeId() {
+  return lastKeypadCodeId;
+}
+
+void NukiBle::setChallengePrefetch(bool enable) {
+  challengePrefetchEnabled = enable;
+  if (!enable) {
+    challengePrefetch = ChallengePrefetch::None;
+  }
+}
+
+bool NukiBle::challengePrefetchActive() const {
+  return challengePrefetchEnabled && challengePrefetchStrikes < 2;
+}
+
+bool NukiBle::isConnected() {
+  return pClient != nullptr && !connecting && !disconnecting && pClient->isConnected();
+}
+
+void NukiBle::holdConnection() {
+  if (isConnected()) {
+    extendDisconnectTimeout();
+  }
+}
+
+void NukiBle::prefetchChallenge(bool refresh) {
+  if (nukiCommandState != CommandState::Idle) {
+    return;
+  }
+  const int64_t now = esp_timer_get_time() / 1000;
+  if (challengePrefetch == ChallengePrefetch::Sent && now - challengePrefetchAt < 500) {
+    return;
+  }
+  if (challengePrefetch == ChallengePrefetch::Ready && !refresh) {
+    return;
+  }
+  // The mark of the challenge this one replaces must not be taken for its arrival
+  lastMsgCodeReceived = Command::Empty;
+  requestChallengeAhead();
+}
+
+void NukiBle::requestChallengeAhead() {
+  // Only on a connection that is there: sendEncryptedMessage() would open one
+  if (!challengePrefetchActive() || !isPaired || !isConnected()) {
+    return;
+  }
+  unsigned char payload[sizeof(Command)] = {0x04, 0x00};  // challenge
+  // Marked as on its way before it goes out: the write waits for the device, and the answer
+  // (or the end of the connection) may be handled before it returns
+  challengePrefetchAt = esp_timer_get_time() / 1000;
+  challengePrefetch = ChallengePrefetch::Sent;
+  challengePrefetchSending = true;
+  const bool sent = sendEncryptedMessage(Command::RequestData, payload, sizeof(Command));
+  challengePrefetchSending = false;
+  if (!sent) {
+    challengePrefetch = ChallengePrefetch::None;
+  }
+}
+
+bool NukiBle::keepAlive() {
+  if (!isPaired || !isConnected() || nukiCommandState != CommandState::Idle) {
+    return false;
+  }
+  extendDisconnectTimeout();
+  if (challengePrefetchActive()) {
+    prefetchChallenge(true);
+    return true;
+  }
+  // The smallest exchange there is, a challenge nobody uses. Its answer is waited for here:
+  // arriving behind the challenge request of a command it would be taken for that one's.
+  unsigned char payload[sizeof(Command)] = {0x04, 0x00};
+  lastMsgCodeReceived = Command::Empty;
+  challengePrefetchSending = true;
+  const bool sent = sendEncryptedMessage(Command::RequestData, payload, sizeof(Command));
+  challengePrefetchSending = false;
+  if (!sent) {
+    return false;
+  }
+  const int64_t started = esp_timer_get_time() / 1000;
+  while (lastMsgCodeReceived != Command::Challenge && (esp_timer_get_time() / 1000) - started < 500) {
+    if (responseSignal != nullptr) {
+      xSemaphoreTake(responseSignal, pdMS_TO_TICKS(10));
+    } else {
+      delay(10);
+    }
+  }
+  const bool answered = lastMsgCodeReceived == Command::Challenge;
+  lastMsgCodeReceived = Command::Empty;
+  return answered;
+}
+
+void NukiBle::afterRefusal() {
+  switch (errorCode) {
+    case 0x20: // not authorized
+    case 0x21: // bad pin
+    case 0x22: // bad nonce
+    case 0xFD: // bad crc
+    case 0xFE: // bad length
+    case 0xFF: // unknown
+      disconnect();
+      break;
+    default:
+      linkOkAfterFailure = true;
+      break;
+  }
 }
 
 bool NukiBle::payloadLongEnough(uint16_t dataLen, size_t needed, const char* what) {
@@ -1699,6 +1828,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
         break;
       }
       memcpy(challengeNonceK, data, 32);
+      if (challengePrefetch == ChallengePrefetch::Sent) {
+        challengePrefetch = ChallengePrefetch::Ready;
+      }
       printBuffer((byte*)data, dataLen, false, "Challenge", debugNukiHexData, logger);
       break;
     }
@@ -1747,6 +1879,11 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       }
       printBuffer((byte*)data, dataLen, false, "status", debugNukiHexData, logger);
       receivedStatus = data[0];
+      if (receivedStatus == 0) {
+        statusCompleteSeen = true;
+      } else if (receivedStatus == 1) {
+        statusAcceptedSeen = true;
+      }
       if (debugNukiCommunication) {
         if (receivedStatus == 0) {
           logMessage("command COMPLETE");
@@ -1773,6 +1910,7 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
         logger->printf("Error: %02x for command: %02x:%02x\r\n", data[0], data[2], data[1]);
       }
       memcpy(&errorCode, &data[0], sizeof(errorCode));
+      errorReportSeen = true;
       logErrorCode(data[0]);
       if ((uint8_t)data[0] == (uint8_t)0x21) {
         if (eventHandler) {
@@ -1827,6 +1965,9 @@ void NukiBle::handleReturnMessage(Command returnCode, unsigned char* data, uint1
       break;
     }
     case Command::KeypadCodeId : {
+      if (dataLen >= 2) {
+        memcpy(&lastKeypadCodeId, data, 2);
+      }
       printBuffer((byte*)data, dataLen, false, "keypadCodeId", debugNukiHexData, logger);
       break;
     }
@@ -1896,6 +2037,7 @@ void NukiBle::onDisconnect(BLEClient*)
 #endif
 {
   countDisconnects = 0;
+  challengePrefetch = ChallengePrefetch::None;
   if (debugNukiConnect) {
     logMessage("BLE disconnected");
   }

@@ -110,6 +110,48 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     void setDisconnectTimeout(uint32_t timeoutMs);
 
     /**
+     * @brief Every command but a plain read starts by asking the device for a challenge. With
+     * this on, the challenge of the next command is asked for when a command that changes one
+     * entry is done (and whenever prefetchChallenge() is called), so the next command goes out
+     * the moment it is given: one exchange less to wait for. Off by default.
+     *
+     * Tried on an Opener (firmware 1.12.4): it takes a challenge that is seconds old, and one
+     * with a state read in between. When a device refuses two commands in a row that used a
+     * challenge asked for ahead, this switches itself off until the restart.
+     */
+    void setChallengePrefetch(bool enable);
+    bool challengePrefetchActive() const;
+
+    /**
+     * @brief Asks for the challenge of the next command now, if there is a connection and no
+     * command is running. Never opens a connection.
+     *
+     * @param refresh replace a challenge that is already there. The device ends a connection
+     * without traffic after about ten seconds: called every few seconds this keeps it open.
+     */
+    void prefetchChallenge(bool refresh = false);
+
+    /**
+     * @brief Keeps an open connection from being closed by the disconnect timeout, for another
+     * timeout from now
+     */
+    void holdConnection();
+
+    /**
+     * @brief Exchanges something small on an open connection, so that the device does not
+     * end it for being silent (it does after about ten seconds). Does nothing without a
+     * connection or while a command runs.
+     *
+     * @return true when the device answered
+     */
+    bool keepAlive();
+
+    /**
+     * @brief Whether there is a connection to the device right now
+     */
+    bool isConnected();
+
+    /**
     * @brief Set the BLE General Timeout in milliseconds.
     *
     * @param timeoutMs
@@ -161,6 +203,12 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
      * Duplicates are not allowed
      */
     Nuki::CmdResult addKeypadEntry(NewKeypadEntry newKeypadEntry);
+
+    /**
+     * @brief The id the device gave the keypad code of the last successful addKeypadEntry(),
+     * 0 when it did not say. Without it the id is only known after the list is read again.
+     */
+    uint16_t getLastKeypadCodeId();
 
     /**
      * @brief Send an updated keypad entry to the lock via BLE
@@ -491,6 +539,49 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
     uint8_t errorCode = 0;
 
     Command lastMsgCodeReceived = Command::Empty;
+    // An error report arrived since the command went out. Kept apart from lastMsgCodeReceived,
+    // which the next message overwrites before the command has looked at it.
+    volatile bool errorReportSeen = false;
+    // The same for the status of a lock action
+    volatile bool statusAcceptedSeen = false;
+    volatile bool statusCompleteSeen = false;
+    // The last command was refused by the device, on a connection that is fine
+    bool linkOkAfterFailure = false;
+    /**
+     * @brief The device answered a command with an error report. The connection is closed only
+     * for the errors that say something about it (not authorized, wrong PIN or challenge, a
+     * message that arrived broken): a refused keypad code or a busy device leave it open for
+     * the next command, which then does not have to connect again.
+     */
+    void afterRefusal();
+
+    enum class ChallengePrefetch : uint8_t { None, Sent, Ready };
+    volatile ChallengePrefetch challengePrefetch = ChallengePrefetch::None;
+    bool challengePrefetchEnabled = false;
+    bool challengePrefetchSending = false;
+    bool challengePrefetchUsed = false;
+    uint8_t challengePrefetchStrikes = 0;
+    int64_t challengePrefetchAt = 0;
+    void requestChallengeAhead();
+    /**
+     * @brief A change of one entry: nothing more comes from the device after its answer (a list
+     * request is followed by its entries), and another change often follows
+     */
+    static bool isChangeCommand(Command command) {
+      switch (command) {
+        case Command::AddKeypadCode:
+        case Command::UpdateKeypadCode:
+        case Command::RemoveKeypadCode:
+        case Command::UpdateAuthorization:
+        case Command::RemoveUserAuthorization:
+        case Command::AddTimeControlEntry:
+        case Command::UpdateTimeControlEntry:
+        case Command::RemoveTimeControlEntry:
+          return true;
+        default:
+          return false;
+      }
+    }
 
     bool debugNukiConnect = false;
     bool debugNukiCommunication = false;
@@ -591,6 +682,9 @@ class NukiBle : public BLEClientCallbacks, public BleScanner::Subscriber {
 
     uint8_t receivedStatus;
     bool crcCheckOke;
+    uint16_t lastKeypadCodeId = 0;
+    // Given for every message of the device, so that a command that waits for one goes on at once
+    SemaphoreHandle_t responseSignal = nullptr;
 
     unsigned char remotePublicKey[32] = {0x00};
     unsigned char challengeNonceK[32] = {0x00};
